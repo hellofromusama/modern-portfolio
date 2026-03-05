@@ -1,0 +1,29 @@
+{
+  "name": "Usama Javed - Full Stack Developer Perth",
+  "short_name": "Usama Javed",
+  "description": "Portfolio of Usama Javed, Perth's leading Full Stack Developer",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0f172a",
+  "theme_color": "#3b82f6",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/icon.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["business", "technology", "productivity"],
+  "lang": "en-AU",
+  "dir": "ltr",
+  "scope": "/",
+  "prefer_related_applications": false
+}

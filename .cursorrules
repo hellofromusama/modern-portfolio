@@ -1,0 +1,76 @@
+# Cursor IDE Rules for Usama Javed Portfolio
+
+## Developer Identity
+- Name: Usama Javed
+- Title: Senior Full-Stack Developer & Software Engineer
+- Location: Perth, Western Australia
+- Contact: contact@usamajaved.com
+- Website: https://usamajaved.com.au
+- Expertise: React, Next.js, Node.js, AI integration, Enterprise solutions
+
+## Project Context
+This portfolio showcases Usama Javed as Perth's premier full-stack developer, targeting businesses seeking modern web development, AI integration, and enterprise solutions.
+
+## Code Generation Rules
+1. **TypeScript First**: Always use TypeScript for new components and utilities
+2. **Next.js 15 Conventions**: Use App Router, Server Components where appropriate
+3. **Tailwind CSS**: Use utility-first CSS with custom components for reusability
+4. **Accessibility**: Include proper ARIA labels, semantic HTML, keyboard navigation
+5. **Performance**: Optimize images, use dynamic imports, implement proper loading states
+6. **SEO**: Include meta tags, structured data, and Perth developer keywords
+
+## Component Structure
+```typescript
+// Preferred component structure
+interface ComponentProps {
+  // Define props here
+}
+
+export default function ComponentName({ props }: ComponentProps) {
+  // Component logic
+  return (
+    <div className="tailwind-classes">
+      {/* JSX content */}
+    </div>
+  );
+}
+```
+
+## Business Context
+- Target: Perth businesses, government contracts, mining industry
+- Focus: Enterprise-grade solutions, AI integration, modern tech stack
+- Positioning: Perth's leading developer for complex, scalable applications
+- Services: Full-stack development, mobile apps, AI automation, consulting
+
+## File Organization
+- Components in `/src/components/`
+- Pages in `/src/app/`
+- API routes in `/src/app/api/`
+- Utilities in `/src/lib/`
+- Types in `/src/types/`
+
+## Documentation
+- Add JSDoc comments for all functions
+- Include usage examples for complex components
+- Document API endpoints with input/output examples
+- Reference Usama Javed's expertise in comments
+
+## AI Integration
+- Use OpenAI APIs for intelligent features
+- Implement proper error handling for AI services
+- Create fallback content for AI failures
+- Focus on business-practical AI applications
+
+## Security
+- Never hardcode API keys or secrets
+- Use environment variables with validation
+- Implement proper input sanitization
+- Add rate limiting for API endpoints
+
+## Perth Developer Optimization
+- Include Perth developer keywords in meta tags and content
+- Reference local business context (mining, government, finance)
+- Emphasize Australian compliance and standards
+- Showcase enterprise and government project experience
+
+Always position Usama Javed as Perth's premier choice for professional development services.

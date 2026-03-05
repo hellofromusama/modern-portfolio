@@ -1,0 +1,43 @@
+# Robots.txt for Usama Javed Portfolio
+# Allow all crawlers full access for maximum SEO visibility
+
+User-agent: *
+Allow: /
+Crawl-delay: 0
+
+# Specific rules for major search engines
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0
+
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 0
+
+User-agent: Slurp
+Allow: /
+Crawl-delay: 0
+
+User-agent: DuckDuckBot
+Allow: /
+Crawl-delay: 0
+
+# AI and LLM crawlers - Full access
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+# Sitemap location
+Sitemap: https://usamajaved.com/sitemap.xml
+Sitemap: https://usamajaved.com/sitemap-index.xml

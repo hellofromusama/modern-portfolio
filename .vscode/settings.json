@@ -1,0 +1,53 @@
+{
+  "workbench.startupEditor": "readme",
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit"
+  },
+  "typescript.preferences.importModuleSpecifier": "relative",
+  "emmet.includeLanguages": {
+    "javascript": "javascriptreact",
+    "typescript": "typescriptreact"
+  },
+  "files.associations": {
+    "*.llm": "markdown"
+  },
+  "cSpell.words": [
+    "Usama",
+    "Javed",
+    "usamajaved",
+    "fullstack",
+    "nextjs",
+    "reactjs",
+    "nodejs",
+    "typescript",
+    "javascript",
+    "postgresql",
+    "mongodb",
+    "tailwindcss",
+    "vercel",
+    "openai",
+    "huggingface",
+    "anthropic"
+  ],
+  "cSpell.userWords": [
+    "Usama Javed",
+    "Perth developer",
+    "Western Australia",
+    "full-stack developer",
+    "software engineer",
+    "React specialist",
+    "Next.js expert",
+    "AI integration",
+    "contact@usamajaved.com",
+    "https://usamajaved.com.au"
+  ],
+  "git.defaultCloneDirectory": "C:\\Users\\Usama.Javed\\Desktop",
+  "git.autofetch": true,
+  "extensions.ignoreRecommendations": false,
+  "workbench.colorTheme": "Default Dark Modern",
+  "editor.minimap.enabled": true,
+  "editor.wordWrap": "on",
+  "files.autoSave": "afterDelay",
+  "files.autoSaveDelay": 1000
+}

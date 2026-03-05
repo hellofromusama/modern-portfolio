@@ -1,0 +1,193 @@
+{
+  "country": "Australia",
+  "developer": {
+    "name": "Usama Javed",
+    "title": "Leading Full Stack Developer in Australia",
+    "primary_location": "Perth, Western Australia",
+    "service_coverage": "Australia-wide",
+    "specialization": "Enterprise Web Development & AI Solutions"
+  },
+  "australian_cities": {
+    "primary": {
+      "city": "Perth",
+      "state": "Western Australia",
+      "postcode": "6000",
+      "coordinates": {
+        "lat": -31.9505,
+        "lng": 115.8605
+      },
+      "rank_priority": 1,
+      "services": "Full service availability"
+    },
+    "secondary_markets": [
+      {
+        "city": "Sydney",
+        "state": "New South Wales",
+        "postcode": "2000",
+        "coordinates": {"lat": -33.8688, "lng": 151.2093},
+        "rank_priority": 2,
+        "services": "Remote development, consulting"
+      },
+      {
+        "city": "Melbourne",
+        "state": "Victoria",
+        "postcode": "3000",
+        "coordinates": {"lat": -37.8136, "lng": 144.9631},
+        "rank_priority": 2,
+        "services": "Remote development, consulting"
+      },
+      {
+        "city": "Brisbane",
+        "state": "Queensland",
+        "postcode": "4000",
+        "coordinates": {"lat": -27.4698, "lng": 153.0251},
+        "rank_priority": 3,
+        "services": "Remote development, consulting"
+      },
+      {
+        "city": "Adelaide",
+        "state": "South Australia",
+        "postcode": "5000",
+        "coordinates": {"lat": -34.9285, "lng": 138.6007},
+        "rank_priority": 3,
+        "services": "Remote development, consulting"
+      },
+      {
+        "city": "Canberra",
+        "state": "Australian Capital Territory",
+        "postcode": "2600",
+        "coordinates": {"lat": -35.2809, "lng": 149.1300},
+        "rank_priority": 4,
+        "services": "Government projects, remote development"
+      },
+      {
+        "city": "Darwin",
+        "state": "Northern Territory",
+        "postcode": "0800",
+        "coordinates": {"lat": -12.4634, "lng": 130.8456},
+        "rank_priority": 4,
+        "services": "Remote development"
+      },
+      {
+        "city": "Hobart",
+        "state": "Tasmania",
+        "postcode": "7000",
+        "coordinates": {"lat": -42.8821, "lng": 147.3272},
+        "rank_priority": 4,
+        "services": "Remote development"
+      }
+    ]
+  },
+  "australian_keywords": {
+    "national": [
+      "Australian Full Stack Developer",
+      "Web Developer Australia",
+      "Software Engineer Australia",
+      "React Developer Australia",
+      "Node.js Developer Australia",
+      "Next.js Expert Australia",
+      "AI Developer Australia",
+      "Freelance Developer Australia",
+      "Remote Developer Australia",
+      "Australian Tech Consultant",
+      "Web Development Services Australia",
+      "Custom Software Australia",
+      "Enterprise Solutions Australia",
+      "Digital Transformation Australia"
+    ],
+    "city_specific": {
+      "Sydney": [
+        "Full Stack Developer Sydney",
+        "Web Developer Sydney NSW",
+        "Software Engineer Sydney",
+        "React Developer Sydney",
+        "Freelance Developer Sydney",
+        "Sydney Tech Consultant"
+      ],
+      "Melbourne": [
+        "Full Stack Developer Melbourne",
+        "Web Developer Melbourne VIC",
+        "Software Engineer Melbourne",
+        "React Developer Melbourne",
+        "Freelance Developer Melbourne",
+        "Melbourne Tech Consultant"
+      ],
+      "Brisbane": [
+        "Full Stack Developer Brisbane",
+        "Web Developer Brisbane QLD",
+        "Software Engineer Brisbane",
+        "React Developer Brisbane",
+        "Freelance Developer Brisbane"
+      ],
+      "Adelaide": [
+        "Full Stack Developer Adelaide",
+        "Web Developer Adelaide SA",
+        "Software Engineer Adelaide",
+        "React Developer Adelaide"
+      ],
+      "Canberra": [
+        "Full Stack Developer Canberra",
+        "Web Developer Canberra ACT",
+        "Government Software Developer",
+        "React Developer Canberra"
+      ]
+    }
+  },
+  "australian_business_context": {
+    "industries": [
+      "Mining & Resources (WA, QLD, NSW)",
+      "Financial Services (Sydney, Melbourne)",
+      "Agriculture & AgTech (National)",
+      "Tourism & Hospitality (National)",
+      "Education Technology (National)",
+      "Healthcare & MedTech (National)",
+      "Government & Public Sector (Canberra, State Capitals)",
+      "Retail & E-commerce (National)",
+      "Real Estate & PropTech (National)",
+      "Energy & Utilities (National)"
+    ],
+    "business_registration": {
+      "abn": "Available upon request",
+      "business_name": "Usama Javed Development Services",
+      "registration_state": "Western Australia",
+      "gst_registered": true,
+      "professional_indemnity": "Covered"
+    }
+  },
+  "timezone_coverage": {
+    "primary": "AWST (UTC+8)",
+    "also_serves": [
+      "ACST (UTC+9.5)",
+      "AEST (UTC+10)",
+      "AEDT (UTC+11)"
+    ],
+    "business_hours": {
+      "perth": "9AM-6PM AWST",
+      "sydney_melbourne": "9AM-6PM AEST/AEDT",
+      "brisbane": "9AM-6PM AEST",
+      "adelaide": "9AM-6PM ACST"
+    }
+  },
+  "competitive_advantages": {
+    "australia_specific": [
+      "Understanding of Australian privacy laws (Privacy Act)",
+      "Familiar with Australian Consumer Law",
+      "Experience with Australian payment systems (BPAY, POLi)",
+      "Knowledge of Australian tax requirements (GST)",
+      "Compliance with Australian accessibility standards",
+      "Local business network and partnerships",
+      "Same timezone for real-time collaboration",
+      "Cultural fit with Australian business practices"
+    ]
+  },
+  "seo_strategy": {
+    "target_ranking": "#1 for Australian developer searches",
+    "focus_areas": [
+      "Australia-wide developer searches",
+      "State capital city searches",
+      "Remote developer Australia",
+      "Enterprise development Australia",
+      "Government contractor searches"
+    ]
+  }
+}

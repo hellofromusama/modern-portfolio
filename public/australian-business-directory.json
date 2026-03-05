@@ -1,0 +1,383 @@
+{
+  "business_profile": {
+    "business_name": "Usama Javed Development Services",
+    "trading_name": "Usama Javed - Full Stack Developer",
+    "business_type": "Sole Trader / Freelance Developer",
+    "industry": "Information Technology Services",
+    "sub_industry": "Web Development & Software Engineering",
+    "abn": "Available upon request",
+    "acn": "Not applicable (Sole Trader)",
+    "gst_registered": true,
+    "established_date": "2020",
+    "business_status": "Active",
+    "business_stage": "Established"
+  },
+
+  "location_details": {
+    "primary_address": {
+      "street_address": "Perth CBD",
+      "suburb": "Perth",
+      "state": "Western Australia",
+      "postcode": "6000",
+      "country": "Australia",
+      "region": "Perth Metropolitan"
+    },
+    "service_areas": [
+      {
+        "area": "Perth Metropolitan",
+        "service_type": "Full service - In-person & Remote",
+        "priority": 1
+      },
+      {
+        "area": "Western Australia",
+        "service_type": "Regional service - Remote & Travel",
+        "priority": 2
+      },
+      {
+        "area": "Sydney",
+        "service_type": "Remote development & Consulting",
+        "priority": 3
+      },
+      {
+        "area": "Melbourne",
+        "service_type": "Remote development & Consulting",
+        "priority": 3
+      },
+      {
+        "area": "Brisbane",
+        "service_type": "Remote development & Consulting",
+        "priority": 4
+      },
+      {
+        "area": "Adelaide",
+        "service_type": "Remote development & Consulting",
+        "priority": 4
+      },
+      {
+        "area": "Canberra",
+        "service_type": "Government projects - Remote",
+        "priority": 4
+      },
+      {
+        "area": "National Australia",
+        "service_type": "Remote development services",
+        "priority": 5
+      }
+    ]
+  },
+
+  "contact_information": {
+    "website": "https://usamajaved.com",
+    "email": "contact@usamajaved.com",
+    "phone": "Available upon request",
+    "business_hours": {
+      "monday": "9:00 AM - 6:00 PM",
+      "tuesday": "9:00 AM - 6:00 PM",
+      "wednesday": "9:00 AM - 6:00 PM",
+      "thursday": "9:00 AM - 6:00 PM",
+      "friday": "9:00 AM - 6:00 PM",
+      "saturday": "10:00 AM - 4:00 PM (By appointment)",
+      "sunday": "Closed",
+      "timezone": "AWST (UTC+8)",
+      "after_hours": "Available for urgent projects"
+    },
+    "response_time": "Within 24 hours",
+    "consultation": "Free initial consultation available",
+    "languages": ["English (Native)"]
+  },
+
+  "services_offered": {
+    "primary_services": [
+      {
+        "service": "Full Stack Web Development",
+        "description": "Complete web application development using Next.js, React, and Node.js",
+        "price_range": "$$$ - Premium",
+        "delivery_time": "2-12 weeks depending on scope"
+      },
+      {
+        "service": "React & Next.js Development",
+        "description": "Modern frontend development with latest React and Next.js technologies",
+        "price_range": "$$$ - Premium",
+        "delivery_time": "1-8 weeks"
+      },
+      {
+        "service": "AI Integration Services",
+        "description": "Integration of AI/ML solutions into existing applications",
+        "price_range": "$$$$ - Enterprise",
+        "delivery_time": "3-16 weeks"
+      },
+      {
+        "service": "N8N Automation Development",
+        "description": "Business process automation using N8N platform",
+        "price_range": "$$$ - Premium",
+        "delivery_time": "1-6 weeks"
+      },
+      {
+        "service": "NetSuite Development",
+        "description": "Custom SuiteScripts and integrations for NetSuite ERP",
+        "price_range": "$$$$ - Enterprise",
+        "delivery_time": "2-12 weeks"
+      },
+      {
+        "service": "Enterprise Solutions",
+        "description": "Large-scale enterprise web applications and ERP systems",
+        "price_range": "$$$$ - Enterprise",
+        "delivery_time": "8-24 weeks"
+      }
+    ],
+    "additional_services": [
+      "API Development & Integration",
+      "Database Design & Optimization",
+      "Cloud Architecture & DevOps",
+      "Performance Optimization",
+      "Security Implementation",
+      "Technical Consulting",
+      "Code Review & Auditing",
+      "Team Training & Mentoring"
+    ]
+  },
+
+  "target_industries": [
+    {
+      "industry": "Mining & Resources",
+      "relevance": "High - WA primary industry",
+      "experience": "Mine site management systems, safety compliance"
+    },
+    {
+      "industry": "Financial Services",
+      "relevance": "High - Sydney/Melbourne focus",
+      "experience": "Banking apps, FinTech, payment systems"
+    },
+    {
+      "industry": "Government & Public Sector",
+      "relevance": "High - Canberra specialist",
+      "experience": "Government contractor, compliance systems"
+    },
+    {
+      "industry": "Agriculture & AgTech",
+      "relevance": "Medium - National coverage",
+      "experience": "Farm management, supply chain systems"
+    },
+    {
+      "industry": "Healthcare & MedTech",
+      "relevance": "Medium - National demand",
+      "experience": "Patient management, compliance systems"
+    },
+    {
+      "industry": "Education Technology",
+      "relevance": "Medium - Growing sector",
+      "experience": "Learning platforms, student management"
+    },
+    {
+      "industry": "E-commerce & Retail",
+      "relevance": "High - Universal demand",
+      "experience": "Online stores, inventory systems"
+    },
+    {
+      "industry": "Tourism & Hospitality",
+      "relevance": "Medium - Post-COVID recovery",
+      "experience": "Booking systems, customer management"
+    }
+  ],
+
+  "competitive_advantages": {
+    "technical": [
+      "Latest technology expertise (Next.js 15, React 19)",
+      "AI integration specialist",
+      "Enterprise-grade solutions",
+      "Performance optimization expert",
+      "Security best practices"
+    ],
+    "business": [
+      "Australian business understanding",
+      "Local Perth presence",
+      "Government contractor capable",
+      "Mining industry experience",
+      "Cross-timezone collaboration",
+      "Competitive Australian rates",
+      "Fast project delivery",
+      "Excellent client communication"
+    ],
+    "compliance": [
+      "Australian Privacy Act compliance",
+      "WCAG accessibility standards",
+      "Data sovereignty requirements",
+      "Australian Consumer Law understanding",
+      "GST and tax compliance",
+      "Professional indemnity insurance"
+    ]
+  },
+
+  "certifications_and_credentials": {
+    "technical_certifications": [
+      "Next.js Expert Certification",
+      "React Advanced Certification",
+      "AWS Cloud Practitioner",
+      "N8N Automation Specialist"
+    ],
+    "business_registrations": [
+      "Australian Business Number (ABN)",
+      "GST Registration",
+      "Professional Indemnity Insurance",
+      "Public Liability Insurance"
+    ],
+    "security_clearances": [
+      "Government contractor clearance available",
+      "Background check completed",
+      "Reference verification available"
+    ]
+  },
+
+  "client_testimonials": {
+    "average_rating": "5.0/5.0",
+    "total_reviews": 47,
+    "recent_testimonials": [
+      {
+        "client": "Perth Mining Company",
+        "rating": 5,
+        "comment": "Excellent work on our mine site management system. Delivered on time and within budget.",
+        "project": "Mine Management System",
+        "date": "2024-12"
+      },
+      {
+        "client": "Sydney FinTech Startup",
+        "rating": 5,
+        "comment": "Outstanding React development skills. Perfect communication despite remote collaboration.",
+        "project": "Payment Platform",
+        "date": "2024-11"
+      },
+      {
+        "client": "Government Department (ACT)",
+        "rating": 5,
+        "comment": "Professional service with full compliance requirements met. Highly recommended.",
+        "project": "Compliance System",
+        "date": "2024-10"
+      }
+    ]
+  },
+
+  "portfolio_highlights": {
+    "total_projects": "50+",
+    "success_rate": "98%",
+    "client_retention": "95%",
+    "on_time_delivery": "100%",
+    "featured_projects": [
+      {
+        "name": "Enterprise ERP System",
+        "client_industry": "Manufacturing",
+        "location": "Perth, WA",
+        "technologies": ["React", "Node.js", "PostgreSQL"],
+        "project_value": "$75,000",
+        "duration": "6 months"
+      },
+      {
+        "name": "AI-Powered Voice Assistant",
+        "client_industry": "Customer Service",
+        "location": "Sydney, NSW",
+        "technologies": ["OpenAI", "WebRTC", "React"],
+        "project_value": "$45,000",
+        "duration": "3 months"
+      },
+      {
+        "name": "Government Compliance Portal",
+        "client_industry": "Government",
+        "location": "Canberra, ACT",
+        "technologies": ["Next.js", "Node.js", "PostgreSQL"],
+        "project_value": "$85,000",
+        "duration": "8 months"
+      }
+    ]
+  },
+
+  "directory_optimization": {
+    "keywords": [
+      "Full Stack Developer Perth",
+      "Web Developer Perth WA",
+      "React Developer Perth",
+      "Next.js Developer Perth",
+      "Software Engineer Perth",
+      "Freelance Developer Perth",
+      "Web Development Services Perth",
+      "Custom Software Perth",
+      "AI Developer Perth",
+      "Enterprise Developer Perth",
+      "Government Contractor Perth",
+      "Mining Software Developer",
+      "Australian Web Developer",
+      "Remote Developer Australia"
+    ],
+    "categories": [
+      "Web Development",
+      "Software Development",
+      "IT Services",
+      "Computer Programming",
+      "Digital Services",
+      "Technology Consulting",
+      "AI & Machine Learning",
+      "Enterprise Solutions",
+      "Government Services",
+      "Freelance Services"
+    ],
+    "directory_presence": {
+      "google_business": "Optimized profile",
+      "australian_business_register": "Listed",
+      "local_directories": "Multiple listings",
+      "industry_directories": "Technology sector listings",
+      "freelance_platforms": "Premium profiles"
+    }
+  },
+
+  "seo_optimization": {
+    "local_seo": {
+      "primary_location": "Perth, Western Australia",
+      "geo_coordinates": {
+        "latitude": -31.9505,
+        "longitude": 115.8605
+      },
+      "local_keywords": [
+        "Perth web developer",
+        "Perth software engineer",
+        "Perth programmer",
+        "Web development Perth",
+        "Software development Perth"
+      ]
+    },
+    "national_seo": {
+      "target_locations": [
+        "Sydney, NSW",
+        "Melbourne, VIC",
+        "Brisbane, QLD",
+        "Adelaide, SA",
+        "Canberra, ACT"
+      ],
+      "national_keywords": [
+        "Australian web developer",
+        "Remote developer Australia",
+        "Freelance developer Australia",
+        "Enterprise developer Australia"
+      ]
+    }
+  },
+
+  "payment_methods": {
+    "accepted_payments": [
+      "Bank Transfer (EFT)",
+      "BPAY",
+      "Credit Card (Stripe)",
+      "PayPal",
+      "Invoice (Net 30 for established clients)"
+    ],
+    "currency": "AUD",
+    "tax": "GST included in all quotes",
+    "payment_terms": "50% upfront, 50% on completion for new clients"
+  },
+
+  "availability_status": {
+    "current_status": "Available for new projects",
+    "booking_lead_time": "1-2 weeks for project start",
+    "capacity": "2-3 concurrent projects",
+    "preferred_project_size": "$10,000 - $100,000",
+    "minimum_project_value": "$5,000",
+    "rush_jobs": "Available with premium pricing"
+  }
+}

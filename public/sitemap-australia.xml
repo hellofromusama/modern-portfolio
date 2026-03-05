@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml"
+        xmlns:news="http://www.google.com/schemas/sitemap-news/0.9">
+
+  <!-- Australia-specific landing pages -->
+  <url>
+    <loc>https://usamajaved.com/australia</loc>
+    <lastmod>2025-01-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en-au" href="https://usamajaved.com/australia" />
+  </url>
+
+  <!-- Sydney Virtual Presence -->
+  <url>
+    <loc>https://usamajaved.com/sydney</loc>
+    <lastmod>2025-01-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en-au" href="https://usamajaved.com/sydney" />
+  </url>
+
+  <!-- Melbourne Virtual Presence -->
+  <url>
+    <loc>https://usamajaved.com/melbourne</loc>
+    <lastmod>2025-01-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en-au" href="https://usamajaved.com/melbourne" />
+  </url>
+
+  <!-- Brisbane Virtual Presence -->
+  <url>
+    <loc>https://usamajaved.com/brisbane</loc>
+    <lastmod>2025-01-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en-au" href="https://usamajaved.com/brisbane" />
+  </url>
+
+  <!-- Adelaide Virtual Presence -->
+  <url>
+    <loc>https://usamajaved.com/adelaide</loc>
+    <lastmod>2025-01-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en-au" href="https://usamajaved.com/adelaide" />
+  </url>
+
+  <!-- Canberra Government Services -->
+  <url>
+    <loc>https://usamajaved.com/canberra</loc>
+    <lastmod>2025-01-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en-au" href="https://usamajaved.com/canberra" />
+  </url>
+
+  <!-- State-specific service pages -->
+  <url>
+    <loc>https://usamajaved.com/western-australia</loc>
+    <lastmod>2025-01-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://usamajaved.com/new-south-wales</loc>
+    <lastmod>2025-01-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://usamajaved.com/victoria</loc>
+    <lastmod>2025-01-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://usamajaved.com/queensland</loc>
+    <lastmod>2025-01-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://usamajaved.com/south-australia</loc>
+    <lastmod>2025-01-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <!-- Remote services Australia -->
+  <url>
+    <loc>https://usamajaved.com/remote-australia</loc>
+    <lastmod>2025-01-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Industry-specific pages -->
+  <url>
+    <loc>https://usamajaved.com/mining-resources</loc>
+    <lastmod>2025-01-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://usamajaved.com/fintech-australia</loc>
+    <lastmod>2025-01-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://usamajaved.com/government-contractor</loc>
+    <lastmod>2025-01-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+</urlset>

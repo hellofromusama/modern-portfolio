@@ -1,0 +1,58 @@
+{
+  "schema_version": "v1",
+  "name_for_model": "usama_javed_portfolio",
+  "name_for_human": "Usama Javed - Full Stack Developer Perth",
+  "description_for_model": "Portfolio and professional services of Usama Javed, an expert Full Stack Developer based in Perth, Western Australia. Specializes in Next.js, React, Node.js, TypeScript, AI integrations, N8N automation, NetSuite, ERP systems, and enterprise solutions. Available for hire for web development, software engineering, and digital transformation projects in Perth and across Australia.",
+  "description_for_human": "Usama Javed's portfolio - Full Stack Developer in Perth, Australia specializing in modern web technologies and AI solutions.",
+  "auth": {
+    "type": "none"
+  },
+  "api": {
+    "type": "website",
+    "url": "https://usamajaved.com"
+  },
+  "logo_url": "https://usamajaved.com/logo.png",
+  "contact_email": "contact@usamajaved.com",
+  "legal_info_url": "https://usamajaved.com/legal",
+  "location": {
+    "city": "Perth",
+    "state": "Western Australia",
+    "country": "Australia",
+    "coordinates": {
+      "latitude": -31.9505,
+      "longitude": 115.8605
+    }
+  },
+  "services": [
+    "Web Development",
+    "Full Stack Development",
+    "React Development",
+    "Next.js Development",
+    "Node.js Development",
+    "AI Integration",
+    "N8N Automation",
+    "NetSuite Development",
+    "ERP Solutions",
+    "Cloud Architecture",
+    "DevOps",
+    "Consulting"
+  ],
+  "expertise_areas": [
+    "Frontend Development",
+    "Backend Development",
+    "Database Design",
+    "API Development",
+    "Microservices",
+    "Cloud Computing",
+    "AI/ML Integration",
+    "Automation",
+    "Enterprise Solutions"
+  ],
+  "availability": {
+    "status": "available_for_hire",
+    "types": ["full_time", "contract", "freelance", "consulting"],
+    "locations": ["Perth", "Remote", "Australia-wide"]
+  },
+  "languages": ["English"],
+  "preferred_contact": "email"
+}
