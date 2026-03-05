@@ -12,10 +12,10 @@
     "@emailjs/browser": "^4.4.1",
     "@stripe/stripe-js": "^7.9.0",
     "@types/nodemailer": "^7.0.1",
-    "next": "15.5.4",
+    "next": "^15.5.12",
     "nodemailer": "^7.0.6",
-    "react": "19.1.0",
-    "react-dom": "19.1.0",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
     "stripe": "^18.5.0"
   },
   "devDependencies": {
