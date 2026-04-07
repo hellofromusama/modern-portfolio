@@ -60,13 +60,14 @@ export default function Hero3D() {
 
           {/* Role */}
           <div className={`mt-8 max-w-lg transition-all duration-1000 delay-400 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-            <p className="text-lg sm:text-xl font-light leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
-              Full Stack Developer &<br />
-              <span style={{ color: 'var(--text-muted)' }}>Digital Innovation Architect</span>
+            <p className="hero-description text-lg sm:text-xl font-light leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
+              Senior Full Stack Developer &<br />
+              <span style={{ color: 'var(--text-muted)' }}>AI Integration Specialist</span>
             </p>
             <p className="mt-4 text-sm leading-relaxed max-w-md" style={{ color: 'var(--text-faint)' }}>
-              Crafting scalable web applications, enterprise solutions,
-              and AI-powered systems from Perth, Australia.
+              8+ years building enterprise solutions, AI-powered automation,
+              and scalable cloud platforms from Perth, Western Australia.
+              50+ projects delivered across government, mining, fintech &amp; healthcare.
             </p>
           </div>
 

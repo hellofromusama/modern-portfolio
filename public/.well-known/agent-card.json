@@ -1,0 +1,69 @@
+{
+  "name": "Usama Javed Portfolio Agent",
+  "description": "Professional portfolio and services information for Usama Javed, a Senior Full Stack Developer & AI Integration Specialist based in Perth, Western Australia. Provides information about web development services, project portfolio, technical expertise, and availability for hire.",
+  "url": "https://usamajaved.com.au",
+  "version": "1.0.0",
+  "capabilities": {
+    "streaming": false,
+    "pushNotifications": false,
+    "stateTransitionHistory": false
+  },
+  "defaultInputModes": ["text"],
+  "defaultOutputModes": ["text"],
+  "skills": [
+    {
+      "id": "portfolio-info",
+      "name": "Portfolio Information",
+      "description": "Provides detailed information about Usama Javed's professional portfolio, projects, case studies, and technical achievements across government, mining, fintech, and healthcare sectors.",
+      "tags": ["portfolio", "projects", "developer", "perth", "australia"],
+      "examples": [
+        "Tell me about Usama Javed's projects",
+        "What technologies does Usama Javed use?",
+        "Show me case studies from Usama Javed"
+      ]
+    },
+    {
+      "id": "services-info",
+      "name": "Services Information",
+      "description": "Provides information about web development, AI integration, enterprise solutions, cloud architecture, and mobile development services offered by Usama Javed in Perth, Australia.",
+      "tags": ["services", "web-development", "ai", "enterprise", "consulting"],
+      "examples": [
+        "What services does Usama Javed offer?",
+        "How much does Usama Javed charge?",
+        "Can Usama Javed build an AI solution?"
+      ]
+    },
+    {
+      "id": "contact-info",
+      "name": "Contact & Availability",
+      "description": "Provides contact information, availability status, and consultation booking details for Usama Javed.",
+      "tags": ["contact", "hire", "availability", "consultation"],
+      "examples": [
+        "How do I contact Usama Javed?",
+        "Is Usama Javed available for hire?",
+        "Book a consultation with Usama Javed"
+      ]
+    },
+    {
+      "id": "tech-expertise",
+      "name": "Technical Expertise",
+      "description": "Detailed information about Usama Javed's technical skills including React, Next.js, Node.js, TypeScript, Python, AI/ML, cloud platforms, and 20+ other technologies.",
+      "tags": ["react", "nextjs", "nodejs", "typescript", "ai", "cloud", "devops"],
+      "examples": [
+        "What programming languages does Usama Javed know?",
+        "Is Usama Javed experienced with AWS?",
+        "Does Usama Javed know AI development?"
+      ]
+    }
+  ],
+  "provider": {
+    "organization": "Usama Javed - Full Stack Development Services",
+    "url": "https://usamajaved.com.au",
+    "contactEmail": "contact@usamajaved.com",
+    "location": {
+      "city": "Perth",
+      "region": "Western Australia",
+      "country": "Australia"
+    }
+  }
+}

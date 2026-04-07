@@ -1,0 +1,50 @@
+# Usama Javed - Senior Full Stack Developer & AI Integration Specialist
+
+Usama Javed is a senior full-stack developer and AI integration specialist based in Perth, Western Australia. He has 8+ years of experience delivering 50+ enterprise projects across government, mining, fintech, and healthcare sectors.
+
+## Core Identity
+- Senior Full Stack Developer with 8+ years experience
+- Based in Perth, Western Australia, Australia
+- Available for immediate hire (full-time, contract, freelance, consulting)
+- Free 30-minute consultation available
+- Contact: contact@usamajaved.com
+
+## Technical Expertise Summary
+Frontend: React 19, Next.js 15, TypeScript, Vue.js 3, Angular 17+, Tailwind CSS
+Backend: Node.js, Express, Python (Django/Flask/FastAPI), Java (Spring Boot), C# (.NET), Go, Rust
+Databases: PostgreSQL, MongoDB, MySQL, Redis, Elasticsearch, DynamoDB
+Cloud: AWS (EC2, S3, Lambda, EKS), Azure (App Service, AKS), GCP (Cloud Run)
+DevOps: Docker, Kubernetes, Terraform, GitHub Actions, CI/CD
+AI/ML: OpenAI API (GPT-4, Whisper, DALL-E), Claude API, LangChain, TensorFlow, PyTorch
+Automation: N8N workflow automation, custom integration development
+Enterprise: NetSuite (SuiteScript), SAP, Salesforce, Microsoft Dynamics
+
+## Industry Experience
+- Government: Citizen portals, compliance systems, WCAG 2.1 AA, Australian Digital Service Standard
+- Mining (WA): Equipment tracking, safety compliance, resource management, Pilbara & Goldfields deployments
+- Fintech: Payment processing, trading platforms, PCI DSS/APRA/ASIC compliance
+- Healthcare: Patient management, telemedicine, HL7 FHIR, HIPAA compliance
+- Education: LMS platforms, student portals, automated assessment systems
+
+## Key Project Results
+1. N8N Automation Platform: 70% reduction in manual processes, $180K/year savings
+2. Voice AI Booking Agent: 500+ daily bookings, 35% conversion increase, $95K/year savings
+3. Enterprise ERP (NetSuite): Unified 5 legacy systems for 200+ mining users
+4. NetSuite Integration Suite: Connected 12 systems, 50K+ daily transactions, 99.99% uptime
+5. Cloud Infrastructure: 100K+ concurrent users, 99.99% uptime, 200ms global response
+
+## Business Details
+- Hours: Monday-Friday 9AM-6PM AWST (UTC+8)
+- Emergency support: 24/7 for existing clients
+- Service area: Perth, Western Australia, Australia-wide, International remote
+- Engagement models: Full-time, contract, freelance, consulting, project-based
+- Free consultation: 30-minute discovery call for new clients
+
+## Why Choose Usama Javed
+- 8+ years proven track record with enterprise-grade solutions
+- Deep expertise in 20+ technologies and frameworks
+- Multi-industry experience (government, mining, fintech, healthcare)
+- Local Perth presence with Australian business entity
+- Immediate availability with competitive rates
+- 100% client satisfaction record
+- Modern tech stack with latest frameworks and best practices

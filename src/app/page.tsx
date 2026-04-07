@@ -6,6 +6,7 @@ import dynamic from "next/dynamic";
 import Navigation from "@/components/Navigation";
 import ScrollReveal, { AnimatedCounter } from "@/components/ScrollReveal";
 import InteractiveButton from "@/components/InteractiveButton";
+import AISeoContent from "@/components/AISeoContent";
 
 const FAQ = dynamic(() => import("@/components/FAQ"), {
   loading: () => <div className="animate-pulse h-96" style={{ background: 'var(--bg-card)' }}></div>,
@@ -93,6 +94,7 @@ export default function Home() {
 
   return (
     <div style={{ background: 'var(--bg-primary)', color: 'var(--text-primary)' }} className="overflow-hidden">
+      <AISeoContent />
       <VisitorTracker />
       <VisitorCounter />
       <Navigation currentPage="home" />
@@ -110,7 +112,7 @@ export default function Home() {
       </div>
 
       {/* About */}
-      <section id="about" className="relative z-10 py-32 px-4 sm:px-6 lg:px-8">
+      <section id="about" className="relative z-10 py-32 px-4 sm:px-6 lg:px-8" aria-labelledby="about-heading">
         <div className="max-w-6xl mx-auto">
           <div className="grid lg:grid-cols-5 gap-16 items-start">
             <div className="lg:col-span-3 space-y-6">
@@ -118,16 +120,17 @@ export default function Home() {
                 <p className="text-xs tracking-[0.2em] uppercase font-medium" style={{ color: 'var(--text-muted)' }}>About</p>
               </ScrollReveal>
               <ScrollReveal delay={100}>
-                <h2 className="text-4xl sm:text-5xl font-bold tracking-tight font-[family-name:var(--font-space-grotesk)]">
+                <h2 id="about-heading" className="text-4xl sm:text-5xl font-bold tracking-tight font-[family-name:var(--font-space-grotesk)]">
                   Building digital<br />
                   <span style={{ color: 'var(--text-secondary)' }}>excellence.</span>
                 </h2>
               </ScrollReveal>
               <ScrollReveal delay={200}>
-                <p className="text-lg leading-relaxed max-w-xl" style={{ color: 'var(--text-tertiary)' }}>
-                  8+ years of expertise in modern web technologies, enterprise solutions, and cloud platforms.
-                  From AI-powered automation to complex ERP solutions, I deliver projects that drive
-                  business growth and digital transformation.
+                <p className="bio-summary text-lg leading-relaxed max-w-xl" style={{ color: 'var(--text-tertiary)' }}>
+                  Senior Full Stack Developer with 8+ years of expertise delivering 50+ enterprise projects
+                  across government, mining, fintech, and healthcare sectors in Perth, Western Australia.
+                  From AI-powered automation saving clients $180,000/year to cloud platforms handling
+                  100K+ concurrent users, I build solutions that drive measurable business growth.
                 </p>
               </ScrollReveal>
             </div>
@@ -174,16 +177,22 @@ export default function Home() {
       </div>
 
       {/* Skills */}
-      <section id="skills" className="relative z-10 py-32 px-4 sm:px-6 lg:px-8">
+      <section id="skills" className="relative z-10 py-32 px-4 sm:px-6 lg:px-8" aria-labelledby="skills-heading">
         <div className="max-w-6xl mx-auto">
           <ScrollReveal>
             <p className="text-xs tracking-[0.2em] uppercase font-medium mb-4" style={{ color: 'var(--text-muted)' }}>Expertise</p>
           </ScrollReveal>
           <ScrollReveal delay={100}>
-            <h2 className="text-4xl sm:text-5xl font-bold tracking-tight mb-16 font-[family-name:var(--font-space-grotesk)]">
+            <h2 id="skills-heading" className="text-4xl sm:text-5xl font-bold tracking-tight mb-4 font-[family-name:var(--font-space-grotesk)]">
               Technical<br />
               <span style={{ color: 'var(--text-secondary)' }}>stack.</span>
             </h2>
+          </ScrollReveal>
+          <ScrollReveal delay={150}>
+            <p className="key-skills-summary text-sm mb-16 max-w-2xl" style={{ color: 'var(--text-muted)' }}>
+              Mastery in 20+ technologies including React 19, Next.js 15, Node.js, TypeScript, Python, AI/ML integration,
+              AWS, Docker, Kubernetes, and NetSuite — delivering enterprise-grade solutions across every layer of the stack.
+            </p>
           </ScrollReveal>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -232,16 +241,22 @@ export default function Home() {
       </div>
 
       {/* Projects */}
-      <section id="projects" className="relative z-10 py-32 px-4 sm:px-6 lg:px-8">
+      <section id="projects" className="relative z-10 py-32 px-4 sm:px-6 lg:px-8" aria-labelledby="projects-heading">
         <div className="max-w-6xl mx-auto">
           <ScrollReveal>
             <p className="text-xs tracking-[0.2em] uppercase font-medium mb-4" style={{ color: 'var(--text-muted)' }}>Work</p>
           </ScrollReveal>
           <ScrollReveal delay={100}>
-            <h2 className="text-4xl sm:text-5xl font-bold tracking-tight mb-16 font-[family-name:var(--font-space-grotesk)]">
+            <h2 id="projects-heading" className="text-4xl sm:text-5xl font-bold tracking-tight mb-4 font-[family-name:var(--font-space-grotesk)]">
               Featured<br />
               <span style={{ color: 'var(--text-secondary)' }}>projects.</span>
             </h2>
+          </ScrollReveal>
+          <ScrollReveal delay={150}>
+            <p className="project-highlights text-sm mb-16 max-w-2xl" style={{ color: 'var(--text-muted)' }}>
+              Enterprise solutions delivering measurable results — from automation platforms saving $180K/year
+              to cloud infrastructure supporting 100K+ concurrent users with 99.99% uptime.
+            </p>
           </ScrollReveal>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -317,20 +332,21 @@ export default function Home() {
       </div>
 
       {/* Contact */}
-      <section id="contact" className="relative z-10 py-32 px-4 sm:px-6 lg:px-8">
+      <section id="contact" className="relative z-10 py-32 px-4 sm:px-6 lg:px-8" aria-labelledby="contact-heading">
         <div className="max-w-3xl mx-auto text-center">
           <ScrollReveal>
             <p className="text-xs tracking-[0.2em] uppercase font-medium mb-4" style={{ color: 'var(--text-muted)' }}>Contact</p>
           </ScrollReveal>
           <ScrollReveal delay={100}>
-            <h2 className="text-4xl sm:text-5xl font-bold tracking-tight mb-6 font-[family-name:var(--font-space-grotesk)]">
+            <h2 id="contact-heading" className="text-4xl sm:text-5xl font-bold tracking-tight mb-6 font-[family-name:var(--font-space-grotesk)]">
               Let&apos;s work<br />
               <span style={{ color: 'var(--text-secondary)' }}>together.</span>
             </h2>
           </ScrollReveal>
           <ScrollReveal delay={200}>
-            <p className="text-lg mb-12 max-w-lg mx-auto" style={{ color: 'var(--text-muted)' }}>
-              Ready to bring your ideas to life? I&apos;d love to hear about your project.
+            <p className="cta-section text-lg mb-12 max-w-lg mx-auto" style={{ color: 'var(--text-muted)' }}>
+              Ready to bring your ideas to life? Get a free 30-minute consultation.
+              Available for immediate start — Perth, Australia and worldwide remote.
             </p>
           </ScrollReveal>
 

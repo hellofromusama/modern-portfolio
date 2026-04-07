@@ -1,0 +1,54 @@
+/* TEAM */
+
+Developer & Designer: Usama Javed
+Role: Senior Full Stack Developer & AI Integration Specialist
+Location: Perth, Western Australia, Australia
+Contact: contact@usamajaved.com
+Website: https://usamajaved.com.au
+GitHub: https://github.com/hellofromusama
+LinkedIn: https://linkedin.com/in/usamajaved
+Twitter: @hellofromusama
+Experience: 8+ years
+
+/* THANKS */
+
+Open Source Community
+Next.js Team at Vercel
+Tailwind CSS Team
+React Core Team
+Node.js Foundation
+
+/* SITE */
+
+Last updated: 2026-04-07
+Standards: HTML5, CSS3, ES2024
+Language: English (Australian)
+Framework: Next.js 15 (App Router)
+UI Library: React 19
+Styling: Tailwind CSS 4
+Language: TypeScript 5
+Hosting: Vercel Edge Network
+CDN: Vercel Edge
+Analytics: Vercel Analytics
+IDE: VS Code, Cursor
+Version Control: Git, GitHub
+Package Manager: npm
+Build Tool: Turbopack
+Linting: ESLint 9
+Type Checking: TypeScript Strict Mode
+
+/* PERFORMANCE */
+
+Lighthouse Score: 95+
+First Contentful Paint: < 1.0s
+Largest Contentful Paint: < 2.5s
+Cumulative Layout Shift: < 0.1
+Time to Interactive: < 3.0s
+
+/* ACCESSIBILITY */
+
+WCAG: 2.1 Level AA
+Screen Reader: Optimized
+Keyboard Navigation: Full Support
+Color Contrast: AAA Compliant
+Reduced Motion: Supported

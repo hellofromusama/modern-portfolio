@@ -1,0 +1,48 @@
+{
+  "$schema": "https://agents-json.org/schema/v1",
+  "name": "Usama Javed Portfolio",
+  "description": "Professional portfolio and services for Usama Javed, Senior Full Stack Developer & AI Specialist in Perth, Australia",
+  "url": "https://usamajaved.com.au",
+  "version": "1.0.0",
+  "contact": {
+    "email": "contact@usamajaved.com",
+    "name": "Usama Javed"
+  },
+  "agents": [
+    {
+      "name": "portfolio-agent",
+      "description": "Provides information about Usama Javed's professional background, projects, technical skills, and services",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string",
+            "description": "Question about Usama Javed's portfolio, projects, skills, or services"
+          }
+        }
+      },
+      "output_schema": {
+        "type": "object",
+        "properties": {
+          "answer": {
+            "type": "string"
+          },
+          "sources": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "resources": {
+    "llms_txt": "https://usamajaved.com.au/llms.txt",
+    "llms_full": "https://usamajaved.com.au/llms-full.txt",
+    "sitemap": "https://usamajaved.com.au/sitemap.xml",
+    "rss_feed": "https://usamajaved.com.au/feed.xml",
+    "ai_plugin": "https://usamajaved.com.au/.well-known/ai-plugin.json",
+    "agent_card": "https://usamajaved.com.au/.well-known/agent-card.json"
+  }
+}

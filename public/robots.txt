@@ -1,11 +1,11 @@
 # Robots.txt for Usama Javed Portfolio
-# Allow all crawlers full access for maximum SEO visibility
+# https://usamajaved.com.au
+# Strategy: Allow AI search bots (citations), Block AI training bots
+# Last updated: 2026-04-07
 
-User-agent: *
-Allow: /
-Crawl-delay: 0
-
-# Specific rules for major search engines
+# ============================================
+# TRADITIONAL SEARCH ENGINES - FULL ACCESS
+# ============================================
 User-agent: Googlebot
 Allow: /
 Crawl-delay: 0
@@ -16,28 +16,137 @@ Crawl-delay: 0
 
 User-agent: Slurp
 Allow: /
-Crawl-delay: 0
 
 User-agent: DuckDuckBot
 Allow: /
-Crawl-delay: 0
 
-# AI and LLM crawlers - Full access
-User-agent: GPTBot
+User-agent: Yandex
+Allow: /
+
+User-agent: Baiduspider
+Allow: /
+
+# ============================================
+# AI SEARCH BOTS - FULL ACCESS (for citations)
+# ============================================
+
+# OpenAI Search
+User-agent: OAI-SearchBot
 Allow: /
 
 User-agent: ChatGPT-User
 Allow: /
 
-User-agent: CCBot
+# Anthropic Claude Search
+User-agent: Claude-SearchBot
 Allow: /
+
+User-agent: Claude-User
+Allow: /
+
+# Perplexity AI Search
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+# Apple Intelligence & Siri
+User-agent: Applebot
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+# DuckDuckGo AI
+User-agent: DuckAssistBot
+Allow: /
+
+# Phind Developer Search
+User-agent: PhindBot
+Allow: /
+
+# You.com AI Search
+User-agent: YouBot
+Allow: /
+
+# Microsoft Copilot (via Bingbot above)
+
+# ============================================
+# AI TRAINING BOTS - BLOCKED
+# ============================================
+
+# OpenAI Training
+User-agent: GPTBot
+Disallow: /
+
+# Anthropic Training
+User-agent: ClaudeBot
+Disallow: /
 
 User-agent: anthropic-ai
-Allow: /
+Disallow: /
 
-User-agent: Claude-Web
-Allow: /
+# Google AI Training
+User-agent: Google-Extended
+Disallow: /
 
-# Sitemap location
-Sitemap: https://usamajaved.com/sitemap.xml
-Sitemap: https://usamajaved.com/sitemap-index.xml
+# Meta/Facebook Training
+User-agent: Meta-ExternalAgent
+Disallow: /
+
+User-agent: meta-externalagent
+Disallow: /
+
+User-agent: Meta-ExternalFetcher
+Disallow: /
+
+# Common Crawl (used in many AI training sets)
+User-agent: CCBot
+Disallow: /
+
+# ByteDance/TikTok Training
+User-agent: Bytespider
+Disallow: /
+
+# Huawei Training
+User-agent: PetalBot
+Disallow: /
+
+# Cohere Training
+User-agent: cohere-ai
+Disallow: /
+
+# Diffbot Training
+User-agent: Diffbot
+Disallow: /
+
+# Webz.io Training
+User-agent: Omgilibot
+Disallow: /
+
+# Image Dataset Collection
+User-agent: img2dataset
+Disallow: /
+
+# Allen Institute AI
+User-agent: AI2Bot
+Disallow: /
+
+# Magpie Crawler
+User-agent: magpie-crawler
+Disallow: /
+
+# ============================================
+# SITEMAPS
+# ============================================
+Sitemap: https://usamajaved.com.au/sitemap.xml
+Sitemap: https://usamajaved.com.au/sitemap-australia.xml
+
+# ============================================
+# ADDITIONAL FILES FOR AI DISCOVERY
+# ============================================
+# llms.txt: https://usamajaved.com.au/llms.txt
+# llms-full.txt: https://usamajaved.com.au/llms-full.txt
+# ai.txt: https://usamajaved.com.au/ai.txt
+# Agent Card: https://usamajaved.com.au/.well-known/agent-card.json

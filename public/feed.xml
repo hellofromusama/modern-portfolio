@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0"
+  xmlns:atom="http://www.w3.org/2005/Atom"
+  xmlns:dc="http://purl.org/dc/elements/1.1/"
+  xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Usama Javed - Senior Full Stack Developer Perth</title>
+    <link>https://usamajaved.com.au</link>
+    <description>Technical blog, project case studies, and industry insights from Usama Javed, a Senior Full Stack Developer and AI Integration Specialist based in Perth, Western Australia.</description>
+    <language>en-au</language>
+    <lastBuildDate>Mon, 07 Apr 2026 08:00:00 +0800</lastBuildDate>
+    <managingEditor>contact@usamajaved.com (Usama Javed)</managingEditor>
+    <webMaster>contact@usamajaved.com (Usama Javed)</webMaster>
+    <copyright>Copyright 2026 Usama Javed. All rights reserved.</copyright>
+    <generator>Next.js 15</generator>
+    <ttl>60</ttl>
+    <atom:link href="https://usamajaved.com.au/feed.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://usamajaved.com.au/icon.png</url>
+      <title>Usama Javed Portfolio</title>
+      <link>https://usamajaved.com.au</link>
+    </image>
+
+    <item>
+      <title>Building an Enterprise N8N Automation Platform: 70% Process Reduction</title>
+      <link>https://usamajaved.com.au/projects/n8n-automation</link>
+      <guid isPermaLink="true">https://usamajaved.com.au/projects/n8n-automation</guid>
+      <pubDate>Mon, 07 Apr 2026 08:00:00 +0800</pubDate>
+      <dc:creator>Usama Javed</dc:creator>
+      <category>Automation</category>
+      <category>N8N</category>
+      <category>Enterprise</category>
+      <description>How I built a comprehensive N8N automation platform for a Perth mining company that reduced manual processes by 70% and saved $180,000/year. Detailed architecture, integration patterns, and lessons learned.</description>
+      <content:encoded><![CDATA[
+        <h2>Enterprise N8N Automation Platform</h2>
+        <p>A Perth mining company was spending 120+ hours per week on manual data entry and report generation across 8 disconnected systems. I designed and built a comprehensive N8N automation platform that integrated all business systems through custom API connectors, automated workflows, and intelligent routing.</p>
+        <h3>Results</h3>
+        <ul>
+          <li>70% reduction in manual processes</li>
+          <li>$180,000/year cost savings</li>
+          <li>99.9% accuracy improvement</li>
+          <li>ROI achieved in 3 months</li>
+        </ul>
+        <h3>Tech Stack</h3>
+        <p>N8N, Node.js, PostgreSQL, AWS Lambda, Docker, Redis</p>
+        <p><strong>Author:</strong> Usama Javed, Senior Full Stack Developer, Perth, Australia</p>
+      ]]></content:encoded>
+    </item>
+
+    <item>
+      <title>Voice AI Booking Agent: Handling 500+ Daily Bookings with Zero Errors</title>
+      <link>https://usamajaved.com.au/projects/voice-ai-agent</link>
+      <guid isPermaLink="true">https://usamajaved.com.au/projects/voice-ai-agent</guid>
+      <pubDate>Sun, 06 Apr 2026 08:00:00 +0800</pubDate>
+      <dc:creator>Usama Javed</dc:creator>
+      <category>AI</category>
+      <category>Voice AI</category>
+      <category>OpenAI</category>
+      <description>How I developed an AI-powered voice agent using OpenAI Whisper and GPT-4 that handles 500+ daily bookings autonomously, achieving a 35% increase in booking conversion and $95,000/year savings.</description>
+      <content:encoded><![CDATA[
+        <h2>Voice AI Booking Agent</h2>
+        <p>A national services company was losing 40% of phone bookings due to hold times and after-hours calls. I developed an AI-powered voice agent using OpenAI Whisper for speech-to-text, GPT-4 for natural conversation, and custom booking logic integration with their existing systems.</p>
+        <h3>Results</h3>
+        <ul>
+          <li>500+ daily bookings handled autonomously</li>
+          <li>35% increase in booking conversion</li>
+          <li>24/7 availability</li>
+          <li>$95,000/year savings in call center costs</li>
+        </ul>
+        <h3>Tech Stack</h3>
+        <p>Node.js, OpenAI API (GPT-4, Whisper), Twilio, PostgreSQL, Redis, AWS</p>
+        <p><strong>Author:</strong> Usama Javed, Senior Full Stack Developer, Perth, Australia</p>
+      ]]></content:encoded>
+    </item>
+
+    <item>
+      <title>Scaling to 100K+ Concurrent Users: Cloud Infrastructure Architecture Guide</title>
+      <link>https://usamajaved.com.au/projects/cloud-infrastructure</link>
+      <guid isPermaLink="true">https://usamajaved.com.au/projects/cloud-infrastructure</guid>
+      <pubDate>Sat, 05 Apr 2026 08:00:00 +0800</pubDate>
+      <dc:creator>Usama Javed</dc:creator>
+      <category>Cloud</category>
+      <category>Kubernetes</category>
+      <category>AWS</category>
+      <category>DevOps</category>
+      <description>Architecture deep-dive into how I designed a Kubernetes-based microservices platform that scales to 100K+ concurrent users with 99.99% uptime and 200ms global response times.</description>
+      <content:encoded><![CDATA[
+        <h2>Cloud Infrastructure Platform</h2>
+        <p>A SaaS startup needed infrastructure to support rapid scaling from 1,000 to 100,000+ concurrent users. I designed and implemented a Kubernetes-based microservices architecture with auto-scaling, global CDN, and multi-region failover on AWS EKS.</p>
+        <h3>Results</h3>
+        <ul>
+          <li>100K+ concurrent users supported</li>
+          <li>99.99% uptime</li>
+          <li>200ms average response time globally</li>
+          <li>60% infrastructure cost reduction</li>
+        </ul>
+        <h3>Tech Stack</h3>
+        <p>Kubernetes, Docker, AWS EKS, Terraform, Prometheus, Grafana, Istio Service Mesh</p>
+        <p><strong>Author:</strong> Usama Javed, Senior Full Stack Developer, Perth, Australia</p>
+      ]]></content:encoded>
+    </item>
+
+    <item>
+      <title>NetSuite ERP Customization for Mining: Connecting 12+ Business Systems</title>
+      <link>https://usamajaved.com.au/projects/netsuite-integration</link>
+      <guid isPermaLink="true">https://usamajaved.com.au/projects/netsuite-integration</guid>
+      <pubDate>Fri, 04 Apr 2026 08:00:00 +0800</pubDate>
+      <dc:creator>Usama Javed</dc:creator>
+      <category>NetSuite</category>
+      <category>ERP</category>
+      <category>Enterprise</category>
+      <category>Mining</category>
+      <description>Case study on integrating 12 business systems with NetSuite for a growing retailer, achieving real-time synchronization and processing 50,000+ transactions daily with 99.99% uptime.</description>
+      <content:encoded><![CDATA[
+        <h2>NetSuite Integration Suite</h2>
+        <p>A growing retailer needed 12 business systems connected to NetSuite for real-time data synchronization. I built custom middleware connecting e-commerce, CRM, shipping, accounting, inventory, and marketing platforms through RESTful APIs and webhooks.</p>
+        <h3>Results</h3>
+        <ul>
+          <li>Real-time sync across all 12 systems</li>
+          <li>Zero manual data entry</li>
+          <li>99.99% uptime over 18 months</li>
+          <li>50,000+ transactions daily</li>
+        </ul>
+        <h3>Tech Stack</h3>
+        <p>Node.js, Express, NetSuite REST API, SuiteScript 2.0, Redis, Docker, AWS</p>
+        <p><strong>Author:</strong> Usama Javed, Senior Full Stack Developer, Perth, Australia</p>
+      ]]></content:encoded>
+    </item>
+
+    <item>
+      <title>Enterprise ERP System: Unifying 5 Legacy Applications for 200+ Mining Users</title>
+      <link>https://usamajaved.com.au/projects/erp-system</link>
+      <guid isPermaLink="true">https://usamajaved.com.au/projects/erp-system</guid>
+      <pubDate>Thu, 03 Apr 2026 08:00:00 +0800</pubDate>
+      <dc:creator>Usama Javed</dc:creator>
+      <category>ERP</category>
+      <category>NetSuite</category>
+      <category>Mining</category>
+      <category>Enterprise</category>
+      <description>How I built a unified ERP system replacing 5 legacy applications for a WA mining company with 200+ users, achieving a single source of truth and 50% reduction in reporting time.</description>
+      <content:encoded><![CDATA[
+        <h2>Enterprise ERP System</h2>
+        <p>A Western Australian mining company with 200+ users needed a unified ERP system replacing 5 legacy applications. I customized NetSuite with custom SuiteScript modules, automated workflows, real-time dashboards, and mobile access for field workers across remote mine sites.</p>
+        <h3>Results</h3>
+        <ul>
+          <li>Single source of truth for all operations</li>
+          <li>50% reduction in reporting time</li>
+          <li>Real-time inventory tracking</li>
+          <li>Mobile field access for remote sites</li>
+        </ul>
+        <h3>Tech Stack</h3>
+        <p>NetSuite, SuiteScript 2.0, React, Node.js, PostgreSQL</p>
+        <p><strong>Author:</strong> Usama Javed, Senior Full Stack Developer, Perth, Australia</p>
+      ]]></content:encoded>
+    </item>
+
+  </channel>
+</rss>

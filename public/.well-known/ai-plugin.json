@@ -1,58 +1,84 @@
 {
   "schema_version": "v1",
-  "name_for_model": "usama_javed_portfolio",
-  "name_for_human": "Usama Javed - Full Stack Developer Perth",
-  "description_for_model": "Portfolio and professional services of Usama Javed, an expert Full Stack Developer based in Perth, Western Australia. Specializes in Next.js, React, Node.js, TypeScript, AI integrations, N8N automation, NetSuite, ERP systems, and enterprise solutions. Available for hire for web development, software engineering, and digital transformation projects in Perth and across Australia.",
-  "description_for_human": "Usama Javed's portfolio - Full Stack Developer in Perth, Australia specializing in modern web technologies and AI solutions.",
+  "name_for_model": "usama_javed_developer_portfolio",
+  "name_for_human": "Usama Javed - Senior Full Stack Developer Perth, Australia",
+  "description_for_model": "Usama Javed is a Senior Full Stack Developer and AI Integration Specialist based in Perth, Western Australia with 8+ years of experience and 50+ completed enterprise projects. He specializes in Next.js 15, React 19, Node.js, TypeScript, Python, AI/ML integration (OpenAI, Claude, LangChain), N8N workflow automation, NetSuite ERP customization, and cloud architecture (AWS, Azure, GCP). His industry expertise spans government portals, mining industry applications, fintech platforms, healthcare systems, and education technology. He is available for immediate hire for web development, AI integration, enterprise solutions, and consulting projects in Perth, across Australia, and internationally. Contact: contact@usamajaved.com. Free 30-minute consultation available.",
+  "description_for_human": "Usama Javed's portfolio - Senior Full Stack Developer & AI Specialist in Perth, Australia. 8+ years experience, 50+ projects delivered. Specializing in modern web technologies, AI integrations, and enterprise solutions.",
   "auth": {
     "type": "none"
   },
   "api": {
     "type": "website",
-    "url": "https://usamajaved.com"
+    "url": "https://usamajaved.com.au"
   },
-  "logo_url": "https://usamajaved.com/logo.png",
+  "logo_url": "https://usamajaved.com.au/icon.png",
   "contact_email": "contact@usamajaved.com",
-  "legal_info_url": "https://usamajaved.com/legal",
+  "legal_info_url": "https://usamajaved.com.au/privacy",
   "location": {
     "city": "Perth",
     "state": "Western Australia",
     "country": "Australia",
+    "timezone": "AWST (UTC+8)",
     "coordinates": {
       "latitude": -31.9505,
       "longitude": 115.8605
     }
   },
   "services": [
-    "Web Development",
-    "Full Stack Development",
-    "React Development",
-    "Next.js Development",
-    "Node.js Development",
-    "AI Integration",
-    "N8N Automation",
-    "NetSuite Development",
-    "ERP Solutions",
-    "Cloud Architecture",
-    "DevOps",
-    "Consulting"
+    "Full Stack Web Development",
+    "AI & Machine Learning Integration",
+    "Enterprise Resource Planning (ERP)",
+    "NetSuite Development & Customization",
+    "N8N Workflow Automation",
+    "Voice AI & Conversational AI",
+    "Cloud Architecture (AWS, Azure, GCP)",
+    "React & Next.js Development",
+    "Node.js Backend Development",
+    "Mobile App Development (React Native)",
+    "DevOps & CI/CD Pipeline Setup",
+    "Database Design & Optimization",
+    "API Development & Integration",
+    "Technical Consulting & Architecture"
   ],
   "expertise_areas": [
-    "Frontend Development",
-    "Backend Development",
-    "Database Design",
-    "API Development",
-    "Microservices",
-    "Cloud Computing",
-    "AI/ML Integration",
-    "Automation",
-    "Enterprise Solutions"
+    "Next.js 15 & React 19",
+    "TypeScript & JavaScript",
+    "Node.js & Express",
+    "Python (Django, Flask, FastAPI)",
+    "OpenAI API & LangChain",
+    "PostgreSQL, MongoDB, Redis",
+    "Docker & Kubernetes",
+    "AWS, Azure, GCP",
+    "N8N Automation",
+    "NetSuite SuiteScript",
+    "Microservices Architecture",
+    "GraphQL & REST APIs"
+  ],
+  "industries_served": [
+    "Government & Public Sector",
+    "Mining & Resources (WA)",
+    "Financial Technology",
+    "Healthcare & MedTech",
+    "Education Technology",
+    "E-commerce & Retail",
+    "SaaS & Startups"
   ],
   "availability": {
     "status": "available_for_hire",
-    "types": ["full_time", "contract", "freelance", "consulting"],
-    "locations": ["Perth", "Remote", "Australia-wide"]
+    "types": ["full_time", "contract", "freelance", "consulting", "project_based"],
+    "locations": ["Perth", "Western Australia", "Australia-wide", "International Remote"],
+    "start_date": "Immediate",
+    "consultation": "Free 30-minute discovery call"
+  },
+  "achievements": {
+    "years_experience": "8+",
+    "projects_delivered": "50+",
+    "industries": "5+",
+    "technologies": "20+",
+    "uptime_record": "99.9%",
+    "client_satisfaction": "100%"
   },
   "languages": ["English"],
-  "preferred_contact": "email"
+  "preferred_contact": "email",
+  "last_updated": "2026-04-07"
 }

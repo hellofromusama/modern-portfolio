@@ -1,0 +1,78 @@
+openapi: 3.0.3
+info:
+  title: Usama Javed Portfolio API
+  description: |
+    API for Usama Javed's professional portfolio. Usama Javed is a Senior Full Stack
+    Developer and AI Integration Specialist based in Perth, Western Australia with 8+
+    years of experience delivering 50+ enterprise projects across government, mining,
+    fintech, and healthcare sectors.
+  version: 1.0.0
+  contact:
+    name: Usama Javed
+    email: contact@usamajaved.com
+    url: https://usamajaved.com.au
+  license:
+    name: All Rights Reserved
+    url: https://usamajaved.com.au/privacy
+
+servers:
+  - url: https://usamajaved.com.au
+    description: Production
+
+paths:
+  /llms.txt:
+    get:
+      summary: LLM-optimized site summary
+      description: Returns a markdown-formatted summary of the portfolio for LLM consumption
+      operationId: getLlmsTxt
+      responses:
+        '200':
+          description: LLM-readable site summary
+          content:
+            text/markdown:
+              schema:
+                type: string
+
+  /llms-full.txt:
+    get:
+      summary: Full LLM content
+      description: Returns complete portfolio content in markdown for comprehensive LLM understanding
+      operationId: getLlmsFullTxt
+      responses:
+        '200':
+          description: Full LLM content
+          content:
+            text/markdown:
+              schema:
+                type: string
+
+  /feed.xml:
+    get:
+      summary: RSS Feed
+      description: Project case studies and technical blog posts by Usama Javed
+      operationId: getRssFeed
+      responses:
+        '200':
+          description: RSS feed
+          content:
+            application/rss+xml:
+              schema:
+                type: string
+
+  /api/indexnow:
+    post:
+      summary: Submit URLs to IndexNow
+      description: Push content updates to Bing and Copilot AI for instant indexing
+      operationId: submitIndexNow
+      responses:
+        '200':
+          description: URLs submitted successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  urlsSubmitted:
+                    type: integer
