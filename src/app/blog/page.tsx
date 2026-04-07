@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     "Perth web developer blog",
     "full stack development tips",
     "JavaScript tutorials",
-    "web development trends 2025",
+    "web development trends 2026",
     "SEO for developers",
     "modern web technologies"
   ],
@@ -19,53 +19,53 @@ export const metadata: Metadata = {
 
 const blogPosts = [
   {
-    title: "Complete Guide to Web Development in Perth, Australia (2025)",
-    excerpt: "Everything you need to know about hiring web developers in Perth, current market rates, technologies, and how to choose the right developer for your business.",
+    title: "Complete Guide to Hiring a Web Developer in Perth, Australia (2026)",
+    excerpt: "Everything you need to know about hiring web developers in Perth — current market rates ($75-$150/hr), top technologies (Next.js 15, React 19, AI), and how to choose the right developer for your business.",
     readTime: "12 min read",
     category: "Business Guide",
-    tags: ["Perth", "Web Development", "Business", "Hiring"],
-    publishDate: "2025-01-28",
+    tags: ["Perth", "Web Development", "Business", "Hiring", "Australia"],
+    publishDate: "2026-04-05",
     featured: true
   },
   {
-    title: "Next.js vs React: Which is Better for SEO in 2025?",
-    excerpt: "Comprehensive comparison of Next.js and React for SEO performance, including server-side rendering, performance metrics, and real-world case studies.",
+    title: "Next.js 15 vs React 19: Which is Better for SEO in 2026?",
+    excerpt: "Comprehensive comparison of Next.js 15 App Router and React 19 for SEO performance. Server Components, streaming SSR, and real-world Lighthouse benchmarks from enterprise projects.",
     readTime: "8 min read",
     category: "Technical",
-    tags: ["Next.js", "React", "SEO", "Performance"],
-    publishDate: "2025-01-25"
+    tags: ["Next.js", "React", "SEO", "Performance", "Server Components"],
+    publishDate: "2026-03-28"
   },
   {
-    title: "How to Integrate AI into Your Business Website",
-    excerpt: "Step-by-step guide to adding AI features like chatbots, voice assistants, and automated workflows to boost customer engagement and efficiency.",
+    title: "How to Integrate AI into Your Business Website in 2026",
+    excerpt: "Step-by-step guide to adding OpenAI GPT-4, Voice AI agents, and N8N automation workflows. Real case study: 500+ daily bookings handled autonomously with 35% conversion increase.",
     readTime: "10 min read",
     category: "AI & Automation",
-    tags: ["AI", "Chatbots", "Automation", "Business"],
-    publishDate: "2025-01-22"
+    tags: ["AI", "OpenAI", "Voice AI", "N8N", "Automation", "Perth"],
+    publishDate: "2026-03-20"
   },
   {
-    title: "JavaScript Website SEO: Best Practices for 2025",
-    excerpt: "Advanced SEO techniques for JavaScript-heavy websites, including server-side rendering, hydration strategies, and Core Web Vitals optimization.",
+    title: "AI SEO: How to Make Your Website Appear in ChatGPT, Perplexity & Google AI Overviews",
+    excerpt: "Complete guide to Answer Engine Optimization (AEO). llms.txt, Schema.org markup, citation blocks, and the techniques that get your site cited by AI search engines in 2026.",
     readTime: "15 min read",
     category: "SEO",
-    tags: ["JavaScript", "SEO", "Performance", "Core Web Vitals"],
-    publishDate: "2025-01-20"
+    tags: ["AI SEO", "AEO", "llms.txt", "Schema.org", "ChatGPT", "Perplexity"],
+    publishDate: "2026-03-12"
   },
   {
-    title: "Perth Business Website Trends: What's Working in 2025",
-    excerpt: "Latest website design and functionality trends specifically for Perth businesses, including local SEO strategies and customer behavior insights.",
+    title: "Perth Business Website Trends: What's Working in 2026",
+    excerpt: "Latest website trends for Perth businesses — AI chatbots, voice search optimization, and why 69% of searches are now zero-click. Local SEO strategies that actually work.",
     readTime: "6 min read",
     category: "Local Business",
-    tags: ["Perth", "Business", "Trends", "Local SEO"],
-    publishDate: "2025-01-18"
+    tags: ["Perth", "Business", "Trends", "Local SEO", "AI", "Australia"],
+    publishDate: "2026-03-05"
   },
   {
-    title: "Building Enterprise Web Applications with Next.js",
-    excerpt: "Enterprise-grade development patterns, security considerations, and scalability strategies for large-scale Next.js applications.",
+    title: "Building Enterprise Applications with Next.js 15 and Cloud Architecture",
+    excerpt: "Enterprise-grade patterns for Next.js 15 — security, Kubernetes scaling to 100K+ users, and real architecture from a $180K/year automation platform. Full case study included.",
     readTime: "18 min read",
     category: "Enterprise",
-    tags: ["Next.js", "Enterprise", "Security", "Scalability"],
-    publishDate: "2025-01-15"
+    tags: ["Next.js", "Enterprise", "Kubernetes", "AWS", "Cloud", "Architecture"],
+    publishDate: "2026-02-25"
   }
 ];
 
