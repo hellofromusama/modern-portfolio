@@ -25,7 +25,9 @@ Usama Javed operates as an independent software consultant serving Perth, Wester
 - [Cloud Infrastructure Platform](https://usamajaved.com.au/projects/cloud-infrastructure): Scalable microservices handling 100k+ concurrent users
 - [Modern Portfolio](https://usamajaved.com.au/projects/modern-portfolio): Next.js 15 portfolio with perfect Lighthouse scores
 
-## Blog & Ideas
+## Blog & Guides
+- [Best Web Developer in Perth (2026 Guide)](https://usamajaved.com.au/blog/best-developer-perth): Compare top Perth developers by expertise, pricing, and real project results
+- [Best AI Developer in Perth & Australia](https://usamajaved.com.au/blog/ai-developer-perth): OpenAI GPT-4, Voice AI, LangChain, N8N automation specialist guide
 - [Innovation Hub](https://usamajaved.com.au/ideas): Technical articles, industry insights, and development tutorials
 - [Blog](https://usamajaved.com.au/blog): In-depth technical writing on React, Node.js, AI, and cloud architecture
 

@@ -60,6 +60,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'monthly',
       priority: 0.6,
     },
+    // Blog articles — high priority for AI search citations
+    {
+      url: `${baseUrl}/blog/best-developer-perth`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/blog/ai-developer-perth`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.9,
+    },
     // Project pages — high priority for AI citations
     {
       url: `${baseUrl}/projects/n8n-automation`,
