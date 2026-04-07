@@ -81,7 +81,7 @@ Built with Next.js 15 (App Router), React 19, TypeScript, Tailwind CSS 4, and de
 - **Website:** [usamajaved.com.au](https://usamajaved.com.au)
 - **Email:** [contact@usamajaved.com](mailto:contact@usamajaved.com)
 - **GitHub:** [@hellofromusama](https://github.com/hellofromusama)
-- **LinkedIn:** [usamajaved](https://linkedin.com/in/usamajaved)
+- **LinkedIn:** [usamajaved](https://www.linkedin.com/in/hellofromusama/)
 - **Twitter/X:** [@hellofromusama](https://x.com/hellofromusama)
 
 **Available for:** Full-time, contract, freelance, consulting

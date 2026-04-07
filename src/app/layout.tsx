@@ -31,9 +31,9 @@ export const metadata: Metadata = {
   metadataBase: new URL('https://usamajaved.com.au'),
   title: {
     default: 'Usama Javed - #1 Full Stack Developer Perth | Expert Web Development Services Australia',
-    template: '%s | Usama Javed - Perth&apos;s Leading Developer'
+    template: '%s | Usama Javed - Perth\'s Leading Developer'
   },
-  description: 'Perth&apos;s #1 Full Stack Developer with 8+ years expertise. Next.js 15, React 19, AI integration specialist. 50+ successful projects. Enterprise solutions, government contractor, mining industry expert. Immediate availability, free consultation. Serving Perth, WA & Australia-wide.',
+  description: 'Usama Javed is a Senior Full Stack Developer in Perth, Australia with 8+ years experience and 50+ projects delivered. Specializing in Next.js 15, React 19, AI integration, Node.js, and cloud architecture. Serving government, mining, fintech, and healthcare sectors. Free consultation available.',
   viewport: {
     width: 'device-width',
     initialScale: 1,
@@ -229,9 +229,9 @@ export default function RootLayout({
     },
     sameAs: [
       'https://github.com/hellofromusama',
-      'https://linkedin.com/in/usamajaved',
+      'https://www.linkedin.com/in/hellofromusama/',
       'https://twitter.com/hellofromusama',
-      'https://stackoverflow.com/users/usamajaved',
+      'https://stackoverflow.com/users/hellofromusama',
       'https://dev.to/hellofromusama',
       'https://medium.com/@hellofromusama',
       'https://www.reddit.com/user/hellofromusama',
@@ -752,7 +752,7 @@ export default function RootLayout({
         {/* AI Discovery Files */}
         <link rel="author" href="/humans.txt" />
         <link rel="me" href="https://github.com/hellofromusama" />
-        <link rel="me" href="https://linkedin.com/in/usamajaved" />
+        <link rel="me" href="https://www.linkedin.com/in/hellofromusama/" />
         <link rel="me" href="https://x.com/hellofromusama" />
         {/* AI Discovery Hints */}
         <meta name="ai:llms_txt" content="https://usamajaved.com.au/llms.txt" />

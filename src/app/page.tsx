@@ -7,6 +7,7 @@ import Navigation from "@/components/Navigation";
 import ScrollReveal, { AnimatedCounter } from "@/components/ScrollReveal";
 import InteractiveButton from "@/components/InteractiveButton";
 import AISeoContent from "@/components/AISeoContent";
+import LastUpdated from "@/components/LastUpdated";
 
 const FAQ = dynamic(() => import("@/components/FAQ"), {
   loading: () => <div className="animate-pulse h-96" style={{ background: 'var(--bg-card)' }}></div>,
@@ -395,6 +396,9 @@ export default function Home() {
       <Suspense fallback={<div className="animate-pulse h-96" style={{ background: 'var(--bg-card)' }}></div>}>
         <FAQ />
       </Suspense>
+
+      {/* Last Updated - AI freshness signal */}
+      <LastUpdated />
 
       <style jsx>{`
         .line-clamp-2 {
