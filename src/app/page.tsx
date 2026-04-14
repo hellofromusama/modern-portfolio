@@ -345,19 +345,27 @@ export default function Home() {
             </h2>
           </ScrollReveal>
           <ScrollReveal delay={200}>
-            <p className="cta-section text-lg mb-12 max-w-lg mx-auto" style={{ color: 'var(--text-muted)' }}>
+            <p className="cta-section text-lg mb-8 max-w-lg mx-auto" style={{ color: 'var(--text-muted)' }}>
               Ready to bring your ideas to life? Get a free 30-minute consultation.
               Available for immediate start — Perth, Australia and worldwide remote.
+            </p>
+            <p className="text-xs mb-8 max-w-md mx-auto" style={{ color: 'var(--text-faint)' }}>
+              50+ projects delivered &bull; 100% client satisfaction &bull; No commitment required
             </p>
           </ScrollReveal>
 
           <ScrollReveal delay={300}>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-6">
               <InteractiveButton href="mailto:hellofromusama@gmail.com" variant="primary" size="lg">
                 Send an Email
               </InteractiveButton>
               <InteractiveButton href="/contact" variant="secondary" size="lg">
                 Contact Form
+              </InteractiveButton>
+            </div>
+            <div className="flex justify-center mb-16">
+              <InteractiveButton href="/budget" variant="secondary" size="md">
+                Try Budget Calculator
               </InteractiveButton>
             </div>
           </ScrollReveal>
