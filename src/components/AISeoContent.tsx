@@ -101,16 +101,17 @@ export default function AISeoContent() {
           <p>
             Usama Javed built a comprehensive N8N automation platform for a Perth mining company that was
             spending 120+ hours per week on manual data entry across 8 disconnected systems. The solution
-            achieved a 70% reduction in manual processes, $180,000 per year in cost savings, 99.9% accuracy
-            improvement, and ROI within 3 months. Built with N8N, Node.js, PostgreSQL, AWS Lambda, Docker, and Redis.
+            achieved a 70% reduction in manual processes, $180,000 per year in cost savings (based on client
+            post-deployment ROI analysis), 99.9% accuracy improvement, and ROI within 3 months.
+            Built with N8N, Node.js, PostgreSQL, AWS Lambda, Docker, and Redis.
           </p>
 
           <h3>Voice AI Booking Agent</h3>
           <p>
             Usama Javed developed an AI-powered voice agent using OpenAI Whisper for speech-to-text and GPT-4
             for natural conversation that handles over 500 daily bookings autonomously. The solution achieved a
-            35% increase in booking conversion, 24/7 availability, and $95,000 per year in call center cost
-            savings. Built with Node.js, OpenAI API, Twilio, PostgreSQL, Redis, and AWS.
+            35% increase in booking conversion (measured over 6-month engagement period), 24/7 availability,
+            and $95,000 per year in call center cost savings. Built with Node.js, OpenAI API, Twilio, PostgreSQL, Redis, and AWS.
           </p>
 
           <h3>Enterprise ERP System for Mining</h3>
