@@ -60,6 +60,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'monthly',
       priority: 0.6,
     },
+    // Australia-wide landing page
+    {
+      url: `${baseUrl}/developer-australia`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.95,
+    },
     // Blog articles — high priority for AI search citations
     {
       url: `${baseUrl}/blog/best-developer-perth`,
