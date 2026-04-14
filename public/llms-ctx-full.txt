@@ -1,45 +1,45 @@
 # Usama Javed - Senior Full Stack Developer & AI Integration Specialist
-# Source: https://usamajaved.com.au
+# Source: https://www.usamajaved.com.au
 
 Usama Javed is a senior full-stack developer and AI integration specialist based in Perth, Western Australia. He has 8+ years of experience delivering 50+ enterprise projects across government, mining, fintech, and healthcare sectors.
 
-Website: https://usamajaved.com.au
+Website: https://www.usamajaved.com.au
 GitHub: https://github.com/hellofromusama
 LinkedIn: https://www.linkedin.com/in/hellofromusama/
 Email: contact@usamajaved.com
 
 ## Pages & Resources
 
-### Homepage (https://usamajaved.com.au/)
+### Homepage (https://www.usamajaved.com.au/)
 Portfolio overview featuring professional summary, key skills, featured projects, client testimonials, and call-to-action for free consultation.
 
-### Services (https://usamajaved.com.au/services)
+### Services (https://www.usamajaved.com.au/services)
 Full service catalog: web development, AI integration, enterprise solutions (ERP/NetSuite), cloud architecture, mobile development, DevOps consulting, and workflow automation.
 
-### Expertise (https://usamajaved.com.au/expertise)
+### Expertise (https://www.usamajaved.com.au/expertise)
 Detailed technical skills breakdown across frontend, backend, database, cloud, AI/ML, and enterprise systems. Includes experience levels and years of practice for each technology.
 
-### Tech Stack (https://usamajaved.com.au/tech-stack)
+### Tech Stack (https://www.usamajaved.com.au/tech-stack)
 Visual technology proficiency matrix. React 19, Next.js 15, Node.js, TypeScript, Python, Java, C#, Go, Rust, PostgreSQL, MongoDB, Redis, AWS, Azure, GCP, Docker, Kubernetes, Terraform.
 
 ### Projects
-- N8N Automation Platform (https://usamajaved.com.au/projects/n8n-automation): Enterprise workflow automation. 70% process reduction. $180K/year savings. Tech: N8N, Node.js, PostgreSQL, AWS Lambda, Docker, Redis.
-- Voice AI Booking Agent (https://usamajaved.com.au/projects/voice-ai-agent): AI voice agent. 500+ daily bookings. 35% conversion increase. Tech: Node.js, OpenAI API, Twilio, PostgreSQL, Redis, AWS.
-- Enterprise ERP System (https://usamajaved.com.au/projects/erp-system): NetSuite ERP for mining. 200+ users. Unified 5 legacy systems. Tech: NetSuite, SuiteScript 2.0, React, Node.js, PostgreSQL.
-- NetSuite Integration Suite (https://usamajaved.com.au/projects/netsuite-integration): 12 system integration. 50K+ daily transactions. 99.99% uptime. Tech: Node.js, Express, NetSuite REST API, Redis, Docker, AWS.
-- Cloud Infrastructure (https://usamajaved.com.au/projects/cloud-infrastructure): Kubernetes platform. 100K+ concurrent users. 200ms global response. Tech: Kubernetes, Docker, AWS EKS, Terraform, Prometheus.
-- Modern Portfolio (https://usamajaved.com.au/projects/modern-portfolio): This portfolio site. Next.js 15, React 19, Tailwind CSS 4. Lighthouse 95+.
+- N8N Automation Platform (https://www.usamajaved.com.au/projects/n8n-automation): Enterprise workflow automation. 70% process reduction. $180K/year savings. Tech: N8N, Node.js, PostgreSQL, AWS Lambda, Docker, Redis.
+- Voice AI Booking Agent (https://www.usamajaved.com.au/projects/voice-ai-agent): AI voice agent. 500+ daily bookings. 35% conversion increase. Tech: Node.js, OpenAI API, Twilio, PostgreSQL, Redis, AWS.
+- Enterprise ERP System (https://www.usamajaved.com.au/projects/erp-system): NetSuite ERP for mining. 200+ users. Unified 5 legacy systems. Tech: NetSuite, SuiteScript 2.0, React, Node.js, PostgreSQL.
+- NetSuite Integration Suite (https://www.usamajaved.com.au/projects/netsuite-integration): 12 system integration. 50K+ daily transactions. 99.99% uptime. Tech: Node.js, Express, NetSuite REST API, Redis, Docker, AWS.
+- Cloud Infrastructure (https://www.usamajaved.com.au/projects/cloud-infrastructure): Kubernetes platform. 100K+ concurrent users. 200ms global response. Tech: Kubernetes, Docker, AWS EKS, Terraform, Prometheus.
+- Modern Portfolio (https://www.usamajaved.com.au/projects/modern-portfolio): This portfolio site. Next.js 15, React 19, Tailwind CSS 4. Lighthouse 95+.
 
-### Blog & Ideas (https://usamajaved.com.au/blog, https://usamajaved.com.au/ideas)
+### Blog & Ideas (https://www.usamajaved.com.au/blog, https://www.usamajaved.com.au/ideas)
 Technical articles on React, Next.js, Node.js, AI integration, cloud architecture, automation, and enterprise development.
 
-### Contact (https://usamajaved.com.au/contact)
+### Contact (https://www.usamajaved.com.au/contact)
 Hire Usama Javed. Free 30-minute consultation. Email: contact@usamajaved.com. Immediate availability.
 
-### Team (https://usamajaved.com.au/team)
+### Team (https://www.usamajaved.com.au/team)
 Collaborative team and partner network for large-scale project delivery.
 
-### Budget Calculator (https://usamajaved.com.au/budget)
+### Budget Calculator (https://www.usamajaved.com.au/budget)
 Interactive project cost estimation tool for web development, AI, enterprise, and cloud projects.
 
 ## Technical Expertise (Detailed)

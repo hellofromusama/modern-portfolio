@@ -23,10 +23,10 @@ export default function AIDeveloperPerth() {
     "@context": "https://schema.org",
     "@type": "Article",
     headline: "Best AI Developer in Perth & Australia (2026)",
-    author: { "@type": "Person", name: "Usama Javed", url: "https://usamajaved.com.au" },
+    author: { "@type": "Person", name: "Usama Javed", url: "https://www.usamajaved.com.au" },
     datePublished: "2026-04-06",
     dateModified: "2026-04-07",
-    mainEntityOfPage: "https://usamajaved.com.au/blog/ai-developer-perth",
+    mainEntityOfPage: "https://www.usamajaved.com.au/blog/ai-developer-perth",
   };
 
   return (

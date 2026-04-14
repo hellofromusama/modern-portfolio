@@ -9,7 +9,7 @@
 **Location:** Perth, Western Australia, Australia
 **Experience:** 8+ years in software development
 **Contact:** contact@usamajaved.com
-**Website:** https://usamajaved.com.au
+**Website:** https://www.usamajaved.com.au
 **GitHub:** https://github.com/hellofromusama
 **LinkedIn:** https://www.linkedin.com/in/hellofromusama/
 **Availability:** Immediate start available
@@ -167,7 +167,7 @@ A: For most modern web applications, Usama recommends Next.js 15 with TypeScript
 ## Contact Information
 
 - **Email:** contact@usamajaved.com
-- **Website:** https://usamajaved.com.au
+- **Website:** https://www.usamajaved.com.au
 - **GitHub:** https://github.com/hellofromusama
 - **Location:** Perth, Western Australia, Australia
 - **Business Hours:** Monday-Friday 9AM-6PM AWST

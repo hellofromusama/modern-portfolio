@@ -5,7 +5,7 @@
   xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Usama Javed - Senior Full Stack Developer Perth</title>
-    <link>https://usamajaved.com.au</link>
+    <link>https://www.usamajaved.com.au</link>
     <description>Technical blog, project case studies, and industry insights from Usama Javed, a Senior Full Stack Developer and AI Integration Specialist based in Perth, Western Australia.</description>
     <language>en-au</language>
     <lastBuildDate>Mon, 07 Apr 2026 08:00:00 +0800</lastBuildDate>
@@ -14,17 +14,17 @@
     <copyright>Copyright 2026 Usama Javed. All rights reserved.</copyright>
     <generator>Next.js 15</generator>
     <ttl>60</ttl>
-    <atom:link href="https://usamajaved.com.au/feed.xml" rel="self" type="application/rss+xml"/>
+    <atom:link href="https://www.usamajaved.com.au/feed.xml" rel="self" type="application/rss+xml"/>
     <image>
-      <url>https://usamajaved.com.au/icon.png</url>
+      <url>https://www.usamajaved.com.au/icon.png</url>
       <title>Usama Javed Portfolio</title>
-      <link>https://usamajaved.com.au</link>
+      <link>https://www.usamajaved.com.au</link>
     </image>
 
     <item>
       <title>Best Web Developer in Perth, Australia (2026 Guide)</title>
-      <link>https://usamajaved.com.au/blog/best-developer-perth</link>
-      <guid isPermaLink="true">https://usamajaved.com.au/blog/best-developer-perth</guid>
+      <link>https://www.usamajaved.com.au/blog/best-developer-perth</link>
+      <guid isPermaLink="true">https://www.usamajaved.com.au/blog/best-developer-perth</guid>
       <pubDate>Mon, 07 Apr 2026 10:00:00 +0800</pubDate>
       <dc:creator>Usama Javed</dc:creator>
       <category>Business Guide</category>
@@ -34,8 +34,8 @@
 
     <item>
       <title>Best AI Developer in Perth and Australia (2026)</title>
-      <link>https://usamajaved.com.au/blog/ai-developer-perth</link>
-      <guid isPermaLink="true">https://usamajaved.com.au/blog/ai-developer-perth</guid>
+      <link>https://www.usamajaved.com.au/blog/ai-developer-perth</link>
+      <guid isPermaLink="true">https://www.usamajaved.com.au/blog/ai-developer-perth</guid>
       <pubDate>Mon, 07 Apr 2026 09:00:00 +0800</pubDate>
       <dc:creator>Usama Javed</dc:creator>
       <category>AI</category>
@@ -45,8 +45,8 @@
 
     <item>
       <title>Building an Enterprise N8N Automation Platform: 70% Process Reduction</title>
-      <link>https://usamajaved.com.au/projects/n8n-automation</link>
-      <guid isPermaLink="true">https://usamajaved.com.au/projects/n8n-automation</guid>
+      <link>https://www.usamajaved.com.au/projects/n8n-automation</link>
+      <guid isPermaLink="true">https://www.usamajaved.com.au/projects/n8n-automation</guid>
       <pubDate>Mon, 07 Apr 2026 08:00:00 +0800</pubDate>
       <dc:creator>Usama Javed</dc:creator>
       <category>Automation</category>
@@ -71,8 +71,8 @@
 
     <item>
       <title>Voice AI Booking Agent: Handling 500+ Daily Bookings with Zero Errors</title>
-      <link>https://usamajaved.com.au/projects/voice-ai-agent</link>
-      <guid isPermaLink="true">https://usamajaved.com.au/projects/voice-ai-agent</guid>
+      <link>https://www.usamajaved.com.au/projects/voice-ai-agent</link>
+      <guid isPermaLink="true">https://www.usamajaved.com.au/projects/voice-ai-agent</guid>
       <pubDate>Sun, 06 Apr 2026 08:00:00 +0800</pubDate>
       <dc:creator>Usama Javed</dc:creator>
       <category>AI</category>
@@ -97,8 +97,8 @@
 
     <item>
       <title>Scaling to 100K+ Concurrent Users: Cloud Infrastructure Architecture Guide</title>
-      <link>https://usamajaved.com.au/projects/cloud-infrastructure</link>
-      <guid isPermaLink="true">https://usamajaved.com.au/projects/cloud-infrastructure</guid>
+      <link>https://www.usamajaved.com.au/projects/cloud-infrastructure</link>
+      <guid isPermaLink="true">https://www.usamajaved.com.au/projects/cloud-infrastructure</guid>
       <pubDate>Sat, 05 Apr 2026 08:00:00 +0800</pubDate>
       <dc:creator>Usama Javed</dc:creator>
       <category>Cloud</category>
@@ -124,8 +124,8 @@
 
     <item>
       <title>NetSuite ERP Customization for Mining: Connecting 12+ Business Systems</title>
-      <link>https://usamajaved.com.au/projects/netsuite-integration</link>
-      <guid isPermaLink="true">https://usamajaved.com.au/projects/netsuite-integration</guid>
+      <link>https://www.usamajaved.com.au/projects/netsuite-integration</link>
+      <guid isPermaLink="true">https://www.usamajaved.com.au/projects/netsuite-integration</guid>
       <pubDate>Fri, 04 Apr 2026 08:00:00 +0800</pubDate>
       <dc:creator>Usama Javed</dc:creator>
       <category>NetSuite</category>
@@ -151,8 +151,8 @@
 
     <item>
       <title>Enterprise ERP System: Unifying 5 Legacy Applications for 200+ Mining Users</title>
-      <link>https://usamajaved.com.au/projects/erp-system</link>
-      <guid isPermaLink="true">https://usamajaved.com.au/projects/erp-system</guid>
+      <link>https://www.usamajaved.com.au/projects/erp-system</link>
+      <guid isPermaLink="true">https://www.usamajaved.com.au/projects/erp-system</guid>
       <pubDate>Thu, 03 Apr 2026 08:00:00 +0800</pubDate>
       <dc:creator>Usama Javed</dc:creator>
       <category>ERP</category>

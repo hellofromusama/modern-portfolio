@@ -431,7 +431,7 @@ export default function ExpertisePage() {
   const expertiseSchema = {
     "@context": "https://schema.org",
     "@type": "Person",
-    "@id": "https://usamajaved.com.au/#expertise",
+    "@id": "https://www.usamajaved.com.au/#expertise",
     "name": "Usama Javed",
     "hasOccupation": {
       "@type": "Occupation",

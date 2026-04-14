@@ -4,7 +4,7 @@
 Contact: mailto:contact@usamajaved.com
 Expires: 2027-04-07T00:00:00.000Z
 Preferred-Languages: en
-Canonical: https://usamajaved.com.au/.well-known/security.txt
-Policy: https://usamajaved.com.au/security-policy
-Acknowledgments: https://usamajaved.com.au/security-thanks
-Hiring: https://usamajaved.com.au/contact
+Canonical: https://www.usamajaved.com.au/.well-known/security.txt
+Policy: https://www.usamajaved.com.au/security-policy
+Acknowledgments: https://www.usamajaved.com.au/security-thanks
+Hiring: https://www.usamajaved.com.au/contact

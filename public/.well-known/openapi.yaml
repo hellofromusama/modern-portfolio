@@ -10,13 +10,13 @@ info:
   contact:
     name: Usama Javed
     email: contact@usamajaved.com
-    url: https://usamajaved.com.au
+    url: https://www.usamajaved.com.au
   license:
     name: All Rights Reserved
-    url: https://usamajaved.com.au/privacy
+    url: https://www.usamajaved.com.au/privacy
 
 servers:
-  - url: https://usamajaved.com.au
+  - url: https://www.usamajaved.com.au
     description: Production
 
 paths:

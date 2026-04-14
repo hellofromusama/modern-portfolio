@@ -77,7 +77,7 @@ Your message doesn't seem to be about a development project. Let me help you get
 Contact Usama directly for a free consultation:
 • **Email:** hellofromusama@gmail.com
 • **WhatsApp:** +61 433 695 387
-• **Website:** https://usamajaved.com.au
+• **Website:** https://www.usamajaved.com.au
 
 *Remember: This is a fun AI tool for quick estimates. For accurate quotes, please contact Usama directly!* 🚀`;
   }
@@ -124,7 +124,7 @@ async function tryOpenAI(userMessage: string, conversationHistory: any[]): Promi
 ### 📞 **Next Steps:**
 • **Email:** hellofromusama@gmail.com
 • **WhatsApp:** +61 433 695 387
-• **Website:** https://usamajaved.com.au
+• **Website:** https://www.usamajaved.com.au
 
 💡 **Free consultation available!**
 
@@ -219,7 +219,7 @@ async function tryGrok(userMessage: string, conversationHistory: any[]): Promise
 ### 📞 **Next Steps:**
 • **Email:** hellofromusama@gmail.com
 • **WhatsApp:** +61 433 695 387
-• **Website:** https://usamajaved.com.au
+• **Website:** https://www.usamajaved.com.au
 
 💡 **Free consultation available!**
 
@@ -406,7 +406,7 @@ ${features.map(feature => `• ${feature}`).join('\n')}
 ### 📞 **Next Steps:**
 • **Email:** hellofromusama@gmail.com
 • **WhatsApp:** +61 433 695 387
-• **Website:** https://usamajaved.com.au
+• **Website:** https://www.usamajaved.com.au
 
 💡 **Free consultation available!**
 
@@ -484,7 +484,7 @@ Based on your requirements, this project would involve:
 For a detailed, personalized quote:
 • **Email:** hellofromusama@gmail.com
 • **WhatsApp:** +61 433 695 387
-• **Website:** https://usamajaved.com.au
+• **Website:** https://www.usamajaved.com.au
 
 💡 **Free consultation available** to discuss your specific requirements and provide a more accurate estimate!
 

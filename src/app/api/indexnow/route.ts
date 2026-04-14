@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server'
 
 const INDEXNOW_KEY = process.env.INDEXNOW_KEY || 'usamajaved-indexnow-key-2026'
-const SITE_URL = 'https://usamajaved.com.au'
+const SITE_URL = 'https://www.usamajaved.com.au'
 
 // All pages to submit to IndexNow (Bing + Copilot)
 const ALL_URLS = [

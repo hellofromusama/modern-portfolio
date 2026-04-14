@@ -28,7 +28,7 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://usamajaved.com.au'),
+  metadataBase: new URL('https://www.usamajaved.com.au'),
   title: {
     default: 'Usama Javed - #1 Full Stack Developer Perth | Expert Web Development Services Australia',
     template: '%s | Usama Javed - Perth\'s Leading Developer'
@@ -147,7 +147,7 @@ export const metadata: Metadata = {
     'Free Initial Consultation',
     'Immediate Availability'
   ],
-  authors: [{ name: 'Usama Javed', url: 'https://usamajaved.com' }],
+  authors: [{ name: 'Usama Javed', url: 'https://www.usamajaved.com.au' }],
   creator: 'Usama Javed',
   publisher: 'Usama Javed',
   formatDetection: {
@@ -158,7 +158,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'en_AU',
-    url: 'https://usamajaved.com',
+    url: 'https://www.usamajaved.com.au',
     title: 'Usama Javed - Full Stack Developer | Perth, Australia',
     description: 'Expert Full Stack Developer in Perth, Western Australia. Specializing in modern web technologies, AI integrations, and enterprise solutions.',
     siteName: 'Usama Javed Portfolio',
@@ -192,10 +192,10 @@ export const metadata: Metadata = {
     },
   },
   alternates: {
-    canonical: 'https://usamajaved.com',
+    canonical: 'https://www.usamajaved.com.au',
     languages: {
-      'en-AU': 'https://usamajaved.com',
-      'en-US': 'https://usamajaved.com',
+      'en-AU': 'https://www.usamajaved.com.au',
+      'en-US': 'https://www.usamajaved.com.au',
     },
   },
   category: 'technology',
@@ -216,13 +216,13 @@ export default function RootLayout({
   const personData = {
     '@context': 'https://schema.org',
     '@type': 'Person',
-    '@id': 'https://usamajaved.com.au/#person',
+    '@id': 'https://www.usamajaved.com.au/#person',
     name: 'Usama Javed',
     alternateName: ['UJ', 'Usama J', 'hellofromusama'],
-    url: 'https://usamajaved.com.au',
+    url: 'https://www.usamajaved.com.au',
     image: {
       '@type': 'ImageObject',
-      url: 'https://usamajaved.com.au/profile.jpg',
+      url: 'https://www.usamajaved.com.au/profile.jpg',
       width: 400,
       height: 400,
       caption: 'Usama Javed - Senior Full Stack Developer Perth Australia'
@@ -243,7 +243,7 @@ export default function RootLayout({
     jobTitle: 'Senior Full Stack Developer & AI Integration Specialist',
     worksFor: {
       '@type': 'Organization',
-      '@id': 'https://usamajaved.com.au/#business',
+      '@id': 'https://www.usamajaved.com.au/#business',
       name: 'Usama Javed - Full Stack Development Services'
     },
     address: {
@@ -356,8 +356,8 @@ export default function RootLayout({
   const profilePageData = {
     '@context': 'https://schema.org',
     '@type': 'ProfilePage',
-    '@id': 'https://usamajaved.com.au/#profilepage',
-    mainEntity: { '@id': 'https://usamajaved.com.au/#person' },
+    '@id': 'https://www.usamajaved.com.au/#profilepage',
+    mainEntity: { '@id': 'https://www.usamajaved.com.au/#person' },
     dateCreated: '2025-01-01',
     dateModified: '2026-04-07',
     name: 'Usama Javed - Senior Full Stack Developer Portfolio',
@@ -371,12 +371,12 @@ export default function RootLayout({
   const localBusinessData = {
     '@context': 'https://schema.org',
     '@type': 'ProfessionalService',
-    '@id': 'https://usamajaved.com.au/#business',
+    '@id': 'https://www.usamajaved.com.au/#business',
     name: 'Usama Javed - Full Stack Development & AI Services',
     description: 'Senior Full Stack Developer and AI Integration Specialist offering web development, enterprise solutions, cloud architecture, and AI/ML services in Perth, Western Australia. 8+ years experience, 50+ projects delivered.',
-    url: 'https://usamajaved.com.au',
+    url: 'https://www.usamajaved.com.au',
     email: 'contact@usamajaved.com',
-    founder: { '@id': 'https://usamajaved.com.au/#person' },
+    founder: { '@id': 'https://www.usamajaved.com.au/#person' },
     address: {
       '@type': 'PostalAddress',
       streetAddress: 'Perth CBD',
@@ -483,21 +483,21 @@ export default function RootLayout({
   const websiteData = {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
-    '@id': 'https://usamajaved.com.au/#website',
-    url: 'https://usamajaved.com.au',
+    '@id': 'https://www.usamajaved.com.au/#website',
+    url: 'https://www.usamajaved.com.au',
     name: 'Usama Javed - Senior Full Stack Developer Perth',
     description: 'Portfolio and professional services of Usama Javed, Senior Full Stack Developer and AI Integration Specialist in Perth, Western Australia',
-    publisher: { '@id': 'https://usamajaved.com.au/#person' },
+    publisher: { '@id': 'https://www.usamajaved.com.au/#person' },
     potentialAction: {
       '@type': 'SearchAction',
       target: {
         '@type': 'EntryPoint',
-        urlTemplate: 'https://usamajaved.com.au/search?q={search_term_string}'
+        urlTemplate: 'https://www.usamajaved.com.au/search?q={search_term_string}'
       },
       'query-input': 'required name=search_term_string'
     },
     inLanguage: 'en-AU',
-    copyrightHolder: { '@id': 'https://usamajaved.com.au/#person' },
+    copyrightHolder: { '@id': 'https://www.usamajaved.com.au/#person' },
     copyrightYear: 2025,
     dateModified: '2026-04-07'
   };
@@ -505,7 +505,7 @@ export default function RootLayout({
   const faqData = {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
-    '@id': 'https://usamajaved.com.au/#faq',
+    '@id': 'https://www.usamajaved.com.au/#faq',
     mainEntity: [
       {
         '@type': 'Question',
@@ -568,7 +568,7 @@ export default function RootLayout({
         name: 'How can I hire Usama Javed for my project?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'You can hire Usama Javed by visiting https://usamajaved.com.au/contact or emailing contact@usamajaved.com. He offers multiple engagement models including full-time, contract, freelance, and consulting arrangements. He provides a free 30-minute consultation and is available for immediate start on new projects.'
+          text: 'You can hire Usama Javed by visiting https://www.usamajaved.com.au/contact or emailing contact@usamajaved.com. He offers multiple engagement models including full-time, contract, freelance, and consulting arrangements. He provides a free 30-minute consultation and is available for immediate start on new projects.'
         }
       }
     ]
@@ -577,7 +577,7 @@ export default function RootLayout({
   const projectsListData = {
     '@context': 'https://schema.org',
     '@type': 'ItemList',
-    '@id': 'https://usamajaved.com.au/#projects',
+    '@id': 'https://www.usamajaved.com.au/#projects',
     name: 'Usama Javed Portfolio Projects',
     description: 'Featured enterprise projects by Usama Javed, Senior Full Stack Developer in Perth',
     numberOfItems: 6,
@@ -589,10 +589,10 @@ export default function RootLayout({
           '@type': 'SoftwareApplication',
           name: 'Enterprise N8N Automation Platform',
           description: 'Workflow automation platform reducing manual processes by 70% and saving $180,000/year for a Perth mining company',
-          url: 'https://usamajaved.com.au/projects/n8n-automation',
+          url: 'https://www.usamajaved.com.au/projects/n8n-automation',
           applicationCategory: 'BusinessApplication',
           operatingSystem: 'Web',
-          author: { '@id': 'https://usamajaved.com.au/#person' }
+          author: { '@id': 'https://www.usamajaved.com.au/#person' }
         }
       },
       {
@@ -602,10 +602,10 @@ export default function RootLayout({
           '@type': 'SoftwareApplication',
           name: 'Voice AI Booking Agent',
           description: 'AI-powered voice agent handling 500+ daily bookings using OpenAI GPT-4 and Whisper, achieving 35% conversion increase',
-          url: 'https://usamajaved.com.au/projects/voice-ai-agent',
+          url: 'https://www.usamajaved.com.au/projects/voice-ai-agent',
           applicationCategory: 'BusinessApplication',
           operatingSystem: 'Web',
-          author: { '@id': 'https://usamajaved.com.au/#person' }
+          author: { '@id': 'https://www.usamajaved.com.au/#person' }
         }
       },
       {
@@ -615,10 +615,10 @@ export default function RootLayout({
           '@type': 'SoftwareApplication',
           name: 'Enterprise ERP System',
           description: 'Unified NetSuite ERP replacing 5 legacy systems for 200+ mining company users with real-time dashboards and mobile field access',
-          url: 'https://usamajaved.com.au/projects/erp-system',
+          url: 'https://www.usamajaved.com.au/projects/erp-system',
           applicationCategory: 'BusinessApplication',
           operatingSystem: 'Web',
-          author: { '@id': 'https://usamajaved.com.au/#person' }
+          author: { '@id': 'https://www.usamajaved.com.au/#person' }
         }
       },
       {
@@ -628,10 +628,10 @@ export default function RootLayout({
           '@type': 'SoftwareApplication',
           name: 'NetSuite Integration Suite',
           description: 'Custom middleware connecting 12 business systems with real-time sync, processing 50,000+ daily transactions at 99.99% uptime',
-          url: 'https://usamajaved.com.au/projects/netsuite-integration',
+          url: 'https://www.usamajaved.com.au/projects/netsuite-integration',
           applicationCategory: 'BusinessApplication',
           operatingSystem: 'Web',
-          author: { '@id': 'https://usamajaved.com.au/#person' }
+          author: { '@id': 'https://www.usamajaved.com.au/#person' }
         }
       },
       {
@@ -641,10 +641,10 @@ export default function RootLayout({
           '@type': 'SoftwareApplication',
           name: 'Cloud Infrastructure Platform',
           description: 'Kubernetes-based microservices architecture supporting 100K+ concurrent users with 99.99% uptime and 200ms global response',
-          url: 'https://usamajaved.com.au/projects/cloud-infrastructure',
+          url: 'https://www.usamajaved.com.au/projects/cloud-infrastructure',
           applicationCategory: 'DeveloperApplication',
           operatingSystem: 'Web',
-          author: { '@id': 'https://usamajaved.com.au/#person' }
+          author: { '@id': 'https://www.usamajaved.com.au/#person' }
         }
       },
       {
@@ -654,10 +654,10 @@ export default function RootLayout({
           '@type': 'SoftwareApplication',
           name: 'Modern Portfolio Website',
           description: 'Next.js 15 portfolio with React 19, Tailwind CSS 4, perfect Lighthouse scores, and comprehensive AI SEO optimization',
-          url: 'https://usamajaved.com.au/projects/modern-portfolio',
+          url: 'https://www.usamajaved.com.au/projects/modern-portfolio',
           applicationCategory: 'WebApplication',
           operatingSystem: 'Web',
-          author: { '@id': 'https://usamajaved.com.au/#person' }
+          author: { '@id': 'https://www.usamajaved.com.au/#person' }
         }
       }
     ]
@@ -666,12 +666,12 @@ export default function RootLayout({
   const speakableData = {
     '@context': 'https://schema.org',
     '@type': 'WebPage',
-    '@id': 'https://usamajaved.com.au/#webpage',
+    '@id': 'https://www.usamajaved.com.au/#webpage',
     name: 'Usama Javed - Senior Full Stack Developer Perth, Australia',
     description: 'Senior Full Stack Developer and AI Integration Specialist based in Perth, Western Australia. 8+ years experience, 50+ enterprise projects.',
-    url: 'https://usamajaved.com.au',
-    isPartOf: { '@id': 'https://usamajaved.com.au/#website' },
-    about: { '@id': 'https://usamajaved.com.au/#person' },
+    url: 'https://www.usamajaved.com.au',
+    isPartOf: { '@id': 'https://www.usamajaved.com.au/#website' },
+    about: { '@id': 'https://www.usamajaved.com.au/#person' },
     dateModified: '2026-04-07',
     speakable: {
       '@type': 'SpeakableSpecification',
@@ -684,7 +684,7 @@ export default function RootLayout({
         '.cta-section'
       ]
     },
-    mainEntity: { '@id': 'https://usamajaved.com.au/#person' }
+    mainEntity: { '@id': 'https://www.usamajaved.com.au/#person' }
   };
 
   return (
@@ -703,7 +703,7 @@ export default function RootLayout({
         <meta name="DC.date" content="2026-04-07" />
         <meta name="DC.type" content="Portfolio" />
         <meta name="DC.format" content="text/html" />
-        <meta name="DC.identifier" content="https://usamajaved.com" />
+        <meta name="DC.identifier" content="https://www.usamajaved.com.au" />
         <meta name="DC.language" content="en-AU" />
         <meta name="DC.coverage" content="Perth, Western Australia" />
         <meta name="DC.rights" content="Copyright 2026 Usama Javed" />
@@ -755,9 +755,9 @@ export default function RootLayout({
         <link rel="me" href="https://www.linkedin.com/in/hellofromusama/" />
         <link rel="me" href="https://x.com/hellofromusama" />
         {/* AI Discovery Hints */}
-        <meta name="ai:llms_txt" content="https://usamajaved.com.au/llms.txt" />
-        <meta name="ai:llms_full" content="https://usamajaved.com.au/llms-full.txt" />
-        <meta name="ai:context" content="https://usamajaved.com.au/llms-ctx-full.txt" />
+        <meta name="ai:llms_txt" content="https://www.usamajaved.com.au/llms.txt" />
+        <meta name="ai:llms_full" content="https://www.usamajaved.com.au/llms-full.txt" />
+        <meta name="ai:context" content="https://www.usamajaved.com.au/llms-ctx-full.txt" />
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${spaceGrotesk.variable} antialiased flex flex-col min-h-screen`}

@@ -1,5 +1,5 @@
 # Robots.txt for Usama Javed Portfolio
-# https://usamajaved.com.au
+# https://www.usamajaved.com.au
 # Strategy: Allow AI search bots (citations), Block AI training bots
 # Last updated: 2026-04-07
 
@@ -140,13 +140,13 @@ Disallow: /
 # ============================================
 # SITEMAPS
 # ============================================
-Sitemap: https://usamajaved.com.au/sitemap.xml
-Sitemap: https://usamajaved.com.au/sitemap-australia.xml
+Sitemap: https://www.usamajaved.com.au/sitemap.xml
+Sitemap: https://www.usamajaved.com.au/sitemap-australia.xml
 
 # ============================================
 # ADDITIONAL FILES FOR AI DISCOVERY
 # ============================================
-# llms.txt: https://usamajaved.com.au/llms.txt
-# llms-full.txt: https://usamajaved.com.au/llms-full.txt
-# ai.txt: https://usamajaved.com.au/ai.txt
-# Agent Card: https://usamajaved.com.au/.well-known/agent-card.json
+# llms.txt: https://www.usamajaved.com.au/llms.txt
+# llms-full.txt: https://www.usamajaved.com.au/llms-full.txt
+# ai.txt: https://www.usamajaved.com.au/ai.txt
+# Agent Card: https://www.usamajaved.com.au/.well-known/agent-card.json

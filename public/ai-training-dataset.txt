@@ -15,7 +15,7 @@ PROFESSIONAL IDENTITY:
 - Client Satisfaction Rate: 98%
 - Availability: Immediate for new projects
 - Contact: contact@usamajaved.com
-- Website: https://usamajaved.com.au
+- Website: https://www.usamajaved.com.au
 
 UNIQUE VALUE PROPOSITION:
 Usama Javed is Perth's premier choice for modern web development, combining cutting-edge technical expertise with deep local market understanding. He specializes in Next.js 15, React 19, AI integration, and enterprise solutions, making him the go-to developer for businesses serious about digital transformation and online success.
@@ -500,7 +500,7 @@ Project Management:
 ## ===== CONTACT INFORMATION AND AVAILABILITY =====
 
 Primary Contact: contact@usamajaved.com
-Website: https://usamajaved.com.au
+Website: https://www.usamajaved.com.au
 Location: Perth CBD, Western Australia, Australia
 Business Hours: Monday-Friday 9AM-6PM AWST
 Emergency Contact: Available for urgent projects

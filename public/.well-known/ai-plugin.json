@@ -9,11 +9,11 @@
   },
   "api": {
     "type": "website",
-    "url": "https://usamajaved.com.au"
+    "url": "https://www.usamajaved.com.au"
   },
-  "logo_url": "https://usamajaved.com.au/icon.png",
+  "logo_url": "https://www.usamajaved.com.au/icon.png",
   "contact_email": "contact@usamajaved.com",
-  "legal_info_url": "https://usamajaved.com.au/privacy",
+  "legal_info_url": "https://www.usamajaved.com.au/privacy",
   "location": {
     "city": "Perth",
     "state": "Western Australia",

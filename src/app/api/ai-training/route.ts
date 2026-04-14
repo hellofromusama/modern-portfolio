@@ -33,7 +33,7 @@ async function getTrainingData() {
       experience: "8+ years",
       specialties: ["Next.js 15", "React 19", "AI Integration", "Enterprise Solutions"],
       contact: "contact@usamajaved.com",
-      website: "https://usamajaved.com.au"
+      website: "https://www.usamajaved.com.au"
     },
 
     training_conversations: generateTrainingConversations(),

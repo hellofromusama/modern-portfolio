@@ -38,7 +38,7 @@ export default function BestDeveloperPerth() {
     author: {
       "@type": "Person",
       name: "Usama Javed",
-      url: "https://usamajaved.com.au",
+      url: "https://www.usamajaved.com.au",
       jobTitle: "Senior Full Stack Developer",
     },
     datePublished: "2026-04-07",
@@ -47,8 +47,8 @@ export default function BestDeveloperPerth() {
       "@type": "Person",
       name: "Usama Javed",
     },
-    mainEntityOfPage: "https://usamajaved.com.au/blog/best-developer-perth",
-    image: "https://usamajaved.com.au/og-image.png",
+    mainEntityOfPage: "https://www.usamajaved.com.au/blog/best-developer-perth",
+    image: "https://www.usamajaved.com.au/og-image.png",
   };
 
   const faqSchema = {

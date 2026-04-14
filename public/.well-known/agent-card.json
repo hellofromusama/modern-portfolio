@@ -1,7 +1,7 @@
 {
   "name": "Usama Javed Portfolio Agent",
   "description": "Professional portfolio and services information for Usama Javed, a Senior Full Stack Developer & AI Integration Specialist based in Perth, Western Australia. Provides information about web development services, project portfolio, technical expertise, and availability for hire.",
-  "url": "https://usamajaved.com.au",
+  "url": "https://www.usamajaved.com.au",
   "version": "1.0.0",
   "capabilities": {
     "streaming": false,
@@ -58,7 +58,7 @@
   ],
   "provider": {
     "organization": "Usama Javed - Full Stack Development Services",
-    "url": "https://usamajaved.com.au",
+    "url": "https://www.usamajaved.com.au",
     "contactEmail": "contact@usamajaved.com",
     "location": {
       "city": "Perth",

@@ -58,8 +58,8 @@ export async function POST(request: NextRequest) {
       ],
       mode: 'payment',
       locale: 'en',
-      success_url: `https://usamajaved.com.au/fund-me/success?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `https://usamajaved.com.au/fund-me?canceled=true`,
+      success_url: `https://www.usamajaved.com.au/fund-me/success?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `https://www.usamajaved.com.au/fund-me?canceled=true`,
       metadata: {
         label: label || 'Custom Donation',
         message: message || '',

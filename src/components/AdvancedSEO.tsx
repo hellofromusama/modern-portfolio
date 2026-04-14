@@ -29,7 +29,7 @@ export default function AdvancedSEO({
   localBusiness = false,
   breadcrumbs = []
 }: AdvancedSEOProps) {
-  const siteUrl = 'https://usamajaved.com.au';
+  const siteUrl = 'https://www.usamajaved.com.au';
   const fullTitle = `${title} | Usama Javed - Perth's Leading Full Stack Developer`;
   const fullCanonicalUrl = canonicalUrl || siteUrl;
 

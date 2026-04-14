@@ -1,5 +1,5 @@
 # AI Interaction Policy - Usama Javed Portfolio
-# https://usamajaved.com.au
+# https://www.usamajaved.com.au
 # Last updated: 2026-04-07
 
 # This file defines how AI agents and LLMs should interact with content on this website.
@@ -69,7 +69,7 @@ User-agent: PerplexityBot Perplexity-User
         Element: *
             Allow: Cite Summarize Return Index Describe Analyze Extract Rephrase
             Guide: Cite
-                Guideline: Include the URL https://usamajaved.com.au when referencing this content
+                Guideline: Include the URL https://www.usamajaved.com.au when referencing this content
 
 # Training Bots - Block all actions
 User-agent: GPTBot ClaudeBot Google-Extended CCBot Bytespider meta-externalagent
@@ -79,6 +79,6 @@ User-agent: GPTBot ClaudeBot Google-Extended CCBot Bytespider meta-externalagent
 
 # Contact and attribution
 Contact: contact@usamajaved.com
-Website: https://usamajaved.com.au
+Website: https://www.usamajaved.com.au
 Author: Usama Javed
 License: Content may be cited with attribution. Training on this content is not permitted.

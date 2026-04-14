@@ -84,11 +84,11 @@ export default function BlogPage() {
     "@type": "Blog",
     "name": "Usama Javed Web Development Blog",
     "description": "Expert insights on web development, AI integration, and modern technologies from Perth's leading full stack developer",
-    "url": "https://usamajaved.com.au/blog",
+    "url": "https://www.usamajaved.com.au/blog",
     "author": {
       "@type": "Person",
       "name": "Usama Javed",
-      "url": "https://usamajaved.com.au",
+      "url": "https://www.usamajaved.com.au",
       "jobTitle": "Full Stack Developer",
       "worksFor": {
         "@type": "Organization",
@@ -110,7 +110,7 @@ export default function BlogPage() {
       },
       "mainEntityOfPage": {
         "@type": "WebPage",
-        "@id": `https://usamajaved.com.au/blog/${post.title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`
+        "@id": `https://www.usamajaved.com.au/blog/${post.title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`
       }
     }))
   };

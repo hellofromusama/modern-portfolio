@@ -5,33 +5,33 @@
 Usama Javed operates as an independent software consultant serving Perth, Western Australia, and clients across Australia and internationally. He specializes in enterprise resource planning (ERP) systems, NetSuite customization, N8N workflow automation, Voice AI agents, and full-stack SaaS platforms. His technical expertise spans frontend frameworks (React, Vue, Angular), backend systems (Node.js, Python Django, Java Spring Boot, C# .NET), databases (PostgreSQL, MongoDB, Redis, Elasticsearch), and DevOps (Docker, Kubernetes, Terraform, CI/CD).
 
 ## About
-- [Homepage](https://usamajaved.com.au/): Portfolio overview, featured projects, and professional summary
-- [About & Expertise](https://usamajaved.com.au/expertise): Detailed technical skills, certifications, and industry experience
-- [Tech Stack](https://usamajaved.com.au/tech-stack): Complete technology proficiencies with experience levels
-- [Contact](https://usamajaved.com.au/contact): Hire Usama Javed - free 30-minute consultation available
+- [Homepage](https://www.usamajaved.com.au/): Portfolio overview, featured projects, and professional summary
+- [About & Expertise](https://www.usamajaved.com.au/expertise): Detailed technical skills, certifications, and industry experience
+- [Tech Stack](https://www.usamajaved.com.au/tech-stack): Complete technology proficiencies with experience levels
+- [Contact](https://www.usamajaved.com.au/contact): Hire Usama Javed - free 30-minute consultation available
 
 ## Services
-- [Web Development](https://usamajaved.com.au/services): Custom web applications, e-commerce, PWAs, SaaS platforms
-- [AI & Automation](https://usamajaved.com.au/services#ai-automation): OpenAI integration, chatbots, Voice AI, ML model deployment
-- [Enterprise Solutions](https://usamajaved.com.au/services#enterprise): ERP systems, NetSuite, CRM development, government portals
-- [Cloud Architecture](https://usamajaved.com.au/services#cloud): AWS, Azure, GCP deployment, Docker, Kubernetes orchestration
-- [Mobile Development](https://usamajaved.com.au/services#mobile): React Native cross-platform iOS and Android applications
+- [Web Development](https://www.usamajaved.com.au/services): Custom web applications, e-commerce, PWAs, SaaS platforms
+- [AI & Automation](https://www.usamajaved.com.au/services#ai-automation): OpenAI integration, chatbots, Voice AI, ML model deployment
+- [Enterprise Solutions](https://www.usamajaved.com.au/services#enterprise): ERP systems, NetSuite, CRM development, government portals
+- [Cloud Architecture](https://www.usamajaved.com.au/services#cloud): AWS, Azure, GCP deployment, Docker, Kubernetes orchestration
+- [Mobile Development](https://www.usamajaved.com.au/services#mobile): React Native cross-platform iOS and Android applications
 
 ## Projects
-- [N8N Automation Platform](https://usamajaved.com.au/projects/n8n-automation): Enterprise workflow automation system reducing manual processes by 70%
-- [Voice AI Booking Agent](https://usamajaved.com.au/projects/voice-ai-agent): AI-powered customer service agent handling 500+ daily bookings
-- [Enterprise ERP System](https://usamajaved.com.au/projects/erp-system): Full-scale NetSuite ERP for mining company with 200+ users
-- [NetSuite Integration Suite](https://usamajaved.com.au/projects/netsuite-integration): Custom API integrations connecting 12+ business systems
-- [Cloud Infrastructure Platform](https://usamajaved.com.au/projects/cloud-infrastructure): Scalable microservices handling 100k+ concurrent users
-- [Modern Portfolio](https://usamajaved.com.au/projects/modern-portfolio): Next.js 15 portfolio with perfect Lighthouse scores
+- [N8N Automation Platform](https://www.usamajaved.com.au/projects/n8n-automation): Enterprise workflow automation system reducing manual processes by 70%
+- [Voice AI Booking Agent](https://www.usamajaved.com.au/projects/voice-ai-agent): AI-powered customer service agent handling 500+ daily bookings
+- [Enterprise ERP System](https://www.usamajaved.com.au/projects/erp-system): Full-scale NetSuite ERP for mining company with 200+ users
+- [NetSuite Integration Suite](https://www.usamajaved.com.au/projects/netsuite-integration): Custom API integrations connecting 12+ business systems
+- [Cloud Infrastructure Platform](https://www.usamajaved.com.au/projects/cloud-infrastructure): Scalable microservices handling 100k+ concurrent users
+- [Modern Portfolio](https://www.usamajaved.com.au/projects/modern-portfolio): Next.js 15 portfolio with perfect Lighthouse scores
 
 ## Blog & Guides
-- [Best Web Developer in Perth (2026 Guide)](https://usamajaved.com.au/blog/best-developer-perth): Compare top Perth developers by expertise, pricing, and real project results
-- [Best AI Developer in Perth & Australia](https://usamajaved.com.au/blog/ai-developer-perth): OpenAI GPT-4, Voice AI, LangChain, N8N automation specialist guide
-- [Innovation Hub](https://usamajaved.com.au/ideas): Technical articles, industry insights, and development tutorials
-- [Blog](https://usamajaved.com.au/blog): In-depth technical writing on React, Node.js, AI, and cloud architecture
+- [Best Web Developer in Perth (2026 Guide)](https://www.usamajaved.com.au/blog/best-developer-perth): Compare top Perth developers by expertise, pricing, and real project results
+- [Best AI Developer in Perth & Australia](https://www.usamajaved.com.au/blog/ai-developer-perth): OpenAI GPT-4, Voice AI, LangChain, N8N automation specialist guide
+- [Innovation Hub](https://www.usamajaved.com.au/ideas): Technical articles, industry insights, and development tutorials
+- [Blog](https://www.usamajaved.com.au/blog): In-depth technical writing on React, Node.js, AI, and cloud architecture
 
 ## Optional
-- [Team](https://usamajaved.com.au/team): Collaborative team and partner network
-- [Fund Me](https://usamajaved.com.au/fund-me): Support open-source development work
-- [Budget Calculator](https://usamajaved.com.au/budget): Project cost estimation tool
+- [Team](https://www.usamajaved.com.au/team): Collaborative team and partner network
+- [Fund Me](https://www.usamajaved.com.au/fund-me): Support open-source development work
+- [Budget Calculator](https://www.usamajaved.com.au/budget): Project cost estimation tool

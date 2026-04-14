@@ -4,7 +4,7 @@ Developer & Designer: Usama Javed
 Role: Senior Full Stack Developer & AI Integration Specialist
 Location: Perth, Western Australia, Australia
 Contact: contact@usamajaved.com
-Website: https://usamajaved.com.au
+Website: https://www.usamajaved.com.au
 GitHub: https://github.com/hellofromusama
 LinkedIn: https://www.linkedin.com/in/hellofromusama/
 Twitter: @hellofromusama

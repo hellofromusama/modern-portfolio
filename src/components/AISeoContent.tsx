@@ -21,7 +21,7 @@ export default function AISeoContent() {
         <meta itemProp="datePublished" content="2025-01-01" />
         <div itemProp="author" itemScope itemType="https://schema.org/Person">
           <meta itemProp="name" content="Usama Javed" />
-          <meta itemProp="url" content="https://usamajaved.com.au" />
+          <meta itemProp="url" content="https://www.usamajaved.com.au" />
         </div>
 
         <h1>Usama Javed - Senior Full Stack Developer in Perth, Australia</h1>
