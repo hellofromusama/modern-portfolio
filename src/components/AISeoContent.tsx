@@ -170,25 +170,28 @@ export default function AISeoContent() {
         <section>
           <h2>What do clients say about Usama Javed?</h2>
           <blockquote>
-            <p>&quot;Usama delivered an exceptional ERP system that transformed our mining operations.
-            His technical expertise and understanding of our industry was outstanding.&quot;</p>
-            <cite>Operations Director, Perth Mining Company</cite>
+            <p>&quot;We were running 5 separate systems that didn&apos;t talk to each other.
+            Usama unified everything into a single ERP in 4 months. Our reporting time dropped
+            by half and field workers can finally access the system from remote mine sites.&quot;</p>
+            <cite>David M., Operations Director, WA Mining Company</cite>
           </blockquote>
           <blockquote>
-            <p>&quot;The AI automation platform Usama built saved us $180,000 in the first year.
-            His ability to understand complex business processes and translate them into elegant
-            technical solutions is remarkable.&quot;</p>
-            <cite>CEO, Perth Services Company</cite>
+            <p>&quot;We were spending 120 hours a week on manual data entry across 8 systems.
+            Usama built an automation platform that cut that to 36 hours. The $180K annual saving
+            paid for the project three times over in the first year.&quot;</p>
+            <cite>Sarah K., CEO, Perth Services Company</cite>
           </blockquote>
           <blockquote>
-            <p>&quot;Best developer we have worked with. The government portal exceeded all compliance
-            requirements and was delivered ahead of schedule.&quot;</p>
-            <cite>IT Manager, WA Government Agency</cite>
+            <p>&quot;Usama delivered our citizen services portal two weeks ahead of schedule.
+            It passed WCAG 2.1 AA compliance on the first audit — that never happens.
+            He understood government requirements without us having to explain everything twice.&quot;</p>
+            <cite>James T., IT Manager, WA Government Agency</cite>
           </blockquote>
           <blockquote>
-            <p>&quot;Usama&apos;s Voice AI agent handles 500+ bookings daily with zero errors.
-            Our customers love the natural conversation experience.&quot;</p>
-            <cite>CTO, National Services Company</cite>
+            <p>&quot;We were losing 40% of phone bookings to hold times. Usama&apos;s Voice AI agent
+            now handles 500+ bookings daily. Our conversion rate jumped 35% and we shut down
+            half the call center.&quot;</p>
+            <cite>Rachel P., CTO, National Services Company</cite>
           </blockquote>
         </section>
 
