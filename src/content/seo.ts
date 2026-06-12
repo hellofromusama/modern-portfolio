@@ -8,9 +8,10 @@ import { itemListProjects } from "./projects";
 // seoName / seoDescription / applicationCategory come from the project record.
 //
 // IMPORTANT: the emitted object must equal the current literal exactly — the
-// content-diff gate compares the serialized ItemList. numberOfItems stays the
-// literal 6 (NOT itemListProjects.length, to keep it a stable literal even if
-// later waves append projects to the array via projections elsewhere).
+// content-diff gate compares the serialized ItemList. numberOfItems is a manual
+// literal that MUST equal itemListProjects.length. Phase 02 (AICON-04/SEO-02)
+// appended the MCP flagship to the curated ItemList (6 -> 7), so this literal
+// was bumped 6 -> 7 in lockstep. Keep them equal whenever the array changes.
 export function buildItemListSchema() {
   const projectsListData = {
     '@context': 'https://schema.org',
@@ -18,7 +19,7 @@ export function buildItemListSchema() {
     '@id': 'https://www.usamajaved.com.au/#projects',
     name: 'Usama Javed Portfolio Projects',
     description: 'Featured enterprise projects by Usama Javed, Senior Full Stack Developer in Perth',
-    numberOfItems: 6,
+    numberOfItems: 7,
     itemListElement: itemListProjects.map((p, index) => ({
       '@type': 'ListItem',
       position: index + 1,

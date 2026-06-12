@@ -562,6 +562,12 @@ export const homeGridProjects: Project[] = [
   "erp-system",
   "netsuite-integration",
   "cloud-infrastructure",
+  // Phase 02 (AICON-04): 5 new AI projects appended -> 11 cards.
+  "mcp-netsuite-ollama-bridge",
+  "linkedin-job-auto-apply-agent",
+  "self-learning-social-media-generator",
+  "n8n-marketing-research-workflows",
+  "healthcare-voice-agent",
 ].map((id) => getProject(id)!);
 
 // JSON-LD ItemList (src/app/layout.tsx) — 6 projects, kashmir-fund ABSENT, in
@@ -573,6 +579,9 @@ export const itemListProjects: Project[] = [
   "netsuite-integration",
   "cloud-infrastructure",
   "modern-portfolio",
+  // Phase 02 (AICON-04): only the MCP production flagship joins the curated
+  // high-signal ItemList -> 7 items. The other 4 stay out by design.
+  "mcp-netsuite-ollama-bridge",
 ].map((id) => getProject(id)!);
 
 // Sitemap (src/app/sitemap.ts) — 7 /projects/<slug> URLs with priorities, in
@@ -586,4 +595,10 @@ export const sitemapProjects: { id: string; priority: number }[] = [
   { id: "cloud-infrastructure", priority: 0.8 },
   { id: "modern-portfolio", priority: 0.7 },
   { id: "kashmir-fund", priority: 0.7 },
+  // Phase 02 (AICON-04): 5 new AI projects appended -> 12 /projects/ URLs.
+  { id: "mcp-netsuite-ollama-bridge", priority: 0.8 },
+  { id: "linkedin-job-auto-apply-agent", priority: 0.7 },
+  { id: "self-learning-social-media-generator", priority: 0.7 },
+  { id: "n8n-marketing-research-workflows", priority: 0.8 },
+  { id: "healthcare-voice-agent", priority: 0.7 },
 ];
