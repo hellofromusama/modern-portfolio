@@ -9,8 +9,8 @@
 ### Foundation (FOUND)
 
 - [x] **FOUND-01**: All projects, skills, and expertise content live in a single typed content module (`src/content/`) consumed by the home grid, `projects/[id]`, layout JSON-LD, and `sitemap.ts` — every existing entry preserved verbatim (diff-verified against the four current sources)
-- [ ] **FOUND-02**: A shared motion-gating utility (hook/wrapper) provides `prefers-reduced-motion` handling and IntersectionObserver-based off-screen pausing, used by every animated component
-- [ ] **FOUND-03**: Design tokens (type scale, spacing scale, color custom properties for both themes) are tightened and documented in globals.css; both theme palettes pass WCAG AA contrast
+- [x] **FOUND-02**: A shared motion-gating utility (hook/wrapper) provides `prefers-reduced-motion` handling and IntersectionObserver-based off-screen pausing, used by every animated component
+- [x] **FOUND-03**: Design tokens (type scale, spacing scale, color custom properties for both themes) are tightened and documented in globals.css; both theme palettes pass WCAG AA contrast
 - [ ] **FOUND-04**: three + @react-three/fiber@^9.6 + @react-three/drei@^10.7 + motion@^12.40 installed (React 19.2-verified); 3D scenes load via dynamic import `ssr:false` from inside client wrappers with static fallbacks
 - [ ] **FOUND-05**: Error boundaries wrap every WebGL/canvas island so a 3D failure can never white-screen a page
 
@@ -86,8 +86,8 @@
 | AICON-05 | Phase 2 | Complete |
 | AICON-06 | Phase 2 | Complete |
 | SEO-02 | Phase 2 | Complete |
-| FOUND-02 | Phase 3 | Pending |
-| FOUND-03 | Phase 3 | Pending |
+| FOUND-02 | Phase 3 | Complete |
+| FOUND-03 | Phase 3 | Complete |
 | FOUND-05 | Phase 3 | Pending |
 | PERF-03 | Phase 3 | Pending |
 | PERF-04 | Phase 3 | Pending |
