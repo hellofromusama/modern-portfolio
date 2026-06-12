@@ -4,14 +4,14 @@ milestone: v1.0
 milestone_name: milestone
 current_plan: 05-04
 status: paused
-stopped_at: Completed 05-04-PLAN.md
-last_updated: "2026-06-12T07:01:47.497Z"
+stopped_at: Completed 05-07-PLAN.md (parallel group A; 05-08 group B + 05-09 wave-final pending)
+last_updated: "2026-06-12T07:12:51.676Z"
 last_activity: 2026-06-12
 progress:
   total_phases: 6
   completed_phases: 4
   total_plans: 27
-  completed_plans: 24
+  completed_plans: 25
   percent: 80
 ---
 
@@ -111,6 +111,7 @@ Recent decisions affecting current work:
 - [Phase 04]: [Phase 04 P01]: Phase-3 sequencing HARD GUARD passed (useAnimationGate/useThemeColors/IslandBoundary all present — none re-authored, no merge conflict). Installed the React-19 3D stack peer-clean: three@^0.184.0 + @react-three/fiber@^9.6.1 + @react-three/drei@^10.7.7 in deps, @types/three@^0.184.1 in devDeps; `npm ls react` deduped to 19.2.4 everywhere, fiber@9's react<19.3 ceiling resolved with NO --force/--legacy-peer-deps; motion@^12.40.0 (Phase-3 deliverable) detected and NOT reinstalled. Authored two zero-dep Node ESM gates: scripts/check-stack.mjs (FOUND-04 install proof — dep presence + major floors fiber>=9/drei>=10/motion>=12, exit 0 "stack OK") and scripts/bundle-gate.mjs (PERF-01 — parses real .next/app-build-manifest.json, 36 routes; dual matcher = named fast-path + HASH-PROOF canvas-exclusive cross-route diff chosen as load-bearing because the real manifest had ZERO three/fiber/drei-named chunks; CANVAS_ROUTES={/page} homepage default w/ Phase-5 UPDATE comment; exit 0 "bundle budget OK", three absent everywhere this phase as expected). @next/bundle-analyzer NOT adopted — next.config.ts left byte-identical (git diff empty). Committed individually (51f6653 chore install / 69e3f80 feat scripts). Manual surgical STATE/ROADMAP edits (advance-plan can't parse this format; total_plans kept 25 — corrected the working-copy's erroneous 27 back to 25; no record-metric). FOUND-04 + PERF-01 scaffolding complete.
 - [Phase 05]: FundMeWidget accent mapped to var(--accent-violet)->var(--accent-blue) gradient (preserves warm identity, theme-correct both modes)
 - [Phase 05]: Reduced-motion gating pattern: useReducedMotion() strips animation classes + local @media(prefers-reduced-motion) freeze as defence-in-depth
+- [Phase 05]: [Phase 05 P07]: VIS-07 token+type conformance pass over the FIRST 6 of 12 routes (home, projects/[id], expertise, services, tech-stack, developer-australia) — file-disjoint parallel to 05-08. Replaced slate/glass/raw-Tailwind literals with the Phase-3 tightened tokens (bg-card/border-subtle/shadow-card cards, two-tone --text-primary/secondary Space-Grotesk headings) and unified hover-elevation to the standard hover:-translate-y-1 lift. THEME FIX: expertise+services were bg-white/text-slate-900 LIGHT-only; tech-stack+projects-detail were slate-900/50 DARK-only — all four now render correctly in BOTH themes. home+developer-australia were already tokenized (only hover/shadow unification applied, no literal swaps). expertise confirmed NO % skill bars (anti-feature). Accent-gradient banner CTAs + content-driven literals (project.gradient, tech.color, bg-clip-text) preserved as brand decoration/content; legacy ad-hoc accents remapped to the closed violet/emerald/amber brand set. SEO GUARD HELD: git-diff grep gate returned NONE_CHANGED for all metadata/JSON-LD/generateStaticParams/copy/data on every touched server page. tsc shows NO NEW errors (expertise pre-existing 18 baseline errors unchanged, stash-verified). Committed individually --no-verify per-file (027978c Task1 / 084a63f Task2). Skipped shared counters + npm run build per parallel mandate (05-09 reconciles/validates).
 
 ### Pending Todos
 
@@ -128,6 +129,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-06-12T07:00:44.351Z
-Stopped at: Completed 05-04-PLAN.md
+Last session: 2026-06-12T07:12:51.669Z
+Stopped at: Completed 05-07-PLAN.md (parallel group A; 05-08 group B + 05-09 wave-final pending)
 Resume file: None
