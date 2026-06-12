@@ -68,7 +68,13 @@ Plans:
   3. With OS reduced-motion enabled, every page presents an equivalent, fully readable static experience
   4. `error.tsx` + `global-error.tsx` exist and a deliberately-thrown render error in an island shows a graceful fallback instead of a white screen; a skip-to-content link and visible focus states make every interactive element keyboard-reachable with no keyboard traps
   5. Phase passes `npx tsc --noEmit` + `npm run lint` + `npm run build` + manual smoke in BOTH themes before being marked complete
-**Plans**: TBD
+**Plans**: 5 plans
+Plans:
+- [ ] 03-00-PLAN.md — Wave 0: install motion@^12.40, contrast-check script, faint/ghost/muted usage audit
+- [ ] 03-01-PLAN.md — Wave 2: AA-correct tokens + type/spacing scales + skip-link/focus-visible (globals.css, layout.tsx)
+- [ ] 03-02-PLAN.md — Wave 2: useAnimationGate + useThemeColors hooks + motion presets (primitives only)
+- [ ] 03-03-PLAN.md — Wave 3: error.tsx/global-error.tsx/IslandBoundary + gate & wrap the 3 canvas islands
+- [ ] 03-04-PLAN.md — Wave 4: SHIP-01 gate (tsc+lint+build+contrast) + boundary/reduced-motion/keyboard verify
 **UI hint**: yes
 **Research flag**: `/gsd:research-phase` recommended — off-screen-pause / frameloop + `visibilitychange` patterns are MEDIUM-confidence; confirm in the profiler.
 
@@ -121,7 +127,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
 |-------|----------------|--------|-----------|
 | 1. Content Centralization | 0/TBD | Complete    | 2026-06-12 |
 | 2. Append AI Content | 0/4 | Not started | - |
-| 3. Shared Foundation | 0/TBD | Not started | - |
+| 3. Shared Foundation | 0/5 | Not started | - |
 | 4. R3F Infrastructure Island | 0/TBD | Not started | - |
 | 5. Per-Component Visual Upgrades | 0/TBD | Not started | - |
 | 6. Enhancements, Hardening & Ship | 0/TBD | Not started | - |
