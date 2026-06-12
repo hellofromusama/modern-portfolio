@@ -8,7 +8,7 @@
 
 ### Foundation (FOUND)
 
-- [ ] **FOUND-01**: All projects, skills, and expertise content live in a single typed content module (`src/content/`) consumed by the home grid, `projects/[id]`, layout JSON-LD, and `sitemap.ts` — every existing entry preserved verbatim (diff-verified against the four current sources)
+- [x] **FOUND-01**: All projects, skills, and expertise content live in a single typed content module (`src/content/`) consumed by the home grid, `projects/[id]`, layout JSON-LD, and `sitemap.ts` — every existing entry preserved verbatim (diff-verified against the four current sources)
 - [ ] **FOUND-02**: A shared motion-gating utility (hook/wrapper) provides `prefers-reduced-motion` handling and IntersectionObserver-based off-screen pausing, used by every animated component
 - [ ] **FOUND-03**: Design tokens (type scale, spacing scale, color custom properties for both themes) are tightened and documented in globals.css; both theme palettes pass WCAG AA contrast
 - [ ] **FOUND-04**: three + @react-three/fiber@^9.6 + @react-three/drei@^10.7 + motion@^12.40 installed (React 19.2-verified); 3D scenes load via dynamic import `ssr:false` from inside client wrappers with static fallbacks
@@ -49,7 +49,7 @@
 
 ### SEO Preservation (SEO)
 
-- [ ] **SEO-01**: All existing routes, slugs, JSON-LD entities, sitemap entries, robots rules, and AI-SEO/IndexNow routes remain functional and unchanged in URL space
+- [x] **SEO-01**: All existing routes, slugs, JSON-LD entities, sitemap entries, robots rules, and AI-SEO/IndexNow routes remain functional and unchanged in URL space
 - [ ] **SEO-02**: New AI content (experience section, 5 project detail pages) gets metadata, JSON-LD, and sitemap entries from the centralized source
 
 ### Ship (SHIP)
@@ -76,9 +76,9 @@
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| FOUND-01 | Phase 1 | Pending |
+| FOUND-01 | Phase 1 | Complete |
 | FIX-03 | Phase 1 | Pending |
-| SEO-01 | Phase 1 | Pending |
+| SEO-01 | Phase 1 | Complete |
 | AICON-01 | Phase 2 | Pending |
 | AICON-02 | Phase 2 | Pending |
 | AICON-03 | Phase 2 | Pending |

@@ -1,3 +1,19 @@
+---
+gsd_state_version: 1.0
+milestone: v1.0
+milestone_name: milestone
+status: executing
+stopped_at: Completed 01-01-PLAN.md
+last_updated: "2026-06-12T01:12:31.208Z"
+last_activity: 2026-06-12
+progress:
+  total_phases: 6
+  completed_phases: 0
+  total_plans: 5
+  completed_plans: 1
+  percent: 0
+---
+
 # Project State
 
 ## Project Reference
@@ -9,16 +25,17 @@ See: .planning/PROJECT.md (updated 2026-06-12)
 
 ## Current Position
 
-Phase: 1 of 6 (Content Centralization)
-Plan: 0 of TBD in current phase
-Status: Ready to plan
-Last activity: 2026-06-12 — Roadmap created (6 phases, 27/27 requirements mapped)
+Phase: 1 (Content Centralization) — EXECUTING
+Plan: 2 of 5
+Status: Ready to execute
+Last activity: 2026-06-12
 
 Progress: [░░░░░░░░░░] 0%
 
 ## Performance Metrics
 
 **Velocity:**
+
 - Total plans completed: 0
 - Average duration: — min
 - Total execution time: 0.0 hours
@@ -30,10 +47,12 @@ Progress: [░░░░░░░░░░] 0%
 | - | - | - | - |
 
 **Recent Trend:**
+
 - Last 5 plans: none yet
 - Trend: —
 
 *Updated after each plan completion*
+| Phase 01 P01 | 7 | 2 tasks | 3 files |
 
 ## Accumulated Context
 
@@ -47,6 +66,8 @@ Recent decisions affecting current work:
 - [Roadmap]: SHIP-02 owner-approved production deploy belongs to the final phase (Phase 6) only
 - [PROJECT]: Enhance existing site, never rebuild (prior from-scratch rebuild was rolled back same day)
 - [PROJECT]: Allow three / @react-three/fiber v9 + motion v12 (React-19-compatible lines only)
+- [Phase 01]: Content baseline + zero-deletion gate established (baseline.json + content-diff.mjs); later plans run 'node scripts/content-diff.mjs' to prove no content lost
+- [Phase 01]: Corrected sitemap project count from plan's 8 to verified live 7 (plan miscount); baseline snapshots true 6/7/6/7/4 divergence
 
 ### Pending Todos
 
@@ -64,6 +85,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-06-12
-Stopped at: Roadmap + STATE created, REQUIREMENTS traceability filled
+Last session: 2026-06-12T01:12:22.818Z
+Stopped at: Completed 01-01-PLAN.md
 Resume file: None
