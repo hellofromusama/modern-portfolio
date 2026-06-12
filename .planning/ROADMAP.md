@@ -54,7 +54,7 @@ Plans:
 Plans:
 - [ ] 02-01-PLAN.md — Wave 1: append 5 AI projects to projects.ts (map + projections) + bump numberOfItems
 - [x] 02-02-PLAN.md — Wave 1: append AI skill groups to skills.ts + AI terms to layout knowsAbout
-- [ ] 02-03-PLAN.md — Wave 1: /ai-engineering server route + AiBridgeDiagram SVG + Navigation nav item
+- [x] 02-03-PLAN.md — Wave 1: /ai-engineering server route + AiBridgeDiagram SVG + Navigation nav item
 - [ ] 02-04-PLAN.md — Wave 2: SHIP-01 gate + AICON-06 grep gate + count assertions + both-theme smoke
 **UI hint**: yes
 
