@@ -16,7 +16,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 2: Append AI Content** - 5 AI projects, AI skill domains, and the ESIA/MCP production narrative appended additively (completed 2026-06-12)
 - [x] **Phase 3: Shared Foundation** - Design tokens + motion/theme/in-view primitives + error boundaries + a11y floor
 - [x] **Phase 4: R3F Infrastructure Island** - Installed React-19-compatible 3D stack + SSR-safe Canvas island with bundle budget, mounted/proven on an isolated noindex /scene-harness route; SHIP-01 gate green (completed 2026-06-12)
-- [ ] **Phase 5: Per-Component Visual Upgrades** - Signature WebGL hero + every component/page elevated to the new design language
+- [x] **Phase 5: Per-Component Visual Upgrades** - Signature WebGL hero + every component/page elevated to the new design language (completed 2026-06-12)
 - [ ] **Phase 6: Enhancements, Hardening & Ship** - Page transitions, security/bug fixes in passing, strict-build re-enabled, owner-approved deploy
 
 ## Phase Details
@@ -114,9 +114,9 @@ Plans:
 - [x] 05-04-PLAN.md — Wave 4: Navigation (AnimatePresence menu + a11y) + ThemeToggle (motion, logic preserved)
 - [x] 05-05-PLAN.md — Wave 4: FAQ + TeamSection + Footer (motion smoothing + token conformance, JSON-LD preserved)
 - [x] 05-06-PLAN.md — Wave 4: AnimatedIcons + FundMeWidget token de-hack (identity preserved, motion gated)
-- [ ] 05-07-PLAN.md — Wave 5: token/type pass — home, projects/[id], expertise, services, tech-stack, developer-australia
-- [ ] 05-08-PLAN.md — Wave 5: token/type pass — blog, budget, team, ideas, contact, fund-me (+ canvas in-context verify)
-- [ ] 05-09-PLAN.md — Wave 6: SHIP-01 gate (tsc+lint+build+bundle) + LCP/CLS + both-theme/reduced-motion/WebGL/pause smoke
+- [x] 05-07-PLAN.md — Wave 5: token/type pass — home, projects/[id], expertise, services, tech-stack, developer-australia (VIS-07 group A; both-theme correctness fixed) (completed 2026-06-12)
+- [x] 05-08-PLAN.md — Wave 5: token/type pass — blog, budget, team, ideas, contact, fund-me (+ canvas in-context verify) (VIS-07 group B; team/ideas/fund-me already conformed) (completed 2026-06-12)
+- [x] 05-09-PLAN.md — Wave 6: SHIP-01 gate (tsc 29-baseline unchanged + lint 93-baseline + build 50/50 + bundle-gate/content-diff/contrast all exit 0 + clean glass-literal sweep) + LCP/CLS (CLS=0, observed LCP 1360ms; simulated 15.6s=animation artifact) + 17-route both-theme smoke + reduced-motion/WebGL/pause mechanisms verified; auto-fixed 2 Rule-1 regressions (/blog server-component prerender crash + ThemeToggle glass literal); shared state reconciled, Phase 5 marked complete (PERF-02 + SHIP-01) (completed 2026-06-12)
 **UI hint**: yes
 **Research flag**: `/gsd:research-phase` recommended — the specific WebGL hero design + shader/particle budget to hit mobile LCP ≤ 2.5s is design-and-perf-sensitive and under-specified by research.
 
@@ -144,5 +144,5 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
 | 2. Append AI Content | 4/4 | Complete    | 2026-06-12 |
 | 3. Shared Foundation | 5/5 | Complete    | 2026-06-12 |
 | 4. R3F Infrastructure Island | 3/3 | Complete    | 2026-06-12 |
-| 5. Per-Component Visual Upgrades | 0/10 | Not started | - |
+| 5. Per-Component Visual Upgrades | 10/10 | Complete    | 2026-06-12 |
 | 6. Enhancements, Hardening & Ship | 0/TBD | Not started | - |
