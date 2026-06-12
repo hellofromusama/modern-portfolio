@@ -17,7 +17,32 @@ export const metadata: Metadata = {
   ],
 };
 
-const technicalExpertise = {
+interface Technology {
+  name: string;
+  level: string;
+  experience: string;
+  specializations: string[];
+  projects?: string;
+  achievements?: string[];
+  certifications?: string;
+}
+
+interface Sector {
+  name: string;
+  level: string;
+  experience: string;
+  applications: string[];
+  achievements?: string[];
+}
+
+interface ExpertiseCategory {
+  category: string;
+  description: string;
+  technologies?: Technology[];
+  sectors?: Sector[];
+}
+
+const technicalExpertise: Record<string, ExpertiseCategory> = {
   "frontend_mastery": {
     "category": "Frontend Development Excellence",
     "description": "Cutting-edge frontend technologies with performance and accessibility focus",
@@ -498,7 +523,7 @@ export default function ExpertisePage() {
       {/* Expertise Sections */}
       <section className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {Object.entries(technicalExpertise).map(([key, category], categoryIndex) => (
+          {Object.entries(technicalExpertise).map(([key, category]) => (
             <div key={key} className="mb-20">
               <h2 className="text-3xl font-bold mb-4 font-[family-name:var(--font-space-grotesk)]">{category.category}</h2>
               <p className="text-lg mb-8" style={{ color: 'var(--text-secondary)' }}>{category.description}</p>
