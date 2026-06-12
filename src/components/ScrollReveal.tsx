@@ -1,6 +1,15 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import {
+  motion,
+  useReducedMotion,
+  useScroll,
+  useTransform,
+  useSpring,
+  type Variants,
+} from "motion/react";
+import { EASE_SIGNATURE, transitions } from "@/lib/motion";
 
 interface ScrollRevealProps {
   children: React.ReactNode;
@@ -13,6 +22,26 @@ interface ScrollRevealProps {
   threshold?: number;
 }
 
+// Map a direction + distance to its hidden-state offset.
+function directionOffset(
+  direction: "up" | "down" | "left" | "right" | "none",
+  distance: number
+): { x?: number; y?: number } {
+  switch (direction) {
+    case "up":
+      return { y: distance };
+    case "down":
+      return { y: -distance };
+    case "left":
+      return { x: distance };
+    case "right":
+      return { x: -distance };
+    case "none":
+    default:
+      return {};
+  }
+}
+
 export default function ScrollReveal({
   children,
   className = "",
@@ -23,57 +52,30 @@ export default function ScrollReveal({
   once = true,
   threshold = 0.1,
 }: ScrollRevealProps) {
-  const ref = useRef<HTMLDivElement>(null);
-  const [isVisible, setIsVisible] = useState(false);
+  const reduce = useReducedMotion();
 
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
+  // Reduced motion: render the static end-state immediately (parity with the
+  // previous early-return that set isVisible to true with no transition).
+  if (reduce) {
+    return <div className={className}>{children}</div>;
+  }
 
-    // Check prefers-reduced-motion
-    const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (prefersReduced) {
-      setIsVisible(true);
-      return;
-    }
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-          if (once) observer.unobserve(el);
-        } else if (!once) {
-          setIsVisible(false);
-        }
-      },
-      { threshold, rootMargin: "0px 0px -50px 0px" }
-    );
-
-    observer.observe(el);
-    return () => observer.unobserve(el);
-  }, [once, threshold]);
-
-  const transforms: Record<string, string> = {
-    up: `translateY(${distance}px)`,
-    down: `translateY(-${distance}px)`,
-    left: `translateX(${distance}px)`,
-    right: `translateX(-${distance}px)`,
-    none: "none",
-  };
+  const offset = directionOffset(direction, distance);
 
   return (
-    <div
-      ref={ref}
+    <motion.div
       className={className}
-      style={{
-        opacity: isVisible ? 1 : 0,
-        transform: isVisible ? "none" : transforms[direction],
-        transition: `opacity ${duration}ms cubic-bezier(0.16, 1, 0.3, 1) ${delay}ms, transform ${duration}ms cubic-bezier(0.16, 1, 0.3, 1) ${delay}ms`,
-        willChange: "opacity, transform",
+      initial={{ opacity: 0, ...offset }}
+      whileInView={{ opacity: 1, x: 0, y: 0 }}
+      viewport={{ once, amount: threshold }}
+      transition={{
+        duration: duration / 1000,
+        delay: delay / 1000,
+        ease: EASE_SIGNATURE,
       }}
     >
       {children}
-    </div>
+    </motion.div>
   );
 }
 
@@ -91,6 +93,9 @@ export function StaggerReveal({
   direction?: "up" | "down" | "left" | "right" | "none";
   baseDelay?: number;
 }) {
+  // Preserve the incremental-delay mapping (and `once` semantics via the inner
+  // ScrollReveal default) so the prop shape and behavior stay identical while
+  // each child now reveals on motion v12.
   return (
     <div className={className}>
       {children.map((child, i) => (
@@ -114,41 +119,42 @@ export function AnimatedCounter({
   duration?: number;
   className?: string;
 }) {
-  const ref = useRef<HTMLSpanElement>(null);
+  const reduce = useReducedMotion();
   const [count, setCount] = useState(0);
   const [hasAnimated, setHasAnimated] = useState(false);
 
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
+  // rAF count-up with ease-out cubic, gated by viewport entry via motion's
+  // onViewportEnter. Reduced motion shows the final number immediately.
+  const runCountUp = () => {
+    if (hasAnimated) return;
+    setHasAnimated(true);
 
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting && !hasAnimated) {
-          setHasAnimated(true);
-          const startTime = performance.now();
-          const animate = (currentTime: number) => {
-            const elapsed = currentTime - startTime;
-            const progress = Math.min(elapsed / duration, 1);
-            // Ease out cubic
-            const eased = 1 - Math.pow(1 - progress, 3);
-            setCount(Math.floor(eased * target));
-            if (progress < 1) requestAnimationFrame(animate);
-          };
-          requestAnimationFrame(animate);
-        }
-      },
-      { threshold: 0.5 }
-    );
+    if (reduce) {
+      setCount(target);
+      return;
+    }
 
-    observer.observe(el);
-    return () => observer.unobserve(el);
-  }, [target, duration, hasAnimated]);
+    const startTime = performance.now();
+    const animate = (currentTime: number) => {
+      const elapsed = currentTime - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      // Ease out cubic
+      const eased = 1 - Math.pow(1 - progress, 3);
+      setCount(Math.floor(eased * target));
+      if (progress < 1) requestAnimationFrame(animate);
+    };
+    requestAnimationFrame(animate);
+  };
 
   return (
-    <span ref={ref} className={className}>
+    <motion.span
+      className={className}
+      // amount 0.5 mirrors the previous IntersectionObserver threshold.
+      viewport={{ once: true, amount: 0.5 }}
+      onViewportEnter={runCountUp}
+    >
       {count}{suffix}
-    </span>
+    </motion.span>
   );
 }
 
@@ -162,43 +168,47 @@ export function MagneticHover({
   className?: string;
   strength?: number;
 }) {
+  const reduce = useReducedMotion();
   const ref = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
+  // Spring toward the cursor offset; springs back to 0 on leave. Restraint:
+  // a soft, damped spring rather than a 1:1 follow.
+  const springConfig = { stiffness: 150, damping: 15, mass: 0.1 };
+  const x = useSpring(0, springConfig);
+  const y = useSpring(0, springConfig);
+
+  // Desktop-only: skip the effect on touch devices or when reduced motion is on.
+  const enabled =
+    !reduce &&
+    typeof window !== "undefined" &&
+    window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+
+  const handleMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!enabled) return;
     const el = ref.current;
     if (!el) return;
+    const rect = el.getBoundingClientRect();
+    const dx = e.clientX - rect.left - rect.width / 2;
+    const dy = e.clientY - rect.top - rect.height / 2;
+    x.set(dx * strength);
+    y.set(dy * strength);
+  };
 
-    const handleMove = (e: MouseEvent) => {
-      const rect = el.getBoundingClientRect();
-      const x = e.clientX - rect.left - rect.width / 2;
-      const y = e.clientY - rect.top - rect.height / 2;
-      el.style.transform = `translate(${x * strength}px, ${y * strength}px)`;
-    };
-
-    const handleLeave = () => {
-      el.style.transform = "translate(0, 0)";
-      el.style.transition = "transform 0.4s cubic-bezier(0.16, 1, 0.3, 1)";
-    };
-
-    const handleEnter = () => {
-      el.style.transition = "transform 0.1s linear";
-    };
-
-    el.addEventListener("mousemove", handleMove);
-    el.addEventListener("mouseleave", handleLeave);
-    el.addEventListener("mouseenter", handleEnter);
-
-    return () => {
-      el.removeEventListener("mousemove", handleMove);
-      el.removeEventListener("mouseleave", handleLeave);
-      el.removeEventListener("mouseenter", handleEnter);
-    };
-  }, [strength]);
+  const handleLeave = () => {
+    x.set(0);
+    y.set(0);
+  };
 
   return (
-    <div ref={ref} className={className} style={{ display: "inline-block" }}>
+    <motion.div
+      ref={ref}
+      className={className}
+      style={{ display: "inline-block", x: enabled ? x : 0, y: enabled ? y : 0 }}
+      onMouseMove={handleMove}
+      onMouseLeave={handleLeave}
+    >
       {children}
-    </div>
+    </motion.div>
   );
 }
 
@@ -214,44 +224,58 @@ export function TextReveal({
   delay?: number;
   charDelay?: number;
 }) {
-  const ref = useRef<HTMLSpanElement>(null);
-  const [isVisible, setIsVisible] = useState(false);
+  const reduce = useReducedMotion();
 
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-          observer.unobserve(el);
-        }
-      },
-      { threshold: 0.5 }
+  // Reduced motion: plain text, no per-character animation.
+  if (reduce) {
+    return (
+      <span className={className} aria-label={text}>
+        {text}
+      </span>
     );
+  }
 
-    observer.observe(el);
-    return () => observer.unobserve(el);
-  }, []);
+  const container: Variants = {
+    hidden: {},
+    visible: {
+      transition: {
+        delayChildren: delay / 1000,
+        staggerChildren: charDelay / 1000,
+      },
+    },
+  };
+
+  const char: Variants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.4, ease: EASE_SIGNATURE },
+    },
+  };
 
   return (
-    <span ref={ref} className={className} aria-label={text}>
-      {text.split("").map((char, i) => (
-        <span
+    <motion.span
+      className={className}
+      aria-label={text}
+      variants={container}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.5 }}
+    >
+      {text.split("").map((c, i) => (
+        <motion.span
           key={i}
+          variants={char}
           style={{
             display: "inline-block",
-            opacity: isVisible ? 1 : 0,
-            transform: isVisible ? "translateY(0)" : "translateY(20px)",
-            transition: `opacity 0.4s ease ${delay + i * charDelay}ms, transform 0.4s ease ${delay + i * charDelay}ms`,
-            whiteSpace: char === " " ? "pre" : undefined,
+            whiteSpace: c === " " ? "pre" : undefined,
           }}
         >
-          {char}
-        </span>
+          {c}
+        </motion.span>
       ))}
-    </span>
+    </motion.span>
   );
 }
 
@@ -265,28 +289,29 @@ export function ParallaxSection({
   className?: string;
   speed?: number;
 }) {
+  const reduce = useReducedMotion();
   const ref = useRef<HTMLDivElement>(null);
+  const [enabled, setEnabled] = useState(false);
 
+  // Only engage the scroll-linked transform after mount and when motion is
+  // allowed — keeps it gentle and respects reduced-motion (no transform).
   useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
+    setEnabled(!reduce);
+  }, [reduce]);
 
-    const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (prefersReduced) return;
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"],
+  });
 
-    const handleScroll = () => {
-      const rect = el.getBoundingClientRect();
-      const scrolled = rect.top - window.innerHeight;
-      el.style.transform = `translateY(${scrolled * speed}px)`;
-    };
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [speed]);
+  // Subtle translateY across the element's scroll range. `speed` scales the
+  // travel; kept intentionally small (anti-feature: no deep stacked parallax).
+  const range = 100 * speed;
+  const y = useTransform(scrollYProgress, [0, 1], [range, -range]);
 
   return (
-    <div ref={ref} className={className}>
+    <motion.div ref={ref} className={className} style={{ y: enabled ? y : 0 }}>
       {children}
-    </div>
+    </motion.div>
   );
 }
