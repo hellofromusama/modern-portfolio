@@ -1,12 +1,8 @@
 "use client";
 
 import { useRef, useState, useCallback } from "react";
-
-interface RipplePoint {
-  x: number;
-  y: number;
-  id: number;
-}
+import { motion, useReducedMotion } from "motion/react";
+import { transitions } from "@/lib/motion";
 
 interface InteractiveButtonProps {
   children: React.ReactNode;
@@ -28,10 +24,9 @@ export default function InteractiveButton({
   external = false,
 }: InteractiveButtonProps) {
   const ref = useRef<HTMLAnchorElement & HTMLButtonElement>(null);
-  const [ripples, setRipples] = useState<RipplePoint[]>([]);
   const [isHovered, setIsHovered] = useState(false);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
-  const rippleId = useRef(0);
+  const reduce = useReducedMotion();
 
   const handleMouseMove = useCallback((e: React.MouseEvent) => {
     const el = ref.current;
@@ -40,39 +35,27 @@ export default function InteractiveButton({
     setMousePos({ x: e.clientX - rect.left, y: e.clientY - rect.top });
   }, []);
 
-  const handleClick = useCallback(
-    (e: React.MouseEvent) => {
-      const el = ref.current;
-      if (!el) return;
-      const rect = el.getBoundingClientRect();
-      const id = ++rippleId.current;
-      setRipples((prev) => [...prev, { x: e.clientX - rect.left, y: e.clientY - rect.top, id }]);
-      setTimeout(() => setRipples((prev) => prev.filter((r) => r.id !== id)), 600);
-      onClick?.();
-    },
-    [onClick]
-  );
+  const handleClick = useCallback(() => {
+    onClick?.();
+  }, [onClick]);
 
-  const variantStyles: Record<string, { bg: string; color: string; border: string; ripple: string; glow: string }> = {
+  const variantStyles: Record<string, { bg: string; color: string; border: string; glow: string }> = {
     primary: {
       bg: "var(--btn-primary-bg)",
       color: "var(--btn-primary-text)",
       border: "none",
-      ripple: "rgba(0,0,0,0.15)",
       glow: "var(--btn-primary-shadow)",
     },
     secondary: {
       bg: "transparent",
       color: "var(--btn-secondary-text)",
       border: "1px solid var(--btn-secondary-border)",
-      ripple: "var(--border-subtle)",
       glow: "var(--border-subtle)",
     },
     ghost: {
       bg: "transparent",
       color: "var(--text-muted)",
       border: "none",
-      ripple: "var(--border-subtle)",
       glow: "var(--border-subtle)",
     },
   };
@@ -89,14 +72,26 @@ export default function InteractiveButton({
     background: s.bg,
     color: s.color,
     border: s.border,
-    transform: isHovered ? "translateY(-1px)" : "translateY(0)",
+    // Glow lift via box-shadow on hover; transform handled by motion whileHover.
     boxShadow: isHovered ? `0 4px 12px ${s.glow}` : "none",
   };
 
+  // Restraint: subtle 1px lift on hover, tiny scale-down on tap. Dropped when
+  // reduced motion is requested (color/focus states still apply).
+  const whileHover = reduce ? undefined : { y: -1 };
+  const whileTap = reduce ? undefined : { scale: 0.98 };
+
   const props = {
     ref,
-    className: `relative overflow-hidden rounded-xl font-medium tracking-wide transition-all duration-300 cursor-pointer inline-flex items-center gap-2 ${sizes[size]} ${className}`,
+    className:
+      "relative overflow-hidden rounded-xl font-medium tracking-wide transition-colors duration-300 cursor-pointer inline-flex items-center gap-2 " +
+      "outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 " +
+      "focus-visible:ring-[var(--accent-blue)] focus-visible:ring-offset-[var(--bg-primary)] " +
+      `${sizes[size]} ${className}`,
     style: buttonStyle,
+    whileHover,
+    whileTap,
+    transition: transitions.quick,
     onMouseMove: handleMouseMove,
     onMouseEnter: () => setIsHovered(true),
     onMouseLeave: () => setIsHovered(false),
@@ -105,43 +100,35 @@ export default function InteractiveButton({
 
   const inner = (
     <>
-      {isHovered && (
-        <div
+      {isHovered && !reduce && (
+        <span
+          aria-hidden="true"
           className="absolute pointer-events-none transition-opacity duration-200"
           style={{
-            width: 120, height: 120, borderRadius: "50%",
+            width: 120,
+            height: 120,
+            borderRadius: "50%",
             background: `radial-gradient(circle, ${s.glow} 0%, transparent 70%)`,
-            left: mousePos.x - 60, top: mousePos.y - 60,
+            left: mousePos.x - 60,
+            top: mousePos.y - 60,
           }}
         />
       )}
-      {ripples.map((ripple) => (
-        <span
-          key={ripple.id}
-          className="absolute rounded-full pointer-events-none"
-          style={{
-            left: ripple.x, top: ripple.y, width: 0, height: 0,
-            background: s.ripple,
-            transform: "translate(-50%, -50%)",
-            animation: "ripple-expand 0.6s ease-out forwards",
-          }}
-        />
-      ))}
       <span className="relative z-10 flex items-center gap-2">{children}</span>
-      <style jsx>{`
-        @keyframes ripple-expand {
-          to { width: 300px; height: 300px; opacity: 0; }
-        }
-      `}</style>
     </>
   );
 
   if (href) {
     return (
-      <a {...props} href={href} target={external ? "_blank" : undefined} rel={external ? "noopener noreferrer" : undefined}>
+      <motion.a
+        {...props}
+        href={href}
+        target={external ? "_blank" : undefined}
+        rel={external ? "noopener noreferrer" : undefined}
+      >
         {inner}
-      </a>
+      </motion.a>
     );
   }
-  return <button {...props}>{inner}</button>;
+  return <motion.button {...props}>{inner}</motion.button>;
 }
