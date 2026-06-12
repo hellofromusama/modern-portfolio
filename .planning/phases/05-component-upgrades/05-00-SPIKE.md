@@ -126,7 +126,22 @@ export default function ClientScene(props: { className?: string }): JSX.Element;
 
 ## Installed Phase-5 Dependency Versions
 
-_(populated in Task 2)_
+**Core 3D stack (Phase 4 — confirmed present, no BLOCK):**
+`three@^0.184.0`, `@react-three/fiber@^9.6.1`, `@react-three/drei@^10.7.7`, `motion@^12.40.0`.
+
+**Phase-5 deps installed this plan (registry-verified — `npm view` confirmed latest in line):**
+
+| Package | Where | Range | Installed exact | Registry latest | Purpose |
+|---------|-------|-------|-----------------|-----------------|---------|
+| `maath` | `dependencies` | `^0.10.8` | `0.10.8` | `0.10.8` | `maath/random.inSphere` particle distribution + damped easing — replaces hand-rolled hero math |
+| `r3f-perf` | `devDependencies` | `^7.2.3` | `7.2.3` | `7.2.3` | dev-only FPS/draw-call HUD for the spike. **NEVER ships** — any usage gated behind `process.env.NODE_ENV !== 'production'` |
+| `@react-three/postprocessing` | — | — | **OMITTED** | `3.0.4` | install ONLY if the spike keeps bloom. **Spike decision: bloom OFF → NOT installed** (see Perf Spike below) |
+
+- All registry versions matched the plan's sketch exactly (no pin adjustment needed).
+- React-19 peer deps resolved clean; `npx tsc --noEmit` shows NO new errors in `three/`,
+  `hooks/`, `lib/webgl`, or scene scope after install.
+- The 30 npm-audit advisories are PRE-EXISTING in the existing dependency tree (count
+  unchanged by these two installs) — out of scope per the scope boundary, non-blocking.
 
 ---
 
