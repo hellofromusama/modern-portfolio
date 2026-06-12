@@ -15,7 +15,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 1: Content Centralization** - Single typed content source (verbatim + baseline-diff gated), wired into grid, detail pages, JSON-LD, sitemap (completed 2026-06-12)
 - [x] **Phase 2: Append AI Content** - 5 AI projects, AI skill domains, and the ESIA/MCP production narrative appended additively (completed 2026-06-12)
 - [x] **Phase 3: Shared Foundation** - Design tokens + motion/theme/in-view primitives + error boundaries + a11y floor
-- [ ] **Phase 4: R3F Infrastructure Island** - Installed React-19-compatible 3D stack + SSR-safe Canvas island with bundle budget
+- [x] **Phase 4: R3F Infrastructure Island** - Installed React-19-compatible 3D stack + SSR-safe Canvas island with bundle budget, mounted/proven on an isolated noindex /scene-harness route; SHIP-01 gate green (completed 2026-06-12)
 - [ ] **Phase 5: Per-Component Visual Upgrades** - Signature WebGL hero + every component/page elevated to the new design language
 - [ ] **Phase 6: Enhancements, Hardening & Ship** - Page transitions, security/bug fixes in passing, strict-build re-enabled, owner-approved deploy
 
@@ -91,7 +91,7 @@ Plans:
 Plans:
 - [x] 04-01-PLAN.md — Wave 1: Phase-3 ls-guard + install 3D stack + author check-stack.mjs/bundle-gate.mjs (tune matcher vs real manifest)
 - [x] 04-02-PLAN.md — Wave 2: webgl probe + ScenePoster + SceneCanvas (DPR clamp/frameloop/context-loss) + ThemedScene + ClientScene (ssr:false wrapper)
-- [ ] 04-03-PLAN.md — Wave 3: isolated /_scene-harness mount + SHIP-01 gate + poster-first LCP proof + evidence checkpoint
+- [x] 04-03-PLAN.md — Wave 3: isolated /scene-harness mount (noindex/nofollow, sitemap-excluded) + SHIP-01 gate + poster-first LCP proof + evidence checkpoint (note: `_scene-harness`→`scene-harness`, underscore dirs non-routable)
 **UI hint**: yes
 **Research flag**: `/gsd:research-phase` complete — see `04-RESEARCH.md` (HIGH confidence; island/theme-bridge/frameloop patterns resolved).
 
@@ -143,6 +143,6 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
 | 1. Content Centralization | 0/TBD | Complete    | 2026-06-12 |
 | 2. Append AI Content | 4/4 | Complete    | 2026-06-12 |
 | 3. Shared Foundation | 5/5 | Complete    | 2026-06-12 |
-| 4. R3F Infrastructure Island | 2/3 | In Progress | 2026-06-12 |
+| 4. R3F Infrastructure Island | 3/3 | Complete    | 2026-06-12 |
 | 5. Per-Component Visual Upgrades | 0/10 | Not started | - |
 | 6. Enhancements, Hardening & Ship | 0/TBD | Not started | - |

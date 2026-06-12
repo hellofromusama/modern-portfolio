@@ -11,7 +11,7 @@
 - [x] **FOUND-01**: All projects, skills, and expertise content live in a single typed content module (`src/content/`) consumed by the home grid, `projects/[id]`, layout JSON-LD, and `sitemap.ts` — every existing entry preserved verbatim (diff-verified against the four current sources)
 - [x] **FOUND-02**: A shared motion-gating utility (hook/wrapper) provides `prefers-reduced-motion` handling and IntersectionObserver-based off-screen pausing, used by every animated component
 - [x] **FOUND-03**: Design tokens (type scale, spacing scale, color custom properties for both themes) are tightened and documented in globals.css; both theme palettes pass WCAG AA contrast
-- [ ] **FOUND-04**: three + @react-three/fiber@^9.6 + @react-three/drei@^10.7 + motion@^12.40 installed (React 19.2-verified); 3D scenes load via dynamic import `ssr:false` from inside client wrappers with static fallbacks
+- [x] **FOUND-04**: three + @react-three/fiber@^9.6 + @react-three/drei@^10.7 + motion@^12.40 installed (React 19.2-verified); 3D scenes load via dynamic import `ssr:false` from inside client wrappers with static fallbacks
 - [x] **FOUND-05**: Error boundaries wrap every WebGL/canvas island so a 3D failure can never white-screen a page
 
 ### AI Content (AICON)
@@ -36,7 +36,7 @@
 
 ### Performance & Accessibility (PERF)
 
-- [ ] **PERF-01**: Core Web Vitals do not regress: WebGL/3D code is route-split and lazy; hero LCP element renders without waiting on three.js
+- [x] **PERF-01**: Core Web Vitals do not regress: WebGL/3D code is route-split and lazy; hero LCP element renders without waiting on three.js
 - [ ] **PERF-02**: All animation loops pause when off-screen and on tab blur; mobile devices get DPR caps and capability-appropriate scenes
 - [x] **PERF-03**: Every interactive element is keyboard-reachable with a visible focus state; no keyboard traps introduced by new motion
 - [x] **PERF-04**: OS-level prefers-reduced-motion produces an equivalent, fully readable static experience on every page
@@ -91,8 +91,8 @@
 | FOUND-05 | Phase 3 | Complete |
 | PERF-03 | Phase 3 | Complete |
 | PERF-04 | Phase 3 | Complete |
-| FOUND-04 | Phase 4 | Pending |
-| PERF-01 | Phase 4 | Pending |
+| FOUND-04 | Phase 4 | Complete |
+| PERF-01 | Phase 4 | Complete |
 | VIS-01 | Phase 5 | Pending |
 | VIS-02 | Phase 5 | Pending |
 | VIS-03 | Phase 5 | Pending |

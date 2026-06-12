@@ -2,17 +2,17 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-current_plan: 04-03
+current_plan: 05-01
 status: in_progress
-stopped_at: "Completed 04-02-PLAN.md (Phase 4 Wave 2 — SSR-safe WebGL island built: webgl.ts probe + ScenePoster + SceneCanvas (dpr[1,2] + frameloop=useAnimationGate + context-loss→poster) + ThemedScene (useThemeColors→THREE.Color, no remount) + ClientScene dynamic(ssr:false)+IslandBoundary; 5 new files under src/components/three/, tsc-clean, mounted on NO route yet)."
-last_updated: "2026-06-12T05:53:44.000Z"
+stopped_at: "Completed 04-03-PLAN.md (Phase 4 Wave 3 — WebGL island mounted on isolated noindex/nofollow /scene-harness route; bundle-gate armed to /scene-harness/page (three off /page + /layout, mount-split via ssr:false); SHIP-01 gate green (tsc/lint scoped-clean + build + check-stack + bundle-gate + PERF-01 leak grep); poster-first LCP curl evidence captured. PHASE 4 COMPLETE 3/3 — FOUND-04 + PERF-01 + SHIP-01 satisfied)."
+last_updated: "2026-06-12T06:07:31.000Z"
 last_activity: 2026-06-12
 progress:
   total_phases: 6
-  completed_phases: 3
+  completed_phases: 4
   total_plans: 25
-  completed_plans: 16
-  percent: 64
+  completed_plans: 17
+  percent: 68
 ---
 
 # Project State
@@ -26,12 +26,12 @@ See: .planning/PROJECT.md (updated 2026-06-12)
 
 ## Current Position
 
-Phase: 04 — R3F Infrastructure (in progress)
-Current Plan: 04-03
-Status: 04-02 COMPLETE (Wave 2 — SSR-safe WebGL island built under src/components/three/: webgl.ts probe + ScenePoster + SceneCanvas (dpr[1,2] + frameloop bound to useAnimationGate + webglcontextlost→poster) + ThemedScene (useThemeColors→THREE.Color, no remount on data-theme) + ClientScene dynamic(ssr:false)+IslandBoundary; 5 new files, all tsc-clean, three mounted on NO route yet). FOUND-04 island half + PERF-01 route-split preserved.
+Phase: 04 — R3F Infrastructure (COMPLETE 3/3) → next: Phase 05 — Component Upgrades
+Current Plan: 05-01
+Status: 04-03 COMPLETE (Wave 3 — WebGL island mounted on isolated, noindex/nofollow `/scene-harness` route (NOT the live hero); `scene-harness/layout.tsx` exports robots index:false/follow:false, sitemap-excluded; bundle-gate CANVAS_ROUTES armed to `/scene-harness/page` — three confined there, mount-split via ssr:false, absent from `/page` + `/layout` payloads; SHIP-01 gate green: tsc/lint scoped-clean + build + check-stack + bundle-gate + PERF-01 source leak grep; poster-first LCP proven via curl (home hero server-rendered with no three; harness HTML poster-first, no `<canvas>` in SSR). PHASE 4 COMPLETE — FOUND-04 + PERF-01 + SHIP-01 satisfied; Phase 5 inherits a trusted, gated, themed, error-isolated, mount-split island boundary. NOTE: `_scene-harness` → `scene-harness` (underscore dirs are non-routable in Next App Router — Rule 3 fix); /scene-harness is temporary, removed in Phase 5.
 Last activity: 2026-06-12
 
-Progress: [██████░░░░] 64%
+Progress: [███████░░░] 68%
 
 ## Performance Metrics
 
@@ -68,6 +68,7 @@ Progress: [██████░░░░] 64%
 | Phase 03 P04 | 10 min | 3 tasks | 0 files |
 | Phase 04 P01 | 4 min | 2 tasks | 4 files |
 | Phase 04 P02 | 3 min | 3 tasks | 5 files |
+| Phase 04 P03 | 9 min | 3 tasks | 3 files |
 
 ## Accumulated Context
 
