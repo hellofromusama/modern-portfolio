@@ -1,0 +1,128 @@
+{
+  "homeGrid": [
+    "kashmir-fund",
+    "n8n-automation",
+    "voice-ai-agent",
+    "erp-system",
+    "netsuite-integration",
+    "cloud-infrastructure"
+  ],
+  "detailKeys": [
+    "kashmir-fund",
+    "n8n-automation",
+    "voice-ai-agent",
+    "erp-system",
+    "netsuite-integration",
+    "modern-portfolio",
+    "cloud-infrastructure"
+  ],
+  "itemList": {
+    "numberOfItems": 6,
+    "items": [
+      {
+        "name": "Enterprise N8N Automation Platform",
+        "description": "Workflow automation platform reducing manual processes by 70% and saving $180,000/year for a Perth mining company",
+        "url": "https://www.usamajaved.com.au/projects/n8n-automation",
+        "applicationCategory": "BusinessApplication"
+      },
+      {
+        "name": "Voice AI Booking Agent",
+        "description": "AI-powered voice agent handling 500+ daily bookings using OpenAI GPT-4 and Whisper, achieving 35% conversion increase",
+        "url": "https://www.usamajaved.com.au/projects/voice-ai-agent",
+        "applicationCategory": "BusinessApplication"
+      },
+      {
+        "name": "Enterprise ERP System",
+        "description": "Unified NetSuite ERP replacing 5 legacy systems for 200+ mining company users with real-time dashboards and mobile field access",
+        "url": "https://www.usamajaved.com.au/projects/erp-system",
+        "applicationCategory": "BusinessApplication"
+      },
+      {
+        "name": "NetSuite Integration Suite",
+        "description": "Custom middleware connecting 12 business systems with real-time sync, processing 50,000+ daily transactions at 99.99% uptime",
+        "url": "https://www.usamajaved.com.au/projects/netsuite-integration",
+        "applicationCategory": "BusinessApplication"
+      },
+      {
+        "name": "Cloud Infrastructure Platform",
+        "description": "Kubernetes-based microservices architecture supporting 100K+ concurrent users with 99.99% uptime and 200ms global response",
+        "url": "https://www.usamajaved.com.au/projects/cloud-infrastructure",
+        "applicationCategory": "DeveloperApplication"
+      },
+      {
+        "name": "Modern Portfolio Website",
+        "description": "Next.js 15 portfolio with React 19, Tailwind CSS 4, perfect Lighthouse scores, and comprehensive AI SEO optimization",
+        "url": "https://www.usamajaved.com.au/projects/modern-portfolio",
+        "applicationCategory": "WebApplication"
+      }
+    ]
+  },
+  "sitemapProjects": [
+    {
+      "slug": "n8n-automation",
+      "priority": 0.8
+    },
+    {
+      "slug": "voice-ai-agent",
+      "priority": 0.8
+    },
+    {
+      "slug": "erp-system",
+      "priority": 0.8
+    },
+    {
+      "slug": "netsuite-integration",
+      "priority": 0.8
+    },
+    {
+      "slug": "cloud-infrastructure",
+      "priority": 0.8
+    },
+    {
+      "slug": "modern-portfolio",
+      "priority": 0.7
+    },
+    {
+      "slug": "kashmir-fund",
+      "priority": 0.7
+    }
+  ],
+  "skills": [
+    {
+      "title": "Frontend",
+      "items": [
+        "React / Next.js 15",
+        "TypeScript",
+        "Tailwind CSS",
+        "Vue.js / Nuxt.js"
+      ]
+    },
+    {
+      "title": "Backend",
+      "items": [
+        "Node.js / Express",
+        "Python / Django",
+        "PostgreSQL / MongoDB",
+        "REST / GraphQL"
+      ]
+    },
+    {
+      "title": "Cloud & DevOps",
+      "items": [
+        "AWS / Azure / GCP",
+        "Docker / Kubernetes",
+        "CI/CD Pipelines",
+        "Terraform"
+      ]
+    },
+    {
+      "title": "Specializations",
+      "items": [
+        "NetSuite SuiteScripts",
+        "N8N Automation",
+        "AI/ML Integration",
+        "ERP Systems"
+      ]
+    }
+  ]
+}
