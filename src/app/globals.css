@@ -16,7 +16,8 @@
   --text-primary: #ffffff;
   --text-secondary: rgba(255, 255, 255, 0.5);
   --text-tertiary: rgba(255, 255, 255, 0.4);
-  --text-muted: rgba(255, 255, 255, 0.3);
+  --text-muted: rgba(255, 255, 255, 0.45); /* AA: 2.92 -> 4.50 over --bg-primary */
+  /* DECORATIVE-ONLY: dividers/ghost numerals/large display — never information-bearing text (WCAG AA exempt) */
   --text-faint: rgba(255, 255, 255, 0.2);
   --text-ghost: rgba(255, 255, 255, 0.15);
 
@@ -41,6 +42,32 @@
 
   --background: #0a0a0f;
   --foreground: #ededed;
+
+  /* ============================================
+     TYPE SCALE - documented single source of truth (FOUND-03)
+     ============================================ */
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.5rem;
+  --text-3xl: 1.875rem;
+  --text-4xl: 2.25rem;
+  --text-5xl: 3rem;
+
+  /* ============================================
+     SPACING SCALE - documented single source of truth (FOUND-03)
+     ============================================ */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-24: 6rem;
 }
 
 /* Light theme */
@@ -56,7 +83,8 @@
   --text-secondary: #334155;
   --text-tertiary: #475569;
   --text-muted: #64748b;
-  --text-faint: #94a3b8;
+  --text-faint: #64748b; /* AA: 2.99 -> 4.55 (= --text-muted) for any un-promoted faint */
+  /* DECORATIVE-ONLY: ghost numerals/large display — never information-bearing text (WCAG AA exempt) */
   --text-ghost: #cbd5e1;
 
   --border-subtle: rgba(15, 23, 42, 0.08);
@@ -69,9 +97,9 @@
   --btn-secondary-border: rgba(15, 23, 42, 0.15);
   --btn-secondary-text: #334155;
 
-  --accent-blue: #3b82f6;
-  --accent-violet: #8b5cf6;
-  --accent-emerald: #10b981;
+  --accent-blue: #2563eb;    /* AA-as-text: 3.52 -> 4.94 (blue-600) */
+  --accent-violet: #7c3aed;  /* AA-as-text: 4.05 -> 5.45 (violet-600) */
+  --accent-emerald: #047857; /* AA-as-text: 2.42 -> 5.24 (emerald-700) */
 
   --gradient-divider: linear-gradient(to right, transparent, rgba(15,23,42,0.08), transparent);
 
