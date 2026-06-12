@@ -52,9 +52,9 @@ Plans:
   5. Phase passes `npx tsc --noEmit` + `npm run lint` + `npm run build` + manual smoke in BOTH themes before being marked complete
 **Plans**: 4 plans
 Plans:
-- [x] 02-01-PLAN.md — Wave 1: append 5 AI projects to projects.ts (map + projections) + bump numberOfItems
-- [x] 02-02-PLAN.md — Wave 1: append AI skill groups to skills.ts + AI terms to layout knowsAbout
-- [x] 02-03-PLAN.md — Wave 1: /ai-engineering server route + AiBridgeDiagram SVG + Navigation nav item
+- [ ] 02-01-PLAN.md — Wave 1: append 5 AI projects to projects.ts (map + projections) + bump numberOfItems
+- [ ] 02-02-PLAN.md — Wave 1: append AI skill groups to skills.ts + AI terms to layout knowsAbout
+- [ ] 02-03-PLAN.md — Wave 1: /ai-engineering server route + AiBridgeDiagram SVG + Navigation nav item
 - [ ] 02-04-PLAN.md — Wave 2: SHIP-01 gate + AICON-06 grep gate + count assertions + both-theme smoke
 **UI hint**: yes
 
@@ -80,16 +80,20 @@ Plans:
 
 ### Phase 4: R3F Infrastructure Island
 **Goal**: Stand up the SSR-safe WebGL boundary — installed React-19-compatible 3D stack, a DPR-clamped `SceneCanvas` provider with frameloop control, a `dynamic(ssr:false)` client wrapper, static-poster fallback, and a bundle budget — so scenes can be migrated in Phase 5 without ever pulling `three` into shared/text routes or crashing hydration.
-**Depends on**: Phase 3
+**Depends on**: Phase 3 (execution begins ONLY after Phase 3 merges — Phase 4 consumes useAnimationGate/useThemeColors/IslandBoundary; Wave 0 hard-guards their presence)
 **Requirements**: FOUND-04, PERF-01, SHIP-01
 **Success Criteria** (what must be TRUE):
   1. `@react-three/fiber@^9.6` + `@react-three/drei@^10.7` + `three` + `motion@^12.40` are installed and verified against React 19.2 (R3F v9 line only)
   2. A reusable Canvas island loads via dynamic import `ssr:false` from inside a client wrapper, renders a trivial themed scene that reacts to the `data-theme` toggle in both themes, and falls back to a static poster when WebGL is unavailable
-  3. A bundle-analyzer check confirms `three` is absent from the shared bundle and from text/SEO routes — it lands only in its own route-specific chunk, and the hero LCP element renders without waiting on three.js
+  3. A bundle-budget check (zero-dep manifest-parser script — no @next/bundle-analyzer, no next.config.ts change) confirms `three` is absent from the shared bundle and from text/SEO routes — it lands only in its own route-specific chunk, and the hero LCP element renders without waiting on three.js
   4. Phase passes `npx tsc --noEmit` + `npm run lint` + `npm run build` + manual smoke in BOTH themes before being marked complete
-**Plans**: TBD
+**Plans**: 3 plans
+Plans:
+- [ ] 04-01-PLAN.md — Wave 1: Phase-3 ls-guard + install 3D stack + author check-stack.mjs/bundle-gate.mjs (tune matcher vs real manifest)
+- [ ] 04-02-PLAN.md — Wave 2: webgl probe + ScenePoster + SceneCanvas (DPR clamp/frameloop/context-loss) + ThemedScene + ClientScene (ssr:false wrapper)
+- [ ] 04-03-PLAN.md — Wave 3: isolated /_scene-harness mount + SHIP-01 gate + poster-first LCP proof + evidence checkpoint
 **UI hint**: yes
-**Research flag**: `/gsd:research-phase` recommended — the CSS-var→WebGL theme bridge (`getComputedStyle` + `MutationObserver`) and frameloop control are MEDIUM-confidence; spike during planning.
+**Research flag**: `/gsd:research-phase` complete — see `04-RESEARCH.md` (HIGH confidence; island/theme-bridge/frameloop patterns resolved).
 
 ### Phase 5: Per-Component Visual Upgrades
 **Goal**: Elevate every one of the 17 components and all page cards/typography to the new design language consuming the shared primitives — hero first (signature WebGL scene, highest-leverage and highest CWV risk, carrying explicit LCP/CLS/bundle budgets), then globe, idea-network, micro-interactions, navigation, and the remaining components/pages.
@@ -128,6 +132,6 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
 | 1. Content Centralization | 0/TBD | Complete    | 2026-06-12 |
 | 2. Append AI Content | 0/4 | Not started | - |
 | 3. Shared Foundation | 0/5 | Not started | - |
-| 4. R3F Infrastructure Island | 0/TBD | Not started | - |
+| 4. R3F Infrastructure Island | 0/3 | Planned | - |
 | 5. Per-Component Visual Upgrades | 0/TBD | Not started | - |
 | 6. Enhancements, Hardening & Ship | 0/TBD | Not started | - |
