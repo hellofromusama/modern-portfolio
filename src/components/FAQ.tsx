@@ -104,7 +104,7 @@ export default function FAQ() {
                   </h3>
                   <div
                     className={`flex-shrink-0 text-lg transition-transform duration-300 ${openIndex === index ? 'rotate-45' : ''}`}
-                    style={{ color: 'var(--text-faint)' }}
+                    style={{ color: 'var(--text-muted)' }}
                   >
                     +
                   </div>

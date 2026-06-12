@@ -8,7 +8,7 @@ export default function LastUpdated() {
       <time
         dateTime="2026-04-07"
         className="text-xs tracking-wide"
-        style={{ color: 'var(--text-faint)' }}
+        style={{ color: 'var(--text-muted)' }}
       >
         Last updated: April 7, 2026
       </time>

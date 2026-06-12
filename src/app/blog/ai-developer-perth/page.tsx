@@ -141,7 +141,7 @@ export default function AIDeveloperPerth() {
             </Link>
           </section>
 
-          <footer className="pt-8 mt-8" style={{ borderTop: "1px solid var(--border-subtle)", color: "var(--text-faint)" }}>
+          <footer className="pt-8 mt-8" style={{ borderTop: "1px solid var(--border-subtle)", color: "var(--text-muted)" }}>
             <p className="text-sm">Written by <strong>Usama Javed</strong>, AI Integration Specialist, Perth, Australia. Last updated: <time dateTime="2026-04-07">April 7, 2026</time>.</p>
           </footer>
         </div>

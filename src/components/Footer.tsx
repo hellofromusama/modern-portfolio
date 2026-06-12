@@ -15,7 +15,7 @@ export default function Footer() {
               <Link href="/" className="text-sm font-semibold tracking-wide font-[family-name:var(--font-space-grotesk)] transition-colors cursor-pointer" style={{ color: 'var(--text-primary)' }}>
                 UJ
               </Link>
-              <p className="mt-4 text-sm leading-relaxed" style={{ color: 'var(--text-faint)' }}>
+              <p className="mt-4 text-sm leading-relaxed" style={{ color: 'var(--text-muted)' }}>
                 Full Stack Developer in Perth, specializing in modern web technologies and AI integrations.
               </p>
             </div>
@@ -32,7 +32,7 @@ export default function Footer() {
                   { href: '/budget', label: 'Budget' },
                 ].map((item) => (
                   <li key={item.href}>
-                    <Link href={item.href} className="text-sm transition-all duration-300 hover:translate-x-0.5 inline-block transform cursor-pointer" style={{ color: 'var(--text-faint)' }}>
+                    <Link href={item.href} className="text-sm transition-all duration-300 hover:translate-x-0.5 inline-block transform cursor-pointer" style={{ color: 'var(--text-muted)' }}>
                       {item.label}
                     </Link>
                   </li>
@@ -44,7 +44,7 @@ export default function Footer() {
           <ScrollReveal delay={200}>
             <div>
               <h3 className="text-xs tracking-[0.15em] uppercase font-medium mb-4" style={{ color: 'var(--text-muted)' }}>Services</h3>
-              <ul className="space-y-2.5 text-sm" style={{ color: 'var(--text-faint)' }}>
+              <ul className="space-y-2.5 text-sm" style={{ color: 'var(--text-muted)' }}>
                 <li>Web Development</li>
                 <li>AI Integration</li>
                 <li>Enterprise Solutions</li>
@@ -70,7 +70,7 @@ export default function Footer() {
                       target={item.external ? '_blank' : undefined}
                       rel={item.external ? 'noopener noreferrer' : undefined}
                       className="text-sm transition-all duration-300 hover:translate-x-0.5 inline-block transform cursor-pointer"
-                      style={{ color: 'var(--text-faint)' }}
+                      style={{ color: 'var(--text-muted)' }}
                     >
                       {item.label}
                     </a>
@@ -83,8 +83,8 @@ export default function Footer() {
 
         <ScrollReveal delay={100}>
           <div className="mt-12 pt-8 flex flex-col md:flex-row justify-between items-center gap-4" style={{ borderTop: '1px solid var(--border-subtle)' }}>
-            <p className="text-xs" style={{ color: 'var(--text-faint)' }}>&copy; {currentYear} Usama Javed</p>
-            <p className="text-xs" style={{ color: 'var(--text-ghost)' }}>Perth, Australia</p>
+            <p className="text-xs" style={{ color: 'var(--text-muted)' }}>&copy; {currentYear} Usama Javed</p>
+            <p className="text-xs" style={{ color: 'var(--text-muted)' }}>Perth, Australia</p>
           </div>
         </ScrollReveal>
       </div>

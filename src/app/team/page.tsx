@@ -122,7 +122,7 @@ export default function TeamPage() {
                                 {member.name.split(' ').map(n => n[0]).join('')}
                               </span>
                             </div>
-                            <p className="text-sm" style={{ color: 'var(--text-ghost)' }}>{member.role}</p>
+                            <p className="text-sm" style={{ color: 'var(--text-muted)' }}>{member.role}</p>
                           </div>
                         </div>
                       </div>

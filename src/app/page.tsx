@@ -231,7 +231,7 @@ export default function Home() {
                     }}
                   >
                     <div className="flex items-center justify-between mb-4">
-                      <span className="text-[10px] tracking-[0.15em] uppercase font-medium" style={{ color: 'var(--text-faint)' }}>
+                      <span className="text-[10px] tracking-[0.15em] uppercase font-medium" style={{ color: 'var(--text-muted)' }}>
                         {project.gridCategory}
                       </span>
                       <span className="text-sm transition-all duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" style={{ color: 'var(--text-faint)' }}>&nearr;</span>
@@ -299,7 +299,7 @@ export default function Home() {
               Ready to bring your ideas to life? Get a free 30-minute consultation.
               Available for immediate start — Perth, Australia and worldwide remote.
             </p>
-            <p className="text-xs mb-8 max-w-md mx-auto" style={{ color: 'var(--text-faint)' }}>
+            <p className="text-xs mb-8 max-w-md mx-auto" style={{ color: 'var(--text-muted)' }}>
               50+ projects delivered &bull; 100% client satisfaction &bull; No commitment required
             </p>
           </ScrollReveal>
@@ -333,9 +333,9 @@ export default function Home() {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-sm transition-all duration-300 hover:-translate-y-0.5 transform cursor-pointer"
-                  style={{ color: 'var(--text-faint)' }}
+                  style={{ color: 'var(--text-muted)' }}
                   onMouseEnter={e => e.currentTarget.style.color = 'var(--text-secondary)'}
-                  onMouseLeave={e => e.currentTarget.style.color = 'var(--text-faint)'}
+                  onMouseLeave={e => e.currentTarget.style.color = 'var(--text-muted)'}
                 >
                   {link.label}
                 </a>

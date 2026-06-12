@@ -164,7 +164,7 @@ export default function DeveloperAustralia() {
             </Link>
           </section>
 
-          <footer className="pt-8 mt-8" style={{ borderTop: "1px solid var(--border-subtle)", color: "var(--text-faint)" }}>
+          <footer className="pt-8 mt-8" style={{ borderTop: "1px solid var(--border-subtle)", color: "var(--text-muted)" }}>
             <p className="text-sm">Written by <strong>Usama Javed</strong>, Senior Full Stack Developer, Perth, Australia. Last updated: <time dateTime="2026-04-14">April 14, 2026</time>.</p>
           </footer>
         </div>

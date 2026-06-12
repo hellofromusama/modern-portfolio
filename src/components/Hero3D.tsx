@@ -64,7 +64,7 @@ export default function Hero3D() {
               Perth&apos;s Senior Full Stack Developer &<br />
               <span style={{ color: 'var(--text-muted)' }}>AI Integration Specialist</span>
             </p>
-            <p className="mt-4 text-sm leading-relaxed max-w-md" style={{ color: 'var(--text-faint)' }}>
+            <p className="mt-4 text-sm leading-relaxed max-w-md" style={{ color: 'var(--text-muted)' }}>
               8+ years building enterprise solutions that deliver results &mdash;
               $180K/year saved through automation, 100K+ concurrent users
               on cloud platforms, 50+ projects across Australia.
@@ -92,7 +92,7 @@ export default function Hero3D() {
             ].map((stat) => (
               <div key={stat.label}>
                 <div className="text-2xl font-bold font-[family-name:var(--font-space-grotesk)]" style={{ color: 'var(--text-primary)', opacity: 0.8 }}>{stat.value}</div>
-                <div className="text-[10px] tracking-[0.2em] uppercase mt-1" style={{ color: 'var(--text-faint)' }}>{stat.label}</div>
+                <div className="text-[10px] tracking-[0.2em] uppercase mt-1" style={{ color: 'var(--text-muted)' }}>{stat.label}</div>
               </div>
             ))}
           </div>
