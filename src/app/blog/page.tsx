@@ -116,51 +116,51 @@ export default function BlogPage() {
   };
 
   return (
-    <div className="bg-white">
+    <div style={{ background: "var(--bg-primary)", color: "var(--text-primary)" }}>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(blogSchema) }}
       />
 
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white py-20">
+      <section className="py-20" style={{ background: "var(--bg-secondary)", borderBottom: "1px solid var(--border-subtle)" }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
-            <h1 className="text-4xl md:text-6xl font-bold mb-6">
+            <h1 className="text-4xl md:text-6xl font-bold tracking-tight mb-6 font-[family-name:var(--font-space-grotesk)]">
               Web Development Insights & Expert Guides
             </h1>
-            <p className="text-xl md:text-2xl text-slate-300 max-w-3xl mx-auto mb-8">
+            <p className="text-xl md:text-2xl max-w-3xl mx-auto mb-8" style={{ color: "var(--text-tertiary)" }}>
               Learn about modern web development, AI integration, and industry best practices
               from Perth's leading full stack developer with 8+ years of experience.
             </p>
             <div className="flex flex-wrap justify-center gap-3 text-sm">
-              <span className="bg-blue-600 px-3 py-1 rounded-full">Next.js Expert</span>
-              <span className="bg-purple-600 px-3 py-1 rounded-full">AI Integration</span>
-              <span className="bg-green-600 px-3 py-1 rounded-full">Perth Business Focus</span>
-              <span className="bg-orange-600 px-3 py-1 rounded-full">Enterprise Solutions</span>
+              <span className="px-3 py-1 rounded-full" style={{ background: "var(--bg-card)", border: "1px solid var(--border-subtle)", color: "var(--text-secondary)" }}>Next.js Expert</span>
+              <span className="px-3 py-1 rounded-full" style={{ background: "var(--bg-card)", border: "1px solid var(--border-subtle)", color: "var(--text-secondary)" }}>AI Integration</span>
+              <span className="px-3 py-1 rounded-full" style={{ background: "var(--bg-card)", border: "1px solid var(--border-subtle)", color: "var(--text-secondary)" }}>Perth Business Focus</span>
+              <span className="px-3 py-1 rounded-full" style={{ background: "var(--bg-card)", border: "1px solid var(--border-subtle)", color: "var(--text-secondary)" }}>Enterprise Solutions</span>
             </div>
           </div>
         </div>
       </section>
 
       {/* Quick Answers Section */}
-      <section className="py-16 bg-slate-50">
+      <section className="py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-slate-900 mb-8 text-center">
+          <h2 className="text-3xl font-bold mb-8 text-center tracking-tight font-[family-name:var(--font-space-grotesk)]" style={{ color: "var(--text-primary)" }}>
             Quick Answers for Developers & Business Owners
           </h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <div className="bg-white p-6 rounded-lg shadow-sm border">
-              <h3 className="font-semibold text-slate-900 mb-2">What's the best framework for SEO?</h3>
-              <p className="text-slate-600 text-sm">Next.js leads for SEO due to server-side rendering, automatic code splitting, and built-in optimizations that React requires additional setup to achieve.</p>
+            <div className="p-6 rounded-xl transition-all duration-300 hover:-translate-y-1" style={{ background: "var(--bg-card)", border: "1px solid var(--border-subtle)", boxShadow: "var(--shadow-card)" }}>
+              <h3 className="font-semibold mb-2" style={{ color: "var(--text-primary)" }}>What's the best framework for SEO?</h3>
+              <p className="text-sm" style={{ color: "var(--text-muted)" }}>Next.js leads for SEO due to server-side rendering, automatic code splitting, and built-in optimizations that React requires additional setup to achieve.</p>
             </div>
-            <div className="bg-white p-6 rounded-lg shadow-sm border">
-              <h3 className="font-semibold text-slate-900 mb-2">How much does web development cost in Perth?</h3>
-              <p className="text-slate-600 text-sm">Perth web development ranges from $5,000-$100,000+ depending on complexity. Simple business sites start at $5,000, while enterprise applications can reach $500,000+.</p>
+            <div className="p-6 rounded-xl transition-all duration-300 hover:-translate-y-1" style={{ background: "var(--bg-card)", border: "1px solid var(--border-subtle)", boxShadow: "var(--shadow-card)" }}>
+              <h3 className="font-semibold mb-2" style={{ color: "var(--text-primary)" }}>How much does web development cost in Perth?</h3>
+              <p className="text-sm" style={{ color: "var(--text-muted)" }}>Perth web development ranges from $5,000-$100,000+ depending on complexity. Simple business sites start at $5,000, while enterprise applications can reach $500,000+.</p>
             </div>
-            <div className="bg-white p-6 rounded-lg shadow-sm border">
-              <h3 className="font-semibold text-slate-900 mb-2">Should I use AI in my business website?</h3>
-              <p className="text-slate-600 text-sm">AI integration can significantly improve customer engagement through chatbots, personalization, and automation. Best for customer service, lead generation, and workflow optimization.</p>
+            <div className="p-6 rounded-xl transition-all duration-300 hover:-translate-y-1" style={{ background: "var(--bg-card)", border: "1px solid var(--border-subtle)", boxShadow: "var(--shadow-card)" }}>
+              <h3 className="font-semibold mb-2" style={{ color: "var(--text-primary)" }}>Should I use AI in my business website?</h3>
+              <p className="text-sm" style={{ color: "var(--text-muted)" }}>AI integration can significantly improve customer engagement through chatbots, personalization, and automation. Best for customer service, lead generation, and workflow optimization.</p>
             </div>
           </div>
         </div>
@@ -170,19 +170,19 @@ export default function BlogPage() {
       {blogPosts.filter(post => post.featured).map((post, index) => (
         <section key={index} className="py-16">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl text-white p-8 md:p-12">
+            <div className="rounded-2xl p-8 md:p-12" style={{ background: "var(--bg-card)", border: "1px solid var(--border-subtle)", boxShadow: "var(--shadow-card)" }}>
               <div className="max-w-4xl">
-                <span className="bg-white/20 px-3 py-1 rounded-full text-sm font-medium">Featured Guide</span>
-                <h2 className="text-3xl md:text-4xl font-bold mt-4 mb-4">{post.title}</h2>
-                <p className="text-xl opacity-90 mb-6">{post.excerpt}</p>
-                <div className="flex flex-wrap items-center gap-4 text-sm">
+                <span className="px-3 py-1 rounded-full text-sm font-medium" style={{ background: "color-mix(in srgb, var(--accent-blue) 12%, transparent)", color: "var(--accent-blue)" }}>Featured Guide</span>
+                <h2 className="text-3xl md:text-4xl font-bold mt-4 mb-4 tracking-tight font-[family-name:var(--font-space-grotesk)]">{post.title}</h2>
+                <p className="text-xl mb-6" style={{ color: "var(--text-tertiary)" }}>{post.excerpt}</p>
+                <div className="flex flex-wrap items-center gap-4 text-sm" style={{ color: "var(--text-muted)" }}>
                   <span>{post.readTime}</span>
                   <span>•</span>
                   <span>{new Date(post.publishDate).toLocaleDateString()}</span>
                   <span>•</span>
                   <span>{post.category}</span>
                 </div>
-                <button className="mt-6 bg-white text-blue-600 px-6 py-3 rounded-lg font-semibold hover:bg-slate-100 transition-colors">
+                <button className="mt-6 px-6 py-3 rounded-lg font-semibold transition-all duration-300 hover:-translate-y-0.5" style={{ background: "var(--btn-primary-bg)", color: "var(--btn-primary-text)" }}>
                   Read Complete Guide
                 </button>
               </div>
@@ -192,13 +192,16 @@ export default function BlogPage() {
       ))}
 
       {/* Categories Filter */}
-      <section className="py-8 bg-white border-b">
+      <section className="py-8" style={{ borderTop: "1px solid var(--border-subtle)", borderBottom: "1px solid var(--border-subtle)" }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-wrap gap-3">
             {categories.map((category, index) => (
               <button
                 key={index}
-                className="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg font-medium text-sm transition-colors"
+                className="px-4 py-2 rounded-lg font-medium text-sm transition-all duration-300"
+                style={{ background: "var(--bg-card)", border: "1px solid var(--border-subtle)", color: "var(--text-secondary)" }}
+                onMouseEnter={e => { e.currentTarget.style.background = "var(--bg-card-hover)"; e.currentTarget.style.borderColor = "var(--border-hover)"; }}
+                onMouseLeave={e => { e.currentTarget.style.background = "var(--bg-card)"; e.currentTarget.style.borderColor = "var(--border-subtle)"; }}
               >
                 {category.name} ({category.count})
               </button>
@@ -212,36 +215,42 @@ export default function BlogPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {blogPosts.filter(post => !post.featured).map((post, index) => (
-              <article key={index} className="bg-white rounded-lg shadow-sm border border-slate-200 overflow-hidden hover:shadow-lg transition-shadow">
+              <article
+                key={index}
+                className="rounded-xl overflow-hidden transition-all duration-300 hover:-translate-y-1"
+                style={{ background: "var(--bg-card)", border: "1px solid var(--border-subtle)", boxShadow: "var(--shadow-card)" }}
+                onMouseEnter={e => { e.currentTarget.style.background = "var(--bg-card-hover)"; e.currentTarget.style.borderColor = "var(--border-hover)"; }}
+                onMouseLeave={e => { e.currentTarget.style.background = "var(--bg-card)"; e.currentTarget.style.borderColor = "var(--border-subtle)"; }}
+              >
                 <div className="p-6">
                   <div className="flex items-center gap-2 mb-3">
-                    <span className="bg-blue-100 text-blue-700 px-2 py-1 rounded text-xs font-medium">
+                    <span className="px-2 py-1 rounded text-xs font-medium" style={{ background: "color-mix(in srgb, var(--accent-blue) 12%, transparent)", color: "var(--accent-blue)" }}>
                       {post.category}
                     </span>
-                    <span className="text-slate-500 text-xs">{post.readTime}</span>
+                    <span className="text-xs" style={{ color: "var(--text-muted)" }}>{post.readTime}</span>
                   </div>
 
-                  <h3 className="text-xl font-semibold text-slate-900 mb-3 line-clamp-2">
+                  <h3 className="text-xl font-semibold mb-3 line-clamp-2 font-[family-name:var(--font-space-grotesk)]" style={{ color: "var(--text-primary)" }}>
                     {post.title}
                   </h3>
 
-                  <p className="text-slate-600 mb-4 line-clamp-3">
+                  <p className="mb-4 line-clamp-3" style={{ color: "var(--text-muted)" }}>
                     {post.excerpt}
                   </p>
 
                   <div className="flex flex-wrap gap-1 mb-4">
                     {post.tags.map((tag, tagIndex) => (
-                      <span key={tagIndex} className="bg-slate-100 text-slate-600 px-2 py-1 rounded text-xs">
+                      <span key={tagIndex} className="px-2 py-1 rounded text-xs" style={{ background: "var(--bg-elevated)", color: "var(--text-muted)" }}>
                         {tag}
                       </span>
                     ))}
                   </div>
 
                   <div className="flex justify-between items-center">
-                    <span className="text-slate-500 text-sm">
+                    <span className="text-sm" style={{ color: "var(--text-muted)" }}>
                       {new Date(post.publishDate).toLocaleDateString()}
                     </span>
-                    <button className="text-blue-600 hover:text-blue-700 font-medium text-sm">
+                    <button className="font-medium text-sm transition-colors" style={{ color: "var(--accent-blue)" }}>
                       Read More →
                     </button>
                   </div>
@@ -253,12 +262,12 @@ export default function BlogPage() {
       </section>
 
       {/* Newsletter Signup */}
-      <section className="py-16 bg-slate-50">
+      <section className="py-16" style={{ background: "var(--bg-secondary)", borderTop: "1px solid var(--border-subtle)" }}>
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl font-bold text-slate-900 mb-4">
+          <h2 className="text-3xl font-bold mb-4 tracking-tight font-[family-name:var(--font-space-grotesk)]" style={{ color: "var(--text-primary)" }}>
             Stay Updated with Latest Web Development Trends
           </h2>
-          <p className="text-lg text-slate-600 mb-8">
+          <p className="text-lg mb-8" style={{ color: "var(--text-muted)" }}>
             Get weekly insights on modern web technologies, AI integration tips,
             and Perth tech industry updates delivered to your inbox.
           </p>
@@ -266,9 +275,10 @@ export default function BlogPage() {
             <input
               type="email"
               placeholder="Enter your email"
-              className="flex-1 px-4 py-3 rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-600"
+              className="flex-1 px-4 py-3 rounded-lg focus:outline-none focus:ring-1 focus:ring-blue-500/50 transition-all duration-300"
+              style={{ background: "var(--bg-elevated)", border: "1px solid var(--border-subtle)", color: "var(--text-primary)" }}
             />
-            <button className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors">
+            <button className="px-6 py-3 rounded-lg font-semibold transition-all duration-300 hover:-translate-y-0.5" style={{ background: "var(--btn-primary-bg)", color: "var(--btn-primary-text)" }}>
               Subscribe
             </button>
           </div>

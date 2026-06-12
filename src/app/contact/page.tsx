@@ -104,12 +104,12 @@ export default function Contact() {
   };
 
   return (
-    <div className="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white relative overflow-hidden">
+    <div className="relative overflow-hidden" style={{ background: "var(--bg-primary)", color: "var(--text-primary)" }}>
       {/* Animated Background Elements */}
       <div className="fixed inset-0 z-0 pointer-events-none">
-        <div className="absolute top-20 left-10 w-72 h-72 bg-blue-500/10 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-20 right-10 w-80 h-80 bg-purple-500/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
-        <div className="absolute top-1/2 left-1/2 w-96 h-96 bg-pink-500/5 rounded-full blur-3xl animate-pulse delay-2000"></div>
+        <div className="absolute top-20 left-10 w-72 h-72 rounded-full blur-3xl animate-pulse" style={{ background: "color-mix(in srgb, var(--accent-blue) 10%, transparent)" }}></div>
+        <div className="absolute bottom-20 right-10 w-80 h-80 rounded-full blur-3xl animate-pulse delay-1000" style={{ background: "color-mix(in srgb, var(--accent-violet) 10%, transparent)" }}></div>
+        <div className="absolute top-1/2 left-1/2 w-96 h-96 rounded-full blur-3xl animate-pulse delay-2000" style={{ background: "color-mix(in srgb, var(--accent-violet) 5%, transparent)" }}></div>
       </div>
 
       <div className="relative z-10">
@@ -121,10 +121,10 @@ export default function Contact() {
             <div className="inline-block mb-6 animate-bounce-slow">
               <span className="text-6xl">✉️</span>
             </div>
-            <h1 className="text-6xl font-bold mb-6 bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 bg-clip-text text-transparent animate-gradient">
+            <h1 className="text-6xl font-bold mb-6 tracking-tight font-[family-name:var(--font-space-grotesk)] bg-clip-text text-transparent animate-gradient" style={{ backgroundImage: "linear-gradient(to right, var(--accent-blue), var(--accent-violet))" }}>
               Get In Touch
             </h1>
-            <p className="text-2xl text-slate-300 mb-16">
+            <p className="text-2xl mb-16" style={{ color: "var(--text-tertiary)" }}>
               Let&apos;s discuss your project and bring your ideas to life
             </p>
           </div>
@@ -135,13 +135,13 @@ export default function Contact() {
         <div className="max-w-7xl mx-auto">
           <div className="grid lg:grid-cols-2 gap-16">
             {/* Contact Form */}
-            <div className={`bg-slate-900/50 p-8 rounded-2xl border border-slate-700 hover:border-blue-500/50 transition-all duration-700 hover:shadow-2xl hover:shadow-blue-500/20 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'}`} style={{transitionDelay: '200ms'}}>
-              <h2 className="text-3xl font-bold mb-8 text-blue-400">Send a Message</h2>
+            <div className={`p-8 rounded-2xl transition-all duration-700 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'}`} style={{ background: "var(--bg-card)", border: "1px solid var(--border-subtle)", boxShadow: "var(--shadow-card)", transitionDelay: '200ms' }}>
+              <h2 className="text-3xl font-bold mb-8 font-[family-name:var(--font-space-grotesk)]" style={{ color: "var(--accent-blue)" }}>Send a Message</h2>
 
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid md:grid-cols-2 gap-6">
                   <div>
-                    <label htmlFor="name" className="block text-sm font-medium text-slate-300 mb-2">
+                    <label htmlFor="name" className="block text-sm font-medium mb-2" style={{ color: "var(--text-tertiary)" }}>
                       Your Name
                     </label>
                     <input
@@ -151,13 +151,14 @@ export default function Contact() {
                       value={formData.name}
                       onChange={handleChange}
                       required
-                      className="w-full px-4 py-3 bg-slate-800 border border-slate-600 rounded-lg text-white placeholder-slate-400 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors"
+                      className="w-full px-4 py-3 rounded-lg focus:outline-none focus:ring-1 focus:ring-blue-500/50 transition-all duration-300"
+                      style={{ background: "var(--bg-elevated)", border: "1px solid var(--border-subtle)", color: "var(--text-primary)" }}
                       placeholder="John Doe"
                     />
                   </div>
 
                   <div>
-                    <label htmlFor="email" className="block text-sm font-medium text-slate-300 mb-2">
+                    <label htmlFor="email" className="block text-sm font-medium mb-2" style={{ color: "var(--text-tertiary)" }}>
                       Email Address
                     </label>
                     <input
@@ -167,14 +168,15 @@ export default function Contact() {
                       value={formData.email}
                       onChange={handleChange}
                       required
-                      className="w-full px-4 py-3 bg-slate-800 border border-slate-600 rounded-lg text-white placeholder-slate-400 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors"
+                      className="w-full px-4 py-3 rounded-lg focus:outline-none focus:ring-1 focus:ring-blue-500/50 transition-all duration-300"
+                      style={{ background: "var(--bg-elevated)", border: "1px solid var(--border-subtle)", color: "var(--text-primary)" }}
                       placeholder="john@example.com"
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label htmlFor="subject" className="block text-sm font-medium text-slate-300 mb-2">
+                  <label htmlFor="subject" className="block text-sm font-medium mb-2" style={{ color: "var(--text-tertiary)" }}>
                     Subject
                   </label>
                   <input
@@ -184,13 +186,14 @@ export default function Contact() {
                     value={formData.subject}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 bg-slate-800 border border-slate-600 rounded-lg text-white placeholder-slate-400 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors"
+                    className="w-full px-4 py-3 rounded-lg focus:outline-none focus:ring-1 focus:ring-blue-500/50 transition-all duration-300"
+                    style={{ background: "var(--bg-elevated)", border: "1px solid var(--border-subtle)", color: "var(--text-primary)" }}
                     placeholder="Project Inquiry"
                   />
                 </div>
 
                 <div>
-                  <label htmlFor="message" className="block text-sm font-medium text-slate-300 mb-2">
+                  <label htmlFor="message" className="block text-sm font-medium mb-2" style={{ color: "var(--text-tertiary)" }}>
                     Message
                   </label>
                   <textarea
@@ -200,7 +203,8 @@ export default function Contact() {
                     onChange={handleChange}
                     required
                     rows={6}
-                    className="w-full px-4 py-3 bg-slate-800 border border-slate-600 rounded-lg text-white placeholder-slate-400 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors resize-none"
+                    className="w-full px-4 py-3 rounded-lg focus:outline-none focus:ring-1 focus:ring-blue-500/50 transition-all duration-300 resize-none"
+                    style={{ background: "var(--bg-elevated)", border: "1px solid var(--border-subtle)", color: "var(--text-primary)" }}
                     placeholder="Tell me about your project..."
                   />
                 </div>
@@ -209,40 +213,42 @@ export default function Contact() {
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 disabled:from-slate-600 disabled:to-slate-700 text-white py-4 px-6 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 disabled:scale-100 shadow-lg hover:shadow-blue-500/25"
+                    className="w-full py-4 px-6 rounded-lg font-semibold transition-all duration-300 hover:-translate-y-0.5 disabled:translate-y-0 disabled:opacity-50"
+                    style={{ background: "var(--btn-primary-bg)", color: "var(--btn-primary-text)" }}
                   >
                     {isSubmitting ? "Sending..." : "Send"}
                   </button>
 
                   <div className="relative">
                     <div className="absolute inset-0 flex items-center">
-                      <div className="w-full border-t border-slate-600"></div>
+                      <div className="w-full" style={{ borderTop: "1px solid var(--border-subtle)" }}></div>
                     </div>
                     <div className="relative flex justify-center text-sm">
-                      <span className="px-4 bg-slate-900/50 text-slate-400">or</span>
+                      <span className="px-4" style={{ background: "var(--bg-card)", color: "var(--text-muted)" }}>or</span>
                     </div>
                   </div>
 
                   <button
                     type="button"
                     onClick={copyEmail}
-                    className="w-full border-2 border-slate-600 hover:border-blue-400 text-slate-300 hover:text-white py-4 px-6 rounded-lg font-semibold transition-all duration-300 hover:bg-blue-400/10"
+                    className="w-full py-4 px-6 rounded-lg font-semibold transition-all duration-300 hover:-translate-y-0.5"
+                    style={{ border: "1px solid var(--btn-secondary-border)", color: "var(--btn-secondary-text)" }}
                   >
                     {copied ? "Email Copied!" : "Copy Email Address"}
                   </button>
                 </div>
 
                 {submitStatus === "success" && (
-                  <div className="text-green-400 text-center p-4 bg-green-400/10 rounded-lg border border-green-400/20">
+                  <div className="text-center p-4 rounded-lg" style={{ color: "var(--accent-emerald)", background: "color-mix(in srgb, var(--accent-emerald) 10%, transparent)", border: "1px solid color-mix(in srgb, var(--accent-emerald) 20%, transparent)" }}>
                     <p className="mb-2">Your email client should open with the message pre-filled!</p>
-                    <p className="text-sm text-green-300">If it didn&apos;t open, you can copy the email address below.</p>
+                    <p className="text-sm" style={{ color: "var(--accent-emerald)" }}>If it didn&apos;t open, you can copy the email address below.</p>
                   </div>
                 )}
 
                 {submitStatus === "error" && (
-                  <div className="text-red-400 text-center p-4 bg-red-400/10 rounded-lg border border-red-400/20">
+                  <div className="text-center p-4 rounded-lg" style={{ color: "#f87171", background: "color-mix(in srgb, #f87171 10%, transparent)", border: "1px solid color-mix(in srgb, #f87171 20%, transparent)" }}>
                     <p className="mb-2">Email client couldn&apos;t be opened automatically.</p>
-                    <p className="text-sm text-red-300">Please copy the email address below and send manually.</p>
+                    <p className="text-sm" style={{ color: "#fca5a5" }}>Please copy the email address below and send manually.</p>
                   </div>
                 )}
               </form>
@@ -251,8 +257,8 @@ export default function Contact() {
             {/* Contact Info */}
             <div className={`space-y-8 transition-all duration-700 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-10'}`} style={{transitionDelay: '400ms'}}>
               <div>
-                <h2 className="text-3xl font-bold mb-8 text-purple-400">Let&apos;s Connect</h2>
-                <p className="text-slate-300 text-lg leading-relaxed mb-8">
+                <h2 className="text-3xl font-bold mb-8 font-[family-name:var(--font-space-grotesk)]" style={{ color: "var(--accent-violet)" }}>Let&apos;s Connect</h2>
+                <p className="text-lg leading-relaxed mb-8" style={{ color: "var(--text-tertiary)" }}>
                   I&apos;m always interested in discussing new opportunities, innovative projects,
                   and potential collaborations. Whether you have a specific project in mind or
                   just want to connect, I&apos;d love to hear from you.
@@ -260,16 +266,17 @@ export default function Contact() {
               </div>
 
               <div className="space-y-6">
-                <div className="flex items-center justify-between p-6 bg-slate-900/50 rounded-xl border border-slate-700 hover:border-blue-500/50 transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-blue-500/20">
+                <div className="flex items-center justify-between p-6 rounded-xl transition-all duration-300 hover:-translate-y-1" style={{ background: "var(--bg-card)", border: "1px solid var(--border-subtle)", boxShadow: "var(--shadow-card)" }}>
                   <div className="flex items-center space-x-4">
-                    <div className="w-12 h-12 bg-blue-500/20 rounded-lg flex items-center justify-center">
+                    <div className="w-12 h-12 rounded-lg flex items-center justify-center" style={{ background: "color-mix(in srgb, var(--accent-blue) 20%, transparent)" }}>
                       <span className="text-2xl">✉️</span>
                     </div>
                     <div>
-                      <h3 className="text-xl font-semibold text-blue-400 mb-1">Email</h3>
+                      <h3 className="text-xl font-semibold mb-1" style={{ color: "var(--accent-blue)" }}>Email</h3>
                       <button
                         onClick={copyEmail}
-                        className="text-slate-300 hover:text-blue-400 transition-colors text-left"
+                        className="transition-colors text-left"
+                        style={{ color: "var(--text-tertiary)" }}
                         title="Click to copy email"
                       >
                         hellofromusama@gmail.com
@@ -278,60 +285,63 @@ export default function Contact() {
                   </div>
                   <button
                     onClick={copyEmail}
-                    className="px-4 py-2 bg-blue-500/20 hover:bg-blue-500/30 text-blue-300 rounded-lg transition-colors text-sm font-medium"
+                    className="px-4 py-2 rounded-lg transition-colors text-sm font-medium"
+                    style={{ background: "color-mix(in srgb, var(--accent-blue) 18%, transparent)", color: "var(--accent-blue)" }}
                   >
                     {copied ? "Copied!" : "Copy"}
                   </button>
                 </div>
 
-                <div className="flex items-center space-x-4 p-6 bg-slate-900/50 rounded-xl border border-slate-700 hover:border-purple-500/50 transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-purple-500/20">
-                  <div className="w-12 h-12 bg-purple-500/20 rounded-lg flex items-center justify-center">
+                <div className="flex items-center space-x-4 p-6 rounded-xl transition-all duration-300 hover:-translate-y-1" style={{ background: "var(--bg-card)", border: "1px solid var(--border-subtle)", boxShadow: "var(--shadow-card)" }}>
+                  <div className="w-12 h-12 rounded-lg flex items-center justify-center" style={{ background: "color-mix(in srgb, var(--accent-violet) 20%, transparent)" }}>
                     <span className="text-2xl">💼</span>
                   </div>
                   <div>
-                    <h3 className="text-xl font-semibold text-purple-400 mb-1">LinkedIn</h3>
+                    <h3 className="text-xl font-semibold mb-1" style={{ color: "var(--accent-violet)" }}>LinkedIn</h3>
                     <a
                       href="https://www.linkedin.com/in/hellofromusama/"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-slate-300 hover:text-purple-400 transition-colors"
+                      className="transition-colors"
+                      style={{ color: "var(--text-tertiary)" }}
                     >
                       linkedin.com/in/hellofromusama
                     </a>
                   </div>
                 </div>
 
-                <div className="flex items-center space-x-4 p-6 bg-slate-900/50 rounded-xl border border-slate-700 hover:border-green-500/50 transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-green-500/20">
-                  <div className="w-12 h-12 bg-green-500/20 rounded-lg flex items-center justify-center">
+                <div className="flex items-center space-x-4 p-6 rounded-xl transition-all duration-300 hover:-translate-y-1" style={{ background: "var(--bg-card)", border: "1px solid var(--border-subtle)", boxShadow: "var(--shadow-card)" }}>
+                  <div className="w-12 h-12 rounded-lg flex items-center justify-center" style={{ background: "color-mix(in srgb, var(--accent-emerald) 20%, transparent)" }}>
                     <span className="text-2xl">👨‍💻</span>
                   </div>
                   <div>
-                    <h3 className="text-xl font-semibold text-green-400 mb-1">GitHub</h3>
+                    <h3 className="text-xl font-semibold mb-1" style={{ color: "var(--accent-emerald)" }}>GitHub</h3>
                     <a
                       href="https://github.com/hellofromusama"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-slate-300 hover:text-green-400 transition-colors"
+                      className="transition-colors"
+                      style={{ color: "var(--text-tertiary)" }}
                     >
                       github.com/hellofromusama
                     </a>
                   </div>
                 </div>
 
-                <div className="flex items-center space-x-4 p-6 bg-slate-900/50 rounded-xl border border-slate-700 hover:border-yellow-500/50 transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-yellow-500/20">
-                  <div className="w-12 h-12 bg-yellow-500/20 rounded-lg flex items-center justify-center">
+                <div className="flex items-center space-x-4 p-6 rounded-xl transition-all duration-300 hover:-translate-y-1" style={{ background: "var(--bg-card)", border: "1px solid var(--border-subtle)", boxShadow: "var(--shadow-card)" }}>
+                  <div className="w-12 h-12 rounded-lg flex items-center justify-center" style={{ background: "color-mix(in srgb, var(--accent-emerald) 20%, transparent)" }}>
                     <span className="text-2xl">📍</span>
                   </div>
                   <div>
-                    <h3 className="text-xl font-semibold text-yellow-400 mb-1">Location</h3>
-                    <span className="text-slate-300">Australia</span>
+                    <h3 className="text-xl font-semibold mb-1" style={{ color: "var(--accent-emerald)" }}>Location</h3>
+                    <span style={{ color: "var(--text-tertiary)" }}>Australia</span>
                   </div>
                 </div>
               </div>
 
-              <div className="bg-gradient-to-r from-blue-500/10 to-purple-500/10 p-8 rounded-2xl border border-blue-500/20">
-                <h3 className="text-2xl font-semibold text-blue-400 mb-4">Response Time</h3>
-                <p className="text-slate-300">
+              <div className="p-8 rounded-2xl" style={{ background: "linear-gradient(to right, color-mix(in srgb, var(--accent-blue) 10%, transparent), color-mix(in srgb, var(--accent-violet) 10%, transparent))", border: "1px solid color-mix(in srgb, var(--accent-blue) 20%, transparent)" }}>
+                <h3 className="text-2xl font-semibold mb-4 font-[family-name:var(--font-space-grotesk)]" style={{ color: "var(--accent-blue)" }}>Response Time</h3>
+                <p style={{ color: "var(--text-tertiary)" }}>
                   I typically respond to emails within 24 hours. For urgent inquiries,
                   feel free to mention it in your subject line.
                 </p>

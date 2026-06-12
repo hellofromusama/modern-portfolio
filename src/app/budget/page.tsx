@@ -94,7 +94,7 @@ export default function BudgetCalculator() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white relative overflow-hidden">
+    <div className="min-h-screen relative overflow-hidden" style={{ background: "var(--bg-primary)", color: "var(--text-primary)" }}>
       {/* Animated Money/Calculator Background */}
       <div className="fixed inset-0 z-0 pointer-events-none">
         <div className="absolute top-20 left-20 text-6xl opacity-5 animate-float-slow">💰</div>
@@ -102,7 +102,7 @@ export default function BudgetCalculator() {
         <div className="absolute bottom-40 left-1/4 text-7xl opacity-5 animate-float-slow delay-2000">🧮</div>
         <div className="absolute bottom-60 right-1/3 text-6xl opacity-5 animate-float-slow delay-3000">📊</div>
         <div className="absolute top-1/2 left-1/3 text-5xl opacity-5 animate-float-slow delay-4000">💵</div>
-        <div className="absolute inset-0 bg-gradient-to-br from-green-500/5 via-transparent to-blue-500/5"></div>
+        <div className="absolute inset-0" style={{ background: "linear-gradient(to bottom right, color-mix(in srgb, var(--accent-emerald) 5%, transparent), transparent, color-mix(in srgb, var(--accent-blue) 5%, transparent))" }}></div>
       </div>
 
       <div className="relative z-10">
@@ -110,23 +110,23 @@ export default function BudgetCalculator() {
 
         <div className="pt-20">
           {/* Header */}
-          <div className={`bg-gradient-to-r from-green-500/20 to-blue-500/20 border-b border-slate-700/50 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-10'}`}>
+          <div className={`transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-10'}`} style={{ background: "linear-gradient(to right, color-mix(in srgb, var(--accent-emerald) 14%, transparent), color-mix(in srgb, var(--accent-blue) 14%, transparent))", borderBottom: "1px solid var(--border-subtle)" }}>
             <div className="max-w-6xl mx-auto px-4 py-8 md:py-12">
               <div className="text-center mb-3 md:mb-4">
-                <span className="inline-block bg-yellow-500/20 border border-yellow-500/50 text-yellow-300 px-3 md:px-4 py-1 md:py-2 rounded-full text-xs md:text-sm font-semibold mb-3 md:mb-4 animate-pulse-glow">
+                <span className="inline-block px-3 md:px-4 py-1 md:py-2 rounded-full text-xs md:text-sm font-semibold mb-3 md:mb-4 animate-pulse-glow" style={{ background: "var(--bg-card)", border: "1px solid var(--border-subtle)", color: "var(--accent-emerald)" }}>
                   🎉 Fun AI-Powered Budget Calculator
                 </span>
               </div>
               <div className="flex justify-center mb-4">
                 <span className="text-6xl animate-bounce-money">💰</span>
               </div>
-              <h1 className="text-3xl md:text-5xl font-bold text-center mb-3 md:mb-4 bg-gradient-to-r from-green-400 via-emerald-400 to-blue-500 bg-clip-text text-transparent animate-shimmer">
+              <h1 className="text-3xl md:text-5xl font-bold text-center mb-3 md:mb-4 tracking-tight font-[family-name:var(--font-space-grotesk)] bg-clip-text text-transparent animate-shimmer" style={{ backgroundImage: "linear-gradient(to right, var(--accent-emerald), var(--accent-blue))" }}>
                 Project Budget Calculator
               </h1>
-              <p className="text-base md:text-xl text-slate-300 text-center max-w-3xl mx-auto mb-3 md:mb-4">
+              <p className="text-base md:text-xl text-center max-w-3xl mx-auto mb-3 md:mb-4" style={{ color: "var(--text-tertiary)" }}>
                 Get instant estimates for your web development project. Describe your requirements and get detailed cost and timeline information.
               </p>
-              <p className="text-xs md:text-sm text-slate-400 text-center max-w-2xl mx-auto italic">
+              <p className="text-xs md:text-sm text-center max-w-2xl mx-auto italic" style={{ color: "var(--text-muted)" }}>
                 ⚡ This is an AI-powered tool for quick estimates. For accurate quotes, please contact directly.
               </p>
             </div>
@@ -134,16 +134,17 @@ export default function BudgetCalculator() {
 
         {/* Chat Interface */}
         <div className={`max-w-4xl mx-auto px-4 py-4 md:py-8 transition-all duration-700 ${isVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`} style={{transitionDelay: '300ms'}}>
-          <div className="bg-slate-900/50 rounded-xl border border-slate-700/50 shadow-2xl hover:shadow-green-500/20 hover:border-green-500/30 transition-all duration-500">
+          <div className="rounded-xl transition-all duration-500" style={{ background: "var(--bg-card)", border: "1px solid var(--border-subtle)", boxShadow: "var(--shadow-card)" }}>
             {/* Chat Messages */}
             <div className="h-[50vh] md:h-96 overflow-y-auto p-3 md:p-6 space-y-3 md:space-y-4">
               {messages.map((message, index) => (
                 <div key={index} className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-                  <div className={`max-w-[85%] md:max-w-3xl rounded-lg px-3 md:px-4 py-2 md:py-3 ${
-                    message.role === 'user'
-                      ? 'bg-blue-600 text-white'
-                      : 'bg-slate-800 text-slate-200 border border-slate-700'
-                  }`}>
+                  <div
+                    className="max-w-[85%] md:max-w-3xl rounded-lg px-3 md:px-4 py-2 md:py-3"
+                    style={message.role === 'user'
+                      ? { background: "var(--btn-primary-bg)", color: "var(--btn-primary-text)" }
+                      : { background: "var(--bg-elevated)", color: "var(--text-secondary)", border: "1px solid var(--border-subtle)" }}
+                  >
                     <div
                       className="text-xs sm:text-sm md:text-base leading-relaxed"
                       dangerouslySetInnerHTML={{ __html: formatMessage(message.content) }}
@@ -157,12 +158,12 @@ export default function BudgetCalculator() {
 
               {isLoading && (
                 <div className="flex justify-start">
-                  <div className="bg-slate-800 border border-slate-700 rounded-lg px-4 py-3">
+                  <div className="rounded-lg px-4 py-3" style={{ background: "var(--bg-elevated)", border: "1px solid var(--border-subtle)" }}>
                     <div className="flex items-center space-x-2">
-                      <div className="w-2 h-2 bg-blue-400 rounded-full animate-bounce"></div>
-                      <div className="w-2 h-2 bg-blue-400 rounded-full animate-bounce delay-100"></div>
-                      <div className="w-2 h-2 bg-blue-400 rounded-full animate-bounce delay-200"></div>
-                      <span className="text-slate-300 ml-2">Calculating estimate...</span>
+                      <div className="w-2 h-2 rounded-full animate-bounce" style={{ background: "var(--accent-blue)" }}></div>
+                      <div className="w-2 h-2 rounded-full animate-bounce delay-100" style={{ background: "var(--accent-blue)" }}></div>
+                      <div className="w-2 h-2 rounded-full animate-bounce delay-200" style={{ background: "var(--accent-blue)" }}></div>
+                      <span className="ml-2" style={{ color: "var(--text-tertiary)" }}>Calculating estimate...</span>
                     </div>
                   </div>
                 </div>
@@ -170,20 +171,22 @@ export default function BudgetCalculator() {
             </div>
 
             {/* Input Form */}
-            <div className="border-t border-slate-700/50 p-3 md:p-6">
+            <div className="p-3 md:p-6" style={{ borderTop: "1px solid var(--border-subtle)" }}>
               <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-2 md:gap-4">
                 <input
                   type="text"
                   value={userInput}
                   onChange={(e) => setUserInput(e.target.value)}
                   placeholder="Describe your project (e.g., 'I need an e-commerce website with payment integration')"
-                  className="flex-1 bg-slate-800 border border-slate-600 rounded-lg px-3 md:px-4 py-2 md:py-3 text-sm md:text-base text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="flex-1 rounded-lg px-3 md:px-4 py-2 md:py-3 text-sm md:text-base focus:outline-none focus:ring-1 focus:ring-blue-500/50 transition-all duration-300"
+                  style={{ background: "var(--bg-elevated)", border: "1px solid var(--border-subtle)", color: "var(--text-primary)" }}
                   disabled={isLoading}
                 />
                 <button
                   type="submit"
                   disabled={isLoading || !userInput.trim()}
-                  className="bg-gradient-to-r from-green-500 to-blue-600 hover:from-green-600 hover:to-blue-700 disabled:opacity-50 disabled:cursor-not-allowed text-white px-4 md:px-6 py-2 md:py-3 rounded-lg text-sm md:text-base font-semibold transition-all duration-300 transform hover:scale-105 whitespace-nowrap"
+                  className="disabled:opacity-50 disabled:cursor-not-allowed px-4 md:px-6 py-2 md:py-3 rounded-lg text-sm md:text-base font-semibold transition-all duration-300 hover:-translate-y-0.5 whitespace-nowrap"
+                  style={{ background: "linear-gradient(to right, var(--accent-emerald), var(--accent-blue))", color: "#fff" }}
                 >
                   {isLoading ? 'Calculating...' : 'Get Estimate'}
                 </button>
@@ -193,9 +196,9 @@ export default function BudgetCalculator() {
 
           {/* Sample Questions */}
           <div className="mt-8 grid md:grid-cols-2 gap-4">
-            <div className="bg-slate-900/30 rounded-lg p-6 border border-slate-700/50">
-              <h3 className="text-lg font-semibold text-green-400 mb-3">💡 Sample Questions</h3>
-              <div className="space-y-2 text-sm text-slate-300">
+            <div className="rounded-xl p-6" style={{ background: "var(--bg-card)", border: "1px solid var(--border-subtle)", boxShadow: "var(--shadow-card)" }}>
+              <h3 className="text-lg font-semibold mb-3" style={{ color: "var(--accent-emerald)" }}>💡 Sample Questions</h3>
+              <div className="space-y-2 text-sm" style={{ color: "var(--text-tertiary)" }}>
                 <div>"I need an e-commerce website with payment integration"</div>
                 <div>"Build a custom CRM system for my business"</div>
                 <div>"Create a mobile app with AI features"</div>
@@ -203,9 +206,9 @@ export default function BudgetCalculator() {
               </div>
             </div>
 
-            <div className="bg-slate-900/30 rounded-lg p-6 border border-slate-700/50">
-              <h3 className="text-lg font-semibold text-blue-400 mb-3">📊 What You'll Get</h3>
-              <div className="space-y-2 text-sm text-slate-300">
+            <div className="rounded-xl p-6" style={{ background: "var(--bg-card)", border: "1px solid var(--border-subtle)", boxShadow: "var(--shadow-card)" }}>
+              <h3 className="text-lg font-semibold mb-3" style={{ color: "var(--accent-blue)" }}>📊 What You'll Get</h3>
+              <div className="space-y-2 text-sm" style={{ color: "var(--text-tertiary)" }}>
                 <div>• Detailed cost breakdown</div>
                 <div>• Project timeline estimate</div>
                 <div>• Technology recommendations</div>
@@ -215,15 +218,16 @@ export default function BudgetCalculator() {
           </div>
 
           {/* Contact Info */}
-          <div className="mt-8 text-center bg-gradient-to-r from-slate-900/50 to-slate-800/50 rounded-lg p-6 border border-slate-700/50">
-            <h3 className="text-xl font-semibold text-white mb-2">Need a Detailed Quote?</h3>
-            <p className="text-slate-300 mb-4">
+          <div className="mt-8 text-center rounded-xl p-6" style={{ background: "var(--bg-card)", border: "1px solid var(--border-subtle)", boxShadow: "var(--shadow-card)" }}>
+            <h3 className="text-xl font-semibold mb-2 font-[family-name:var(--font-space-grotesk)]" style={{ color: "var(--text-primary)" }}>Need a Detailed Quote?</h3>
+            <p className="mb-4" style={{ color: "var(--text-tertiary)" }}>
               For complex projects or personalized consultation, contact me directly.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a
                 href="mailto:hellofromusama@gmail.com"
-                className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105"
+                className="px-6 py-3 rounded-lg font-semibold transition-all duration-300 hover:-translate-y-0.5"
+                style={{ background: "var(--btn-primary-bg)", color: "var(--btn-primary-text)" }}
               >
                 Email: hellofromusama@gmail.com
               </a>
@@ -231,7 +235,8 @@ export default function BudgetCalculator() {
                 href="https://wa.me/61433695387"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105"
+                className="px-6 py-3 rounded-lg font-semibold transition-all duration-300 hover:-translate-y-0.5"
+                style={{ background: "var(--accent-emerald)", color: "#fff" }}
               >
                 WhatsApp: +61 433 695 387
               </a>
