@@ -320,7 +320,7 @@ const InteractiveGlobe: React.FC<InteractiveGlobeProps> = ({
       ctx.stroke();
     }
 
-    let startTime = performance.now();
+    const startTime = performance.now();
 
     function render(time: number) {
       const elapsed = (time - startTime) / 1000;
