@@ -2,10 +2,40 @@
 
 import React, { useRef, useEffect, useCallback, useState } from "react";
 import { useAnimationGate } from "@/hooks/useAnimationGate";
+import { useThemeColors } from "@/hooks/useThemeColors";
 
 interface InteractiveGlobeProps {
   className?: string;
   size?: number;
+}
+
+// Parse a resolved theme token (hex "#rgb"/"#rrggbb" or an existing rgb/rgba
+// string) into "r, g, b" channel triplet so an alpha can be interpolated at
+// draw time. Cached per render via resolveRGB below — never called per frame on
+// the token strings directly inside the hot loop more than the small lookups.
+function hexToRGBTriplet(input: string, fallback: string): string {
+  const v = (input || "").trim();
+  if (!v) return fallback;
+  // Already an rgb()/rgba() string -> pull the first three channels.
+  const rgbMatch = v.match(/rgba?\(([^)]+)\)/i);
+  if (rgbMatch) {
+    const parts = rgbMatch[1].split(",").map((p) => p.trim());
+    if (parts.length >= 3) return `${parts[0]}, ${parts[1]}, ${parts[2]}`;
+    return fallback;
+  }
+  let hex = v.replace("#", "");
+  if (hex.length === 3) {
+    hex = hex
+      .split("")
+      .map((c) => c + c)
+      .join("");
+  }
+  if (hex.length !== 6) return fallback;
+  const r = parseInt(hex.slice(0, 2), 16);
+  const g = parseInt(hex.slice(2, 4), 16);
+  const b = parseInt(hex.slice(4, 6), 16);
+  if (Number.isNaN(r) || Number.isNaN(g) || Number.isNaN(b)) return fallback;
+  return `${r}, ${g}, ${b}`;
 }
 
 // Points of presence scattered across continents (lat, lon in degrees)
@@ -134,6 +164,18 @@ const InteractiveGlobe: React.FC<InteractiveGlobeProps> = ({
   const animFrameRef = useRef<number>(0);
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
 
+  // Theme-reactive colors: read CSS-var tokens (re-reads on data-theme flip via
+  // the hook's MutationObserver, NEVER per-frame). Resolve each to an "r, g, b"
+  // channel triplet so the existing per-segment/back-face ALPHA placeholder can
+  // be interpolated at draw time. Mirrored into a ref so the long-lived rAF
+  // closure always reads the LATEST theme without re-creating the loop.
+  const colors = useThemeColors(["--accent-blue", "--accent-violet"]);
+  const blueRGB = hexToRGBTriplet(colors["--accent-blue"], "96, 165, 250");
+  const violetRGB = hexToRGBTriplet(colors["--accent-violet"], "167, 139, 250");
+  const rgbRef = useRef({ blue: blueRGB, violet: violetRGB });
+  rgbRef.current.blue = blueRGB;
+  rgbRef.current.violet = violetRGB;
+
   // PERF-04: pause the rAF loop off-screen / on tab blur / under reduced motion.
   const { shouldAnimate } = useAnimationGate(containerRef);
   // gateRef mirrors shouldAnimate so the long-lived rAF closure reads the
@@ -216,10 +258,17 @@ const InteractiveGlobe: React.FC<InteractiveGlobeProps> = ({
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
+    // DPR fix (research Pitfall 1 — the named retina bug): set backing-store
+    // size from the cached CSS dimensions, then ctx.setTransform(dpr,...) which
+    // RESETS the matrix each time (no accumulation). This replaces the previous
+    // ctx.scale(dpr, dpr) — scale MULTIPLIES the current matrix, so re-running
+    // this effect on every dimensions/getRadius change compounded the scale and
+    // blew up the coordinate space on retina/DPR-2. Applied exactly once per
+    // size change here; never re-applied inside the per-frame draw below.
     const dpr = window.devicePixelRatio || 1;
     canvas.width = dimensions.width * dpr;
     canvas.height = dimensions.height * dpr;
-    ctx.scale(dpr, dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
     const cx = dimensions.width / 2;
     const cy = dimensions.height / 2;
@@ -292,11 +341,13 @@ const InteractiveGlobe: React.FC<InteractiveGlobeProps> = ({
       ctx!.fillStyle = bgGrad;
       ctx!.fillRect(0, 0, dimensions.width, dimensions.height);
 
-      // Outer glow
+      // Outer glow (theme-reactive: blue core fading into violet)
+      const blue = rgbRef.current.blue;
+      const violet = rgbRef.current.violet;
       const glowGrad = ctx!.createRadialGradient(cx, cy, radius * 0.9, cx, cy, radius * 1.4);
-      glowGrad.addColorStop(0, "rgba(96, 165, 250, 0.08)");
-      glowGrad.addColorStop(0.5, "rgba(167, 139, 250, 0.04)");
-      glowGrad.addColorStop(1, "rgba(167, 139, 250, 0)");
+      glowGrad.addColorStop(0, `rgba(${blue}, 0.08)`);
+      glowGrad.addColorStop(0.5, `rgba(${violet}, 0.04)`);
+      glowGrad.addColorStop(1, `rgba(${violet}, 0)`);
       ctx!.fillStyle = glowGrad;
       ctx!.beginPath();
       ctx!.arc(cx, cy, radius * 1.4, 0, Math.PI * 2);
@@ -311,7 +362,7 @@ const InteractiveGlobe: React.FC<InteractiveGlobeProps> = ({
         drawLine(
           ctx!,
           segments,
-          `rgba(96, 165, 250, ALPHA)`,
+          `rgba(${blue}, ALPHA)`,
           0.25,
           0.6
         );
@@ -326,7 +377,7 @@ const InteractiveGlobe: React.FC<InteractiveGlobeProps> = ({
         drawLine(
           ctx!,
           segments,
-          `rgba(167, 139, 250, ALPHA)`,
+          `rgba(${violet}, ALPHA)`,
           0.2,
           0.6
         );
@@ -337,7 +388,7 @@ const InteractiveGlobe: React.FC<InteractiveGlobeProps> = ({
       for (let lon = 0; lon <= 360; lon += 3) {
         eqSegments.push(latLonToXYZ(0, lon, radius));
       }
-      drawLine(ctx!, eqSegments, `rgba(96, 165, 250, ALPHA)`, 0.4, 0.8);
+      drawLine(ctx!, eqSegments, `rgba(${blue}, ALPHA)`, 0.4, 0.8);
 
       // Draw points of presence
       for (let i = 0; i < POINTS_OF_PRESENCE.length; i++) {
@@ -356,10 +407,10 @@ const InteractiveGlobe: React.FC<InteractiveGlobeProps> = ({
         const dotRadius = 2 + pulse * 1.5;
         const alpha = visibility * (0.6 + pulse * 0.4);
 
-        // Glow around dot
+        // Glow around dot (theme-reactive blue)
         const dotGlow = ctx!.createRadialGradient(px, py, 0, px, py, dotRadius * 4);
-        dotGlow.addColorStop(0, `rgba(96, 165, 250, ${(alpha * 0.5).toFixed(3)})`);
-        dotGlow.addColorStop(1, "rgba(96, 165, 250, 0)");
+        dotGlow.addColorStop(0, `rgba(${blue}, ${(alpha * 0.5).toFixed(3)})`);
+        dotGlow.addColorStop(1, `rgba(${blue}, 0)`);
         ctx!.fillStyle = dotGlow;
         ctx!.beginPath();
         ctx!.arc(px, py, dotRadius * 4, 0, Math.PI * 2);
@@ -406,6 +457,10 @@ const InteractiveGlobe: React.FC<InteractiveGlobeProps> = ({
         // Animated pulse traveling along the arc
         const pulsePos = ((elapsed * 0.4 + c * 0.7) % 1.5) / 1.5;
 
+        // Theme-reactive blue->violet gradient channels for this arc.
+        const [bR, bG, bB] = blue.split(",").map((n) => parseInt(n.trim(), 10));
+        const [vR, vG, vB] = violet.split(",").map((n) => parseInt(n.trim(), 10));
+
         // Draw arc segments with traveling pulse
         for (let s = 0; s < arcPoints.length - 1; s++) {
           const t = s / arcPoints.length;
@@ -422,9 +477,9 @@ const InteractiveGlobe: React.FC<InteractiveGlobeProps> = ({
           const pulseBright = Math.exp(-dist * dist * 60);
           const arcAlpha = visibility * (0.08 + pulseBright * 0.7);
 
-          const r = Math.round(96 + (167 - 96) * t);
-          const g = Math.round(165 + (139 - 165) * t);
-          const b = Math.round(250);
+          const r = Math.round(bR + (vR - bR) * t);
+          const g = Math.round(bG + (vG - bG) * t);
+          const b = Math.round(bB + (vB - bB) * t);
 
           ctx!.strokeStyle = `rgba(${r}, ${g}, ${b}, ${arcAlpha.toFixed(3)})`;
           ctx!.lineWidth = 1 + pulseBright * 2;
@@ -444,9 +499,9 @@ const InteractiveGlobe: React.FC<InteractiveGlobeProps> = ({
         cy,
         radius
       );
-      sphereShade.addColorStop(0, "rgba(96, 165, 250, 0.02)");
+      sphereShade.addColorStop(0, `rgba(${blue}, 0.02)`);
       sphereShade.addColorStop(0.7, "rgba(0, 0, 0, 0)");
-      sphereShade.addColorStop(1, "rgba(96, 165, 250, 0.05)");
+      sphereShade.addColorStop(1, `rgba(${blue}, 0.05)`);
       ctx!.fillStyle = sphereShade;
       ctx!.beginPath();
       ctx!.arc(cx, cy, radius, 0, Math.PI * 2);
