@@ -3,7 +3,7 @@
 import { useState } from 'react';
 
 interface TestResults {
-  openai?: unknown;
+  openai?: Record<string, unknown>;
   budget?: { response?: string; status?: string; message?: string };
 }
 
