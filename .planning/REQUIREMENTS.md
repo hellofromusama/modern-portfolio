@@ -38,7 +38,7 @@
 
 - [ ] **PERF-01**: Core Web Vitals do not regress: WebGL/3D code is route-split and lazy; hero LCP element renders without waiting on three.js
 - [ ] **PERF-02**: All animation loops pause when off-screen and on tab blur; mobile devices get DPR caps and capability-appropriate scenes
-- [ ] **PERF-03**: Every interactive element is keyboard-reachable with a visible focus state; no keyboard traps introduced by new motion
+- [x] **PERF-03**: Every interactive element is keyboard-reachable with a visible focus state; no keyboard traps introduced by new motion
 - [ ] **PERF-04**: OS-level prefers-reduced-motion produces an equivalent, fully readable static experience on every page
 
 ### Fixes in Passing (FIX)
@@ -89,7 +89,7 @@
 | FOUND-02 | Phase 3 | Complete |
 | FOUND-03 | Phase 3 | Complete |
 | FOUND-05 | Phase 3 | Pending |
-| PERF-03 | Phase 3 | Pending |
+| PERF-03 | Phase 3 | Complete |
 | PERF-04 | Phase 3 | Pending |
 | FOUND-04 | Phase 4 | Pending |
 | PERF-01 | Phase 4 | Pending |

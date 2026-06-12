@@ -71,7 +71,7 @@ Plans:
 **Plans**: 5 plans
 Plans:
 - [x] 03-00-PLAN.md — Wave 0: install motion@^12.40, contrast-check script, faint/ghost/muted usage audit
-- [ ] 03-01-PLAN.md — Wave 2: AA-correct tokens + type/spacing scales + skip-link/focus-visible (globals.css, layout.tsx)
+- [x] 03-01-PLAN.md — Wave 2: AA-correct tokens + type/spacing scales + skip-link/focus-visible (globals.css, layout.tsx)
 - [x] 03-02-PLAN.md — Wave 2: useAnimationGate + useThemeColors hooks + motion presets (primitives only)
 - [ ] 03-03-PLAN.md — Wave 3: error.tsx/global-error.tsx/IslandBoundary + gate & wrap the 3 canvas islands
 - [ ] 03-04-PLAN.md — Wave 4: SHIP-01 gate (tsc+lint+build+contrast) + boundary/reduced-motion/keyboard verify
