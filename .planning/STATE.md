@@ -3,8 +3,8 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 01-03-PLAN.md
-last_updated: "2026-06-12T01:31:31.179Z"
+stopped_at: Completed 01-04-PLAN.md
+last_updated: "2026-06-12T01:31:51.647Z"
 last_activity: 2026-06-12
 progress:
   total_phases: 6
@@ -74,6 +74,7 @@ Recent decisions affecting current work:
 - [Phase 01]: Content centralized into src/content/ (types/projects/skills/seo): keyed 7-project superset + projections (homeGrid 6 / itemList 6 / sitemap 7) + buildItemListSchema; content-diff green
 - [Phase 01]: Extended content-diff gate to dual-SHAPE: reconstructs ItemList from projects.ts seo* fields under the builder pattern; byte-strict comparison preserved
 - [Phase 01]: Wave 2 (01-03): repointed projects/[id] to getProject (generateStaticParams 7 slugs + generateMetadata) and sitemap.ts to the sitemapProjects projection; extended content-diff gate dual-shape for the sitemap map; diff green
+- [Phase 01]: Repointed render consumers to centralized content: page.tsx home grid uses homeGridProjects grid* fields + skills import (stays client, accentMap kept); layout JSON-LD ItemList uses buildItemListSchema() — itemList byte-identical, FOUND-01 + SEO-01(JSON-LD) complete
 
 ### Pending Todos
 
@@ -91,6 +92,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-06-12T01:31:05.547Z
-Stopped at: Completed 01-03-PLAN.md
+Last session: 2026-06-12T01:31:51.642Z
+Stopped at: Completed 01-04-PLAN.md
 Resume file: None
