@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import ConditionalFooter from "@/components/ConditionalFooter";
+import { buildItemListSchema } from "@/content/seo";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -491,94 +492,7 @@ export default function RootLayout({
     ]
   };
 
-  const projectsListData = {
-    '@context': 'https://schema.org',
-    '@type': 'ItemList',
-    '@id': 'https://www.usamajaved.com.au/#projects',
-    name: 'Usama Javed Portfolio Projects',
-    description: 'Featured enterprise projects by Usama Javed, Senior Full Stack Developer in Perth',
-    numberOfItems: 6,
-    itemListElement: [
-      {
-        '@type': 'ListItem',
-        position: 1,
-        item: {
-          '@type': 'SoftwareApplication',
-          name: 'Enterprise N8N Automation Platform',
-          description: 'Workflow automation platform reducing manual processes by 70% and saving $180,000/year for a Perth mining company',
-          url: 'https://www.usamajaved.com.au/projects/n8n-automation',
-          applicationCategory: 'BusinessApplication',
-          operatingSystem: 'Web',
-          author: { '@id': 'https://www.usamajaved.com.au/#person' }
-        }
-      },
-      {
-        '@type': 'ListItem',
-        position: 2,
-        item: {
-          '@type': 'SoftwareApplication',
-          name: 'Voice AI Booking Agent',
-          description: 'AI-powered voice agent handling 500+ daily bookings using OpenAI GPT-4 and Whisper, achieving 35% conversion increase',
-          url: 'https://www.usamajaved.com.au/projects/voice-ai-agent',
-          applicationCategory: 'BusinessApplication',
-          operatingSystem: 'Web',
-          author: { '@id': 'https://www.usamajaved.com.au/#person' }
-        }
-      },
-      {
-        '@type': 'ListItem',
-        position: 3,
-        item: {
-          '@type': 'SoftwareApplication',
-          name: 'Enterprise ERP System',
-          description: 'Unified NetSuite ERP replacing 5 legacy systems for 200+ mining company users with real-time dashboards and mobile field access',
-          url: 'https://www.usamajaved.com.au/projects/erp-system',
-          applicationCategory: 'BusinessApplication',
-          operatingSystem: 'Web',
-          author: { '@id': 'https://www.usamajaved.com.au/#person' }
-        }
-      },
-      {
-        '@type': 'ListItem',
-        position: 4,
-        item: {
-          '@type': 'SoftwareApplication',
-          name: 'NetSuite Integration Suite',
-          description: 'Custom middleware connecting 12 business systems with real-time sync, processing 50,000+ daily transactions at 99.99% uptime',
-          url: 'https://www.usamajaved.com.au/projects/netsuite-integration',
-          applicationCategory: 'BusinessApplication',
-          operatingSystem: 'Web',
-          author: { '@id': 'https://www.usamajaved.com.au/#person' }
-        }
-      },
-      {
-        '@type': 'ListItem',
-        position: 5,
-        item: {
-          '@type': 'SoftwareApplication',
-          name: 'Cloud Infrastructure Platform',
-          description: 'Kubernetes-based microservices architecture supporting 100K+ concurrent users with 99.99% uptime and 200ms global response',
-          url: 'https://www.usamajaved.com.au/projects/cloud-infrastructure',
-          applicationCategory: 'DeveloperApplication',
-          operatingSystem: 'Web',
-          author: { '@id': 'https://www.usamajaved.com.au/#person' }
-        }
-      },
-      {
-        '@type': 'ListItem',
-        position: 6,
-        item: {
-          '@type': 'SoftwareApplication',
-          name: 'Modern Portfolio Website',
-          description: 'Next.js 15 portfolio with React 19, Tailwind CSS 4, perfect Lighthouse scores, and comprehensive AI SEO optimization',
-          url: 'https://www.usamajaved.com.au/projects/modern-portfolio',
-          applicationCategory: 'WebApplication',
-          operatingSystem: 'Web',
-          author: { '@id': 'https://www.usamajaved.com.au/#person' }
-        }
-      }
-    ]
-  };
+  const projectsListData = buildItemListSchema();
 
   const speakableData = {
     '@context': 'https://schema.org',
