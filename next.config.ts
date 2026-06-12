@@ -4,12 +4,6 @@ const nextConfig: NextConfig = {
   reactStrictMode: true,
   compress: true,
   poweredByHeader: false,
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
-  typescript: {
-    ignoreBuildErrors: true,
-  },
 
   // Performance optimizations
   images: {
