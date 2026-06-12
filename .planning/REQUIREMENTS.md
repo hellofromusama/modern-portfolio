@@ -30,8 +30,8 @@
 - [x] **VIS-03**: IdeaNetworkCanvas upgraded with the retina DPR coordinate bug fixed, physics polish, theme-reactive colors, off-screen pause
 - [x] **VIS-04**: ScrollReveal and micro-interactions (InteractiveButton, hover states, magnetic effects) re-implemented on motion v12 with senior-level restraint
 - [ ] **VIS-05**: Navigation upgraded: refined desktop nav + mobile menu with polished open/close choreography, keyboard accessible, focus-visible states
-- [ ] **VIS-06**: ThemeToggle, Footer, FAQ, TeamSection, FundMeWidget, AnimatedIcons visually elevated to the new design language (every one of the 17 components touched)
-- [ ] **VIS-07**: Cards and typography across ALL pages (home, projects, expertise, services, blog, budget, team, tech-stack, ideas, contact, developer-australia, fund-me) conform to the tightened design tokens
+- [x] **VIS-06**: ThemeToggle, Footer, FAQ, TeamSection, FundMeWidget, AnimatedIcons visually elevated to the new design language (every one of the 17 components touched)
+- [x] **VIS-07**: Cards and typography across ALL pages (home, projects, expertise, services, blog, budget, team, tech-stack, ideas, contact, developer-australia, fund-me) conform to the tightened design tokens
 - [ ] **VIS-08**: Smooth page transitions via the View Transitions API as progressive enhancement, disabled under reduced motion
 
 ### Performance & Accessibility (PERF)
@@ -98,8 +98,8 @@
 | VIS-03 | Phase 5 | Complete (05-02) |
 | VIS-04 | Phase 5 | Complete (05-03) |
 | VIS-05 | Phase 5 | Pending |
-| VIS-06 | Phase 5 | Pending |
-| VIS-07 | Phase 5 | Pending |
+| VIS-06 | Phase 5 | Complete |
+| VIS-07 | Phase 5 | Complete |
 | PERF-02 | Phase 5 | Complete (05-01) |
 | VIS-08 | Phase 6 | Pending |
 | FIX-01 | Phase 6 | Pending |
