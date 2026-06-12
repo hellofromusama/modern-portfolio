@@ -1,20 +1,31 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { motion, AnimatePresence, useReducedMotion } from 'motion/react';
+import { EASE_SIGNATURE } from '@/lib/motion';
 import ThemeToggle from './ThemeToggle';
 import InteractiveButton from './InteractiveButton';
 
 interface NavigationProps {
+  // Retained for backward compatibility — 7 call sites pass it. Active-page
+  // state is derived from `usePathname()`, so the value itself is unused here.
   currentPage?: string;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export default function Navigation({ currentPage }: NavigationProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [mounted, setMounted] = useState(false);
   const pathname = usePathname();
+  const reduceMotion = useReducedMotion();
+
+  // Refs for focus management: the toggle to restore focus to, and the menu
+  // panel whose focusable children we trap focus within while open.
+  const toggleRef = useRef<HTMLButtonElement>(null);
+  const menuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setMounted(true);
@@ -38,6 +49,95 @@ export default function Navigation({ currentPage }: NavigationProps) {
     { href: '/fund-me', label: 'Fund Me' },
   ];
 
+  const closeMenu = () => setIsMobileMenuOpen(false);
+
+  // a11y: while the mobile menu is open — Escape closes (restoring focus to the
+  // toggle), focus is trapped within the panel, and the first item is focused on
+  // open. The background is made inert/aria-hidden via the wrapper below.
+  useEffect(() => {
+    if (!isMobileMenuOpen) return;
+
+    const menuEl = menuRef.current;
+    if (!menuEl) return;
+
+    // Make the rest of the page inert + hidden from assistive tech while the
+    // menu is open. The <nav> is a fixed sibling of the page content, so we mark
+    // every top-level body child that isn't this nav as inert/aria-hidden, then
+    // restore them on close. `inert` removes them from tab order and pointer/AT.
+    const navEl = menuEl.closest('nav');
+    const inerted: HTMLElement[] = [];
+    Array.from(document.body.children).forEach((child) => {
+      const el = child as HTMLElement;
+      if (el === navEl || el.contains(navEl)) return;
+      if (!el.hasAttribute('inert')) {
+        el.setAttribute('inert', '');
+        el.setAttribute('aria-hidden', 'true');
+        inerted.push(el);
+      }
+    });
+
+    const getFocusable = () =>
+      Array.from(
+        menuEl.querySelectorAll<HTMLElement>(
+          'a[href], button:not([disabled]), input, [tabindex]:not([tabindex="-1"])'
+        )
+      ).filter((el) => el.offsetParent !== null || el === document.activeElement);
+
+    // Focus the first focusable item on open.
+    const focusables = getFocusable();
+    focusables[0]?.focus();
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        e.preventDefault();
+        setIsMobileMenuOpen(false);
+        toggleRef.current?.focus();
+        return;
+      }
+
+      if (e.key === 'Tab') {
+        const items = getFocusable();
+        if (items.length === 0) return;
+        const first = items[0];
+        const last = items[items.length - 1];
+        const active = document.activeElement as HTMLElement | null;
+
+        // Cycle focus within the open panel.
+        if (e.shiftKey && active === first) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && active === last) {
+          e.preventDefault();
+          first.focus();
+        } else if (active && !menuEl.contains(active)) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+      // Restore the previously-inerted background content on close/unmount.
+      inerted.forEach((el) => {
+        el.removeAttribute('inert');
+        el.removeAttribute('aria-hidden');
+      });
+    };
+  }, [isMobileMenuOpen]);
+
+  // Shared focus-visible ring (token --accent-blue) for keyboard users.
+  const focusRing =
+    'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent-blue)] focus-visible:ring-offset-2 focus-visible:ring-offset-transparent';
+
+  // Motion underline: a scaleX span driven by variants tied to the link's
+  // hover/active state — no imperative inline-style DOM mutation.
+  const underlineVariants = {
+    rest: { scaleX: 0 },
+    hover: { scaleX: 1 },
+  };
+
   return (
     <nav
       className={`fixed top-0 w-full z-50 transition-all duration-500 ${
@@ -47,21 +147,29 @@ export default function Navigation({ currentPage }: NavigationProps) {
         background: scrolled ? 'var(--bg-nav)' : 'transparent',
         backdropFilter: scrolled ? 'blur(20px)' : 'none',
         borderBottom: scrolled ? '1px solid var(--border-subtle)' : '1px solid transparent',
-        transition: 'opacity 0.8s ease, transform 0.8s ease, background 0.5s ease, border-color 0.5s ease, backdrop-filter 0.5s ease',
+        transition:
+          'opacity 0.8s ease, transform 0.8s ease, background 0.5s ease, border-color 0.5s ease, backdrop-filter 0.5s ease',
       }}
     >
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-          <Link href="/" className="text-sm font-semibold tracking-wide font-[family-name:var(--font-space-grotesk)]" style={{ color: 'var(--text-primary)' }}>
+          <Link
+            href="/"
+            className={`text-sm font-semibold tracking-wide font-[family-name:var(--font-space-grotesk)] rounded-md ${focusRing}`}
+            style={{ color: 'var(--text-primary)' }}
+          >
             UJ
           </Link>
 
           {/* Mobile menu button */}
           <button
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="md:hidden p-2 transition-colors cursor-pointer"
+            ref={toggleRef}
+            onClick={() => setIsMobileMenuOpen((open) => !open)}
+            className={`md:hidden p-2 rounded-md transition-colors cursor-pointer ${focusRing}`}
             style={{ color: 'var(--text-muted)' }}
             aria-label="Toggle mobile menu"
+            aria-expanded={isMobileMenuOpen}
+            aria-controls="mobile-menu"
           >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               {isMobileMenuOpen ? (
@@ -74,48 +182,49 @@ export default function Navigation({ currentPage }: NavigationProps) {
 
           {/* Desktop */}
           <div className="hidden md:flex items-center gap-8">
-            {navItems.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className="relative text-xs tracking-wide transition-colors duration-300 group"
-                style={{ color: isActivePage(item.href) ? 'var(--text-primary)' : 'var(--text-muted)' }}
-                onMouseEnter={e => { if (!isActivePage(item.href)) e.currentTarget.style.color = 'var(--text-secondary)'; }}
-                onMouseLeave={e => { if (!isActivePage(item.href)) e.currentTarget.style.color = 'var(--text-muted)'; }}
-              >
-                {item.label}
-                <span
-                  className="absolute -bottom-1 left-0 h-px transition-all duration-300"
-                  style={{
-                    background: 'currentColor',
-                    width: isActivePage(item.href) ? '100%' : '0%',
-                  }}
-                  ref={el => {
-                    if (el) {
-                      const parent = el.parentElement;
-                      if (parent) {
-                        parent.onmouseenter = () => { el.style.width = '100%'; };
-                        parent.onmouseleave = () => { if (!isActivePage(item.href)) el.style.width = '0%'; };
-                      }
-                    }
-                  }}
-                />
-              </Link>
-            ))}
+            {navItems.map((item) => {
+              const active = isActivePage(item.href);
+              return (
+                <motion.div key={item.href} initial="rest" animate="rest" whileHover="hover" className="relative">
+                  <Link
+                    href={item.href}
+                    className={`relative block text-xs tracking-wide rounded-sm transition-colors duration-300 ${focusRing}`}
+                    style={{ color: active ? 'var(--text-primary)' : 'var(--text-muted)' }}
+                    aria-current={active ? 'page' : undefined}
+                  >
+                    {item.label}
+                    <motion.span
+                      className="absolute -bottom-1 left-0 h-px w-full origin-left"
+                      style={{ background: 'currentColor' }}
+                      variants={active ? undefined : underlineVariants}
+                      initial={false}
+                      animate={active ? { scaleX: 1 } : undefined}
+                      transition={reduceMotion ? { duration: 0 } : { duration: 0.3, ease: EASE_SIGNATURE }}
+                    />
+                  </Link>
+                </motion.div>
+              );
+            })}
 
             {pathname === '/' && (
               <>
-                {['About', 'Projects'].map(label => (
-                  <a
-                    key={label}
-                    href={`#${label.toLowerCase()}`}
-                    className="relative text-xs tracking-wide transition-colors duration-300 group"
-                    style={{ color: 'var(--text-muted)' }}
-                    onMouseEnter={e => e.currentTarget.style.color = 'var(--text-secondary)'}
-                    onMouseLeave={e => e.currentTarget.style.color = 'var(--text-muted)'}
-                  >
-                    {label}
-                  </a>
+                {['About', 'Projects'].map((label) => (
+                  <motion.div key={label} initial="rest" animate="rest" whileHover="hover" className="relative">
+                    <a
+                      href={`#${label.toLowerCase()}`}
+                      className={`relative block text-xs tracking-wide rounded-sm transition-colors duration-300 ${focusRing}`}
+                      style={{ color: 'var(--text-muted)' }}
+                    >
+                      {label}
+                      <motion.span
+                        className="absolute -bottom-1 left-0 h-px w-full origin-left"
+                        style={{ background: 'currentColor' }}
+                        variants={underlineVariants}
+                        initial={false}
+                        transition={reduceMotion ? { duration: 0 } : { duration: 0.3, ease: EASE_SIGNATURE }}
+                      />
+                    </a>
+                  </motion.div>
                 ))}
               </>
             )}
@@ -133,65 +242,92 @@ export default function Navigation({ currentPage }: NavigationProps) {
           </div>
         </div>
 
-        {/* Mobile menu */}
-        {isMobileMenuOpen && (
-          <div
-            className="md:hidden backdrop-blur-xl"
-            style={{
-              background: 'var(--bg-nav)',
-              borderTop: '1px solid var(--border-subtle)',
-            }}
-          >
-            <div className="py-6 space-y-1">
-              {navItems.map((item) => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className="block px-4 py-3 text-sm transition-colors duration-300 rounded-lg"
-                  style={{
-                    color: isActivePage(item.href) ? 'var(--text-primary)' : 'var(--text-muted)',
-                    background: isActivePage(item.href) ? 'var(--bg-card)' : 'transparent',
-                  }}
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  {item.label}
-                </Link>
-              ))}
+        {/* Mobile menu — AnimatePresence drives open AND close choreography */}
+        <AnimatePresence>
+          {isMobileMenuOpen && (
+            <motion.div
+              key="mobile-menu"
+              id="mobile-menu"
+              ref={menuRef}
+              className="md:hidden overflow-hidden backdrop-blur-xl"
+              style={{
+                background: 'var(--bg-nav)',
+                borderTop: '1px solid var(--border-subtle)',
+              }}
+              initial={reduceMotion ? { opacity: 0 } : { height: 0, opacity: 0 }}
+              animate={reduceMotion ? { opacity: 1 } : { height: 'auto', opacity: 1 }}
+              exit={reduceMotion ? { opacity: 0 } : { height: 0, opacity: 0 }}
+              transition={reduceMotion ? { duration: 0 } : { duration: 0.4, ease: EASE_SIGNATURE }}
+            >
+              <div className="py-6 space-y-1">
+                {navItems.map((item) => (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    className={`block px-4 py-3 text-sm transition-colors duration-300 rounded-lg ${focusRing}`}
+                    style={{
+                      color: isActivePage(item.href) ? 'var(--text-primary)' : 'var(--text-muted)',
+                      background: isActivePage(item.href) ? 'var(--bg-card)' : 'transparent',
+                    }}
+                    aria-current={isActivePage(item.href) ? 'page' : undefined}
+                    onClick={closeMenu}
+                  >
+                    {item.label}
+                  </Link>
+                ))}
 
-              {pathname === '/' && (
-                <>
-                  <a href="#about" className="block px-4 py-3 text-sm transition-colors" style={{ color: 'var(--text-muted)' }} onClick={() => setIsMobileMenuOpen(false)}>About</a>
-                  <a href="#projects" className="block px-4 py-3 text-sm transition-colors" style={{ color: 'var(--text-muted)' }} onClick={() => setIsMobileMenuOpen(false)}>Projects</a>
-                </>
-              )}
+                {pathname === '/' && (
+                  <>
+                    <a
+                      href="#about"
+                      className={`block px-4 py-3 text-sm transition-colors rounded-lg ${focusRing}`}
+                      style={{ color: 'var(--text-muted)' }}
+                      onClick={closeMenu}
+                    >
+                      About
+                    </a>
+                    <a
+                      href="#projects"
+                      className={`block px-4 py-3 text-sm transition-colors rounded-lg ${focusRing}`}
+                      style={{ color: 'var(--text-muted)' }}
+                      onClick={closeMenu}
+                    >
+                      Projects
+                    </a>
+                  </>
+                )}
 
-              <div className="pt-4 px-4 space-y-3 mt-4" style={{ borderTop: '1px solid var(--border-subtle)' }}>
-                <div className="flex items-center justify-between">
-                  <span className="text-xs" style={{ color: 'var(--text-muted)' }}>Theme</span>
-                  <ThemeToggle />
+                <div className="pt-4 px-4 space-y-3 mt-4" style={{ borderTop: '1px solid var(--border-subtle)' }}>
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs" style={{ color: 'var(--text-muted)' }}>
+                      Theme
+                    </span>
+                    <ThemeToggle />
+                  </div>
+                  <a
+                    href="https://wa.me/61433695387"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`block text-center px-5 py-3 rounded-lg text-sm transition-all duration-300 cursor-pointer ${focusRing}`}
+                    style={{ border: '1px solid var(--border-default)', color: 'var(--text-secondary)' }}
+                    onClick={closeMenu}
+                  >
+                    WhatsApp
+                  </a>
+                  <InteractiveButton
+                    href="https://www.linkedin.com/in/hellofromusama/"
+                    external
+                    variant="primary"
+                    size="md"
+                    className="w-full justify-center"
+                  >
+                    Hire Me
+                  </InteractiveButton>
                 </div>
-                <a
-                  href="https://wa.me/61433695387"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="block text-center px-5 py-3 rounded-lg text-sm transition-all duration-300 cursor-pointer"
-                  style={{ border: '1px solid var(--border-default)', color: 'var(--text-secondary)' }}
-                >
-                  WhatsApp
-                </a>
-                <InteractiveButton
-                  href="https://www.linkedin.com/in/hellofromusama/"
-                  external
-                  variant="primary"
-                  size="md"
-                  className="w-full justify-center"
-                >
-                  Hire Me
-                </InteractiveButton>
               </div>
-            </div>
-          </div>
-        )}
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </nav>
   );
