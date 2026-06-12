@@ -7,6 +7,10 @@ const skills: Skill[] = [
   { title: "Backend", accent: "violet", items: ["Node.js / Express", "Python / Django", "PostgreSQL / MongoDB", "REST / GraphQL"] },
   { title: "Cloud & DevOps", accent: "emerald", items: ["AWS / Azure / GCP", "Docker / Kubernetes", "CI/CD Pipelines", "Terraform"] },
   { title: "Specializations", accent: "amber", items: ["NetSuite SuiteScripts", "N8N Automation", "AI/ML Integration", "ERP Systems"] },
+  { title: "AI Protocols & Agents", accent: "amber", items: ["MCP, A2A, ACP", "LangChain / LangGraph", "CrewAI / AutoGen", "OpenAI Agents SDK", "Semantic Kernel", "LlamaIndex"] },
+  { title: "RAG & Retrieval", accent: "blue", items: ["Full RAG pipelines", "Hybrid search & rerankers", "Vector DBs: Chroma / Pinecone / Milvus", "OpenSearch / Aurora pgvector"] },
+  { title: "LLM Engineering", accent: "violet", items: ["Context / session / long-term memory", "System prompts & few-shot / CoT", "Prompt-injection defense", "Python & FastAPI"] },
+  { title: "AI on AWS & Observability", accent: "emerald", items: ["Bedrock / OpenSearch Serverless", "Lambda / ECS / Fargate / S3", "LangSmith / Langfuse / Phoenix", "Ragas / OpenTelemetry"] },
 ];
 
 export { skills };
