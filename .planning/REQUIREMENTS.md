@@ -74,7 +74,38 @@
 
 ## Traceability
 
-(Filled by roadmap)
+| Requirement | Phase | Status |
+|-------------|-------|--------|
+| FOUND-01 | Phase 1 | Pending |
+| FIX-03 | Phase 1 | Pending |
+| SEO-01 | Phase 1 | Pending |
+| AICON-01 | Phase 2 | Pending |
+| AICON-02 | Phase 2 | Pending |
+| AICON-03 | Phase 2 | Pending |
+| AICON-04 | Phase 2 | Pending |
+| AICON-05 | Phase 2 | Pending |
+| AICON-06 | Phase 2 | Pending |
+| SEO-02 | Phase 2 | Pending |
+| FOUND-02 | Phase 3 | Pending |
+| FOUND-03 | Phase 3 | Pending |
+| FOUND-05 | Phase 3 | Pending |
+| PERF-03 | Phase 3 | Pending |
+| PERF-04 | Phase 3 | Pending |
+| FOUND-04 | Phase 4 | Pending |
+| PERF-01 | Phase 4 | Pending |
+| VIS-01 | Phase 5 | Pending |
+| VIS-02 | Phase 5 | Pending |
+| VIS-03 | Phase 5 | Pending |
+| VIS-04 | Phase 5 | Pending |
+| VIS-05 | Phase 5 | Pending |
+| VIS-06 | Phase 5 | Pending |
+| VIS-07 | Phase 5 | Pending |
+| PERF-02 | Phase 5 | Pending |
+| VIS-08 | Phase 6 | Pending |
+| FIX-01 | Phase 6 | Pending |
+| FIX-02 | Phase 6 | Pending |
+| SHIP-02 | Phase 6 | Pending |
+| SHIP-01 | All phases (cross-cutting gate) | Pending |
 
 ---
 *Generated in auto mode from research/FEATURES.md + owner brief*
