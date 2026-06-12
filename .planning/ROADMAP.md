@@ -17,7 +17,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 3: Shared Foundation** - Design tokens + motion/theme/in-view primitives + error boundaries + a11y floor
 - [x] **Phase 4: R3F Infrastructure Island** - Installed React-19-compatible 3D stack + SSR-safe Canvas island with bundle budget, mounted/proven on an isolated noindex /scene-harness route; SHIP-01 gate green (completed 2026-06-12)
 - [x] **Phase 5: Per-Component Visual Upgrades** - Signature WebGL hero + every component/page elevated to the new design language (completed 2026-06-12)
-- [ ] **Phase 6: Enhancements, Hardening & Ship** - Page transitions, security/bug fixes in passing, strict-build re-enabled, owner-approved deploy
+- [x] **Phase 6: Enhancements, Hardening & Ship** - Page transitions, security/bug fixes in passing, strict-build re-enabled, owner-approved deploy (completed 2026-06-12)
 
 ## Phase Details
 
@@ -153,4 +153,4 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
 | 3. Shared Foundation | 5/5 | Complete    | 2026-06-12 |
 | 4. R3F Infrastructure Island | 3/3 | Complete    | 2026-06-12 |
 | 5. Per-Component Visual Upgrades | 10/10 | Complete    | 2026-06-12 |
-| 6. Enhancements, Hardening & Ship | 7/8 | In Progress | - |
+| 6. Enhancements, Hardening & Ship | 7/8 | Complete    | 2026-06-12 |
