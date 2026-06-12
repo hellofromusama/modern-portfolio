@@ -50,7 +50,12 @@ Plans:
   3. The 5 new AI projects appear in the project list with working detail pages, and AI skill domains appear grouped by domain (no percentage bars) — every pre-existing project and skill still present and untouched
   4. New AI content (experience section + 5 detail pages) carries correct metadata, JSON-LD, and sitemap entries generated from the centralized source; no Horizon Digital or interview-prep content appears anywhere
   5. Phase passes `npx tsc --noEmit` + `npm run lint` + `npm run build` + manual smoke in BOTH themes before being marked complete
-**Plans**: TBD
+**Plans**: 4 plans
+Plans:
+- [ ] 02-01-PLAN.md — Wave 1: append 5 AI projects to projects.ts (map + projections) + bump numberOfItems
+- [ ] 02-02-PLAN.md — Wave 1: append AI skill groups to skills.ts + AI terms to layout knowsAbout
+- [ ] 02-03-PLAN.md — Wave 1: /ai-engineering server route + AiBridgeDiagram SVG + Navigation nav item
+- [ ] 02-04-PLAN.md — Wave 2: SHIP-01 gate + AICON-06 grep gate + count assertions + both-theme smoke
 **UI hint**: yes
 
 ### Phase 3: Shared Foundation
@@ -115,7 +120,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Content Centralization | 0/TBD | Complete    | 2026-06-12 |
-| 2. Append AI Content | 0/TBD | Not started | - |
+| 2. Append AI Content | 0/4 | Not started | - |
 | 3. Shared Foundation | 0/TBD | Not started | - |
 | 4. R3F Infrastructure Island | 0/TBD | Not started | - |
 | 5. Per-Component Visual Upgrades | 0/TBD | Not started | - |
