@@ -7,6 +7,7 @@ import Navigation from '@/components/Navigation';
 import ScrollReveal, { MagneticHover, AnimatedCounter } from '@/components/ScrollReveal';
 import InteractiveButton from '@/components/InteractiveButton';
 import { HeartBroken, LoadingSuccess, LockUnlock } from '@/components/AnimatedIcons';
+import IslandBoundary from '@/components/IslandBoundary';
 
 const InteractiveGlobe = dynamic(() => import('@/components/InteractiveGlobe'), {
   ssr: false,
@@ -169,7 +170,7 @@ export default function FundMePage() {
                   </p>
                 </ScrollReveal>
                 <ScrollReveal delay={300}>
-                  <p className="text-sm max-w-md" style={{ color: 'var(--text-faint)' }}>
+                  <p className="text-sm max-w-md" style={{ color: 'var(--text-muted)' }}>
                     All donations go towards improving skills, tools, and late-night coding fuel.
                   </p>
                 </ScrollReveal>
@@ -178,7 +179,9 @@ export default function FundMePage() {
               {/* Globe */}
               <ScrollReveal delay={200} direction="right">
                 <div className="relative">
-                  <InteractiveGlobe className="w-full h-[350px] md:h-[400px]" />
+                  <IslandBoundary fallback={<div className="w-full h-[350px] md:h-[400px] rounded-2xl" style={{ background: 'var(--bg-card)' }} />}>
+                    <InteractiveGlobe className="w-full h-[350px] md:h-[400px]" />
+                  </IslandBoundary>
                   <div className="absolute bottom-4 left-0 right-0 text-center">
                     <p className="text-[10px] tracking-[0.15em] uppercase" style={{ color: 'var(--text-faint)' }}>Drag to explore</p>
                   </div>
@@ -202,7 +205,7 @@ export default function FundMePage() {
                     <div className="text-2xl md:text-3xl font-bold font-[family-name:var(--font-space-grotesk)]" style={{ color: 'var(--text-primary)' }}>
                       <AnimatedCounter target={stat.value} suffix={stat.suffix} />
                     </div>
-                    <div className="text-[10px] tracking-[0.15em] uppercase mt-1" style={{ color: 'var(--text-faint)' }}>{stat.label}</div>
+                    <div className="text-[10px] tracking-[0.15em] uppercase mt-1" style={{ color: 'var(--text-muted)' }}>{stat.label}</div>
                   </div>
                 </ScrollReveal>
               ))}
@@ -249,9 +252,9 @@ export default function FundMePage() {
                       </div>
                       <div className="font-medium text-sm" style={{ color: 'var(--text-secondary)' }}>{option.label}</div>
                       <div className="text-xl font-bold mt-1 font-[family-name:var(--font-space-grotesk)]" style={{ color: selectedOption?.id === option.id ? 'var(--accent-blue)' : 'var(--text-tertiary)' }}>
-                        ${option.amount} <span className="text-xs font-normal" style={{ color: 'var(--text-faint)' }}>AUD</span>
+                        ${option.amount} <span className="text-xs font-normal" style={{ color: 'var(--text-muted)' }}>AUD</span>
                       </div>
-                      <div className="text-[11px] mt-1" style={{ color: 'var(--text-faint)' }}>{option.description}</div>
+                      <div className="text-[11px] mt-1" style={{ color: 'var(--text-muted)' }}>{option.description}</div>
                     </button>
                   </ScrollReveal>
                 ))}
@@ -312,7 +315,7 @@ export default function FundMePage() {
                       <div className="text-xs" style={{ color: 'var(--text-muted)' }}>{selectedOption.description}</div>
                     </div>
                   ) : (
-                    <div className="mb-6 p-4 rounded-lg text-center text-sm" style={{ border: '1px solid var(--border-subtle)', background: 'var(--bg-elevated)', color: 'var(--text-faint)' }}>
+                    <div className="mb-6 p-4 rounded-lg text-center text-sm" style={{ border: '1px solid var(--border-subtle)', background: 'var(--bg-elevated)', color: 'var(--text-muted)' }}>
                       Select a donation option above
                     </div>
                   )}
@@ -351,7 +354,7 @@ export default function FundMePage() {
                     )}
                   </InteractiveButton>
 
-                  <div className="mt-4 flex items-center justify-center gap-1.5 text-[11px]" style={{ color: 'var(--text-faint)' }}>
+                  <div className="mt-4 flex items-center justify-center gap-1.5 text-[11px]" style={{ color: 'var(--text-muted)' }}>
                     <LockUnlock size={12} />
                     <span>Secure payment powered by Stripe</span>
                   </div>

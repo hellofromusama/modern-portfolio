@@ -6,6 +6,7 @@ import emailjs from '@emailjs/browser';
 import Navigation from '@/components/Navigation';
 import ScrollReveal, { AnimatedCounter } from '@/components/ScrollReveal';
 import InteractiveButton from '@/components/InteractiveButton';
+import IslandBoundary from '@/components/IslandBoundary';
 
 const IdeaNetworkCanvas = dynamic(() => import('@/components/IdeaNetworkCanvas'), {
   ssr: false,
@@ -158,7 +159,9 @@ Let's bring this idea to life together!`;
       <section className="relative min-h-[80vh] flex items-center overflow-hidden">
         {/* Canvas Background */}
         <div className="absolute inset-0 z-0" style={{ opacity: 'var(--canvas-opacity)' }}>
-          <IdeaNetworkCanvas className="w-full h-full" />
+          <IslandBoundary fallback={<div className="w-full h-full" style={{ background: 'var(--bg-secondary)' }} />}>
+            <IdeaNetworkCanvas className="w-full h-full" />
+          </IslandBoundary>
         </div>
 
         <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-16 w-full">
@@ -196,7 +199,7 @@ Let's bring this idea to life together!`;
               </ScrollReveal>
 
               <ScrollReveal delay={300}>
-                <p className="text-sm max-w-md mb-8" style={{ color: 'var(--text-faint)' }}>
+                <p className="text-sm max-w-md mb-8" style={{ color: 'var(--text-muted)' }}>
                   From concept to deployment with cutting-edge technology and innovative solutions.
                 </p>
               </ScrollReveal>
@@ -237,7 +240,7 @@ Let's bring this idea to life together!`;
                       <div className="text-2xl font-bold font-[family-name:var(--font-space-grotesk)]">
                         <AnimatedCounter target={stat.value} suffix={stat.suffix} />
                       </div>
-                      <div className="text-[10px] tracking-[0.15em] uppercase mt-1" style={{ color: 'var(--text-faint)' }}>
+                      <div className="text-[10px] tracking-[0.15em] uppercase mt-1" style={{ color: 'var(--text-muted)' }}>
                         {stat.label}
                       </div>
                     </div>
@@ -299,7 +302,7 @@ Let's bring this idea to life together!`;
                     </svg>
                   </div>
                   <h3 className="text-sm font-semibold mb-1 font-[family-name:var(--font-space-grotesk)]">{cat.title}</h3>
-                  <p className="text-[11px] leading-relaxed" style={{ color: 'var(--text-faint)' }}>{cat.desc}</p>
+                  <p className="text-[11px] leading-relaxed" style={{ color: 'var(--text-muted)' }}>{cat.desc}</p>
                 </div>
               </ScrollReveal>
             ))}

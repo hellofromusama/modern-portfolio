@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import dynamic from "next/dynamic";
 import InteractiveButton from "./InteractiveButton";
+import IslandBoundary from "@/components/IslandBoundary";
 
 const Hero3DScene = dynamic(() => import("./Hero3DScene"), {
   ssr: false,
@@ -32,7 +33,9 @@ export default function Hero3D() {
     <div className="relative w-full min-h-[92vh] flex items-center justify-center overflow-hidden">
       {/* 3D Canvas */}
       <div className="absolute inset-0 z-0" style={{ opacity: 'var(--canvas-opacity)' }}>
-        <Hero3DScene mouse={mouse} />
+        <IslandBoundary fallback={<div className="w-full h-full" style={{ background: 'var(--bg-card)' }} />}>
+          <Hero3DScene mouse={mouse} />
+        </IslandBoundary>
       </div>
 
       {/* Text overlay */}
