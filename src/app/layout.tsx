@@ -196,7 +196,14 @@ export default function RootLayout({
       'Microservices Architecture',
       'GraphQL', 'REST API Design',
       'Tailwind CSS', 'GSAP', 'Framer Motion',
-      'Agile Methodology', 'Scrum'
+      'Agile Methodology', 'Scrum',
+      'Model Context Protocol (MCP)', 'Retrieval-Augmented Generation (RAG)',
+      'LangChain', 'LangGraph', 'CrewAI', 'AutoGen', 'LlamaIndex', 'Semantic Kernel',
+      'OpenAI Agents SDK', 'AI Agents', 'Agentic Workflows',
+      'Vector Databases', 'Pinecone', 'Chroma', 'Milvus', 'pgvector', 'OpenSearch',
+      'Ollama', 'FastAPI', 'AWS Bedrock', 'OpenSearch Serverless',
+      'LLM Observability', 'LangSmith', 'Langfuse', 'Phoenix', 'Ragas', 'OpenTelemetry',
+      'Prompt Engineering', 'Prompt Injection Defense', 'NetSuite Integration'
     ],
     knowsLanguage: [
       { '@type': 'Language', name: 'English', alternateName: 'en' }
