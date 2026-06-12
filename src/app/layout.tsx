@@ -600,7 +600,8 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${spaceGrotesk.variable} antialiased flex flex-col min-h-screen`}
       >
-        <div className="flex-1">
+        <a href="#main-content" className="skip-link">Skip to content</a>
+        <div id="main-content" tabIndex={-1} className="flex-1">
           {children}
         </div>
         <ConditionalFooter />

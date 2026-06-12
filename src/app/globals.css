@@ -168,3 +168,26 @@ body {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* ============================================
+   ACCESSIBILITY - skip link + visible focus ring (PERF-03)
+   ============================================ */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 100;
+  background: var(--bg-elevated);
+  color: var(--text-primary);
+  padding: 0.75rem 1rem;
+  border-radius: 0 0 0.5rem 0;
+  border: 1px solid var(--border-hover);
+}
+.skip-link:focus {
+  left: 0;
+}
+:focus-visible {
+  outline: 2px solid var(--accent-blue);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
