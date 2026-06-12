@@ -8,6 +8,8 @@ import ScrollReveal, { AnimatedCounter } from "@/components/ScrollReveal";
 import InteractiveButton from "@/components/InteractiveButton";
 import AISeoContent from "@/components/AISeoContent";
 import LastUpdated from "@/components/LastUpdated";
+import { homeGridProjects } from "@/content/projects";
+import { skills } from "@/content/skills";
 
 const FAQ = dynamic(() => import("@/components/FAQ"), {
   loading: () => <div className="animate-pulse h-96" style={{ background: 'var(--bg-card)' }}></div>,
@@ -33,58 +35,6 @@ const TeamSection = dynamic(() => import("@/components/TeamSection"), {
 });
 
 export default function Home() {
-
-  const projects = [
-    {
-      id: "kashmir-fund",
-      title: "Fund for Azad Kashmir",
-      description: "Built in 48 hours after the crisis. Stripe-powered donations with real-time fund tracking so donors can see exactly where money goes.",
-      tech: ["Next.js 15", "React 19", "Stripe", "Tailwind CSS"],
-      category: "Humanitarian"
-    },
-    {
-      id: "n8n-automation",
-      title: "N8N Automation Platform",
-      description: "A mining company was losing 120 hrs/week to manual data entry across 8 systems. Built automation that cut that by 70% and saved $180K/year.",
-      tech: ["N8N", "Node.js", "PostgreSQL", "Docker"],
-      category: "Automation"
-    },
-    {
-      id: "voice-ai-agent",
-      title: "Voice AI Booking Agent",
-      description: "Client was losing 40% of phone bookings to hold times. Built a voice AI using GPT-4 that now handles 500+ bookings/day with zero hold time.",
-      tech: ["OpenAI", "Whisper", "Node.js", "Twilio"],
-      category: "AI/ML"
-    },
-    {
-      id: "erp-system",
-      title: "Enterprise ERP System",
-      description: "Mining company running 5 legacy apps that didn't talk to each other. Unified everything into NetSuite for 200+ users with mobile field access.",
-      tech: ["NetSuite", "SuiteScript", "React", "PostgreSQL"],
-      category: "Enterprise"
-    },
-    {
-      id: "netsuite-integration",
-      title: "NetSuite Integration Suite",
-      description: "Retailer needed 12 systems talking to NetSuite in real-time. Built middleware processing 50K+ transactions/day at 99.99% uptime for 18 months.",
-      tech: ["SuiteScript", "REST APIs", "Redis", "Docker"],
-      category: "Integration"
-    },
-    {
-      id: "cloud-infrastructure",
-      title: "Cloud Infrastructure Platform",
-      description: "SaaS startup needed to go from 1K to 100K+ concurrent users. Designed the Kubernetes architecture that got them there at 200ms response times.",
-      tech: ["AWS EKS", "Docker", "Kubernetes", "Terraform"],
-      category: "DevOps"
-    }
-  ];
-
-  const skills = [
-    { title: "Frontend", accent: "blue", items: ["React / Next.js 15", "TypeScript", "Tailwind CSS", "Vue.js / Nuxt.js"] },
-    { title: "Backend", accent: "violet", items: ["Node.js / Express", "Python / Django", "PostgreSQL / MongoDB", "REST / GraphQL"] },
-    { title: "Cloud & DevOps", accent: "emerald", items: ["AWS / Azure / GCP", "Docker / Kubernetes", "CI/CD Pipelines", "Terraform"] },
-    { title: "Specializations", accent: "amber", items: ["NetSuite SuiteScripts", "N8N Automation", "AI/ML Integration", "ERP Systems"] }
-  ];
 
   const accentMap: Record<string, { dot: string; text: string }> = {
     blue: { dot: "bg-blue-400", text: "text-blue-400" },
@@ -261,7 +211,7 @@ export default function Home() {
           </ScrollReveal>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {projects.map((project, i) => (
+            {homeGridProjects.map((project, i) => (
               <ScrollReveal key={project.id} delay={i * 80} direction="up">
                 <Link href={`/projects/${project.id}`}>
                   <div
@@ -282,20 +232,20 @@ export default function Home() {
                   >
                     <div className="flex items-center justify-between mb-4">
                       <span className="text-[10px] tracking-[0.15em] uppercase font-medium" style={{ color: 'var(--text-faint)' }}>
-                        {project.category}
+                        {project.gridCategory}
                       </span>
                       <span className="text-sm transition-all duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" style={{ color: 'var(--text-faint)' }}>&nearr;</span>
                     </div>
 
                     <h3 className="text-lg font-semibold mb-2 transition-colors duration-300 font-[family-name:var(--font-space-grotesk)]">
-                      {project.title}
+                      {project.gridTitle}
                     </h3>
                     <p className="text-sm mb-5 leading-relaxed line-clamp-2" style={{ color: 'var(--text-muted)' }}>
-                      {project.description}
+                      {project.gridDescription}
                     </p>
 
                     <div className="flex flex-wrap gap-1.5">
-                      {project.tech.map((tech) => (
+                      {project.gridTech?.map((tech) => (
                         <span
                           key={tech}
                           className="px-2.5 py-1 text-[11px] rounded-md transition-all duration-300"
