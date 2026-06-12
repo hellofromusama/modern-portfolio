@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useRef, useEffect, useCallback, useState } from "react";
+import { useAnimationGate } from "@/hooks/useAnimationGate";
 
 interface InteractiveGlobeProps {
   className?: string;
@@ -132,6 +133,14 @@ const InteractiveGlobe: React.FC<InteractiveGlobeProps> = ({
   });
   const animFrameRef = useRef<number>(0);
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
+
+  // PERF-04: pause the rAF loop off-screen / on tab blur / under reduced motion.
+  const { shouldAnimate } = useAnimationGate(containerRef);
+  // gateRef mirrors shouldAnimate so the long-lived rAF closure reads the
+  // LATEST value (closures capture by value — Pitfall #2 stale-closure fix).
+  const gateRef = useRef(false);
+  const renderRef = useRef<((time: number) => void) | null>(null);
+  const runningRef = useRef(false);
 
   const getRadius = useCallback(() => {
     if (size) return size / 2.5;
@@ -443,15 +452,37 @@ const InteractiveGlobe: React.FC<InteractiveGlobeProps> = ({
       ctx!.arc(cx, cy, radius, 0, Math.PI * 2);
       ctx!.fill();
 
-      animFrameRef.current = requestAnimationFrame(render);
+      // Draw-then-check: one final static frame is always painted above; only
+      // re-schedule while the gate is open (PERF-04). When false the globe
+      // freezes on a correct frame and schedules nothing further.
+      if (gateRef.current) {
+        animFrameRef.current = requestAnimationFrame(render);
+      } else {
+        runningRef.current = false;
+      }
     }
 
+    renderRef.current = render;
+
+    // Always paint one settle frame; loop only continues if gated open.
+    runningRef.current = true;
     animFrameRef.current = requestAnimationFrame(render);
 
     return () => {
       cancelAnimationFrame(animFrameRef.current);
+      renderRef.current = null;
+      runningRef.current = false;
     };
   }, [dimensions, getRadius]);
+
+  // Mirror shouldAnimate into gateRef and re-arm an idle loop when it flips true.
+  useEffect(() => {
+    gateRef.current = shouldAnimate;
+    if (shouldAnimate && !runningRef.current && renderRef.current) {
+      runningRef.current = true;
+      animFrameRef.current = requestAnimationFrame(renderRef.current);
+    }
+  }, [shouldAnimate]);
 
   return (
     <div

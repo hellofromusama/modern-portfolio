@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useCallback } from 'react';
+import { useAnimationGate } from '@/hooks/useAnimationGate';
 
 interface Node {
   x: number;
@@ -25,6 +26,14 @@ export default function IdeaNetworkCanvas({ className = '' }: Props) {
   const nodesRef = useRef<Node[]>([]);
   const frameRef = useRef(0);
   const timeRef = useRef(0);
+
+  // PERF-04: pause the rAF loop off-screen / on tab blur / under reduced motion.
+  const { shouldAnimate } = useAnimationGate(canvasRef);
+  // gateRef mirrors shouldAnimate so the long-lived rAF closure reads the
+  // LATEST value (closures capture by value — Pitfall #2 stale-closure fix).
+  const gateRef = useRef(false);
+  const drawRef = useRef<(() => void) | null>(null);
+  const runningRef = useRef(false);
 
   const init = useCallback((canvas: HTMLCanvasElement) => {
     const w = canvas.width;
@@ -304,9 +313,20 @@ export default function IdeaNetworkCanvas({ className = '' }: Props) {
         ctx.fill();
       }
 
-      animId = requestAnimationFrame(draw);
+      // Draw-then-check: one final static frame is always painted above; only
+      // re-schedule while the gate is open (PERF-04). When false the canvas
+      // freezes on a correct frame and schedules nothing further.
+      if (gateRef.current) {
+        animId = requestAnimationFrame(draw);
+      } else {
+        runningRef.current = false;
+      }
     };
 
+    drawRef.current = draw;
+
+    // Always paint one settle frame; loop only continues if gated open.
+    runningRef.current = true;
     animId = requestAnimationFrame(draw);
 
     return () => {
@@ -314,8 +334,19 @@ export default function IdeaNetworkCanvas({ className = '' }: Props) {
       window.removeEventListener('resize', resize);
       canvas.removeEventListener('mousemove', handleMouseMove);
       canvas.removeEventListener('mouseleave', handleMouseLeave);
+      drawRef.current = null;
+      runningRef.current = false;
     };
   }, [init]);
+
+  // Mirror shouldAnimate into gateRef and re-arm an idle loop when it flips true.
+  useEffect(() => {
+    gateRef.current = shouldAnimate;
+    if (shouldAnimate && !runningRef.current && drawRef.current) {
+      runningRef.current = true;
+      drawRef.current();
+    }
+  }, [shouldAnimate]);
 
   return (
     <canvas

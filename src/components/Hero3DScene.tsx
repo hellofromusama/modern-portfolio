@@ -1,9 +1,19 @@
 "use client";
 
 import { useRef, useEffect } from "react";
+import { useAnimationGate } from "@/hooks/useAnimationGate";
 
 export default function Hero3DScene({ mouse }: { mouse: React.MutableRefObject<{ x: number; y: number }> }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+
+  // PERF-04: pause the rAF loop off-screen / on tab blur / under reduced motion.
+  const { shouldAnimate } = useAnimationGate(canvasRef);
+  // gateRef mirrors shouldAnimate so the long-lived rAF closure reads the
+  // LATEST value (closures capture by value — Pitfall #2 stale-closure fix).
+  const gateRef = useRef(false);
+  // Holds the latest draw() so a gate-flip effect can re-arm an idle loop.
+  const drawRef = useRef<(() => void) | null>(null);
+  const runningRef = useRef(false);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -287,15 +297,38 @@ export default function Hero3DScene({ mouse }: { mouse: React.MutableRefObject<{
       ctx.fillStyle = cursorGrad;
       ctx.fill();
 
-      animId = requestAnimationFrame(draw);
+      // Draw-then-check: one final static frame is always painted above; only
+      // re-schedule while the gate is open. When false the canvas shows a
+      // correct frozen frame and schedules nothing (PERF-04).
+      if (gateRef.current) {
+        animId = requestAnimationFrame(draw);
+      } else {
+        runningRef.current = false;
+      }
     };
+
+    drawRef.current = draw;
+
+    // Always paint one settle frame on mount; loop only continues if gated open.
+    runningRef.current = true;
     draw();
 
     return () => {
       cancelAnimationFrame(animId);
       window.removeEventListener("resize", resize);
+      drawRef.current = null;
+      runningRef.current = false;
     };
   }, [mouse]);
+
+  // Mirror shouldAnimate into gateRef and re-arm an idle loop when it flips true.
+  useEffect(() => {
+    gateRef.current = shouldAnimate;
+    if (shouldAnimate && !runningRef.current && drawRef.current) {
+      runningRef.current = true;
+      drawRef.current();
+    }
+  }, [shouldAnimate]);
 
   return (
     <canvas
