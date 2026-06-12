@@ -1,0 +1,19 @@
+Vercel CLI 48.1.6
+Retrieving project…
+Deploying hellofromusamas-projects/modern-portfolio
+Uploading [--------------------] (0.0B/4.6MB)
+Uploading [=====---------------] (1.2MB/4.6MB)
+Uploading [==========----------] (2.3MB/4.6MB)
+Uploading [===============-----] (3.5MB/4.6MB)
+Uploading [====================] (4.6MB/4.6MB)
+Inspect: https://vercel.com/hellofromusamas-projects/modern-portfolio/A2NRuaBp6yQkcG7ap68oQp3Ho3nU [5s]
+Preview: https://modern-portfolio-rbvs1h408-hellofromusamas-projects.vercel.app [5s]
+https://modern-portfolio-rbvs1h408-hellofromusamas-projects.vercel.appBuilding
+Building
+Completing
+To deploy to production (www.usamajaved.com.au), run `vercel --prod`
+
+Common next commands:
+- `vercel inspect modern-portfolio-rbvs1h408-hellofromusamas-projects.vercel.app --logs`
+- `vercel redeploy modern-portfolio-rbvs1h408-hellofromusamas-projects.vercel.app`
+- `vercel deploy --prod`

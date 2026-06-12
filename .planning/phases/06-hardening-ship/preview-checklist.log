@@ -1,0 +1,31 @@
+### verify-prod.sh against LIVE PREVIEW URL: https://modern-portfolio-rbvs1h408-hellofromusamas-projects.vercel.app
+### NOTE: Vercel Deployment Protection (SSO) is ENABLED on preview deploys — curl receives _vercel_sso 401 from Vercel's auth layer, NOT the application. See preview-protection note below.
+### Run timestamp: 2026-06-12T08:44:06Z
+---
+=== verify-prod.sh against https://modern-portfolio-rbvs1h408-hellofromusamas-projects.vercel.app ===
+FAIL  homepage / returned 401 (expected 200)
+FAIL  sitemap.xml invalid (code 401, missing <urlset>/<loc>)
+FAIL  robots.txt invalid (code 401, missing User-Agent/Sitemap)
+FAIL  llms.txt wrong (code 401, content-type: Content-Type: text/html; charset=utf-8; expected text/markdown)
+FAIL  homepage JSON-LD count 0 (<5; expected ~7)
+PASS  /api/test-openai unauth -> 401, no keyUsed in body (FIX-01)
+FAIL  IndexNow key file returned 401 (expected 200)
+=== 6 failure(s) ===
+verify-exit:1
+
+========================================================================
+### FALLBACK (per plan <important>): preview URL is behind Vercel SSO.
+### Authoritative checklist evidence = verify-prod.sh vs the LOCAL STRICT
+### PROD BUILD of the EXACT tree just deployed (build-exit:0).
+### Run timestamp: 2026-06-12T08:45:16Z  BASE_URL: http://localhost:3488
+========================================================================
+=== verify-prod.sh against http://localhost:3488 ===
+PASS  homepage / returns 200
+PASS  sitemap.xml 200, valid XML, 24 <loc> routes
+PASS  robots.txt 200, User-Agent tiers + Sitemap present
+PASS  llms.txt 200, Content-Type text/markdown
+PASS  homepage carries 7 application/ld+json blocks (>=5, ~7 expected)
+PASS  /api/test-openai unauth -> 403, no keyUsed in body (FIX-01)
+PASS  IndexNow key file /usamajaved-indexnow-key-2026.txt returns 200
+=== 0 failure(s) ===
+verify-exit:0
