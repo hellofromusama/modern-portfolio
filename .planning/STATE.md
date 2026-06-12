@@ -4,13 +4,13 @@ milestone: v1.0
 milestone_name: milestone
 status: executing
 stopped_at: Completed 01-05-PLAN.md (SHIP-01 gate green; checkpoint awaiting orchestrator approval)
-last_updated: "2026-06-12T02:07:57.574Z"
+last_updated: "2026-06-12T02:09:09.230Z"
 last_activity: 2026-06-12
 progress:
   total_phases: 6
   completed_phases: 1
-  total_plans: 16
-  completed_plans: 7
+  total_plans: 17
+  completed_plans: 8
   percent: 0
 ---
 
@@ -59,6 +59,7 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 01 P05 | 5 | 2 tasks | 0 files |
 | Phase 02 P02 | 6 | 2 tasks | 2 files |
 | Phase 02 P03 | 3 | 3 tasks | 3 files |
+| Phase 02 P01 | 12 | 2 tasks | 2 files |
 
 ## Accumulated Context
 
@@ -81,6 +82,7 @@ Recent decisions affecting current work:
 - [Phase 01]: SHIP-01 gate green: tsc+lint clean on all phase-touched files, build succeeds, all 7 /projects routes prerender (manifest), content-diff zero deletions; curl smoke confirms 6 cards/4 skills/6-item ItemList (no kashmir)/7 sitemap URLs/detail pages 200. Pre-existing api/expertise tsc+lint errors deferred.
 - [Phase 02]: [Phase 02]: Appended 4 AI skill groups to centralized skills.ts reusing the closed blue|violet|emerald|amber accent union (no 5th colour); enriched Person JSON-LD knowsAbout with 25 AI terms (MCP/RAG/LangChain/vector DBs/FastAPI/Bedrock) additively — content-diff stays green, 4 baseline groups byte-identical
 - [Phase 02]: [Phase 02 P03]: Net-new /ai-engineering server route added (ESIA MCP case study) with theme-aware inline SVG (AiBridgeDiagram, CSS-var only) + page metadata/TechArticle JSON-LD; single AI Engineering nav link wired into shared navItems (desktop+mobile). Verified ESIA facts only, no forbidden content.
+- [Phase 02]: [Phase 02 P01]: Appended 5 AI projects to centralized content (AICON-04); only MCP NetSuite-Ollama flagship joins curated JSON-LD ItemList (6->7), others in grid (6->11) + sitemap (7->12) only; numberOfItems bumped 6->7 in lockstep; content-diff green, zero baseline changes
 
 ### Pending Todos
 
