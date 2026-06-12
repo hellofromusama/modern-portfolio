@@ -2,12 +2,25 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import { useReducedMotion } from 'motion/react';
+
+/*
+ * Token-driven accent treatment for the fund-me widget.
+ * Previously this component hardcoded warm magenta/violet/blue gradients + a dark
+ * panel, which only read correctly in dark mode. We now drive the warm/playful
+ * accent from theme tokens (--accent-violet -> --accent-blue) so it is
+ * theme-correct in BOTH light and dark, while preserving the widget's identity.
+ */
+const ACCENT_GRADIENT = 'linear-gradient(135deg, var(--accent-violet), var(--accent-blue))';
+const ACCENT_GRADIENT_SOFT =
+  'linear-gradient(135deg, var(--accent-violet) 0%, var(--accent-blue) 100%)';
 
 export default function FundMeWidget() {
   const [isExpanded, setIsExpanded] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
   const [showTooltip, setShowTooltip] = useState(false);
   const router = useRouter();
+  const reduceMotion = useReducedMotion();
 
   // Show tooltip on first visit
   useEffect(() => {
@@ -21,16 +34,26 @@ export default function FundMeWidget() {
     }
   }, []);
 
+  const navigateToFundMe = () => {
+    router.push('/fund-me');
+  };
+
   const handleClick = () => {
     if (isExpanded) {
-      // Start amazing transition animation
+      // Reduced-motion: skip the heart-rain delight and navigate straight away.
+      if (reduceMotion) {
+        navigateToFundMe();
+        return;
+      }
+
+      // Start celebratory transition animation (delight on explicit click only)
       setIsAnimating(true);
 
-      // Create fullscreen animation overlay
+      // Create fullscreen animation overlay (token-driven accent gradient)
       const overlay = document.createElement('div');
       overlay.className = 'fixed inset-0 z-[9999] pointer-events-none';
       overlay.innerHTML = `
-        <div class="absolute inset-0 bg-gradient-to-br from-pink-500 via-purple-500 to-blue-500 opacity-0 animate-fade-in-fast"></div>
+        <div class="absolute inset-0 opacity-0 animate-fade-in-fast" style="background: ${ACCENT_GRADIENT_SOFT};"></div>
         <div class="absolute inset-0 flex items-center justify-center">
           <div class="text-white text-6xl md:text-8xl font-bold animate-zoom-in">
             💖
@@ -84,7 +107,7 @@ export default function FundMeWidget() {
 
       // Navigate after animation
       setTimeout(() => {
-        router.push('/fund-me');
+        navigateToFundMe();
         setTimeout(() => {
           document.body.removeChild(overlay);
           document.head.removeChild(style);
@@ -103,33 +126,51 @@ export default function FundMeWidget() {
       <div className="fixed bottom-6 right-6 z-50">
         {/* Tooltip */}
         {showTooltip && !isExpanded && (
-          <div className="absolute bottom-full right-0 mb-2 animate-bounce">
-            <div className="bg-gradient-to-r from-pink-500 to-purple-600 text-white px-4 py-2 rounded-lg shadow-xl text-sm font-semibold whitespace-nowrap">
+          <div className={`absolute bottom-full right-0 mb-2 ${reduceMotion ? '' : 'animate-bounce-calm'}`}>
+            <div
+              className="text-white px-4 py-2 rounded-lg shadow-xl text-sm font-semibold whitespace-nowrap"
+              style={{ background: ACCENT_GRADIENT }}
+            >
               💖 Support my work!
-              <div className="absolute -bottom-1 right-4 w-0 h-0 border-l-8 border-r-8 border-t-8 border-l-transparent border-r-transparent border-t-purple-600"></div>
+              <div
+                className="absolute -bottom-1 right-4 w-0 h-0 border-l-8 border-r-8 border-t-8 border-l-transparent border-r-transparent"
+                style={{ borderTopColor: 'var(--accent-blue)' }}
+              ></div>
             </div>
           </div>
         )}
 
         {/* Main Button */}
         <div className="relative">
-          {/* Pulse Ring */}
-          <div className="absolute inset-0 rounded-full bg-gradient-to-r from-pink-500 to-purple-600 opacity-75 animate-ping"></div>
+          {/* Pulse Ring — calmed + reduced-motion-gated */}
+          {!reduceMotion && (
+            <div
+              className="absolute inset-0 rounded-full opacity-50 animate-ping-calm"
+              style={{ background: ACCENT_GRADIENT }}
+            ></div>
+          )}
 
-          {/* Glow Effect */}
-          <div className="absolute inset-0 rounded-full bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 blur-xl opacity-60 animate-pulse"></div>
+          {/* Glow Effect — calmed + reduced-motion-gated */}
+          <div
+            className={`absolute inset-0 rounded-full blur-xl opacity-50 ${
+              reduceMotion ? '' : 'animate-pulse-calm'
+            }`}
+            style={{ background: ACCENT_GRADIENT }}
+          ></div>
 
           {/* Button Container */}
           <button
             onClick={handleClick}
             disabled={isAnimating}
-            className={`relative bg-gradient-to-r from-pink-500 via-purple-600 to-blue-600 hover:from-pink-600 hover:via-purple-700 hover:to-blue-700 text-white rounded-full shadow-2xl transition-all duration-500 transform hover:scale-110 active:scale-95 ${
+            aria-label="Open fund-me support widget"
+            className={`relative text-white rounded-full shadow-2xl transition-all duration-500 transform hover:scale-110 active:scale-95 ${
               isExpanded ? 'px-6 py-4' : 'w-16 h-16 md:w-20 md:h-20'
             } ${isAnimating ? 'scale-150 opacity-0' : ''}`}
+            style={{ background: ACCENT_GRADIENT }}
           >
             {isExpanded ? (
               <div className="flex items-center gap-3 animate-fade-in">
-                <span className="text-2xl md:text-3xl animate-bounce">💖</span>
+                <span className={`text-2xl md:text-3xl ${reduceMotion ? '' : 'animate-bounce-calm'}`}>💖</span>
                 <div className="text-left">
                   <div className="font-bold text-sm md:text-base whitespace-nowrap">Fund Me</div>
                   <div className="text-xs opacity-90 whitespace-nowrap">Support my work!</div>
@@ -137,32 +178,56 @@ export default function FundMeWidget() {
               </div>
             ) : (
               <div className="flex items-center justify-center h-full">
-                <span className="text-3xl md:text-4xl animate-pulse">💖</span>
+                <span className={`text-3xl md:text-4xl ${reduceMotion ? '' : 'animate-pulse-calm'}`}>💖</span>
               </div>
             )}
           </button>
 
-          {/* Sparkles */}
-          <div className="absolute -top-2 -right-2 text-2xl animate-spin-slow">✨</div>
-          <div className="absolute -bottom-2 -left-2 text-xl animate-spin-reverse">⭐</div>
+          {/* Sparkles — calmed + reduced-motion-gated */}
+          {!reduceMotion && (
+            <>
+              <div className="absolute -top-2 -right-2 text-2xl animate-spin-slow">✨</div>
+              <div className="absolute -bottom-2 -left-2 text-xl animate-spin-reverse">⭐</div>
+            </>
+          )}
+          {reduceMotion && (
+            <>
+              <div className="absolute -top-2 -right-2 text-2xl">✨</div>
+              <div className="absolute -bottom-2 -left-2 text-xl">⭐</div>
+            </>
+          )}
         </div>
 
         {/* Expanded Options */}
         {isExpanded && (
-          <div className="absolute bottom-full right-0 mb-4 w-64 animate-slide-up">
-            <div className="bg-slate-900/95 backdrop-blur-xl rounded-2xl shadow-2xl border-2 border-pink-500/50 overflow-hidden">
-              <div className="bg-gradient-to-r from-pink-500/20 to-purple-500/20 p-4 border-b border-pink-500/30">
-                <h3 className="font-bold text-white mb-1">💖 Support Me</h3>
-                <p className="text-xs text-slate-300">Every contribution helps!</p>
+          <div className={`absolute bottom-full right-0 mb-4 w-64 ${reduceMotion ? '' : 'animate-slide-up'}`}>
+            <div
+              className="backdrop-blur-xl rounded-2xl shadow-2xl border-2 overflow-hidden"
+              style={{
+                background: 'var(--bg-elevated)',
+                borderColor: 'var(--border-hover)',
+              }}
+            >
+              <div
+                className="p-4 border-b"
+                style={{
+                  background:
+                    'linear-gradient(135deg, color-mix(in srgb, var(--accent-violet) 18%, transparent), color-mix(in srgb, var(--accent-blue) 18%, transparent))',
+                  borderColor: 'var(--border-default)',
+                }}
+              >
+                <h3 className="font-bold mb-1" style={{ color: 'var(--text-primary)' }}>💖 Support Me</h3>
+                <p className="text-xs" style={{ color: 'var(--text-secondary)' }}>Every contribution helps!</p>
               </div>
               <div className="p-4">
                 <button
                   onClick={handleClick}
-                  className="w-full bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white px-6 py-4 rounded-xl font-bold text-base transition-all duration-300 transform hover:scale-105 shadow-lg"
+                  className="w-full text-white px-6 py-4 rounded-xl font-bold text-base transition-all duration-300 transform hover:scale-105 shadow-lg"
+                  style={{ background: ACCENT_GRADIENT }}
                 >
                   🎉 View All Donation Options
                 </button>
-                <p className="text-xs text-slate-400 text-center mt-3">
+                <p className="text-xs text-center mt-3" style={{ color: 'var(--text-tertiary)' }}>
                   Click to see all the fun ways to support! 🚀
                 </p>
               </div>
@@ -171,7 +236,7 @@ export default function FundMeWidget() {
         )}
       </div>
 
-      {/* Custom Animations Styles */}
+      {/* Custom Animations Styles — calmed (slower/subtler) variants */}
       <style jsx>{`
         @keyframes spin-slow {
           from { transform: rotate(0deg); }
@@ -195,17 +260,51 @@ export default function FundMeWidget() {
           from { opacity: 0; }
           to { opacity: 1; }
         }
+        /* Calmed always-on motions: gentler amplitude + slower cadence */
+        @keyframes ping-calm {
+          0% { transform: scale(1); opacity: 0.45; }
+          75%, 100% { transform: scale(1.6); opacity: 0; }
+        }
+        @keyframes pulse-calm {
+          0%, 100% { opacity: 1; }
+          50% { opacity: 0.7; }
+        }
+        @keyframes bounce-calm {
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(-15%); }
+        }
         .animate-spin-slow {
-          animation: spin-slow 3s linear infinite;
+          animation: spin-slow 8s linear infinite;
         }
         .animate-spin-reverse {
-          animation: spin-reverse 4s linear infinite;
+          animation: spin-reverse 10s linear infinite;
         }
         .animate-slide-up {
           animation: slide-up 0.3s ease-out forwards;
         }
         .animate-fade-in {
           animation: fade-in 0.3s ease-out forwards;
+        }
+        .animate-ping-calm {
+          animation: ping-calm 3s cubic-bezier(0, 0, 0.2, 1) infinite;
+        }
+        .animate-pulse-calm {
+          animation: pulse-calm 3s ease-in-out infinite;
+        }
+        .animate-bounce-calm {
+          animation: bounce-calm 2s ease-in-out infinite;
+        }
+
+        /* Defence-in-depth: even if useReducedMotion misfires, freeze motion */
+        @media (prefers-reduced-motion: reduce) {
+          .animate-spin-slow,
+          .animate-spin-reverse,
+          .animate-ping-calm,
+          .animate-pulse-calm,
+          .animate-bounce-calm,
+          .animate-slide-up {
+            animation: none !important;
+          }
         }
       `}</style>
     </>
