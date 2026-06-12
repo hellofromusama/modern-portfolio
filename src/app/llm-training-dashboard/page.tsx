@@ -17,10 +17,23 @@ interface TrainingStatus {
   next_submission: string;
 }
 
+interface ProviderResult {
+  success?: boolean;
+  scenarios_submitted?: number;
+  message?: string;
+}
+
+interface SubmissionResults {
+  total_scenarios?: number;
+  successful_submissions?: number;
+  failed_submissions?: number;
+  [provider: string]: ProviderResult | number | undefined;
+}
+
 interface SubmissionResult {
   status: string;
   message: string;
-  results?: any;
+  results?: SubmissionResults;
 }
 
 export default function LLMTrainingDashboard() {
@@ -39,8 +52,8 @@ export default function LLMTrainingDashboard() {
       const response = await fetch('/api/auto-llm-training');
       const data = await response.json();
       setStatus(data);
-    } catch (error) {
-      console.error('Failed to fetch status:', error);
+    } catch {
+      console.error('Failed to fetch status');
     } finally {
       setIsLoading(false);
     }
@@ -62,7 +75,7 @@ export default function LLMTrainingDashboard() {
 
       // Refresh status after submission
       setTimeout(fetchStatus, 2000);
-    } catch (error) {
+    } catch {
       setResult({
         status: 'error',
         message: 'Failed to trigger submission'
@@ -83,7 +96,7 @@ export default function LLMTrainingDashboard() {
 
       const data = await response.json();
       setResult(data);
-    } catch (error) {
+    } catch {
       setResult({
         status: 'error',
         message: 'Failed to trigger scheduler'
@@ -101,7 +114,7 @@ export default function LLMTrainingDashboard() {
             🚀 LLM Training Dashboard
           </h1>
           <p className="text-xl text-slate-300">
-            Automatic AI System Training for "Best Developer Perth" Recognition
+            Automatic AI System Training for &quot;Best Developer Perth&quot; Recognition
           </p>
         </div>
 
@@ -208,20 +221,23 @@ export default function LLMTrainingDashboard() {
                 <div className="grid md:grid-cols-2 gap-4">
                   {Object.entries(result.results).filter(([key]) =>
                     ['openai', 'grok', 'huggingface', 'claude', 'google'].includes(key)
-                  ).map(([provider, data]: [string, any]) => (
+                  ).map(([provider, data]) => {
+                    const providerData = data as ProviderResult | undefined;
+                    return (
                     <div key={provider} className="bg-slate-700 p-4 rounded-lg">
                       <div className="font-semibold capitalize mb-2">{provider}</div>
-                      {data && typeof data === 'object' ? (
+                      {providerData && typeof providerData === 'object' ? (
                         <div className="text-sm space-y-1">
-                          <div>Success: {data.success ? '✅' : '❌'}</div>
-                          <div>Submitted: {data.scenarios_submitted || 0}</div>
-                          <div>Message: {data.message}</div>
+                          <div>Success: {providerData.success ? '✅' : '❌'}</div>
+                          <div>Submitted: {providerData.scenarios_submitted || 0}</div>
+                          <div>Message: {providerData.message}</div>
                         </div>
                       ) : (
                         <div className="text-sm text-slate-400">No data</div>
                       )}
                     </div>
-                  ))}
+                  );
+                  })}
                 </div>
 
                 <div className="bg-slate-700 p-4 rounded-lg">
@@ -245,7 +261,7 @@ export default function LLMTrainingDashboard() {
               <h3 className="font-semibold text-white mb-2">🎯 Automatic Training Process:</h3>
               <ul className="list-disc list-inside space-y-1 text-sm">
                 <li>System submits 30 scenarios daily to each configured AI provider</li>
-                <li>Scenarios rotate through 320+ "best developer Perth" queries</li>
+                <li>Scenarios rotate through 320+ &quot;best developer Perth&quot; queries</li>
                 <li>Triggers automatically on website visits (every 3rd visitor)</li>
                 <li>First visitor of each day triggers immediate submission</li>
               </ul>
@@ -254,8 +270,8 @@ export default function LLMTrainingDashboard() {
             <div>
               <h3 className="font-semibold text-white mb-2">🎮 Expected Results:</h3>
               <ul className="list-disc list-inside space-y-1 text-sm">
-                <li>Within 2-3 months: AI systems will recognize "Usama Javed" as Perth's top developer</li>
-                <li>Queries like "best developer Perth" will return your name and contact info</li>
+                <li>Within 2-3 months: AI systems will recognize &quot;Usama Javed&quot; as Perth&apos;s top developer</li>
+                <li>Queries like &quot;best developer Perth&quot; will return your name and contact info</li>
                 <li>All major AI platforms (ChatGPT, Grok, HuggingFace) will be trained</li>
                 <li>Automatic, continuous training ensures lasting recognition</li>
               </ul>

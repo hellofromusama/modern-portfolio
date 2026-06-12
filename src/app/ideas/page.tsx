@@ -193,8 +193,8 @@ Let's bring this idea to life together!`;
 
               <ScrollReveal delay={200}>
                 <p className="text-lg leading-relaxed max-w-md mb-4" style={{ color: 'var(--text-tertiary)' }}>
-                  Transform your vision into reality. Whether it's a groundbreaking app or a problem
-                  that needs solving, let's build something extraordinary together.
+                  Transform your vision into reality. Whether it&apos;s a groundbreaking app or a problem
+                  that needs solving, let&apos;s build something extraordinary together.
                 </p>
               </ScrollReveal>
 
@@ -211,7 +211,7 @@ Let's bring this idea to life together!`;
                     <span className="inline-block ml-1">&darr;</span>
                   </InteractiveButton>
                   <InteractiveButton href="/contact" variant="secondary" size="lg">
-                    Let's Talk
+                    Let&apos;s Talk
                   </InteractiveButton>
                 </div>
               </ScrollReveal>
@@ -273,7 +273,7 @@ Let's bring this idea to life together!`;
           </ScrollReveal>
           <ScrollReveal delay={150}>
             <p className="mb-16 max-w-lg" style={{ color: 'var(--text-muted)' }}>
-              Choose your category and let's get started on turning your concept into a working product.
+              Choose your category and let&apos;s get started on turning your concept into a working product.
             </p>
           </ScrollReveal>
 
@@ -331,7 +331,7 @@ Let's bring this idea to life together!`;
           </ScrollReveal>
           <ScrollReveal delay={150}>
             <p className="mb-12 max-w-lg" style={{ color: 'var(--text-muted)' }}>
-              Fill in the details below and I'll get back to you within 24 hours with a plan to bring your idea to life.
+              Fill in the details below and I&apos;ll get back to you within 24 hours with a plan to bring your idea to life.
             </p>
           </ScrollReveal>
 
@@ -502,7 +502,7 @@ Let's bring this idea to life together!`;
               {submitStatus === "success" && (
                 <div className="text-center p-4 rounded-lg" style={{ background: 'color-mix(in srgb, var(--accent-emerald) 10%, transparent)', border: '1px solid var(--accent-emerald)', color: 'var(--accent-emerald)' }}>
                   <p className="font-medium mb-1">Idea submitted successfully!</p>
-                  <p className="text-sm opacity-80">I'll review your idea and get back to you soon.</p>
+                  <p className="text-sm opacity-80">I&apos;ll review your idea and get back to you soon.</p>
                 </div>
               )}
 
@@ -598,7 +598,7 @@ Let's bring this idea to life together!`;
                 Ready to start building?
               </h3>
               <p className="text-sm mb-6" style={{ color: 'var(--text-muted)' }}>
-                Let's discuss your idea and create a roadmap to bring it to life.
+                Let&apos;s discuss your idea and create a roadmap to bring it to life.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <InteractiveButton href="/contact" variant="primary" size="lg">

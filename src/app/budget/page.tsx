@@ -1,22 +1,12 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import Link from 'next/link';
 import Navigation from '@/components/Navigation';
 
 interface ChatMessage {
   role: 'user' | 'assistant';
   content: string;
   timestamp: Date;
-}
-
-interface EstimateResult {
-  projectType: string;
-  estimatedCost: string;
-  timeline: string;
-  complexity: string;
-  features: string[];
-  additionalNotes: string;
 }
 
 export default function BudgetCalculator() {
@@ -73,7 +63,7 @@ export default function BudgetCalculator() {
       } else {
         throw new Error(data.error || 'Failed to get estimate');
       }
-    } catch (error) {
+    } catch {
       const errorMessage: ChatMessage = {
         role: 'assistant',
         content: 'Sorry, I couldn\'t process your request right now. Please try again or contact me directly at hellofromusama@gmail.com for a personalized quote.',
@@ -199,15 +189,15 @@ export default function BudgetCalculator() {
             <div className="rounded-xl p-6" style={{ background: "var(--bg-card)", border: "1px solid var(--border-subtle)", boxShadow: "var(--shadow-card)" }}>
               <h3 className="text-lg font-semibold mb-3" style={{ color: "var(--accent-emerald)" }}>💡 Sample Questions</h3>
               <div className="space-y-2 text-sm" style={{ color: "var(--text-tertiary)" }}>
-                <div>"I need an e-commerce website with payment integration"</div>
-                <div>"Build a custom CRM system for my business"</div>
-                <div>"Create a mobile app with AI features"</div>
-                <div>"Develop a SaaS platform with user authentication"</div>
+                <div>&quot;I need an e-commerce website with payment integration&quot;</div>
+                <div>&quot;Build a custom CRM system for my business&quot;</div>
+                <div>&quot;Create a mobile app with AI features&quot;</div>
+                <div>&quot;Develop a SaaS platform with user authentication&quot;</div>
               </div>
             </div>
 
             <div className="rounded-xl p-6" style={{ background: "var(--bg-card)", border: "1px solid var(--border-subtle)", boxShadow: "var(--shadow-card)" }}>
-              <h3 className="text-lg font-semibold mb-3" style={{ color: "var(--accent-blue)" }}>📊 What You'll Get</h3>
+              <h3 className="text-lg font-semibold mb-3" style={{ color: "var(--accent-blue)" }}>📊 What You&apos;ll Get</h3>
               <div className="space-y-2 text-sm" style={{ color: "var(--text-tertiary)" }}>
                 <div>• Detailed cost breakdown</div>
                 <div>• Project timeline estimate</div>

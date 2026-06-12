@@ -70,14 +70,14 @@ function SuccessContent() {
             )}
 
             <div className="text-sm text-slate-400 mb-4">
-              📧 You'll receive a receipt via email shortly.
+              📧 You&apos;ll receive a receipt via email shortly.
             </div>
           </div>
 
           {/* What's Next */}
           <div className="bg-gradient-to-r from-pink-500/10 to-purple-500/10 rounded-xl border border-pink-500/30 p-6 mb-8">
             <h3 className="text-xl font-semibold mb-4 text-purple-400">
-              🚀 What's Next?
+              🚀 What&apos;s Next?
             </h3>
             <div className="space-y-3 text-left text-slate-300">
               <div className="flex items-start gap-3">
@@ -95,7 +95,7 @@ function SuccessContent() {
               <div className="flex items-start gap-3">
                 <span className="text-2xl">🤝</span>
                 <div>
-                  <strong>Let's Collaborate:</strong> Got a project idea? Let's discuss it!
+                  <strong>Let&apos;s Collaborate:</strong> Got a project idea? Let&apos;s discuss it!
                 </div>
               </div>
             </div>
