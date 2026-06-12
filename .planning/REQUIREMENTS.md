@@ -28,7 +28,7 @@
 - [x] **VIS-01**: Hero upgraded to a signature WebGL scene (R3F) themed via CSS variables, with reduced-motion static fallback and capability detection for low-power devices
 - [ ] **VIS-02**: InteractiveGlobe upgraded (WebGL or refined canvas) with crisp DPR-correct rendering, theme-reactive colors, off-screen pause
 - [ ] **VIS-03**: IdeaNetworkCanvas upgraded with the retina DPR coordinate bug fixed, physics polish, theme-reactive colors, off-screen pause
-- [ ] **VIS-04**: ScrollReveal and micro-interactions (InteractiveButton, hover states, magnetic effects) re-implemented on motion v12 with senior-level restraint
+- [x] **VIS-04**: ScrollReveal and micro-interactions (InteractiveButton, hover states, magnetic effects) re-implemented on motion v12 with senior-level restraint
 - [ ] **VIS-05**: Navigation upgraded: refined desktop nav + mobile menu with polished open/close choreography, keyboard accessible, focus-visible states
 - [ ] **VIS-06**: ThemeToggle, Footer, FAQ, TeamSection, FundMeWidget, AnimatedIcons visually elevated to the new design language (every one of the 17 components touched)
 - [ ] **VIS-07**: Cards and typography across ALL pages (home, projects, expertise, services, blog, budget, team, tech-stack, ideas, contact, developer-australia, fund-me) conform to the tightened design tokens
@@ -96,7 +96,7 @@
 | VIS-01 | Phase 5 | Complete (05-01) |
 | VIS-02 | Phase 5 | Pending |
 | VIS-03 | Phase 5 | Pending |
-| VIS-04 | Phase 5 | Pending |
+| VIS-04 | Phase 5 | Complete (05-03) |
 | VIS-05 | Phase 5 | Pending |
 | VIS-06 | Phase 5 | Pending |
 | VIS-07 | Phase 5 | Pending |
