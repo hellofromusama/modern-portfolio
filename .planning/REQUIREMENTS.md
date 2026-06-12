@@ -20,7 +20,7 @@
 - [ ] **AICON-02**: The v1 → v2 evolution (simple fetch → LangGraph multi-step reasoning with intelligent chunking) and the three production fixes (250-record batching, leads-vs-customers system prompts, pagination) are presented as a production-engineering narrative
 - [ ] **AICON-03**: An architecture diagram (SVG) visualizes the MCP bridge system
 - [ ] **AICON-04**: 5 new AI projects are APPENDED to the existing project list with detail pages: MCP NetSuite-Ollama Bridge, LinkedIn Job Auto-Apply Agent, Self-Learning Social Media Generator, n8n Marketing Research Workflows, Healthcare Voice Agent (Ollama/FastAPI/n8n) — existing projects untouched
-- [ ] **AICON-05**: AI skill domains are APPENDED to existing skills/expertise (MCP/A2A/ACP, RAG pipelines, vector DBs, embeddings/rerankers, LangChain/LangGraph/CrewAI/AutoGen/Semantic Kernel, LLM memory, prompt engineering & injection defense, FastAPI/Python, AWS AI stack, LLM observability) — grouped by domain and tied to real projects, no percentage bars
+- [x] **AICON-05**: AI skill domains are APPENDED to existing skills/expertise (MCP/A2A/ACP, RAG pipelines, vector DBs, embeddings/rerankers, LangChain/LangGraph/CrewAI/AutoGen/Semantic Kernel, LLM memory, prompt engineering & injection defense, FastAPI/Python, AWS AI stack, LLM observability) — grouped by domain and tied to real projects, no percentage bars
 - [ ] **AICON-06**: No Horizon Digital research or interview-prep content appears anywhere on the site
 
 ### Visual Upgrades (VIS)
@@ -50,7 +50,7 @@
 ### SEO Preservation (SEO)
 
 - [x] **SEO-01**: All existing routes, slugs, JSON-LD entities, sitemap entries, robots rules, and AI-SEO/IndexNow routes remain functional and unchanged in URL space
-- [ ] **SEO-02**: New AI content (experience section, 5 project detail pages) gets metadata, JSON-LD, and sitemap entries from the centralized source
+- [x] **SEO-02**: New AI content (experience section, 5 project detail pages) gets metadata, JSON-LD, and sitemap entries from the centralized source
 
 ### Ship (SHIP)
 
@@ -83,9 +83,9 @@
 | AICON-02 | Phase 2 | Pending |
 | AICON-03 | Phase 2 | Pending |
 | AICON-04 | Phase 2 | Pending |
-| AICON-05 | Phase 2 | Pending |
+| AICON-05 | Phase 2 | Complete |
 | AICON-06 | Phase 2 | Pending |
-| SEO-02 | Phase 2 | Pending |
+| SEO-02 | Phase 2 | Complete |
 | FOUND-02 | Phase 3 | Pending |
 | FOUND-03 | Phase 3 | Pending |
 | FOUND-05 | Phase 3 | Pending |
