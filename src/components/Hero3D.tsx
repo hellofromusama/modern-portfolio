@@ -1,16 +1,14 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import dynamic from "next/dynamic";
 import InteractiveButton from "./InteractiveButton";
-import IslandBoundary from "@/components/IslandBoundary";
+import ClientScene from "@/components/three/ClientScene";
+import HeroScene from "@/components/three/HeroScene";
 
-const Hero3DScene = dynamic(() => import("./Hero3DScene"), {
-  ssr: false,
-  loading: () => (
-    <div className="w-full h-full animate-pulse" style={{ background: 'var(--bg-card)' }} />
-  ),
-});
+// NOTE: ./Hero3DScene (the original Canvas-2D hero) is intentionally PRESERVED
+// on disk as a reference/fallback (additive mandate) — it is simply no longer
+// the mounted canvas layer. The WebGL hero now mounts via ClientScene (the SOLE
+// public WebGL-island surface), which keeps `three` route-split to the homepage.
 
 export default function Hero3D() {
   const mouse = useRef({ x: 0, y: 0 });
@@ -31,11 +29,17 @@ export default function Hero3D() {
 
   return (
     <div className="relative w-full min-h-[92vh] flex items-center justify-center overflow-hidden">
-      {/* 3D Canvas */}
+      {/* WebGL hero canvas layer — the signature icosahedron + particle field.
+          ClientScene (poster-first, ssr:false, gated, error-isolated) mounts
+          HeroScene behind the z-10 text overlay; the poster paints instantly so
+          the <h1> stays the LCP element with zero CLS. var(--canvas-opacity)
+          (1 dark / 0.6 light) is preserved verbatim. */}
       <div className="absolute inset-0 z-0" style={{ opacity: 'var(--canvas-opacity)' }}>
-        <IslandBoundary fallback={<div className="w-full h-full" style={{ background: 'var(--bg-card)' }} />}>
-          <Hero3DScene mouse={mouse} />
-        </IslandBoundary>
+        <ClientScene
+          className="w-full h-full"
+          posterVariant="hero"
+          scene={(paused) => <HeroScene paused={paused} mouse={mouse} />}
+        />
       </div>
 
       {/* Text overlay */}

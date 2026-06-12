@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import dynamic from "next/dynamic";
 import IslandBoundary from "@/components/IslandBoundary";
 import { isWebGLAvailable } from "@/lib/webgl";
@@ -16,6 +16,15 @@ const SceneCanvas = dynamic(() => import("./SceneCanvas"), {
 
 interface ClientSceneProps {
   className?: string;
+  /**
+   * The scene to mount inside the Canvas, as a render function receiving the
+   * gate-derived `paused`. Threaded straight to SceneCanvas; when omitted the
+   * island defaults to <ThemedScene/> (the Phase-4 harness behavior). This is the
+   * 05-00 scene-injection mechanism — ClientScene stays the SOLE public surface.
+   */
+  scene?: (paused: boolean) => ReactNode;
+  /** Tunes the poster (loading / no-WebGL / fallback) to match the scene. */
+  posterVariant?: "default" | "hero";
 }
 
 /**
@@ -29,7 +38,11 @@ interface ClientSceneProps {
  *  - a `mounted`-gated isWebGLAvailable() probe sends "no WebGL at all" to the
  *    poster too (the probe runs client-side only, per repo hydration convention)
  */
-export default function ClientScene(props: ClientSceneProps) {
+export default function ClientScene({
+  className,
+  scene,
+  posterVariant = "default",
+}: ClientSceneProps) {
   const [mounted, setMounted] = useState(false);
   const [webglOk, setWebglOk] = useState(false);
 
@@ -39,11 +52,18 @@ export default function ClientScene(props: ClientSceneProps) {
   }, []);
 
   // Pre-hydration and on machines without WebGL -> the static poster.
-  if (!mounted || !webglOk) return <ScenePoster className={props.className} />;
+  if (!mounted || !webglOk)
+    return <ScenePoster className={className} variant={posterVariant} />;
 
   return (
-    <IslandBoundary fallback={<ScenePoster className={props.className} />}>
-      <SceneCanvas {...props} />
+    <IslandBoundary
+      fallback={<ScenePoster className={className} variant={posterVariant} />}
+    >
+      <SceneCanvas
+        className={className}
+        scene={scene}
+        posterVariant={posterVariant}
+      />
     </IslandBoundary>
   );
 }

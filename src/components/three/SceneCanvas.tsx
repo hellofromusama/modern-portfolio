@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useRef, useState, type ReactNode } from "react";
 import { Canvas, type RootState } from "@react-three/fiber";
 import { useAnimationGate } from "@/hooks/useAnimationGate";
 import ThemedScene from "./ThemedScene";
@@ -8,6 +8,16 @@ import ScenePoster from "./ScenePoster";
 
 interface SceneCanvasProps {
   className?: string;
+  /**
+   * The scene to render inside the single <Canvas>. A render function so the
+   * gate-derived `paused` boolean (`!shouldAnimate || prefersReduced`) is
+   * forwarded to it, mirroring ThemedScene's `{ paused }` contract. Defaults to
+   * <ThemedScene/> when omitted — keeps the Phase-4 harness + existing callers
+   * working with zero breakage (the 05-00 scene-injection mechanism).
+   */
+  scene?: (paused: boolean) => ReactNode;
+  /** Forwarded to the loading/context-loss ScenePoster so it matches the scene. */
+  posterVariant?: "default" | "hero";
 }
 
 /**
@@ -22,7 +32,11 @@ interface SceneCanvasProps {
  *
  * Exactly ONE <Canvas> is mounted — never multiple GL contexts.
  */
-export default function SceneCanvas({ className }: SceneCanvasProps) {
+export default function SceneCanvas({
+  className,
+  scene,
+  posterVariant = "default",
+}: SceneCanvasProps) {
   const wrapRef = useRef<HTMLDivElement>(null);
   const { shouldAnimate, prefersReduced } = useAnimationGate(wrapRef);
   const [contextLost, setContextLost] = useState(false);
@@ -47,7 +61,10 @@ export default function SceneCanvas({ className }: SceneCanvasProps) {
   }, []);
 
   // Context-loss -> static poster (no crash, no error.tsx).
-  if (contextLost) return <ScenePoster className={className} />;
+  if (contextLost)
+    return <ScenePoster className={className} variant={posterVariant} />;
+
+  const paused = !shouldAnimate || prefersReduced;
 
   return (
     <div ref={wrapRef} className={className} style={{ width: "100%", height: "100%" }}>
@@ -61,7 +78,8 @@ export default function SceneCanvas({ className }: SceneCanvasProps) {
         }}
         onCreated={onCreated}
       >
-        <ThemedScene paused={!shouldAnimate || prefersReduced} />
+        {/* Injected scene (05-00 mechanism); defaults to the Phase-4 harness scene. */}
+        {scene ? scene(paused) : <ThemedScene paused={paused} />}
       </Canvas>
     </div>
   );
