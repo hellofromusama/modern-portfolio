@@ -70,7 +70,7 @@ Plans:
   5. Phase passes `npx tsc --noEmit` + `npm run lint` + `npm run build` + manual smoke in BOTH themes before being marked complete
 **Plans**: 5 plans
 Plans:
-- [ ] 03-00-PLAN.md — Wave 0: install motion@^12.40, contrast-check script, faint/ghost/muted usage audit
+- [x] 03-00-PLAN.md — Wave 0: install motion@^12.40, contrast-check script, faint/ghost/muted usage audit
 - [ ] 03-01-PLAN.md — Wave 2: AA-correct tokens + type/spacing scales + skip-link/focus-visible (globals.css, layout.tsx)
 - [ ] 03-02-PLAN.md — Wave 2: useAnimationGate + useThemeColors hooks + motion presets (primitives only)
 - [ ] 03-03-PLAN.md — Wave 3: error.tsx/global-error.tsx/IslandBoundary + gate & wrap the 3 canvas islands
@@ -105,7 +105,18 @@ Plans:
   3. ScrollReveal, InteractiveButton, hover/magnetic micro-interactions, and Navigation (desktop + mobile menu, keyboard-accessible, focus-visible) are re-implemented on motion v12 with senior-level restraint
   4. ThemeToggle, Footer, FAQ, TeamSection, FundMeWidget, AnimatedIcons, and cards/typography across ALL pages (home, projects, expertise, services, blog, budget, team, tech-stack, ideas, contact, developer-australia, fund-me) conform to the tightened tokens — every component visibly elevated, no existing feature removed
   5. Phase passes `npx tsc --noEmit` + `npm run lint` + `npm run build` + manual smoke in BOTH themes before being marked complete
-**Plans**: TBD
+**Plans**: 10 plans
+Plans:
+- [ ] 05-00-PLAN.md — Wave 1: prereq HARD-guard + read primitive signatures + install maath/r3f-perf + hero perf spike + bundle-gate update
+- [ ] 05-01-PLAN.md — Wave 2: signature WebGL hero (Concept A icosahedron + GPU particle field) + swap Hero3D canvas layer + LCP/CLS checkpoint
+- [ ] 05-02-PLAN.md — Wave 3: InteractiveGlobe + IdeaNetworkCanvas (DPR fix + theme tokens + off-screen gate)
+- [ ] 05-03-PLAN.md — Wave 3: ScrollReveal (+5 named) + InteractiveButton on motion v12 (APIs preserved)
+- [ ] 05-04-PLAN.md — Wave 4: Navigation (AnimatePresence menu + a11y) + ThemeToggle (motion, logic preserved)
+- [ ] 05-05-PLAN.md — Wave 4: FAQ + TeamSection + Footer (motion smoothing + token conformance, JSON-LD preserved)
+- [ ] 05-06-PLAN.md — Wave 4: AnimatedIcons + FundMeWidget token de-hack (identity preserved, motion gated)
+- [ ] 05-07-PLAN.md — Wave 5: token/type pass — home, projects/[id], expertise, services, tech-stack, developer-australia
+- [ ] 05-08-PLAN.md — Wave 5: token/type pass — blog, budget, team, ideas, contact, fund-me (+ canvas in-context verify)
+- [ ] 05-09-PLAN.md — Wave 6: SHIP-01 gate (tsc+lint+build+bundle) + LCP/CLS + both-theme/reduced-motion/WebGL/pause smoke
 **UI hint**: yes
 **Research flag**: `/gsd:research-phase` recommended — the specific WebGL hero design + shader/particle budget to hit mobile LCP ≤ 2.5s is design-and-perf-sensitive and under-specified by research.
 
@@ -133,5 +144,5 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
 | 2. Append AI Content | 4/4 | Complete    | 2026-06-12 |
 | 3. Shared Foundation | 0/5 | Not started | - |
 | 4. R3F Infrastructure Island | 0/3 | Planned | - |
-| 5. Per-Component Visual Upgrades | 0/TBD | Not started | - |
+| 5. Per-Component Visual Upgrades | 0/10 | Not started | - |
 | 6. Enhancements, Hardening & Ship | 0/TBD | Not started | - |
