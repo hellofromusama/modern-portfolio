@@ -29,7 +29,7 @@ created: 2026-06-12
 
 - **After every task commit:** Run `npx tsc --noEmit` (fast type gate; the only sub-30s check available, grep-scoped to Phase-4 files).
 - **After every plan wave:** Run the full suite (`tsc && lint && build && check-stack && bundle-gate`).
-- **Before `/gsd:verify-work`:** Full suite green + manual both-theme + reduced-motion + WebGL-disabled smoke + hard-refresh of the canvas route.
+- **Before `/gsd:verify-work`:** Full suite green + manual both-theme + reduced-motion + WebGL-disabled + CLS smoke + hard-refresh of the canvas route.
 - **Max feedback latency:** ~90 seconds (one build).
 
 ---
@@ -38,16 +38,18 @@ created: 2026-06-12
 
 | Task ID | Plan | Wave | Requirement | Test Type | Automated Command | File Exists | Status |
 |---------|------|------|-------------|-----------|-------------------|-------------|--------|
-| 4-01-01 | 01 | 1 | FOUND-04 | scripted | `node -e "..."` stack-present assert (Phase-3 ls-guard precedes) | ❌ W0 (script) | ⬜ pending |
-| 4-01-02 | 01 | 1 | FOUND-04, PERF-01 | scripted | `npm run build && node scripts/check-stack.mjs && node scripts/bundle-gate.mjs` | ❌ W0 (scripts) | ⬜ pending |
+| 4-01-01 | 01 | 1 | FOUND-04 | scripted | `node -e "..."` stack-present + version-range assert (Phase-3 ls-guard precedes) | ❌ W0 (script) | ⬜ pending |
+| 4-01-02 | 01 | 1 | FOUND-04, PERF-01 | scripted | `node scripts/check-stack.mjs && node scripts/bundle-gate.mjs` (build done in action; no rebuild in verify) | ❌ W0 (scripts) | ⬜ pending |
 | 4-02-01 | 02 | 2 | FOUND-04 | type | `npx tsc --noEmit` (grep webgl/ScenePoster) | ✅ | ⬜ pending |
 | 4-02-02 | 02 | 2 | FOUND-04 | type | `npx tsc --noEmit` (grep SceneCanvas/ThemedScene) | ✅ | ⬜ pending |
 | 4-02-03 | 02 | 2 | FOUND-04 | type | `npx tsc --noEmit` (grep ClientScene) | ✅ | ⬜ pending |
-| 4-03-01 | 03 | 3 | PERF-01 | scripted | `npm run build && node scripts/bundle-gate.mjs` | ✅ (from W0) | ⬜ pending |
-| 4-03-02 | 03 | 3 | SHIP-01, PERF-01 | scripted | full suite + curl LCP proof | ✅ | ⬜ pending |
-| 4-03-03 | 03 | 3 | FOUND-04, SHIP-01 | manual | human evidence checkpoint (both-theme/reduced-motion/WebGL-off) | n/a | ⬜ pending |
+| 4-03-01 | 03 | 3 | PERF-01, SHIP-01 | scripted | sitemap-exclusion + noindex assert + targeted `tsc` (pre-build) + `npm run build && node scripts/bundle-gate.mjs` | ✅ (from W0) | ⬜ pending |
+| 4-03-02 | 03 | 3 | SHIP-01, PERF-01 | scripted | full suite + PERF-01 source-level leak grep + curl LCP proof | ✅ | ⬜ pending |
+| 4-03-03 | 03 | 3 | FOUND-04, SHIP-01 | manual | human evidence checkpoint (both-theme/reduced-motion/WebGL-off/CLS≤0.1) | n/a | ⬜ pending |
 
 *Status: ⬜ pending · ✅ green · ❌ red · ⚠️ flaky*
+
+> Note: 4-03 now writes a sibling server `src/app/_scene-harness/layout.tsx` (robots noindex/nofollow) alongside `page.tsx`, because a client page cannot export `metadata`. The 4-03-01 verify hard-asserts (a) sitemap.ts excludes scene-harness and (b) the layout carries `index:false`/`follow:false`, and runs a targeted `tsc` on `_scene-harness|ClientScene` BEFORE the build so type errors are not masked by `ignoreBuildErrors`.
 
 ---
 
@@ -55,7 +57,7 @@ created: 2026-06-12
 
 - [ ] **Sequencing guard (BLOCKING):** `src/hooks/useAnimationGate.ts`, `src/hooks/useThemeColors.ts`, `src/components/IslandBoundary.tsx` all exist (Phase 3 merged). If absent → STOP (do not re-author — duplicate/merge-conflict risk). [Plan 04-01 Task 1]
 - [ ] `npm ci` (only if `node_modules` absent) → then `npm install three@^0.184 @react-three/fiber@^9.6 @react-three/drei@^10.7` + `-D @types/three`; `grep '"motion"'` before adding motion (Phase 3 owns it). [Plan 04-01 Task 1]
-- [ ] `scripts/check-stack.mjs` — zero-dep package.json deps assertion. [Plan 04-01 Task 2]
+- [ ] `scripts/check-stack.mjs` — zero-dep package.json deps assertion **+ version-range floors** (motion >=12, @react-three/fiber >=9, @react-three/drei >=10; three + @types/three presence). [Plan 04-01 Task 2]
 - [ ] `scripts/bundle-gate.mjs` — zero-dep `.next/app-build-manifest.json` parser; **tune the chunk matcher against the REAL built manifest** (named-vendor regex vs cross-route chunk-set diff — webpack may hash the three chunk). [Plan 04-01 Task 2]
 - [ ] next.config.ts analyzer wrapper decided OUT — manifest script is the gate; next.config.ts stays untouched (collision point removed).
 
@@ -71,7 +73,8 @@ created: 2026-06-12
 | Pause off-screen / on tab-blur | PERF (PERF-02 foundation) | Needs DevTools Performance / visual frame observation | Scroll canvas off-screen → loop stops; switch tab → stops (frameloop ← useAnimationGate) |
 | Reduced-motion static view | PERF-04 foundation | Needs OS/DevTools reduced-motion emulation | DevTools → Rendering → emulate `prefers-reduced-motion: reduce`, reload → icosahedron frozen |
 | WebGL-unavailable poster fallback | FOUND-04 / FOUND-05 | Needs WebGL disabled at the browser/GPU level | Disable WebGL (chrome://flags) / force context loss → `ScenePoster` shows, no crash |
-| Hero LCP element = poster/text, not `<canvas>` | PERF-01 | LCP attribution needs Lighthouse + curl HTML inspection | `curl /` shows server-rendered hero/poster, no three in home payload; Lighthouse LCP element = poster/text, CLS ≤ 0.1 |
+| Hero LCP element = poster/text, not `<canvas>` | PERF-01 | LCP attribution needs Lighthouse + curl HTML inspection | `curl /` shows server-rendered hero/poster, no three in home payload; Lighthouse LCP element = poster/text |
+| CLS ≤ 0.1 on canvas mount | PERF-01 | Layout-shift attribution needs DevTools/Lighthouse at mount time | Load `/_scene-harness`, watch the ssr:false `<canvas>` mount over the 100%/100% poster → no visible jump, CLS ≤ 0.1 |
 | No hydration error on hard refresh | FOUND-04 | Hydration mismatch only visible at runtime in console | Hard-refresh `/_scene-harness` → no hydration error (ssr:false excludes server pass) |
 | Live hero untouched | (regression guard) | Visual parity judgment | Visit `/` → existing Canvas-2D hero unchanged |
 
@@ -79,8 +82,8 @@ created: 2026-06-12
 
 ## Route-table Check (PERF-01 guard)
 
-Assert NO text/SEO route imports the canvas. After build, `bundle-gate.mjs` enforces this automatically; the grep companion:
-`rg -l "ClientScene|SceneCanvas|@react-three|from 'three'" src/app/{blog,developer-australia,expertise,services,tech-stack,projects} src/app/layout.tsx` → must return **nothing**. The only route allowed to ship three this phase is `/_scene-harness` (in `CANVAS_ROUTES`). Phase 5 swaps in the hero route and removes the harness entry.
+Assert NO text/SEO route imports the canvas. After build, `bundle-gate.mjs` enforces this automatically at the chunk level; the source-level companion is now an AUTOMATED command inside 04-03 Task 2's `<verify>`:
+`rg -l "from 'three'|@react-three|ClientScene" src/app/{blog,developer-australia,expertise,services,tech-stack,projects} src/app/layout.tsx` → must return **nothing** (the verify wraps this so a match exits 1). The only route allowed to ship three this phase is `/_scene-harness` (in `CANVAS_ROUTES`), and that route is noindex/nofollow + sitemap-excluded. Phase 5 swaps in the hero route and removes the harness entry.
 
 ---
 
