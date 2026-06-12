@@ -42,7 +42,8 @@ export default function ThemeToggle() {
   return (
     <button
       onClick={toggle}
-      className="relative w-14 h-7 rounded-full border border-white/[0.1] bg-white/[0.04] backdrop-blur-md transition-colors duration-500 cursor-pointer group hover:border-white/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent-blue)] focus-visible:ring-offset-2 focus-visible:ring-offset-transparent"
+      className="relative w-14 h-7 rounded-full border backdrop-blur-md transition-colors duration-500 cursor-pointer group hover:[border-color:var(--border-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent-blue)] focus-visible:ring-offset-2 focus-visible:ring-offset-transparent"
+      style={{ background: "var(--bg-card)", borderColor: "var(--border-subtle)" }}
       aria-label={`Switch to ${isLight ? "dark" : "light"} mode`}
     >
       {/* Track background */}
