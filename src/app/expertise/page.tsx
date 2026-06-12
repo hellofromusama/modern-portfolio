@@ -456,39 +456,39 @@ export default function ExpertisePage() {
   };
 
   return (
-    <div className="bg-white">
+    <div style={{ background: 'var(--bg-primary)', color: 'var(--text-primary)' }}>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(expertiseSchema) }}
       />
 
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white py-20">
+      <section className="py-20" style={{ background: 'var(--bg-secondary)' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
-            <h1 className="text-4xl md:text-6xl font-bold mb-6">
+            <h1 className="text-4xl md:text-6xl font-bold mb-6 font-[family-name:var(--font-space-grotesk)]">
               Technical Expertise & Specializations
             </h1>
-            <p className="text-xl md:text-2xl text-slate-300 max-w-4xl mx-auto mb-8">
+            <p className="text-xl md:text-2xl max-w-4xl mx-auto mb-8" style={{ color: 'var(--text-secondary)' }}>
               Master-level expertise in modern web technologies, AI integration, and enterprise solutions.
               8+ years of proven experience delivering complex projects across various industries.
             </p>
             <div className="grid md:grid-cols-4 gap-6 mt-12">
               <div className="text-center">
-                <div className="text-3xl font-bold text-blue-400">50+</div>
-                <div className="text-slate-300">Projects Completed</div>
+                <div className="text-3xl font-bold text-blue-400 font-[family-name:var(--font-space-grotesk)]">50+</div>
+                <div style={{ color: 'var(--text-secondary)' }}>Projects Completed</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl font-bold text-green-400">8+</div>
-                <div className="text-slate-300">Years Experience</div>
+                <div className="text-3xl font-bold text-emerald-400 font-[family-name:var(--font-space-grotesk)]">8+</div>
+                <div style={{ color: 'var(--text-secondary)' }}>Years Experience</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl font-bold text-purple-400">20+</div>
-                <div className="text-slate-300">Technologies Mastered</div>
+                <div className="text-3xl font-bold text-violet-400 font-[family-name:var(--font-space-grotesk)]">20+</div>
+                <div style={{ color: 'var(--text-secondary)' }}>Technologies Mastered</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl font-bold text-orange-400">5</div>
-                <div className="text-slate-300">Professional Certifications</div>
+                <div className="text-3xl font-bold text-amber-400 font-[family-name:var(--font-space-grotesk)]">5</div>
+                <div style={{ color: 'var(--text-secondary)' }}>Professional Certifications</div>
               </div>
             </div>
           </div>
@@ -500,14 +500,22 @@ export default function ExpertisePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {Object.entries(technicalExpertise).map(([key, category], categoryIndex) => (
             <div key={key} className="mb-20">
-              <h2 className="text-3xl font-bold text-slate-900 mb-4">{category.category}</h2>
-              <p className="text-lg text-slate-600 mb-8">{category.description}</p>
+              <h2 className="text-3xl font-bold mb-4 font-[family-name:var(--font-space-grotesk)]">{category.category}</h2>
+              <p className="text-lg mb-8" style={{ color: 'var(--text-secondary)' }}>{category.description}</p>
 
               <div className="grid lg:grid-cols-2 gap-8">
                 {category.technologies?.map((tech, techIndex) => (
-                  <div key={techIndex} className="bg-white rounded-lg shadow-lg border border-slate-200 p-8 hover:shadow-xl transition-shadow">
+                  <div
+                    key={techIndex}
+                    className="rounded-xl p-8 transition-all duration-500 hover:-translate-y-1"
+                    style={{
+                      background: 'var(--bg-card)',
+                      border: '1px solid var(--border-subtle)',
+                      boxShadow: 'var(--shadow-card)',
+                    }}
+                  >
                     <div className="flex items-center justify-between mb-4">
-                      <h3 className="text-2xl font-semibold text-slate-900">{tech.name}</h3>
+                      <h3 className="text-2xl font-semibold font-[family-name:var(--font-space-grotesk)]">{tech.name}</h3>
                       <span className="bg-blue-600 text-white px-3 py-1 rounded-full text-sm font-medium">
                         {tech.level}
                       </span>
@@ -515,23 +523,23 @@ export default function ExpertisePage() {
 
                     <div className="grid md:grid-cols-2 gap-4 mb-6 text-sm">
                       <div>
-                        <span className="font-medium text-slate-900">Experience: </span>
-                        <span className="text-slate-600">{tech.experience}</span>
+                        <span className="font-medium">Experience: </span>
+                        <span style={{ color: 'var(--text-secondary)' }}>{tech.experience}</span>
                       </div>
                       {tech.projects && (
                         <div>
-                          <span className="font-medium text-slate-900">Projects: </span>
-                          <span className="text-slate-600">{tech.projects}</span>
+                          <span className="font-medium">Projects: </span>
+                          <span style={{ color: 'var(--text-secondary)' }}>{tech.projects}</span>
                         </div>
                       )}
                     </div>
 
                     <div className="mb-6">
-                      <h4 className="font-semibold text-slate-900 mb-3">Core Specializations</h4>
+                      <h4 className="font-semibold mb-3">Core Specializations</h4>
                       <div className="grid md:grid-cols-2 gap-1 text-sm">
                         {tech.specializations.map((spec, specIndex) => (
-                          <div key={specIndex} className="flex items-center text-slate-600">
-                            <span className="w-1.5 h-1.5 bg-blue-600 rounded-full mr-2"></span>
+                          <div key={specIndex} className="flex items-center" style={{ color: 'var(--text-secondary)' }}>
+                            <span className="w-1.5 h-1.5 bg-blue-500 rounded-full mr-2"></span>
                             {spec}
                           </div>
                         ))}
@@ -540,11 +548,11 @@ export default function ExpertisePage() {
 
                     {tech.achievements && (
                       <div>
-                        <h4 className="font-semibold text-slate-900 mb-3">Key Achievements</h4>
+                        <h4 className="font-semibold mb-3">Key Achievements</h4>
                         <div className="space-y-1 text-sm">
                           {tech.achievements.map((achievement, achIndex) => (
-                            <div key={achIndex} className="flex items-center text-green-700">
-                              <span className="w-1.5 h-1.5 bg-green-600 rounded-full mr-2"></span>
+                            <div key={achIndex} className="flex items-center text-emerald-400">
+                              <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full mr-2"></span>
                               {achievement}
                             </div>
                           ))}
@@ -554,25 +562,33 @@ export default function ExpertisePage() {
                   </div>
                 )) ||
                 category.sectors?.map((sector, sectorIndex) => (
-                  <div key={sectorIndex} className="bg-white rounded-lg shadow-lg border border-slate-200 p-8 hover:shadow-xl transition-shadow">
+                  <div
+                    key={sectorIndex}
+                    className="rounded-xl p-8 transition-all duration-500 hover:-translate-y-1"
+                    style={{
+                      background: 'var(--bg-card)',
+                      border: '1px solid var(--border-subtle)',
+                      boxShadow: 'var(--shadow-card)',
+                    }}
+                  >
                     <div className="flex items-center justify-between mb-4">
-                      <h3 className="text-2xl font-semibold text-slate-900">{sector.name}</h3>
-                      <span className="bg-green-600 text-white px-3 py-1 rounded-full text-sm font-medium">
+                      <h3 className="text-2xl font-semibold font-[family-name:var(--font-space-grotesk)]">{sector.name}</h3>
+                      <span className="bg-emerald-600 text-white px-3 py-1 rounded-full text-sm font-medium">
                         {sector.level}
                       </span>
                     </div>
 
                     <div className="mb-4 text-sm">
-                      <span className="font-medium text-slate-900">Experience: </span>
-                      <span className="text-slate-600">{sector.experience}</span>
+                      <span className="font-medium">Experience: </span>
+                      <span style={{ color: 'var(--text-secondary)' }}>{sector.experience}</span>
                     </div>
 
                     <div className="mb-6">
-                      <h4 className="font-semibold text-slate-900 mb-3">Applications Developed</h4>
+                      <h4 className="font-semibold mb-3">Applications Developed</h4>
                       <div className="grid md:grid-cols-2 gap-1 text-sm">
                         {sector.applications.map((app, appIndex) => (
-                          <div key={appIndex} className="flex items-center text-slate-600">
-                            <span className="w-1.5 h-1.5 bg-green-600 rounded-full mr-2"></span>
+                          <div key={appIndex} className="flex items-center" style={{ color: 'var(--text-secondary)' }}>
+                            <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full mr-2"></span>
                             {app}
                           </div>
                         ))}
@@ -581,11 +597,11 @@ export default function ExpertisePage() {
 
                     {sector.achievements && (
                       <div>
-                        <h4 className="font-semibold text-slate-900 mb-3">Success Stories</h4>
+                        <h4 className="font-semibold mb-3">Success Stories</h4>
                         <div className="space-y-1 text-sm">
                           {sector.achievements.map((achievement, achIndex) => (
-                            <div key={achIndex} className="flex items-center text-blue-700">
-                              <span className="w-1.5 h-1.5 bg-blue-600 rounded-full mr-2"></span>
+                            <div key={achIndex} className="flex items-center text-blue-400">
+                              <span className="w-1.5 h-1.5 bg-blue-500 rounded-full mr-2"></span>
                               {achievement}
                             </div>
                           ))}
@@ -601,19 +617,27 @@ export default function ExpertisePage() {
       </section>
 
       {/* Certifications */}
-      <section className="py-16 bg-slate-50">
+      <section className="py-16" style={{ background: 'var(--bg-secondary)' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-slate-900 mb-8 text-center">
+          <h2 className="text-3xl font-bold mb-8 text-center font-[family-name:var(--font-space-grotesk)]">
             Professional Certifications
           </h2>
           <div className="grid md:grid-cols-3 lg:grid-cols-5 gap-6">
             {certifications.map((cert, index) => (
-              <div key={index} className="bg-white rounded-lg shadow-sm border border-slate-200 p-6 text-center">
-                <h3 className="font-semibold text-slate-900 mb-2">{cert.name}</h3>
-                <p className="text-slate-600 text-sm mb-2">{cert.issuer}</p>
+              <div
+                key={index}
+                className="rounded-xl p-6 text-center transition-all duration-500 hover:-translate-y-1"
+                style={{
+                  background: 'var(--bg-card)',
+                  border: '1px solid var(--border-subtle)',
+                  boxShadow: 'var(--shadow-card)',
+                }}
+              >
+                <h3 className="font-semibold mb-2">{cert.name}</h3>
+                <p className="text-sm mb-2" style={{ color: 'var(--text-secondary)' }}>{cert.issuer}</p>
                 <div className="flex justify-between items-center text-xs">
-                  <span className="text-slate-500">{cert.year}</span>
-                  <span className="bg-green-100 text-green-700 px-2 py-1 rounded">{cert.status}</span>
+                  <span style={{ color: 'var(--text-muted)' }}>{cert.year}</span>
+                  <span className="bg-emerald-500/15 text-emerald-400 px-2 py-1 rounded">{cert.status}</span>
                 </div>
               </div>
             ))}
@@ -624,7 +648,7 @@ export default function ExpertisePage() {
       {/* Call to Action */}
       <section className="py-20 bg-gradient-to-r from-blue-600 to-purple-600 text-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-6">
+          <h2 className="text-3xl md:text-4xl font-bold mb-6 font-[family-name:var(--font-space-grotesk)]">
             Ready to Leverage This Expertise for Your Project?
           </h2>
           <p className="text-xl mb-8 opacity-90">

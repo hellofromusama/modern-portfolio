@@ -95,7 +95,7 @@ export default function Home() {
               ].map((stat, i) => (
                 <ScrollReveal key={stat.label} delay={100 + i * 100} direction="up">
                   <div
-                    className="group p-6 rounded-xl transition-all duration-500 cursor-default"
+                    className="group p-6 rounded-xl transition-all duration-500 cursor-default hover:-translate-y-1"
                     style={{
                       background: 'var(--bg-card)',
                       border: '1px solid var(--border-subtle)',
@@ -152,7 +152,7 @@ export default function Home() {
               return (
                 <ScrollReveal key={skill.title} delay={i * 100} direction="up">
                   <div
-                    className="group p-6 rounded-xl transition-all duration-500 cursor-default h-full"
+                    className="group p-6 rounded-xl transition-all duration-500 cursor-default h-full hover:-translate-y-1"
                     style={{
                       background: 'var(--bg-card)',
                       border: '1px solid var(--border-subtle)',

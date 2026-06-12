@@ -23,19 +23,22 @@ export default async function ProjectDetail({ params }: { params: Promise<{ id: 
   }
 
   return (
-    <div className="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white">
+    <div style={{ background: 'var(--bg-primary)', color: 'var(--text-primary)' }}>
       {/* Navigation */}
-      <nav className="fixed top-0 w-full z-50 bg-slate-900/80 backdrop-blur-md border-b border-slate-700/50">
+      <nav
+        className="fixed top-0 w-full z-50 backdrop-blur-md"
+        style={{ background: 'var(--bg-nav)', borderBottom: '1px solid var(--border-subtle)' }}
+      >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-4">
             <Link href="/" className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
               UJ
             </Link>
             <div className="hidden md:flex space-x-8 items-center">
-              <Link href="/#about" className="hover:text-blue-400 transition-all duration-300">About</Link>
-              <Link href="/#projects" className="hover:text-blue-400 transition-all duration-300">Projects</Link>
-              <Link href="/ideas" className="hover:text-purple-400 transition-all duration-300">Ideas</Link>
-              <Link href="/contact" className="hover:text-blue-400 transition-all duration-300">Contact</Link>
+              <Link href="/#about" className="transition-all duration-300 hover:text-blue-400" style={{ color: 'var(--text-secondary)' }}>About</Link>
+              <Link href="/#projects" className="transition-all duration-300 hover:text-blue-400" style={{ color: 'var(--text-secondary)' }}>Projects</Link>
+              <Link href="/ideas" className="transition-all duration-300 hover:text-violet-400" style={{ color: 'var(--text-secondary)' }}>Ideas</Link>
+              <Link href="/contact" className="transition-all duration-300 hover:text-blue-400" style={{ color: 'var(--text-secondary)' }}>Contact</Link>
               <a
                 href="https://www.linkedin.com/in/hellofromusama/"
                 target="_blank"
@@ -73,22 +76,22 @@ export default async function ProjectDetail({ params }: { params: Promise<{ id: 
                 {project.title}
               </h1>
 
-              <h2 className="text-2xl text-slate-300 mb-8 font-light">
+              <h2 className="text-2xl mb-8 font-light" style={{ color: 'var(--text-secondary)' }}>
                 {project.subtitle}
               </h2>
 
-              <p className="text-xl text-slate-400 mb-12 leading-relaxed">
+              <p className="text-xl mb-12 leading-relaxed" style={{ color: 'var(--text-tertiary)' }}>
                 {project.description}
               </p>
 
               <div className="grid grid-cols-2 gap-6">
                 <div>
-                  <div className="text-sm text-slate-400 mb-1">Timeline</div>
+                  <div className="text-sm mb-1" style={{ color: 'var(--text-muted)' }}>Timeline</div>
                   <div className="text-lg font-semibold text-blue-400">{project.timeline}</div>
                 </div>
                 <div>
-                  <div className="text-sm text-slate-400 mb-1">Team Size</div>
-                  <div className="text-lg font-semibold text-purple-400">{project.team}</div>
+                  <div className="text-sm mb-1" style={{ color: 'var(--text-muted)' }}>Team Size</div>
+                  <div className="text-lg font-semibold text-violet-400">{project.team}</div>
                 </div>
               </div>
             </div>
@@ -128,7 +131,7 @@ export default async function ProjectDetail({ params }: { params: Promise<{ id: 
       </section>
 
       {/* Technology Stack */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-slate-800/30">
+      <section className="py-20 px-4 sm:px-6 lg:px-8" style={{ background: 'var(--bg-secondary)' }}>
         <div className="max-w-7xl mx-auto">
           <h2 className="text-4xl font-bold mb-12 text-center bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
             Technology Stack
@@ -136,7 +139,15 @@ export default async function ProjectDetail({ params }: { params: Promise<{ id: 
 
           <div className="flex flex-wrap justify-center gap-4">
             {project.tech.map((tech) => (
-              <span key={tech} className="px-6 py-3 bg-slate-900/50 border border-slate-600 rounded-full text-slate-300 hover:border-blue-500/50 hover:text-blue-300 transition-colors">
+              <span
+                key={tech}
+                className="px-6 py-3 rounded-full transition-colors"
+                style={{
+                  background: 'var(--bg-card)',
+                  border: '1px solid var(--border-subtle)',
+                  color: 'var(--text-secondary)',
+                }}
+              >
                 {tech}
               </span>
             ))}
@@ -151,19 +162,19 @@ export default async function ProjectDetail({ params }: { params: Promise<{ id: 
             <div>
               <h2 className="text-3xl font-bold mb-8 text-blue-400">Project Overview</h2>
               <div className="prose prose-invert max-w-none">
-                <p className="text-slate-300 text-lg leading-relaxed whitespace-pre-line">
+                <p className="text-lg leading-relaxed whitespace-pre-line" style={{ color: 'var(--text-secondary)' }}>
                   {project.longDescription}
                 </p>
               </div>
             </div>
 
             <div>
-              <h2 className="text-3xl font-bold mb-8 text-purple-400">Key Features</h2>
+              <h2 className="text-3xl font-bold mb-8 text-violet-400">Key Features</h2>
               <div className="space-y-4">
                 {project.features.map((feature, index) => (
                   <div key={index} className="flex items-start space-x-3">
                     <div className="w-2 h-2 bg-blue-400 rounded-full mt-3 flex-shrink-0" />
-                    <p className="text-slate-300">{feature}</p>
+                    <p style={{ color: 'var(--text-secondary)' }}>{feature}</p>
                   </div>
                 ))}
               </div>
@@ -173,26 +184,43 @@ export default async function ProjectDetail({ params }: { params: Promise<{ id: 
       </section>
 
       {/* Challenges & Results */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-slate-800/30">
+      <section className="py-20 px-4 sm:px-6 lg:px-8" style={{ background: 'var(--bg-secondary)' }}>
         <div className="max-w-7xl mx-auto">
           <div className="grid lg:grid-cols-2 gap-16">
             <div>
-              <h2 className="text-3xl font-bold mb-8 text-orange-400">Challenges Solved</h2>
+              <h2 className="text-3xl font-bold mb-8 text-amber-400">Challenges Solved</h2>
               <div className="space-y-6">
                 {project.challenges.map((challenge, index) => (
-                  <div key={index} className="p-6 bg-slate-900/50 rounded-lg border border-slate-700">
-                    <p className="text-slate-300">{challenge}</p>
+                  <div
+                    key={index}
+                    className="p-6 rounded-lg"
+                    style={{
+                      background: 'var(--bg-card)',
+                      border: '1px solid var(--border-subtle)',
+                      boxShadow: 'var(--shadow-card)',
+                    }}
+                  >
+                    <p style={{ color: 'var(--text-secondary)' }}>{challenge}</p>
                   </div>
                 ))}
               </div>
             </div>
 
             <div>
-              <h2 className="text-3xl font-bold mb-8 text-green-400">Results Achieved</h2>
+              <h2 className="text-3xl font-bold mb-8 text-emerald-400">Results Achieved</h2>
               <div className="space-y-6">
                 {project.results.map((result, index) => (
-                  <div key={index} className="p-6 bg-slate-900/50 rounded-lg border border-slate-700 border-l-4 border-l-green-400">
-                    <p className="text-slate-300">{result}</p>
+                  <div
+                    key={index}
+                    className="p-6 rounded-lg border-l-4 border-l-emerald-400"
+                    style={{
+                      background: 'var(--bg-card)',
+                      border: '1px solid var(--border-subtle)',
+                      borderLeft: '4px solid var(--accent-emerald)',
+                      boxShadow: 'var(--shadow-card)',
+                    }}
+                  >
+                    <p style={{ color: 'var(--text-secondary)' }}>{result}</p>
                   </div>
                 ))}
               </div>
@@ -207,7 +235,7 @@ export default async function ProjectDetail({ params }: { params: Promise<{ id: 
           <h2 className="text-4xl font-bold mb-8 bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
             Interested in Similar Solutions?
           </h2>
-          <p className="text-xl text-slate-300 mb-12">
+          <p className="text-xl mb-12" style={{ color: 'var(--text-secondary)' }}>
             I can help you build similar high-performance solutions tailored to your specific needs.
           </p>
           <div className="flex flex-col sm:flex-row gap-6 justify-center">
@@ -219,7 +247,11 @@ export default async function ProjectDetail({ params }: { params: Promise<{ id: 
             </Link>
             <Link
               href="/#projects"
-              className="border-2 border-slate-600 hover:border-blue-400 text-slate-300 hover:text-white px-10 py-5 rounded-full font-semibold transition-all duration-300 hover:bg-blue-400/10"
+              className="px-10 py-5 rounded-full font-semibold transition-all duration-300 hover:border-blue-400"
+              style={{
+                border: '2px solid var(--border-default)',
+                color: 'var(--text-secondary)',
+              }}
             >
               View More Projects
             </Link>
