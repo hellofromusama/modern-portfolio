@@ -132,10 +132,10 @@ Plans:
   5. Phase passes `npx tsc --noEmit` + `npm run lint` + `npm run build` + manual smoke in BOTH themes before being marked complete
 **Plans**: 8 plans
 Plans:
-- [ ] 06-01-PLAN.md — Wave 1: tsc+lint fix the four api/* type-routes (auto-llm-training/ai-training/create-checkout Stripe bump/budget-estimate; 11 errors)
-- [ ] 06-02-PLAN.md — Wave 1: tsc+lint fix expertise/page.tsx union-type debt (18 errors, type-only, content/JSON-LD preserved)
+- [x] 06-01-PLAN.md — Wave 1: tsc+lint fix the four api/* type-routes (auto-llm-training/ai-training/create-checkout Stripe bump/budget-estimate; 11 errors)
+- [x] 06-02-PLAN.md — Wave 1: tsc+lint fix expertise/page.tsx union-type debt (18 errors, type-only, content/JSON-LD preserved)
 - [ ] 06-03-PLAN.md — Wave 1: lint sweep of the remaining ~59 problems (pages/components; prefer-const auto-fix, entity escaping, no-img-element)
-- [ ] 06-05-PLAN.md — Wave 1: FIX-02 remove VisitorTracker paid-endpoint fan-out + guard JSON.parse + tokenize VisitorCounter
+- [x] 06-05-PLAN.md — Wave 1: FIX-02 remove VisitorTracker paid-endpoint fan-out + guard JSON.parse + tokenize VisitorCounter
 - [ ] 06-04-PLAN.md — Wave 2: FIX-01 requireAdmin shared-secret gate on 5 test/training routes + remove test-openai keyUsed leak
 - [ ] 06-06-PLAN.md — Wave 2: VIS-08 native CSS @view-transition + reduced-motion kill switch (owner-verify checkpoint; moved to Wave 2 so its build-running checkpoint does not race concurrent Wave-1 edits)
 - [ ] 06-07-PLAN.md — Wave 3: SHIP-02 strict-build flip (remove ignore flags) + full gate + scripts/verify-prod.sh
