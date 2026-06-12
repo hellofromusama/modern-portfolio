@@ -73,7 +73,7 @@ Plans:
 - [x] 03-00-PLAN.md — Wave 0: install motion@^12.40, contrast-check script, faint/ghost/muted usage audit
 - [x] 03-01-PLAN.md — Wave 2: AA-correct tokens + type/spacing scales + skip-link/focus-visible (globals.css, layout.tsx)
 - [x] 03-02-PLAN.md — Wave 2: useAnimationGate + useThemeColors hooks + motion presets (primitives only)
-- [ ] 03-03-PLAN.md — Wave 3: error.tsx/global-error.tsx/IslandBoundary + gate & wrap the 3 canvas islands
+- [x] 03-03-PLAN.md — Wave 3: error.tsx/global-error.tsx/IslandBoundary + gate & wrap the 3 canvas islands
 - [ ] 03-04-PLAN.md — Wave 4: SHIP-01 gate (tsc+lint+build+contrast) + boundary/reduced-motion/keyboard verify
 **UI hint**: yes
 **Research flag**: `/gsd:research-phase` recommended — off-screen-pause / frameloop + `visibilitychange` patterns are MEDIUM-confidence; confirm in the profiler.
@@ -142,7 +142,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
 |-------|----------------|--------|-----------|
 | 1. Content Centralization | 0/TBD | Complete    | 2026-06-12 |
 | 2. Append AI Content | 4/4 | Complete    | 2026-06-12 |
-| 3. Shared Foundation | 2/5 | In Progress | - |
+| 3. Shared Foundation | 3/5 | In Progress | - |
 | 4. R3F Infrastructure Island | 0/3 | Planned | - |
 | 5. Per-Component Visual Upgrades | 0/10 | Not started | - |
 | 6. Enhancements, Hardening & Ship | 0/TBD | Not started | - |
