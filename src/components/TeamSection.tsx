@@ -2,7 +2,9 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import ScrollReveal from "./ScrollReveal";
+import { transitions } from "@/lib/motion";
 
 interface TeamMember {
   id: string;
@@ -51,6 +53,7 @@ const teamMembers: TeamMember[] = [
 export default function TeamSection() {
   const [hoveredMember, setHoveredMember] = useState<string | null>(null);
   const [activeMember, setActiveMember] = useState<number>(0);
+  const reduceMotion = useReducedMotion();
 
   useEffect(() => {
     if (hoveredMember === null) {
@@ -158,13 +161,19 @@ export default function TeamSection() {
                 className="w-full h-full relative overflow-hidden rounded-2xl"
                 style={{ background: 'var(--bg-card)', border: '1px solid var(--border-subtle)' }}
               >
-                {teamMembers.map((member) => {
-                  const isDisplayed = displayedMember?.id === member.id;
-                  return (
-                    <div key={member.id} className={`absolute inset-0 transition-all duration-700 ${isDisplayed ? 'opacity-100 scale-100' : 'opacity-0 scale-105'}`}>
+                <AnimatePresence initial={false}>
+                  {displayedMember && (
+                    <motion.div
+                      key={displayedMember.id}
+                      className="absolute inset-0"
+                      initial={reduceMotion ? false : { opacity: 0, scale: 1.05 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={reduceMotion ? { opacity: 0 } : { opacity: 0, scale: 1.05 }}
+                      transition={reduceMotion ? { duration: 0 } : transitions.base}
+                    >
                       <img
-                        src={member.image}
-                        alt={member.name}
+                        src={displayedMember.image}
+                        alt={displayedMember.name}
                         className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
                         onError={(e) => {
                           const target = e.target as HTMLImageElement;
@@ -177,21 +186,21 @@ export default function TeamSection() {
                         <div className="text-center">
                           <div className="w-32 h-32 mx-auto rounded-full flex items-center justify-center mb-4" style={{ border: '1px solid var(--border-subtle)', background: 'var(--bg-card)' }}>
                             <span className="text-4xl font-bold font-[family-name:var(--font-space-grotesk)]" style={{ color: 'var(--text-ghost)' }}>
-                              {member.name.split(' ').map(n => n[0]).join('')}
+                              {displayedMember.name.split(' ').map(n => n[0]).join('')}
                             </span>
                           </div>
-                          <p className="text-sm" style={{ color: 'var(--text-muted)' }}>{member.role}</p>
+                          <p className="text-sm" style={{ color: 'var(--text-muted)' }}>{displayedMember.role}</p>
                         </div>
                       </div>
 
                       {/* Name overlay */}
                       <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/80 to-transparent">
-                        <p className="text-white/70 font-semibold font-[family-name:var(--font-space-grotesk)]">{member.name}</p>
-                        <p className="text-white/30 text-sm">{member.role}</p>
+                        <p className="text-white/70 font-semibold font-[family-name:var(--font-space-grotesk)]">{displayedMember.name}</p>
+                        <p className="text-white/30 text-sm">{displayedMember.role}</p>
                       </div>
-                    </div>
-                  );
-                })}
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </div>
 
               {/* Progress dots */}
@@ -199,14 +208,15 @@ export default function TeamSection() {
                 {teamMembers.map((member, i) => {
                   const isActive = displayedMember?.id === member.id;
                   return (
-                    <button
+                    <motion.button
                       key={member.id}
                       onClick={() => { setActiveMember(i); setHoveredMember(null); }}
-                      className="h-1 rounded-full transition-all duration-500 cursor-pointer"
-                      style={{
+                      className="h-1 rounded-full cursor-pointer"
+                      animate={{
                         width: isActive ? 24 : 6,
-                        background: isActive ? 'var(--accent-blue)' : 'var(--border-subtle)',
+                        backgroundColor: isActive ? 'var(--accent-blue)' : 'var(--border-subtle)',
                       }}
+                      transition={reduceMotion ? { duration: 0 } : transitions.quick}
                     />
                   );
                 })}

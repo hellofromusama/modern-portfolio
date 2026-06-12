@@ -12,7 +12,13 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
           <ScrollReveal delay={0}>
             <div>
-              <Link href="/" className="text-sm font-semibold tracking-wide font-[family-name:var(--font-space-grotesk)] transition-colors cursor-pointer" style={{ color: 'var(--text-primary)' }}>
+              <Link
+                href="/"
+                className="text-sm font-semibold tracking-wide font-[family-name:var(--font-space-grotesk)] transition-colors cursor-pointer"
+                style={{ color: 'var(--text-primary)' }}
+                onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--accent-blue)'; }}
+                onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--text-primary)'; }}
+              >
                 UJ
               </Link>
               <p className="mt-4 text-sm leading-relaxed" style={{ color: 'var(--text-muted)' }}>
@@ -32,7 +38,13 @@ export default function Footer() {
                   { href: '/budget', label: 'Budget' },
                 ].map((item) => (
                   <li key={item.href}>
-                    <Link href={item.href} className="text-sm transition-all duration-300 hover:translate-x-0.5 inline-block transform cursor-pointer" style={{ color: 'var(--text-muted)' }}>
+                    <Link
+                      href={item.href}
+                      className="text-sm transition-all duration-300 hover:translate-x-0.5 inline-block transform cursor-pointer"
+                      style={{ color: 'var(--text-muted)' }}
+                      onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--text-primary)'; }}
+                      onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--text-muted)'; }}
+                    >
                       {item.label}
                     </Link>
                   </li>
@@ -71,6 +83,8 @@ export default function Footer() {
                       rel={item.external ? 'noopener noreferrer' : undefined}
                       className="text-sm transition-all duration-300 hover:translate-x-0.5 inline-block transform cursor-pointer"
                       style={{ color: 'var(--text-muted)' }}
+                      onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--text-primary)'; }}
+                      onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--text-muted)'; }}
                     >
                       {item.label}
                     </a>
