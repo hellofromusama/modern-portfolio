@@ -45,7 +45,7 @@
 
 - [ ] **FIX-01**: test-openai route no longer exposes any key material and is no longer an unauthenticated paid-API proxy (gated or disabled — feature preserved behind auth/env flag, not deleted)
 - [ ] **FIX-02**: VisitorTracker no longer triggers paid AI endpoints unthrottled from visitors' browsers (rate-limited/gated)
-- [ ] **FIX-03**: projects/[id] implements generateStaticParams + generateMetadata from the centralized content source (every project slug preserved)
+- [x] **FIX-03**: projects/[id] implements generateStaticParams + generateMetadata from the centralized content source (every project slug preserved)
 
 ### SEO Preservation (SEO)
 
@@ -77,7 +77,7 @@
 | Requirement | Phase | Status |
 |-------------|-------|--------|
 | FOUND-01 | Phase 1 | Complete |
-| FIX-03 | Phase 1 | Pending |
+| FIX-03 | Phase 1 | Complete |
 | SEO-01 | Phase 1 | Complete |
 | AICON-01 | Phase 2 | Pending |
 | AICON-02 | Phase 2 | Pending |

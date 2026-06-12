@@ -35,8 +35,8 @@ Decimal phases appear between their surrounding integers in numeric order.
 Plans:
 - [x] 01-01-PLAN.md — Wave 0: baseline snapshot + zero-deletion diff scripts (no source edits yet)
 - [x] 01-02-PLAN.md — Wave 1: build src/content module (7-project superset + projections + skills + JSON-LD builder)
-- [ ] 01-03-PLAN.md — Wave 2: repoint projects/[id] (generateStaticParams+generateMetadata, FIX-03) + sitemap.ts
-- [ ] 01-04-PLAN.md — Wave 2: repoint page.tsx (grid+skills) + layout.tsx JSON-LD ItemList
+- [x] 01-03-PLAN.md — Wave 2: repoint projects/[id] (generateStaticParams+generateMetadata, FIX-03) + sitemap.ts
+- [x] 01-04-PLAN.md — Wave 2: repoint page.tsx (grid+skills) + layout.tsx JSON-LD ItemList
 - [ ] 01-05-PLAN.md — Wave 3: SHIP-01 gate (tsc+lint+build+7-route check+diff) + owner both-theme smoke
 
 

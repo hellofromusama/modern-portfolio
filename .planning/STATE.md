@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 01-02-PLAN.md
-last_updated: "2026-06-12T01:24:28.157Z"
+stopped_at: Completed 01-03-PLAN.md
+last_updated: "2026-06-12T01:31:31.179Z"
 last_activity: 2026-06-12
 progress:
   total_phases: 6
   completed_phases: 0
   total_plans: 5
-  completed_plans: 2
+  completed_plans: 4
   percent: 0
 ---
 
@@ -26,7 +26,7 @@ See: .planning/PROJECT.md (updated 2026-06-12)
 ## Current Position
 
 Phase: 1 (Content Centralization) — EXECUTING
-Plan: 3 of 5
+Plan: 4 of 5
 Status: Ready to execute
 Last activity: 2026-06-12
 
@@ -54,6 +54,8 @@ Progress: [░░░░░░░░░░] 0%
 *Updated after each plan completion*
 | Phase 01 P01 | 7 | 2 tasks | 3 files |
 | Phase 01 P02 | 8 | 2 tasks | 5 files |
+| Phase 01 P03 | 4 | 2 tasks | 3 files |
+| Phase 01 P04 | 9 min | 2 tasks | 2 files |
 
 ## Accumulated Context
 
@@ -71,6 +73,7 @@ Recent decisions affecting current work:
 - [Phase 01]: Corrected sitemap project count from plan's 8 to verified live 7 (plan miscount); baseline snapshots true 6/7/6/7/4 divergence
 - [Phase 01]: Content centralized into src/content/ (types/projects/skills/seo): keyed 7-project superset + projections (homeGrid 6 / itemList 6 / sitemap 7) + buildItemListSchema; content-diff green
 - [Phase 01]: Extended content-diff gate to dual-SHAPE: reconstructs ItemList from projects.ts seo* fields under the builder pattern; byte-strict comparison preserved
+- [Phase 01]: Wave 2 (01-03): repointed projects/[id] to getProject (generateStaticParams 7 slugs + generateMetadata) and sitemap.ts to the sitemapProjects projection; extended content-diff gate dual-shape for the sitemap map; diff green
 
 ### Pending Todos
 
@@ -88,6 +91,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-06-12T01:24:17.555Z
-Stopped at: Completed 01-02-PLAN.md
+Last session: 2026-06-12T01:31:05.547Z
+Stopped at: Completed 01-03-PLAN.md
 Resume file: None
