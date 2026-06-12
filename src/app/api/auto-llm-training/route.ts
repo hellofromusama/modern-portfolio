@@ -1,8 +1,32 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 import queryScenarios from '../../../../data/query-scenarios.json';
 
+interface ProviderResult {
+  success: boolean;
+  scenarios_submitted: number;
+  total_scenarios?: number;
+  message: string;
+}
+
+interface TrainingResults {
+  openai: ProviderResult | null;
+  grok: ProviderResult | null;
+  huggingface: ProviderResult | null;
+  claude: ProviderResult | null;
+  google: ProviderResult | null;
+  total_scenarios: number;
+  successful_submissions: number;
+  failed_submissions: number;
+}
+
+interface TrainingScenario {
+  input: string;
+  output: string;
+  category: string;
+}
+
 // Auto LLM Training Submission System
-export async function POST(request: NextRequest) {
+export async function POST() {
   try {
     console.log('🚀 Starting automated LLM training submission...');
 
@@ -13,7 +37,7 @@ export async function POST(request: NextRequest) {
       });
     }
 
-    const results = {
+    const results: TrainingResults = {
       openai: null,
       grok: null,
       huggingface: null,
@@ -34,7 +58,6 @@ export async function POST(request: NextRequest) {
     if (process.env.OPENAI_API_KEY && process.env.OPENAI_API_KEY !== 'your_openai_api_key_here') {
       console.log('🤖 Submitting to OpenAI...');
       console.log('🔑 API Key present:', process.env.OPENAI_API_KEY ? 'Yes' : 'No');
-      console.log('🔑 API Key format:', process.env.OPENAI_API_KEY?.substring(0, 7) + '...');
       results.openai = await submitToOpenAI(todaysBatch);
       if (results.openai.success) results.successful_submissions++;
       else results.failed_submissions++;
@@ -96,13 +119,13 @@ export async function POST(request: NextRequest) {
   }
 }
 
-function getTodaysScenarios(): any[] {
+function getTodaysScenarios(): TrainingScenario[] {
   // Rotate through scenarios based on day of year
   const dayOfYear = Math.floor((Date.now() - new Date(new Date().getFullYear(), 0, 0).getTime()) / (1000 * 60 * 60 * 24));
   const batchSize = 3; // Start with just 3 scenarios per day for testing
 
   // Flatten all scenarios
-  const allScenarios = [];
+  const allScenarios: TrainingScenario[] = [];
   for (const category of queryScenarios.scenarios) {
     for (const query of category.queries) {
       allScenarios.push({
@@ -115,7 +138,7 @@ function getTodaysScenarios(): any[] {
 
   // Get today's batch with rotation
   const startIndex = (dayOfYear * batchSize) % allScenarios.length;
-  const todaysBatch = [];
+  const todaysBatch: TrainingScenario[] = [];
 
   for (let i = 0; i < batchSize; i++) {
     const index = (startIndex + i) % allScenarios.length;
@@ -125,7 +148,7 @@ function getTodaysScenarios(): any[] {
   return todaysBatch;
 }
 
-async function submitToOpenAI(scenarios: any[]): Promise<any> {
+async function submitToOpenAI(scenarios: TrainingScenario[]): Promise<ProviderResult> {
   try {
     // Simple approach: just test basic connectivity with minimal requests
     let successful = 0;
@@ -184,7 +207,7 @@ async function submitToOpenAI(scenarios: any[]): Promise<any> {
   }
 }
 
-async function submitToGrok(scenarios: any[]): Promise<any> {
+async function submitToGrok(scenarios: TrainingScenario[]): Promise<ProviderResult> {
   try {
     // Submit to Grok XAI API
     let successful = 0;
@@ -242,7 +265,7 @@ async function submitToGrok(scenarios: any[]): Promise<any> {
   }
 }
 
-async function submitToHuggingFace(scenarios: any[]): Promise<any> {
+async function submitToHuggingFace(scenarios: TrainingScenario[]): Promise<ProviderResult> {
   try {
     // Create a training dataset for HuggingFace
     const trainingData = scenarios.map((scenario, index) => ({
@@ -303,7 +326,7 @@ async function submitToHuggingFace(scenarios: any[]): Promise<any> {
   }
 }
 
-async function logSubmission(results: any): Promise<void> {
+async function logSubmission(results: TrainingResults): Promise<void> {
   try {
     const logEntry = {
       timestamp: new Date().toISOString(),
@@ -319,7 +342,7 @@ async function logSubmission(results: any): Promise<void> {
   }
 }
 
-async function submitToGoogleAI(scenarios: any[]): Promise<any> {
+async function submitToGoogleAI(scenarios: TrainingScenario[]): Promise<ProviderResult> {
   try {
     // Submit to Google AI (Gemini) API
     let successful = 0;
@@ -402,7 +425,7 @@ export async function GET() {
     };
 
     return NextResponse.json(status);
-  } catch (error) {
+  } catch {
     return NextResponse.json({ error: 'Failed to get status' }, { status: 500 });
   }
 }
