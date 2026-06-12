@@ -192,9 +192,9 @@ export default function Hero3DScene({ mouse }: { mouse: React.MutableRefObject<{
 
       const projected = shapePoints.map(p => {
         // Rotate Y
-        let x = p.x * cosA - p.z * sinA;
-        let z = p.x * sinA + p.z * cosA;
-        let y = p.y;
+        const x = p.x * cosA - p.z * sinA;
+        const z = p.x * sinA + p.z * cosA;
+        const y = p.y;
         // Rotate X
         const y2 = y * cosB - z * sinB;
         const z2 = y * sinB + z * cosB;
