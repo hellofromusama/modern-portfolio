@@ -5,14 +5,14 @@ milestone_name: milestone
 current_plan: 03-01
 status: in_progress
 stopped_at: Completed 03-00-PLAN.md (Phase 3 Wave 1 enabling — motion installed, contrast gate, token audit)
-last_updated: "2026-06-12T02:25:24.000Z"
+last_updated: "2026-06-12T02:33:00.000Z"
 last_activity: 2026-06-12
 progress:
   total_phases: 6
   completed_phases: 2
   total_plans: 25
-  completed_plans: 10
-  percent: 50
+  completed_plans: 11
+  percent: 44
 ---
 
 # Project State
@@ -28,10 +28,10 @@ See: .planning/PROJECT.md (updated 2026-06-12)
 
 Phase: 03
 Current Plan: 03-01
-Status: Phase 3 in progress (1/5 plans — Wave 1 enabling done: motion installed, contrast gate green, token audit complete)
+Status: Phase 3 in progress (2/5 plans — Wave 1 enabling + Wave 2 animation primitives done; 03-01 token/a11y plan running in parallel)
 Last activity: 2026-06-12
 
-Progress: [█████░░░░░] 50%
+Progress: [████░░░░░░] 44%
 
 ## Performance Metrics
 
@@ -87,6 +87,7 @@ Recent decisions affecting current work:
 - [Phase 02]: [Phase 02 P03]: Net-new /ai-engineering server route added (ESIA MCP case study) with theme-aware inline SVG (AiBridgeDiagram, CSS-var only) + page metadata/TechArticle JSON-LD; single AI Engineering nav link wired into shared navItems (desktop+mobile). Verified ESIA facts only, no forbidden content.
 - [Phase 02]: [Phase 02 P01]: Appended 5 AI projects to centralized content (AICON-04); only MCP NetSuite-Ollama flagship joins curated JSON-LD ItemList (6->7), others in grid (6->11) + sitemap (7->12) only; numberOfItems bumped 6->7 in lockstep; content-diff green, zero baseline changes
 - [Phase 02]: [Phase 02 P04]: SHIP-01 gate green — local tsc + lint clean on all 7 phase-touched files (pre-existing api/expertise debt deferred), build prerenders 12 /projects/* + /ai-engineering (manifest-asserted), content-diff exit 0, AICON-06 grep gate zero horizon|interview matches in src/ and .next/, SEO-02 counts 12/11/12/7 with numberOfItems===itemList. Curl smoke (prod :3100): /ai-engineering 200 w/ ESIA/MCP/SVG/JSON-LD, detail pages 200, home 11 cards + AI skill groups + nav link + ItemList numberOfItems:7. Phase 2 complete.
+- [Phase 03]: [Phase 03 P02]: Built three Wave-2 animation primitives (FOUND-02 foundation, PERF-04 reduced-motion branch) as standalone type-clean modules. useAnimationGate(ref, opts) → { shouldAnimate, prefersReduced, inView, tabVisible } composes motion/react useReducedMotion (the one reduced-motion source, coerced ?? false) + IntersectionObserver inView (default rootMargin 200px/threshold 0) + visibilitychange tabVisible; shouldAnimate = !prefersReduced && inView && tabVisible. useThemeColors(varNames) → Record<string,string> reads getComputedStyle(documentElement) once on mount + on data-theme MutationObserver only (never per-frame), returning raw token strings (canvas fillStyle-ready; THREE.Color parse deferred to Phase 4). src/lib/motion.ts (no 'use client') exports EASE_SIGNATURE [0.16,1,0.3,1] + transitions{base 0.7s, quick 0.4s} + fadeUp + stagger(gap). All three tsc-clean; committed individually (d2fe2db/b5ee0d0/ffc39ac). Primitives only — wiring into the 3 canvases is 03-03. Ran parallel to 03-01 (no file overlap: src/hooks/* + src/lib/motion.ts vs globals.css/layout). Manual surgical STATE edit (current_plan left at 03-01 for the parallel executor; completed_plans 10→11, total_plans kept 25, no record-metric).
 - [Phase 03]: [Phase 03 P00]: Installed motion@^12.40.0 only (no three/R3F — Phase 4 scope); React 19.2.4 peer satisfied, motion/react resolves. Authored scripts/contrast-check.mjs (dependency-free WCAG 2.1 gate, both themes, exits 1 on text-role <4.5) — green against final palette and now the single source of truth for 03-01's globals.css values. Token audit (03-token-usage-audit.md): of low-contrast tiers, 24/34 --text-faint + 2/5 --text-ghost usages are info-bearing → promote to --text-muted; dark --text-muted nudge 0.3→0.45 (one globals.css line) fixes all 81 muted usages. FOUND-02 + FOUND-03 complete. Note: gsd-tools state advance-plan can't parse current STATE.md format (manual surgical edits applied); record-metric ran but erroneously bumped total_plans 25→27 (corrected back to 25).
 
 ### Pending Todos
@@ -105,6 +106,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-06-12T02:25:24.000Z
-Stopped at: Completed 03-00-PLAN.md (Phase 3 Wave 1 enabling — motion installed, contrast gate green, token audit complete)
+Last session: 2026-06-12T02:33:00.000Z
+Stopped at: Completed 03-02-PLAN.md (Phase 3 Wave 2 — useAnimationGate + useThemeColors hooks + lib/motion presets; primitives only, wiring is 03-03). 03-01 (tokens/a11y) runs in parallel.
 Resume file: .planning/phases/03-shared-foundation/03-01-PLAN.md
