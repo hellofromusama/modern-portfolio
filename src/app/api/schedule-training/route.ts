@@ -1,7 +1,11 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
+import { requireAdmin } from '@/lib/admin-guard';
 
 // Daily Training Scheduler - Triggers automatic LLM submissions
-export async function POST() {
+export async function POST(request: NextRequest) {
+  const denied = requireAdmin(request);
+  if (denied) return denied;
+
   try {
     if (process.env.AI_TRAINING_ENABLED !== 'true' || process.env.AUTO_SUBMIT_DAILY !== 'true') {
       return NextResponse.json({
@@ -73,7 +77,10 @@ export async function POST() {
 }
 
 // GET endpoint to check scheduler status
-export async function GET() {
+export async function GET(request: NextRequest) {
+  const denied = requireAdmin(request);
+  if (denied) return denied;
+
   try {
     const status = {
       scheduler_enabled: process.env.AUTO_SUBMIT_DAILY === 'true',

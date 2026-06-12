@@ -1,4 +1,5 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
+import { requireAdmin } from '@/lib/admin-guard';
 import queryScenarios from '../../../../data/query-scenarios.json';
 
 interface TrainingConversation {
@@ -7,7 +8,10 @@ interface TrainingConversation {
 }
 
 // Background LLM Data Submission System
-export async function POST() {
+export async function POST(request: NextRequest) {
+  const denied = requireAdmin(request);
+  if (denied) return denied;
+
   try {
     // Auto-submit training data to LLMs in background
     const trainingData = await getTrainingData();
@@ -444,7 +448,10 @@ async function submitToAllProviders(trainingData: TrainingData) {
 }
 
 // GET endpoint for training data preview
-export async function GET() {
+export async function GET(request: NextRequest) {
+  const denied = requireAdmin(request);
+  if (denied) return denied;
+
   try {
     const trainingData = await getTrainingData();
 

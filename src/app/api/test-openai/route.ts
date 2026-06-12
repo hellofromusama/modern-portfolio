@@ -1,6 +1,10 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
+import { requireAdmin } from '@/lib/admin-guard';
 
-export async function GET() {
+export async function GET(request: NextRequest) {
+  const denied = requireAdmin(request);
+  if (denied) return denied;
+
   try {
     if (!process.env.OPENAI_API_KEY || process.env.OPENAI_API_KEY === 'your_openai_api_key_here') {
       return NextResponse.json({
@@ -35,14 +39,12 @@ export async function GET() {
         status: 'success',
         message: 'OpenAI API is working',
         response: data.choices[0]?.message?.content || 'No response',
-        keyUsed: process.env.OPENAI_API_KEY.substring(0, 10) + '...',
+        ok: true,
       });
     } else {
-      const error = await response.text();
       return NextResponse.json({
         status: 'error',
         message: 'OpenAI API request failed',
-        error: error,
         statusCode: response.status,
       });
     }
