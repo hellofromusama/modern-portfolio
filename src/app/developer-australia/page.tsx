@@ -129,7 +129,7 @@ export default function DeveloperAustralia() {
             </h2>
             <div className="grid md:grid-cols-2 gap-4">
               {cities.map((city) => (
-                <div key={city.name} className="p-4 rounded-xl" style={{ background: "var(--bg-card)", border: "1px solid var(--border-subtle)" }}>
+                <div key={city.name} className="p-4 rounded-xl transition-all duration-500 hover:-translate-y-1" style={{ background: "var(--bg-card)", border: "1px solid var(--border-subtle)", boxShadow: "var(--shadow-card)" }}>
                   <h3 className="font-semibold mb-1" style={{ color: "var(--text-primary)" }}>
                     {city.name}, {city.state}
                   </h3>
@@ -152,7 +152,7 @@ export default function DeveloperAustralia() {
             </ul>
           </section>
 
-          <section className="p-6 rounded-xl text-center" style={{ background: "var(--bg-card)", border: "1px solid var(--border-subtle)" }}>
+          <section className="p-6 rounded-xl text-center" style={{ background: "var(--bg-card)", border: "1px solid var(--border-subtle)", boxShadow: "var(--shadow-card)" }}>
             <h2 className="text-xl font-bold mb-3" style={{ color: "var(--text-primary)" }}>
               Hire the Best Developer in Australia
             </h2>

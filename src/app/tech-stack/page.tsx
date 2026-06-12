@@ -78,19 +78,22 @@ export default function TechStack() {
   ];
 
   return (
-    <div className="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white">
+    <div style={{ background: 'var(--bg-primary)', color: 'var(--text-primary)' }}>
       {/* Navigation */}
-      <nav className="fixed top-0 w-full z-50 bg-slate-900/80 backdrop-blur-md border-b border-slate-700/50">
+      <nav
+        className="fixed top-0 w-full z-50 backdrop-blur-md"
+        style={{ background: 'var(--bg-nav)', borderBottom: '1px solid var(--border-subtle)' }}
+      >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-4">
             <Link href="/" className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
               UJ
             </Link>
             <div className="hidden md:flex space-x-8 items-center">
-              <Link href="/#about" className="hover:text-blue-400 transition-all duration-300 hover:scale-105">About</Link>
-              <Link href="/#projects" className="hover:text-blue-400 transition-all duration-300 hover:scale-105">Projects</Link>
-              <Link href="/ideas" className="hover:text-purple-400 transition-all duration-300 hover:scale-105">Ideas</Link>
-              <Link href="/contact" className="hover:text-blue-400 transition-all duration-300 hover:scale-105">Contact</Link>
+              <Link href="/#about" className="transition-all duration-300 hover:scale-105 hover:text-blue-400" style={{ color: 'var(--text-secondary)' }}>About</Link>
+              <Link href="/#projects" className="transition-all duration-300 hover:scale-105 hover:text-blue-400" style={{ color: 'var(--text-secondary)' }}>Projects</Link>
+              <Link href="/ideas" className="transition-all duration-300 hover:scale-105 hover:text-violet-400" style={{ color: 'var(--text-secondary)' }}>Ideas</Link>
+              <Link href="/contact" className="transition-all duration-300 hover:scale-105 hover:text-blue-400" style={{ color: 'var(--text-secondary)' }}>Contact</Link>
               <Link href="/tech-stack" className="text-blue-400">Tech</Link>
               <a
                 href="https://www.linkedin.com/in/hellofromusama/"
@@ -111,10 +114,10 @@ export default function TechStack() {
           <h1 className="text-6xl font-bold mb-6 bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 bg-clip-text text-transparent">
             Tech Stack
           </h1>
-          <p className="text-2xl text-slate-300 mb-8">
+          <p className="text-2xl mb-8" style={{ color: 'var(--text-secondary)' }}>
             Behind the Scenes of This Portfolio
           </p>
-          <p className="text-lg text-slate-400 max-w-4xl mx-auto leading-relaxed">
+          <p className="text-lg max-w-4xl mx-auto leading-relaxed" style={{ color: 'var(--text-tertiary)' }}>
             This portfolio showcases modern web development practices using cutting-edge technologies
             for optimal performance, developer experience, and user satisfaction.
           </p>
@@ -126,19 +129,31 @@ export default function TechStack() {
         <div className="max-w-7xl mx-auto">
           <div className="grid md:grid-cols-2 gap-8">
             {techStack.map((category) => (
-              <div key={category.category} className="bg-slate-900/50 p-8 rounded-2xl border border-slate-700 hover:border-blue-500/50 transition-all duration-300">
+              <div
+                key={category.category}
+                className="p-8 rounded-2xl transition-all duration-500 hover:-translate-y-1"
+                style={{
+                  background: 'var(--bg-card)',
+                  border: '1px solid var(--border-subtle)',
+                  boxShadow: 'var(--shadow-card)',
+                }}
+              >
                 <div className="flex items-center mb-6">
                   <span className="text-4xl mr-4">{category.icon}</span>
-                  <h2 className="text-3xl font-bold text-blue-400">{category.category}</h2>
+                  <h2 className="text-3xl font-bold text-blue-400 font-[family-name:var(--font-space-grotesk)]">{category.category}</h2>
                 </div>
 
                 <div className="space-y-4">
                   {category.technologies.map((tech) => (
-                    <div key={tech.name} className="p-4 bg-slate-800/50 rounded-lg border border-slate-600 hover:border-slate-500 transition-colors">
+                    <div
+                      key={tech.name}
+                      className="p-4 rounded-lg transition-colors"
+                      style={{ background: 'var(--bg-elevated)', border: '1px solid var(--border-subtle)' }}
+                    >
                       <h3 className={`text-xl font-semibold mb-2 ${tech.color}`}>
                         {tech.name}
                       </h3>
-                      <p className="text-slate-300">{tech.description}</p>
+                      <p style={{ color: 'var(--text-secondary)' }}>{tech.description}</p>
                     </div>
                   ))}
                 </div>
@@ -149,7 +164,7 @@ export default function TechStack() {
       </section>
 
       {/* Features Section */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-slate-800/30">
+      <section className="py-20 px-4 sm:px-6 lg:px-8" style={{ background: 'var(--bg-secondary)' }}>
         <div className="max-w-7xl mx-auto">
           <h2 className="text-4xl font-bold text-center mb-16 bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
             Key Features & Capabilities
@@ -157,14 +172,22 @@ export default function TechStack() {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {features.map((feature) => (
-              <div key={feature.title} className="bg-slate-900/50 p-8 rounded-xl border border-slate-700 hover:border-purple-500/50 transition-all duration-300 group hover:scale-105">
+              <div
+                key={feature.title}
+                className="p-8 rounded-xl transition-all duration-500 group hover:-translate-y-1"
+                style={{
+                  background: 'var(--bg-card)',
+                  border: '1px solid var(--border-subtle)',
+                  boxShadow: 'var(--shadow-card)',
+                }}
+              >
                 <div className="text-4xl mb-4 group-hover:scale-110 transition-transform duration-300">
                   {feature.icon}
                 </div>
-                <h3 className="text-2xl font-semibold mb-4 text-purple-400">
+                <h3 className="text-2xl font-semibold mb-4 text-violet-400 font-[family-name:var(--font-space-grotesk)]">
                   {feature.title}
                 </h3>
-                <p className="text-slate-300">
+                <p style={{ color: 'var(--text-secondary)' }}>
                   {feature.description}
                 </p>
               </div>
@@ -181,70 +204,85 @@ export default function TechStack() {
           </h2>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <div className="text-center p-8 bg-slate-900/50 rounded-xl border border-slate-700 hover:border-green-500/50 transition-all duration-300">
-              <div className="text-5xl font-bold text-green-400 mb-2">95+</div>
-              <div className="text-xl font-semibold text-green-300 mb-2">Performance</div>
-              <div className="text-slate-400">Lighthouse Score</div>
+            <div
+              className="text-center p-8 rounded-xl transition-all duration-500 hover:-translate-y-1"
+              style={{ background: 'var(--bg-card)', border: '1px solid var(--border-subtle)', boxShadow: 'var(--shadow-card)' }}
+            >
+              <div className="text-5xl font-bold text-emerald-400 mb-2 font-[family-name:var(--font-space-grotesk)]">95+</div>
+              <div className="text-xl font-semibold text-emerald-400 mb-2">Performance</div>
+              <div style={{ color: 'var(--text-muted)' }}>Lighthouse Score</div>
             </div>
 
-            <div className="text-center p-8 bg-slate-900/50 rounded-xl border border-slate-700 hover:border-blue-500/50 transition-all duration-300">
-              <div className="text-5xl font-bold text-blue-400 mb-2">100</div>
-              <div className="text-xl font-semibold text-blue-300 mb-2">Accessibility</div>
-              <div className="text-slate-400">WCAG Compliant</div>
+            <div
+              className="text-center p-8 rounded-xl transition-all duration-500 hover:-translate-y-1"
+              style={{ background: 'var(--bg-card)', border: '1px solid var(--border-subtle)', boxShadow: 'var(--shadow-card)' }}
+            >
+              <div className="text-5xl font-bold text-blue-400 mb-2 font-[family-name:var(--font-space-grotesk)]">100</div>
+              <div className="text-xl font-semibold text-blue-400 mb-2">Accessibility</div>
+              <div style={{ color: 'var(--text-muted)' }}>WCAG Compliant</div>
             </div>
 
-            <div className="text-center p-8 bg-slate-900/50 rounded-xl border border-slate-700 hover:border-purple-500/50 transition-all duration-300">
-              <div className="text-5xl font-bold text-purple-400 mb-2">98+</div>
-              <div className="text-xl font-semibold text-purple-300 mb-2">SEO</div>
-              <div className="text-slate-400">Search Optimized</div>
+            <div
+              className="text-center p-8 rounded-xl transition-all duration-500 hover:-translate-y-1"
+              style={{ background: 'var(--bg-card)', border: '1px solid var(--border-subtle)', boxShadow: 'var(--shadow-card)' }}
+            >
+              <div className="text-5xl font-bold text-violet-400 mb-2 font-[family-name:var(--font-space-grotesk)]">98+</div>
+              <div className="text-xl font-semibold text-violet-400 mb-2">SEO</div>
+              <div style={{ color: 'var(--text-muted)' }}>Search Optimized</div>
             </div>
 
-            <div className="text-center p-8 bg-slate-900/50 rounded-xl border border-slate-700 hover:border-yellow-500/50 transition-all duration-300">
-              <div className="text-5xl font-bold text-yellow-400 mb-2">95+</div>
-              <div className="text-xl font-semibold text-yellow-300 mb-2">Best Practices</div>
-              <div className="text-slate-400">Security & Standards</div>
+            <div
+              className="text-center p-8 rounded-xl transition-all duration-500 hover:-translate-y-1"
+              style={{ background: 'var(--bg-card)', border: '1px solid var(--border-subtle)', boxShadow: 'var(--shadow-card)' }}
+            >
+              <div className="text-5xl font-bold text-amber-400 mb-2 font-[family-name:var(--font-space-grotesk)]">95+</div>
+              <div className="text-xl font-semibold text-amber-400 mb-2">Best Practices</div>
+              <div style={{ color: 'var(--text-muted)' }}>Security & Standards</div>
             </div>
           </div>
         </div>
       </section>
 
       {/* Architecture Overview */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-slate-800/30">
+      <section className="py-20 px-4 sm:px-6 lg:px-8" style={{ background: 'var(--bg-secondary)' }}>
         <div className="max-w-7xl mx-auto">
           <h2 className="text-4xl font-bold text-center mb-16 bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent">
             Architecture Overview
           </h2>
 
-          <div className="bg-slate-900/50 p-8 rounded-2xl border border-slate-700">
+          <div
+            className="p-8 rounded-2xl"
+            style={{ background: 'var(--bg-card)', border: '1px solid var(--border-subtle)', boxShadow: 'var(--shadow-card)' }}
+          >
             <div className="grid lg:grid-cols-3 gap-8">
               <div className="text-center">
                 <div className="w-20 h-20 mx-auto mb-4 bg-blue-500/20 rounded-full flex items-center justify-center">
                   <span className="text-3xl">🎨</span>
                 </div>
-                <h3 className="text-2xl font-semibold mb-4 text-blue-400">Frontend Layer</h3>
-                <p className="text-slate-300">
+                <h3 className="text-2xl font-semibold mb-4 text-blue-400 font-[family-name:var(--font-space-grotesk)]">Frontend Layer</h3>
+                <p style={{ color: 'var(--text-secondary)' }}>
                   React 19 with Next.js 15 App Router, TypeScript for type safety,
                   and Tailwind CSS for responsive design.
                 </p>
               </div>
 
               <div className="text-center">
-                <div className="w-20 h-20 mx-auto mb-4 bg-purple-500/20 rounded-full flex items-center justify-center">
+                <div className="w-20 h-20 mx-auto mb-4 bg-violet-500/20 rounded-full flex items-center justify-center">
                   <span className="text-3xl">🔧</span>
                 </div>
-                <h3 className="text-2xl font-semibold mb-4 text-purple-400">Build Layer</h3>
-                <p className="text-slate-300">
+                <h3 className="text-2xl font-semibold mb-4 text-violet-400 font-[family-name:var(--font-space-grotesk)]">Build Layer</h3>
+                <p style={{ color: 'var(--text-secondary)' }}>
                   Turbopack for ultra-fast development builds, ESLint for code quality,
                   and automatic optimizations.
                 </p>
               </div>
 
               <div className="text-center">
-                <div className="w-20 h-20 mx-auto mb-4 bg-green-500/20 rounded-full flex items-center justify-center">
+                <div className="w-20 h-20 mx-auto mb-4 bg-emerald-500/20 rounded-full flex items-center justify-center">
                   <span className="text-3xl">🚀</span>
                 </div>
-                <h3 className="text-2xl font-semibold mb-4 text-green-400">Deployment Layer</h3>
-                <p className="text-slate-300">
+                <h3 className="text-2xl font-semibold mb-4 text-emerald-400 font-[family-name:var(--font-space-grotesk)]">Deployment Layer</h3>
+                <p style={{ color: 'var(--text-secondary)' }}>
                   Vercel edge network with automatic HTTPS, GitHub Actions for CI/CD,
                   and global content distribution.
                 </p>
@@ -260,7 +298,7 @@ export default function TechStack() {
           <h2 className="text-4xl font-bold mb-8 bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
             Interested in Similar Architecture?
           </h2>
-          <p className="text-xl text-slate-300 mb-12">
+          <p className="text-xl mb-12" style={{ color: 'var(--text-secondary)' }}>
             I can help you build high-performance web applications using these modern technologies.
           </p>
           <div className="flex flex-col sm:flex-row gap-6 justify-center">
@@ -272,7 +310,8 @@ export default function TechStack() {
             </Link>
             <Link
               href="/#projects"
-              className="border-2 border-slate-600 hover:border-blue-400 text-slate-300 hover:text-white px-10 py-5 rounded-full font-semibold transition-all duration-300 hover:bg-blue-400/10"
+              className="px-10 py-5 rounded-full font-semibold transition-all duration-300 hover:border-blue-400"
+              style={{ border: '2px solid var(--border-default)', color: 'var(--text-secondary)' }}
             >
               View More Projects
             </Link>

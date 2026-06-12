@@ -170,20 +170,20 @@ export default function ServicesPage() {
   };
 
   return (
-    <div className="bg-white">
+    <div style={{ background: 'var(--bg-primary)', color: 'var(--text-primary)' }}>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
       />
 
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white py-20">
+      <section className="py-20" style={{ background: 'var(--bg-secondary)' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
-            <h1 className="text-4xl md:text-6xl font-bold mb-6">
+            <h1 className="text-4xl md:text-6xl font-bold mb-6 font-[family-name:var(--font-space-grotesk)]">
               Web Development & SEO Services I Provide
             </h1>
-            <p className="text-xl md:text-2xl text-slate-300 max-w-3xl mx-auto mb-8">
+            <p className="text-xl md:text-2xl max-w-3xl mx-auto mb-8" style={{ color: 'var(--text-secondary)' }}>
               Expert full stack development services in Perth, Western Australia.
               Custom web applications, AI integration, and enterprise solutions for businesses across Australia.
             </p>
@@ -196,7 +196,8 @@ export default function ServicesPage() {
               </a>
               <a
                 href="#services"
-                className="border border-white hover:bg-white hover:text-slate-900 text-white px-8 py-3 rounded-lg font-semibold transition-colors"
+                className="px-8 py-3 rounded-lg font-semibold transition-colors hover:border-blue-400"
+                style={{ border: '1px solid var(--border-default)', color: 'var(--text-secondary)' }}
               >
                 View All Services
               </a>
@@ -209,10 +210,10 @@ export default function ServicesPage() {
       <section id="services" className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-6">
+            <h2 className="text-3xl md:text-4xl font-bold mb-6 font-[family-name:var(--font-space-grotesk)]">
               Complete Web Development Solutions for Perth Businesses
             </h2>
-            <p className="text-lg text-slate-600 max-w-3xl mx-auto">
+            <p className="text-lg max-w-3xl mx-auto" style={{ color: 'var(--text-secondary)' }}>
               From simple websites to complex enterprise applications, I provide end-to-end web development
               services using the latest technologies and industry best practices.
             </p>
@@ -220,22 +221,30 @@ export default function ServicesPage() {
 
           {services.map((category, categoryIndex) => (
             <div key={categoryIndex} className="mb-16">
-              <h3 className="text-2xl font-bold text-slate-900 mb-4">{category.category}</h3>
-              <p className="text-slate-600 mb-8">{category.description}</p>
+              <h3 className="text-2xl font-bold mb-4 font-[family-name:var(--font-space-grotesk)]">{category.category}</h3>
+              <p className="mb-8" style={{ color: 'var(--text-secondary)' }}>{category.description}</p>
 
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {category.items.map((service, serviceIndex) => (
-                  <div key={serviceIndex} className="bg-white rounded-lg shadow-lg border border-slate-200 p-6 hover:shadow-xl transition-shadow">
-                    <h4 className="text-xl font-semibold text-slate-900 mb-3">{service.name}</h4>
-                    <p className="text-slate-600 mb-4">{service.description}</p>
+                  <div
+                    key={serviceIndex}
+                    className="rounded-xl p-6 transition-all duration-500 hover:-translate-y-1"
+                    style={{
+                      background: 'var(--bg-card)',
+                      border: '1px solid var(--border-subtle)',
+                      boxShadow: 'var(--shadow-card)',
+                    }}
+                  >
+                    <h4 className="text-xl font-semibold mb-3 font-[family-name:var(--font-space-grotesk)]">{service.name}</h4>
+                    <p className="mb-4" style={{ color: 'var(--text-secondary)' }}>{service.description}</p>
 
                     <div className="space-y-4">
                       <div>
-                        <h5 className="font-medium text-slate-900 mb-2">Key Features:</h5>
-                        <ul className="text-sm text-slate-600 space-y-1">
+                        <h5 className="font-medium mb-2">Key Features:</h5>
+                        <ul className="text-sm space-y-1" style={{ color: 'var(--text-secondary)' }}>
                           {service.features.map((feature, index) => (
                             <li key={index} className="flex items-center">
-                              <span className="w-1.5 h-1.5 bg-blue-600 rounded-full mr-2"></span>
+                              <span className="w-1.5 h-1.5 bg-blue-500 rounded-full mr-2"></span>
                               {feature}
                             </li>
                           ))}
@@ -244,12 +253,12 @@ export default function ServicesPage() {
 
                       <div className="flex justify-between text-sm">
                         <div>
-                          <span className="font-medium text-slate-900">Timeline: </span>
-                          <span className="text-slate-600">{service.timeframe}</span>
+                          <span className="font-medium">Timeline: </span>
+                          <span style={{ color: 'var(--text-secondary)' }}>{service.timeframe}</span>
                         </div>
                         <div>
-                          <span className="font-medium text-slate-900">From: </span>
-                          <span className="text-green-600 font-semibold">{service.priceRange}</span>
+                          <span className="font-medium">From: </span>
+                          <span className="text-emerald-400 font-semibold">{service.priceRange}</span>
                         </div>
                       </div>
                     </div>
@@ -262,13 +271,13 @@ export default function ServicesPage() {
       </section>
 
       {/* Process Section */}
-      <section className="py-20 bg-slate-50">
+      <section className="py-20" style={{ background: 'var(--bg-secondary)' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-6">
+            <h2 className="text-3xl md:text-4xl font-bold mb-6 font-[family-name:var(--font-space-grotesk)]">
               How I Work With Perth Clients
             </h2>
-            <p className="text-lg text-slate-600 max-w-3xl mx-auto">
+            <p className="text-lg max-w-3xl mx-auto" style={{ color: 'var(--text-secondary)' }}>
               A proven development process that ensures your project is delivered on time,
               within budget, and exceeds your expectations.
             </p>
@@ -280,8 +289,8 @@ export default function ServicesPage() {
                 <div className="w-16 h-16 bg-blue-600 text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">
                   {step.step}
                 </div>
-                <h3 className="text-xl font-semibold text-slate-900 mb-3">{step.title}</h3>
-                <p className="text-slate-600">{step.description}</p>
+                <h3 className="text-xl font-semibold mb-3 font-[family-name:var(--font-space-grotesk)]">{step.title}</h3>
+                <p style={{ color: 'var(--text-secondary)' }}>{step.description}</p>
               </div>
             ))}
           </div>
