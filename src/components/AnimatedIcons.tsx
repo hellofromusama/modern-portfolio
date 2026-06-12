@@ -35,6 +35,18 @@ function ensureKeyframes() {
       0%   { opacity: 1; }
       100% { opacity: 0; }
     }
+    /*
+     * Reduced-motion freeze (PERF-04): pin the cross-fade to a single
+     * static state so reduced-motion users get a still icon. The global
+     * kill switch in globals.css already neutralises the animation, but
+     * we pin opacity here explicitly so the visible state is deterministic
+     * (State A shown, State B hidden) rather than left mid-cross-fade.
+     */
+    @media (prefers-reduced-motion: reduce) {
+      .ai-morph-group { animation: none !important; }
+      .ai-morph-a { opacity: 1 !important; }
+      .ai-morph-b { opacity: 0 !important; }
+    }
   `;
   document.head.appendChild(style);
 }
@@ -94,6 +106,7 @@ function MorphIcon({ className, size = 24, pathA, pathB, svgProps }: MorphIconPr
     >
       {/* State A */}
       <g
+        className="ai-morph-group ai-morph-a"
         style={{
           ...sharedGroupStyle,
           animationName: "ai-fade-out",
@@ -108,6 +121,7 @@ function MorphIcon({ className, size = 24, pathA, pathB, svgProps }: MorphIconPr
 
       {/* State B */}
       <g
+        className="ai-morph-group ai-morph-b"
         style={{
           ...sharedGroupStyle,
           animationName: "ai-fade-in",
