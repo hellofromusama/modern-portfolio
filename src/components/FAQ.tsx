@@ -1,8 +1,10 @@
 'use client'
 
 import { useState } from 'react'
+import { AnimatePresence, motion, useReducedMotion } from 'motion/react'
 import ScrollReveal from './ScrollReveal'
 import InteractiveButton from './InteractiveButton'
+import { transitions } from '@/lib/motion'
 
 interface FAQItem {
   question: string
@@ -28,6 +30,7 @@ const faqData: FAQItem[] = [
 export default function FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(null)
   const [activeCategory, setActiveCategory] = useState<string>('all')
+  const reduceMotion = useReducedMotion()
 
   const filteredFAQs = activeCategory === 'all' ? faqData : faqData.filter(faq => faq.category === activeCategory)
 
@@ -85,12 +88,15 @@ export default function FAQ() {
         <div className="space-y-2">
           {filteredFAQs.map((faq, index) => (
             <ScrollReveal key={`${activeCategory}-${index}`} delay={index * 60}>
-              <div
-                className="rounded-xl transition-all duration-300 overflow-hidden"
+              <motion.div
+                className="rounded-xl overflow-hidden"
                 style={{
                   border: `1px solid ${openIndex === index ? 'var(--border-default)' : 'var(--border-subtle)'}`,
                   background: openIndex === index ? 'var(--bg-card)' : 'transparent',
+                  transition: 'background 0.3s, border-color 0.3s',
                 }}
+                whileHover={reduceMotion ? undefined : { y: -1 }}
+                transition={transitions.quick}
               >
                 <button
                   onClick={() => toggleFAQ(index)}
@@ -110,14 +116,23 @@ export default function FAQ() {
                   </div>
                 </button>
 
-                <div className={`transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
-                  openIndex === index ? 'max-h-[300px] opacity-100' : 'max-h-0 opacity-0'
-                } overflow-hidden`}>
-                  <div className="px-6 pb-5">
-                    <p className="text-sm leading-relaxed" style={{ color: 'var(--text-muted)' }}>{faq.answer}</p>
-                  </div>
-                </div>
-              </div>
+                <AnimatePresence initial={false}>
+                  {openIndex === index && (
+                    <motion.div
+                      key="answer"
+                      initial={reduceMotion ? false : { height: 0, opacity: 0 }}
+                      animate={{ height: 'auto', opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={reduceMotion ? { duration: 0 } : transitions.base}
+                      className="overflow-hidden"
+                    >
+                      <div className="px-6 pb-5">
+                        <p className="text-sm leading-relaxed" style={{ color: 'var(--text-muted)' }}>{faq.answer}</p>
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </motion.div>
             </ScrollReveal>
           ))}
         </div>
