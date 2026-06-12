@@ -14,7 +14,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 
 - [x] **Phase 1: Content Centralization** - Single typed content source (verbatim + baseline-diff gated), wired into grid, detail pages, JSON-LD, sitemap (completed 2026-06-12)
 - [x] **Phase 2: Append AI Content** - 5 AI projects, AI skill domains, and the ESIA/MCP production narrative appended additively (completed 2026-06-12)
-- [ ] **Phase 3: Shared Foundation** - Design tokens + motion/theme/in-view primitives + error boundaries + a11y floor
+- [x] **Phase 3: Shared Foundation** - Design tokens + motion/theme/in-view primitives + error boundaries + a11y floor
 - [ ] **Phase 4: R3F Infrastructure Island** - Installed React-19-compatible 3D stack + SSR-safe Canvas island with bundle budget
 - [ ] **Phase 5: Per-Component Visual Upgrades** - Signature WebGL hero + every component/page elevated to the new design language
 - [ ] **Phase 6: Enhancements, Hardening & Ship** - Page transitions, security/bug fixes in passing, strict-build re-enabled, owner-approved deploy
@@ -74,7 +74,7 @@ Plans:
 - [x] 03-01-PLAN.md — Wave 2: AA-correct tokens + type/spacing scales + skip-link/focus-visible (globals.css, layout.tsx)
 - [x] 03-02-PLAN.md — Wave 2: useAnimationGate + useThemeColors hooks + motion presets (primitives only)
 - [x] 03-03-PLAN.md — Wave 3: error.tsx/global-error.tsx/IslandBoundary + gate & wrap the 3 canvas islands
-- [ ] 03-04-PLAN.md — Wave 4: SHIP-01 gate (tsc+lint+build+contrast) + boundary/reduced-motion/keyboard verify
+- [x] 03-04-PLAN.md — Wave 4: SHIP-01 gate (tsc+lint+build+contrast) + boundary/reduced-motion/keyboard verify
 **UI hint**: yes
 **Research flag**: `/gsd:research-phase` recommended — off-screen-pause / frameloop + `visibilitychange` patterns are MEDIUM-confidence; confirm in the profiler.
 
@@ -142,7 +142,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
 |-------|----------------|--------|-----------|
 | 1. Content Centralization | 0/TBD | Complete    | 2026-06-12 |
 | 2. Append AI Content | 4/4 | Complete    | 2026-06-12 |
-| 3. Shared Foundation | 3/5 | In Progress | - |
+| 3. Shared Foundation | 5/5 | Complete    | 2026-06-12 |
 | 4. R3F Infrastructure Island | 0/3 | Planned | - |
 | 5. Per-Component Visual Upgrades | 0/10 | Not started | - |
 | 6. Enhancements, Hardening & Ship | 0/TBD | Not started | - |
