@@ -89,7 +89,7 @@ Plans:
   4. Phase passes `npx tsc --noEmit` + `npm run lint` + `npm run build` + manual smoke in BOTH themes before being marked complete
 **Plans**: 3 plans
 Plans:
-- [ ] 04-01-PLAN.md — Wave 1: Phase-3 ls-guard + install 3D stack + author check-stack.mjs/bundle-gate.mjs (tune matcher vs real manifest)
+- [x] 04-01-PLAN.md — Wave 1: Phase-3 ls-guard + install 3D stack + author check-stack.mjs/bundle-gate.mjs (tune matcher vs real manifest)
 - [ ] 04-02-PLAN.md — Wave 2: webgl probe + ScenePoster + SceneCanvas (DPR clamp/frameloop/context-loss) + ThemedScene + ClientScene (ssr:false wrapper)
 - [ ] 04-03-PLAN.md — Wave 3: isolated /_scene-harness mount + SHIP-01 gate + poster-first LCP proof + evidence checkpoint
 **UI hint**: yes
@@ -143,6 +143,6 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
 | 1. Content Centralization | 0/TBD | Complete    | 2026-06-12 |
 | 2. Append AI Content | 4/4 | Complete    | 2026-06-12 |
 | 3. Shared Foundation | 5/5 | Complete    | 2026-06-12 |
-| 4. R3F Infrastructure Island | 0/3 | Planned | - |
+| 4. R3F Infrastructure Island | 1/3 | In Progress | 2026-06-12 |
 | 5. Per-Component Visual Upgrades | 0/10 | Not started | - |
 | 6. Enhancements, Hardening & Ship | 0/TBD | Not started | - |
