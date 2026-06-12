@@ -11,7 +11,7 @@ const getStripe = () => {
   console.log('Stripe API key found, initializing...');
   try {
     return new Stripe(apiKey, {
-      apiVersion: '2024-06-20',
+      apiVersion: '2025-08-27.basil',
     });
   } catch (error) {
     console.error('Failed to initialize Stripe:', error);
@@ -68,16 +68,17 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({ url: session.url });
 
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('Stripe checkout error:', error);
+    const stripeError = error as { type?: string; code?: string; statusCode?: number; message?: string };
     console.error('Error details:', {
-      type: error.type,
-      code: error.code,
-      statusCode: error.statusCode,
-      message: error.message,
+      type: stripeError.type,
+      code: stripeError.code,
+      statusCode: stripeError.statusCode,
+      message: stripeError.message,
     });
     return NextResponse.json(
-      { error: error.message || 'Failed to create checkout session' },
+      { error: stripeError.message || 'Failed to create checkout session' },
       { status: 500 }
     );
   }

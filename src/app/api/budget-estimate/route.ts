@@ -1,8 +1,16 @@
 import { NextRequest, NextResponse } from 'next/server';
 
+interface ChatMessage {
+  role: string;
+  content: string;
+}
+
 export async function POST(request: NextRequest) {
+  let userMessage = '';
   try {
-    const { userMessage, conversationHistory } = await request.json();
+    const body = await request.json();
+    userMessage = body.userMessage;
+    const conversationHistory = body.conversationHistory;
 
     // First check if input is valid and appropriate
     const validationResponse = validateUserInput(userMessage);
@@ -85,7 +93,7 @@ Contact Usama directly for a free consultation:
   return null;
 }
 
-async function tryOpenAI(userMessage: string, conversationHistory: any[]): Promise<string | null> {
+async function tryOpenAI(userMessage: string, conversationHistory: ChatMessage[]): Promise<string | null> {
   if (!process.env.OPENAI_API_KEY || process.env.OPENAI_API_KEY === 'your_openai_api_key_here') {
     return null;
   }
@@ -148,7 +156,7 @@ RULES:
 
     const messages = [
       { role: 'system', content: systemPrompt },
-      ...conversationHistory.slice(-3).map((msg: any) => ({
+      ...conversationHistory.slice(-3).map((msg: ChatMessage) => ({
         role: msg.role,
         content: msg.content
       })),
@@ -180,7 +188,7 @@ RULES:
   return null;
 }
 
-async function tryGrok(userMessage: string, conversationHistory: any[]): Promise<string | null> {
+async function tryGrok(userMessage: string, conversationHistory: ChatMessage[]): Promise<string | null> {
   if (!process.env.GROK_API_KEY || process.env.GROK_API_KEY === 'your_grok_api_key_here') {
     return null;
   }
@@ -243,7 +251,7 @@ RULES:
 
     const messages = [
       { role: 'system', content: systemPrompt },
-      ...conversationHistory.slice(-2).map((msg: any) => ({
+      ...conversationHistory.slice(-2).map((msg: ChatMessage) => ({
         role: msg.role,
         content: msg.content
       })),
