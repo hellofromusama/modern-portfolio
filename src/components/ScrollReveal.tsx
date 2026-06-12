@@ -9,7 +9,7 @@ import {
   useSpring,
   type Variants,
 } from "motion/react";
-import { EASE_SIGNATURE, transitions } from "@/lib/motion";
+import { EASE_SIGNATURE } from "@/lib/motion";
 
 interface ScrollRevealProps {
   children: React.ReactNode;
