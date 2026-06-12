@@ -1,4 +1,5 @@
 import { MetadataRoute } from 'next'
+import { sitemapProjects } from '@/content/projects'
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://www.usamajaved.com.au'
@@ -81,47 +82,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.9,
     },
     // Project pages — high priority for AI citations
-    {
-      url: `${baseUrl}/projects/n8n-automation`,
+    ...sitemapProjects.map((p) => ({
+      url: `${baseUrl}/projects/${p.id}`,
       lastModified: currentDate,
-      changeFrequency: 'monthly',
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/projects/voice-ai-agent`,
-      lastModified: currentDate,
-      changeFrequency: 'monthly',
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/projects/erp-system`,
-      lastModified: currentDate,
-      changeFrequency: 'monthly',
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/projects/netsuite-integration`,
-      lastModified: currentDate,
-      changeFrequency: 'monthly',
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/projects/cloud-infrastructure`,
-      lastModified: currentDate,
-      changeFrequency: 'monthly',
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/projects/modern-portfolio`,
-      lastModified: currentDate,
-      changeFrequency: 'monthly',
-      priority: 0.7,
-    },
-    {
-      url: `${baseUrl}/projects/kashmir-fund`,
-      lastModified: currentDate,
-      changeFrequency: 'monthly',
-      priority: 0.7,
-    },
+      changeFrequency: 'monthly' as const,
+      priority: p.priority,
+    })),
   ]
 }

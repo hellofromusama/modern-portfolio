@@ -204,20 +204,56 @@ function extractItemList() {
   return { numberOfItems, items };
 }
 
+// Helper (builder shape): ordered { slug, priority } read from the
+// `export const sitemapProjects ... = [ { id, priority }, ... ]` literal in
+// src/content/projects.ts. Falls back to [] if absent (literal page shape).
+function extractSitemapProjectsFromContent() {
+  const projPath = p("src", "content", "projects.ts");
+  if (!existsSync(projPath)) return [];
+  const text = readFileSync(projPath, "utf8");
+  // Slice the sitemapProjects array body, then capture each { id, priority }.
+  const block = sliceBetween(text, "export const sitemapProjects", "];");
+  if (block === null) return [];
+  const out = [];
+  const re = /id:\s*["']([a-z0-9-]+)["']\s*,\s*priority:\s*([\d.]+)/g;
+  let m;
+  while ((m = re.exec(block)) !== null) {
+    out.push({ slug: m[1], priority: Number(m[2]) });
+  }
+  return out;
+}
+
 // sitemapProjects: ordered { slug, priority } for every /projects/<slug> entry.
+//
+// Dual-source / dual-shape, to survive Wave 2 centralization:
+//   (a) ORIGINAL literal shape (src/app/sitemap.ts pre-migration): each project
+//       entry is a hand-written object literal with a `${baseUrl}/projects/<slug>`
+//       url and a `priority:` field, in emitted order.
+//   (b) BUILDER shape (src/app/sitemap.ts after Wave 2): the project entries are
+//       produced by `sitemapProjects.map(...)` over the centralized projection —
+//       no literal /projects/<slug> blocks remain in sitemap.ts. In that case the
+//       slug+priority pairs live VERBATIM in src/content/projects.ts; we read them
+//       from there in declared order so the strict byte comparison against
+//       baseline.json (same slugs, same priorities, same order) is unchanged.
 function extractSitemapProjects() {
   const { text } = readFirst([
     "src/content/sitemap.ts",
     "src/app/sitemap.ts",
   ]);
   const out = [];
-  // Each sitemap entry is an object with url + ... + priority. Capture the slug
-  // from the url and the priority that follows within the same object literal.
+  // Shape (a): each sitemap entry is an object with url + ... + priority. Capture
+  // the slug from the url and the priority that follows within the same literal.
   const re =
     /\/projects\/([a-z0-9-]+)`?,[\s\S]*?priority:\s*([\d.]+)/g;
   let m;
   while ((m = re.exec(text)) !== null) {
     out.push({ slug: m[1], priority: Number(m[2]) });
+  }
+
+  // Shape (b): builder pattern — no literal /projects/<slug> blocks in sitemap.ts.
+  // Reconstruct from the centralized sitemapProjects projection in projects.ts.
+  if (out.length === 0) {
+    return extractSitemapProjectsFromContent();
   }
   return out;
 }
