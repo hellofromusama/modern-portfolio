@@ -50,19 +50,25 @@ const MANIFEST = join(ROOT, ".next", "app-build-manifest.json");
 // The ONLY routes allowed to ship three / WebGL. Manifest route keys carry the
 // "/page" suffix (App Router). The homepage is "/page".
 //
-// Phase 4 (Plan 04-03): the R3F island mounts on ONE isolated, noindex/nofollow
-// dev-only harness route — NOT the live hero. So three legitimately ships ONLY
-// on "/scene-harness/page" and MUST stay off every other route, incl. the
-// homepage "/page" (its Canvas-2D hero is untouched this phase) and /layout.
+// Phase 4 (Plan 04-03): the R3F island mounted on ONE isolated, noindex/nofollow
+// dev-only harness route — "/scene-harness/page".
 //
-// NOTE: the dir is "scene-harness" (NOT "_scene-harness") — Next.js App Router
-// treats "_"-prefixed folders as PRIVATE and excludes them from routing, so an
-// underscore folder would never mount. Non-discoverability is provided by the
+// Phase 5 (Plan 05-00, this update): the homepage "/page" is added to the allow-set
+// in PREPARATION for 05-01 mounting the WebGL hero on the live homepage. Adding it
+// now (before the hero ships) is intentionally SAFE: until 05-01 wires ClientScene
+// into app/page, "/page" simply carries NO three chunk, so the gate still proves
+// three is route-split — and the moment the hero mounts, the gate asserts the
+// three vendor chunk lands ONLY in the homepage scene chunk and stays ABSENT from
+// every shared/text/SEO route and /layout. Once 05-01 deletes the temporary harness,
+// remove "/scene-harness/page" from this set (leaving "/page" as the sole canvas route).
+//
+// NOTE: the harness dir is "scene-harness" (NOT "_scene-harness") — Next.js App
+// Router treats "_"-prefixed folders as PRIVATE and excludes them from routing, so
+// an underscore folder would never mount. Non-discoverability is provided by the
 // segment layout's robots noindex/nofollow + sitemap exclusion, not the name.
-//
-// Phase 5 replaces this with the hero route; remove /scene-harness then.
 const CANVAS_ROUTES = new Set([
-  "/scene-harness/page", // dev-only harness — WebGL island verification mount
+  "/page",               // homepage — WebGL hero mount (05-01); empty of three until then
+  "/scene-harness/page", // TEMPORARY dev-only harness (04-03) — removed when 05-01 lands
 ]);
 
 // Filename signal for the named fast-path.

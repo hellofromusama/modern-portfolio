@@ -147,16 +147,122 @@ export default function ClientScene(props: { className?: string }): JSX.Element;
 
 ## Perf Spike — Hero Particle Count + Bloom Decision
 
-_(populated in Task 3)_
+### Methodology (honest — read this before trusting any number)
+
+The spike ran in a **headless agent session with no interactive GPU browser loop**. A
+live `r3f-perf` HUD reading under DevTools 4x–6x CPU throttling — the gold-standard
+measurement the plan asks for — **could not be captured here** (no human-driven browser
+to read the on-canvas FPS/draw-call HUD frame-over-frame). Per the orchestrator's explicit
+instruction, **no fps numbers are fabricated.** Where a value is an engineering estimate
+it is **labeled `[ESTIMATE]`**; where it is a verified structural fact it is labeled `[VERIFIED]`.
+
+What WAS done, and is real:
+
+- **[VERIFIED] API + draw-call validation via a throwaway spike scene.** A scratch
+  `src/app/_hero-spike/spike-scene.tsx` was authored using the EXACT production wiring
+  05-01 will use — `maath/random.inSphere(new Float32Array(count*3), { radius })` for the
+  point buffer, drei `<Points positions stride={3}>` + `<PointMaterial sizeAttenuation
+  depthWrite={false} blending={AdditiveBlending}>`, and a dev-only `<Perf>` gated behind
+  `process.env.NODE_ENV !== 'production'`. It **type-checks clean** against R3F v9 /
+  three@0.184 / drei@10.7 / maath@0.10.8 / r3f-perf@7.2.3. The scratch dir was DELETED
+  (confirmed absent from `src/app/`) — it never ships.
+- **[VERIFIED] Draw-call accounting holds.** A single `<points>` field is **ONE draw call
+  regardless of particle count** (research Pattern 2; motion is a transform/`uTime`, never
+  per-frame CPU attribute writes). Concept-A total = icosahedron edges (~1) + optional fill
+  (1) + particle points (1) [+ bloom passes (~2–3) if kept] = **< 10 draw calls**, far under
+  the research budget of < 100 for mobile 60 fps. The real cost center is **fragment
+  overdraw** from additive particles (and bloom), which scales with particle *size* and
+  *count* and with bloom intensity — NOT with draw calls.
+
+### Particle-count bands — what each costs (estimates, labeled)
+
+| Particles | Draw calls | Vertex cost | Fragment/overdraw risk on mid-tier mobile (4x–6x CPU throttle proxy) | Verdict |
+|-----------|-----------|-------------|----------------------------------------------------------------------|---------|
+| 2,000 | 1 `[VERIFIED]` | trivial (one static buffer, GPU-rotated) | LOW `[ESTIMATE]` — smallest additive-blend overdraw footprint | **CHOSEN** |
+| 2,500 | 1 `[VERIFIED]` | trivial | LOW–MODERATE `[ESTIMATE]` | acceptable; revisit after real-device data |
+| 3,000 | 1 `[VERIFIED]` | trivial | MODERATE `[ESTIMATE]` — most additive overdraw of the band; highest risk of fragment-bound jank on low-end mobile GPUs | upper bound only |
+
+> Because particle COUNT is essentially free on the vertex/draw-call axis and the only
+> count-sensitive cost is additive fragment overdraw (worst exactly on the throttled
+> mid-tier devices we cannot measure here), the conservative choice is the **bottom of the
+> band**.
+
+### DECISION (conservative fallback — measured device data pending)
+
+- **Hero particle count: `2000`.** Lowest end of the research's 2,000–3,000 band. Rationale:
+  draw-call cost is identical across the band (1), so the only lever is overdraw, which is
+  smallest at 2,000 — the safest pick for the un-measured mid-tier-mobile worst case. 05-01
+  uses `2000` as the production constant. **Re-tune upward toward 2,500–3,000 ONLY after a
+  real throttled-device `r3f-perf` reading confirms 60 fps headroom** (defer to the 05-09
+  LCP/perf gate or a manual device pass).
+- **Bloom: `OFF` by default.** `@react-three/postprocessing` was **NOT installed.** Rationale:
+  bloom adds ~2–3 extra full-screen passes and is the single largest fragment-overdraw
+  multiplier — precisely the cost we cannot measure headlessly. Shipping it on un-measured
+  mid-tier mobile risks the LCP/60-fps budget. The signature glow can be approximated cheaply
+  for now via additive `<PointMaterial>` blending + emissive edge color (zero extra passes).
+  **Bloom stays OFF pending a real-device measurement**; if a later device pass shows
+  headroom, 05-01+ may install `@react-three/postprocessing@^3.0.4` and add a `<Bloom>` that
+  is **gated OFF under `prefers-reduced-motion` / low-power**.
+
+> **For 05-01 to consume:** `PARTICLE_COUNT = 2000`; no bloom / no `EffectComposer`; do NOT
+> add `@react-three/postprocessing` to the dependency tree unless/until a measured-device
+> spike re-opens the bloom decision. The `HeroScene` must accept `{ paused }` (mirror
+> `ThemedScene`) and must NOT write point positions on the CPU per frame.
 
 ---
 
 ## Lighthouse CLI Availability
 
-_(populated in Task 3)_
+- **`lighthouse` global binary: ABSENT** (`command not found`).
+- **`npx lighthouse`: NOT installed locally** — `npx lighthouse --version` would download
+  `lighthouse@13.4.0` on demand (registry has it). It is not present in `node_modules` and
+  not in `package.json`.
+- **Chrome IS present** at `C:\Program Files\Google\Chrome\Application\chrome.exe` (a Chrome
+  binary exists for whenever Lighthouse/DevTools is run).
+- **05-09 LCP-gate fallback:** since the CLI is not pre-installed, the 05-09 LCP/PERF gate
+  should EITHER (a) run a one-off `npx lighthouse@13.4.0 <url> --only-categories=performance
+  --chrome-flags="--headless"` against a local prod build (downloads on first run), OR
+  (b) use the Chrome DevTools **Performance** + **Lighthouse** panels manually against the
+  prod build. Recommend pinning `lighthouse@13.4.0` as a devDependency in 05-09 if an
+  automated/CI LCP check is wanted, rather than relying on the on-demand npx download.
 
 ---
 
-## Bundle Gate Update
+## Bundle Gate Update — `scripts/bundle-gate.mjs`
 
-_(populated in Task 3)_
+- **File:** `scripts/bundle-gate.mjs` (the real Phase-4 gate; the plan's `check-bundle.mjs`
+  reference is a name typo — corrected).
+- **Change:** `CANVAS_ROUTES` now includes **`/page`** (the homepage — the 05-01 hero mount)
+  alongside the existing temporary **`/scene-harness/page`**. Existing dual matcher (named
+  fast-path + hash-proof canvas-exclusive cross-route assertion) unchanged.
+- **Why add `/page` now (before the hero ships):** safe and intentional. Until 05-01 wires
+  `ClientScene` into `app/page`, `/page` carries NO three chunk — so the gate still proves
+  three is route-split today, and it is pre-armed so the moment the hero mounts it asserts
+  the three vendor chunk lands ONLY in the homepage scene chunk and stays absent from every
+  shared/text/SEO route and `/layout`.
+- **Verified GREEN on the current (pre-hero) build:**
+
+  ```
+  npm run build  -> success (38 routes; /scene-harness 2.2 kB; / present)
+  node scripts/bundle-gate.mjs
+    -> bundle budget OK — three confined to canvas routes [/page, /scene-harness/page] across 38 routes
+    -> EXIT 0
+  ```
+
+- **05-01 follow-up:** when 05-01 deletes the temporary `/scene-harness` route, also remove
+  `"/scene-harness/page"` from `CANVAS_ROUTES`, leaving `"/page"` as the sole canvas route.
+
+---
+
+## Hand-off Summary for 05-01 (the numbers/decisions downstream consumes)
+
+| Item | Value |
+|------|-------|
+| Prereq guard | PASS — all 10 Phase-3/4 primitives present |
+| `ClientScene` scene injection | **None today** — add a `scene?: ReactNode` prop to `SceneCanvas` (default `<ThemedScene/>`) and thread it through `ClientScene`; forward `paused` to the injected scene |
+| Hero particle count | **2000** (conservative; re-tune up only on measured-device 60 fps headroom) |
+| Bloom | **OFF**; `@react-three/postprocessing` NOT installed |
+| `maath` | `^0.10.8` installed (use `maath/random.inSphere`) |
+| `r3f-perf` | `^7.2.3` dev-only; gate `<Perf>` behind `NODE_ENV !== 'production'` |
+| Lighthouse CLI | absent (npx-on-demand `13.4.0` or DevTools panel for 05-09) |
+| Bundle gate | `/page` added to `CANVAS_ROUTES`; green on current build; remove `/scene-harness/page` when 05-01 deletes the harness |
