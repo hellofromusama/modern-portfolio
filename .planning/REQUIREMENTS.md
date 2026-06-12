@@ -32,7 +32,7 @@
 - [x] **VIS-05**: Navigation upgraded: refined desktop nav + mobile menu with polished open/close choreography, keyboard accessible, focus-visible states
 - [x] **VIS-06**: ThemeToggle, Footer, FAQ, TeamSection, FundMeWidget, AnimatedIcons visually elevated to the new design language (every one of the 17 components touched)
 - [x] **VIS-07**: Cards and typography across ALL pages (home, projects, expertise, services, blog, budget, team, tech-stack, ideas, contact, developer-australia, fund-me) conform to the tightened design tokens
-- [ ] **VIS-08**: Smooth page transitions via the View Transitions API as progressive enhancement, disabled under reduced motion
+- [x] **VIS-08**: Smooth page transitions via the View Transitions API as progressive enhancement, disabled under reduced motion
 
 ### Performance & Accessibility (PERF)
 
@@ -43,7 +43,7 @@
 
 ### Fixes in Passing (FIX)
 
-- [ ] **FIX-01**: test-openai route no longer exposes any key material and is no longer an unauthenticated paid-API proxy (gated or disabled — feature preserved behind auth/env flag, not deleted)
+- [x] **FIX-01**: test-openai route no longer exposes any key material and is no longer an unauthenticated paid-API proxy (gated or disabled — feature preserved behind auth/env flag, not deleted)
 - [ ] **FIX-02**: VisitorTracker no longer triggers paid AI endpoints unthrottled from visitors' browsers (rate-limited/gated)
 - [x] **FIX-03**: projects/[id] implements generateStaticParams + generateMetadata from the centralized content source (every project slug preserved)
 
@@ -101,8 +101,8 @@
 | VIS-06 | Phase 5 | Complete |
 | VIS-07 | Phase 5 | Complete |
 | PERF-02 | Phase 5 | Complete (05-01) |
-| VIS-08 | Phase 6 | Pending |
-| FIX-01 | Phase 6 | Pending |
+| VIS-08 | Phase 6 | Complete |
+| FIX-01 | Phase 6 | Complete |
 | FIX-02 | Phase 6 | Pending |
 | SHIP-02 | Phase 6 | Complete |
 | SHIP-01 | All phases (cross-cutting gate) | Complete |
