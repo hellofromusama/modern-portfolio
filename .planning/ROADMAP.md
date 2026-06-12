@@ -138,7 +138,7 @@ Plans:
 - [x] 06-05-PLAN.md — Wave 1: FIX-02 remove VisitorTracker paid-endpoint fan-out + guard JSON.parse + tokenize VisitorCounter
 - [x] 06-04-PLAN.md — Wave 2: FIX-01 requireAdmin shared-secret gate on 5 test/training routes + remove test-openai keyUsed leak
 - [x] 06-06-PLAN.md — Wave 2: VIS-08 native CSS @view-transition + reduced-motion kill switch (owner-verify checkpoint; moved to Wave 2 so its build-running checkpoint does not race concurrent Wave-1 edits)
-- [ ] 06-07-PLAN.md — Wave 3: SHIP-02 strict-build flip (remove ignore flags) + full gate + scripts/verify-prod.sh
+- [x] 06-07-PLAN.md — Wave 3: SHIP-02 strict-build flip (removed both ignore flags; tsc-exit:0+lint-exit:0 captured pre-flip over a clean tree after auto-fixing one strict-tsc regression, build-exit:0 after) + full gate (FIX-01 unauth 403/no keyUsed, FIX-02 no homepage chunk fires paid endpoints, both-theme served-CSS smoke, 6 routes 200) + scripts/verify-prod.sh (7 PASS/FAIL checks, 7/7 green) (completed 2026-06-12)
 - [ ] 06-08-PLAN.md — Wave 4: SHIP-02 Vercel preview deploy + post-deploy checklist + owner production-approval (human-action) + prod promote
 
 ## Progress
@@ -153,4 +153,4 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
 | 3. Shared Foundation | 5/5 | Complete    | 2026-06-12 |
 | 4. R3F Infrastructure Island | 3/3 | Complete    | 2026-06-12 |
 | 5. Per-Component Visual Upgrades | 10/10 | Complete    | 2026-06-12 |
-| 6. Enhancements, Hardening & Ship | 0/8 | Not started | - |
+| 6. Enhancements, Hardening & Ship | 7/8 | In Progress | - |
