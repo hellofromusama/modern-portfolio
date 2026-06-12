@@ -337,6 +337,208 @@ const projects = {
     applicationCategory: "DeveloperApplication",
     sitemapPriority: 0.8,
   },
+  // ---------------------------------------------------------------------------
+  // Phase 02 (AICON-04): 5 new AI projects appended below. Surface "production
+  // AI engineer". Append-only — none of the 7 entries above were touched.
+  // ---------------------------------------------------------------------------
+  "mcp-netsuite-ollama-bridge": {
+    id: "mcp-netsuite-ollama-bridge",
+    title: "MCP NetSuite-Ollama Bridge",
+    subtitle: "Natural-Language ERP Queries via a Local LLM",
+    description: "A production Model Context Protocol server that lets the marketing team ask NetSuite ERP questions in plain English and get answers back from a locally hosted Ollama LLM — no SQL, no report builder, no data leaving the building.",
+    longDescription: `Problem: the marketing team at Ear Science Institute Australia needed answers from NetSuite ERP that lived several clicks deep in saved searches and report builders. Every "what's the status of this contact?" turned into a ticket for someone who knew SuiteScript. The data was sensitive, so a cloud LLM was off the table.
+
+Architecture: an MCP server sits between a local Ollama LLM and NetSuite. A marketing user types a natural-language question into the UI ("Show me details for Jim Brown"). The MCP server interprets the intent, authenticates to NetSuite over OAuth 2.0, and calls a SuiteScript RESTlet that queries the ERP database. The records flow back through the MCP server to the Ollama model, which formats a human-readable answer and returns it to the UI. The whole loop runs on-premises, so customer and lead data never leaves the institute's network.
+
+Trade-offs: v1 was deliberately simple — a single query -> fetch -> answer path that proved the loop end to end. It worked, but it couldn't reason across multiple lookups or handle large result sets gracefully. v2 added a LangGraph multi-step reasoning layer so the agent can chain lookups, plus intelligent chunking to stay inside NetSuite's script governance limits. The cost of that power is complexity: more moving parts to monitor and a longer round-trip for multi-step questions, accepted because the marketing team's questions are rarely single-hop.
+
+Impact: marketing self-serves ERP answers in plain English instead of filing tickets, and because inference is local, sensitive contact data stays on-premises. The system runs in production at ESIA.`,
+    tech: ["MCP", "Ollama", "NetSuite", "SuiteScript", "LangGraph", "OAuth 2.0", "Python"],
+    category: "AI Engineering",
+    timeline: "Production (ongoing)",
+    team: "1 developer (Senior Systems Developer @ ESIA)",
+    features: [
+      "Natural-language ERP queries — marketing asks questions in plain English, no SQL or saved searches",
+      "MCP server bridging a local Ollama LLM to NetSuite over a typed tool interface",
+      "OAuth 2.0 authentication to NetSuite with SuiteScript RESTlet query execution",
+      "Six-step loop: UI question -> MCP server -> auth -> RESTlet DB query -> Ollama -> formatted answer",
+      "LangGraph multi-step reasoning (v2) for chaining lookups across records",
+      "Intelligent chunking and batching to respect NetSuite's script governance limits",
+      "On-premises inference — sensitive contact and lead data never leaves the network",
+      "System-prompt-level entity definitions to keep ERP concepts unambiguous",
+    ],
+    challenges: [
+      "NetSuite script execution and governance limits choked on large datasets, stalling queries mid-flight",
+      "The LLM conflated NetSuite leads with customers, returning the wrong records for ambiguous names",
+      "Large result sets exceeded what a single RESTlet call could return within governance limits",
+    ],
+    results: [
+      "Batching at 250 records per call plus query optimization restored throughput inside NetSuite's execution limits",
+      "Explicit lead-vs-customer definitions in the system prompt disambiguated the two record types",
+      "Pagination through batches enabled queries over large datasets that previously timed out",
+    ],
+    gradient: "from-blue-500 to-violet-600",
+    gridTitle: "MCP NetSuite-Ollama Bridge",
+    gridDescription: "Production MCP server letting marketing query NetSuite ERP in plain English via a local Ollama LLM — sensitive data never leaves the building. v2 adds LangGraph reasoning.",
+    gridTech: ["MCP", "Ollama", "NetSuite", "LangGraph"],
+    gridCategory: "AI Engineering",
+    seoName: "MCP NetSuite-Ollama Bridge",
+    seoDescription: "Production MCP server connecting a local Ollama LLM to NetSuite ERP, enabling natural-language queries with on-premises inference and LangGraph multi-step reasoning",
+    applicationCategory: "BusinessApplication",
+    sitemapPriority: 0.8,
+  },
+  "linkedin-job-auto-apply-agent": {
+    id: "linkedin-job-auto-apply-agent",
+    title: "LinkedIn Job Auto-Apply Agent",
+    subtitle: "Autonomous Job-Application Workflow",
+    description: "A personal AI agent that automates the repetitive parts of applying for jobs on LinkedIn — finding matching roles, tailoring inputs, and driving the application flow end to end.",
+    longDescription: `Applying for jobs on LinkedIn is mostly the same handful of steps repeated dozens of times: filter to relevant roles, open each posting, fill the same fields, and submit. This personal project wraps that loop in an AI agent so the tedious mechanics run on their own while the human stays in control of which roles matter.
+
+The agent drives the LinkedIn application flow as an automation pipeline: it walks job listings, evaluates whether a role fits, and orchestrates the steps an applicant would otherwise click through by hand. The design intent is an agent that handles the mechanical repetition rather than a black box that fires off blind applications — the matching and decision logic is where the AI earns its keep.
+
+Built as a personal experiment in agentic automation, it explores how far a single agent can carry a real, multi-step web workflow before a human needs to step back in.`,
+    tech: ["AI Agents", "Automation", "Python"],
+    category: "AI Agents",
+    timeline: "Personal project",
+    team: "1 developer (personal project)",
+    features: [
+      "Automated walk-through of LinkedIn job listings",
+      "Role-fit evaluation to filter out irrelevant postings before applying",
+      "Orchestration of the multi-step application flow as a single agent pipeline",
+      "Human-in-the-loop control over which roles the agent acts on",
+      "Agentic decision logic separating matching from the mechanical submission steps",
+    ],
+    challenges: [
+      "Driving a multi-step web application flow reliably without brittle hard-coded paths",
+      "Deciding which roles are worth applying to rather than blindly submitting everything",
+      "Keeping a human in control of intent while automating the repetitive mechanics",
+    ],
+    results: [
+      "A working agent that automates the repetitive LinkedIn application loop end to end",
+      "Demonstrates agentic orchestration of a real, multi-step web workflow",
+      "Separates AI-driven role matching from the deterministic submission steps",
+    ],
+    gradient: "from-violet-500 to-purple-600",
+    gridTitle: "LinkedIn Job Auto-Apply Agent",
+    gridDescription: "Personal AI agent that automates the repetitive LinkedIn job-application loop — matching roles and driving the flow end to end, human in control of intent.",
+    gridTech: ["AI Agents", "Automation", "Python"],
+    gridCategory: "AI Agents",
+    sitemapPriority: 0.7,
+  },
+  "self-learning-social-media-generator": {
+    id: "self-learning-social-media-generator",
+    title: "Self-Learning Social Media Generator",
+    subtitle: "Content Generation with Feedback Loops",
+    description: "A personal LLM-driven content generator that produces social media posts and improves over time by feeding outcome signals back into its own generation loop.",
+    longDescription: `Most content generators are one-shot: prompt in, post out, no memory of what worked. This personal project asks a different question — what if the generator learned from its own results? It pairs an LLM content engine with feedback loops so each round of output informs the next.
+
+The system generates social media content from an LLM, then closes the loop by capturing signals about how that content performed and folding them back into subsequent generation. The design intent is a generator that drifts toward what resonates rather than producing the same generic posts forever — a small, self-improving content pipeline rather than a static template filler.
+
+As a personal experiment, the focus is the feedback architecture itself: how to represent "what worked," how to feed it back without overfitting to noise, and how to keep the LLM's output fresh while steering it with accumulated signal.`,
+    tech: ["LLM", "Feedback Loops", "Content Generation", "Python"],
+    category: "AI Agents",
+    timeline: "Personal project",
+    team: "1 developer (personal project)",
+    features: [
+      "LLM-driven generation of social media content",
+      "Feedback loop that captures outcome signals from generated posts",
+      "Signal fed back into subsequent generation to steer future output",
+      "Self-improving pipeline that drifts toward what resonates over time",
+      "Architecture focused on representing and reusing 'what worked'",
+    ],
+    challenges: [
+      "Representing 'what worked' in a form the generator can actually learn from",
+      "Folding feedback into generation without overfitting to noisy signals",
+      "Keeping LLM output fresh while steering it with accumulated signal",
+    ],
+    results: [
+      "A content generator that improves its output across generation rounds",
+      "Demonstrates a closed feedback loop wrapped around an LLM content engine",
+      "Explores self-improvement as a content-pipeline design pattern",
+    ],
+    gradient: "from-emerald-500 to-teal-600",
+    gridTitle: "Self-Learning Social Media Generator",
+    gridDescription: "Personal LLM content generator with feedback loops — captures what resonates and folds it back into generation, drifting toward better output over time.",
+    gridTech: ["LLM", "Feedback Loops", "Python"],
+    gridCategory: "AI Agents",
+    sitemapPriority: 0.7,
+  },
+  "n8n-marketing-research-workflows": {
+    id: "n8n-marketing-research-workflows",
+    title: "n8n Marketing Research Workflows",
+    subtitle: "Automated Marketing Research Pipelines",
+    description: "Production n8n automation workflows that run marketing research on autopilot — pulling, enriching, and routing data across APIs so the team works from fresh insights instead of manual collection.",
+    longDescription: `Marketing research is full of repetitive collection work: pulling data from one service, enriching it with another, and routing the result somewhere useful. This work project moves that grind into n8n so the workflows run on a schedule instead of consuming an analyst's afternoon.
+
+The workflows orchestrate marketing research as connected automation pipelines — chaining API calls, transforming the data between steps, and delivering the output where the team needs it. n8n's visual workflow engine makes the pipelines transparent and maintainable: each step is inspectable, and integrations slot in without bespoke glue code for every new source.
+
+Built as part of real marketing operations, the emphasis is reliability and maintainability — workflows that keep running, handle the inevitable API quirks between services, and stay easy to extend as research needs change.`,
+    tech: ["n8n", "Automation", "APIs"],
+    category: "Automation",
+    timeline: "Work project",
+    team: "1 developer (work project)",
+    features: [
+      "n8n workflows automating marketing research collection and enrichment",
+      "API orchestration chaining multiple services into a single pipeline",
+      "Data transformation between workflow steps",
+      "Scheduled runs that deliver fresh insights without manual collection",
+      "Visual, inspectable workflows that stay maintainable as needs change",
+    ],
+    challenges: [
+      "Chaining multiple marketing APIs into a reliable end-to-end pipeline",
+      "Handling the data-shape quirks and rate limits that differ across services",
+      "Keeping workflows maintainable and extensible as research needs evolve",
+    ],
+    results: [
+      "Marketing research collection moved from manual effort to scheduled automation",
+      "Multiple APIs orchestrated into connected, inspectable n8n pipelines",
+      "Workflows that stay easy to extend as new data sources are added",
+    ],
+    gradient: "from-amber-500 to-orange-600",
+    gridTitle: "n8n Marketing Research Workflows",
+    gridDescription: "Production n8n workflows automating marketing research — chaining APIs, enriching data, and routing fresh insights to the team on a schedule.",
+    gridTech: ["n8n", "Automation", "APIs"],
+    gridCategory: "Automation",
+    sitemapPriority: 0.8,
+  },
+  "healthcare-voice-agent": {
+    id: "healthcare-voice-agent",
+    title: "Healthcare Voice Agent (Architecture)",
+    subtitle: "Voice-AI Agent Architecture for Healthcare",
+    description: "An architecture and design study for a voice-AI agent in a healthcare setting — mapping how local LLM inference, a service API, and workflow automation fit together for a privacy-sensitive domain.",
+    longDescription: `Healthcare is exactly the kind of domain where a voice agent is useful and where the usual cloud-LLM shortcuts are hardest to justify — the data is sensitive and the failure modes matter. This project is the architecture and design work for such an agent rather than a shipped product: a blueprint for how the pieces fit.
+
+The design centers on a voice interface backed by local LLM inference via Ollama, a FastAPI service layer to mediate between the voice front end and back-end logic, and n8n to orchestrate the workflows that surround a conversation. Keeping inference local is the deliberate choice for a healthcare context — it keeps sensitive interactions on-premises rather than shipping audio and transcripts to a third party.
+
+As an architecture study, the value is in the decisions: where the boundaries sit, how voice, model, API, and automation layers communicate, and which trade-offs a privacy-sensitive healthcare deployment forces. It documents intent and structure so a future implementation starts from a considered design rather than a blank page.`,
+    tech: ["Voice AI", "Ollama", "FastAPI", "n8n"],
+    category: "AI Engineering",
+    timeline: "Architecture / design",
+    team: "1 developer (architecture study)",
+    features: [
+      "Voice-AI agent architecture targeted at a healthcare setting",
+      "Local LLM inference via Ollama to keep sensitive interactions on-premises",
+      "FastAPI service layer mediating between the voice front end and back-end logic",
+      "n8n workflow orchestration around the conversation flow",
+      "Documented layer boundaries and inter-layer communication design",
+    ],
+    challenges: [
+      "Designing for a privacy-sensitive healthcare domain where cloud inference is hard to justify",
+      "Defining clean boundaries between the voice, model, API, and automation layers",
+      "Reasoning about failure modes that matter more in a healthcare context",
+    ],
+    results: [
+      "A considered architecture for a healthcare voice agent rather than an ad-hoc build",
+      "Local-inference design that keeps sensitive interactions on-premises",
+      "Documented layer structure and trade-offs to seed a future implementation",
+    ],
+    gradient: "from-cyan-500 to-blue-600",
+    gridTitle: "Healthcare Voice Agent (Architecture)",
+    gridDescription: "Architecture study for a privacy-sensitive healthcare voice agent — local Ollama inference, a FastAPI service layer, and n8n orchestration, keeping data on-premises.",
+    gridTech: ["Voice AI", "Ollama", "FastAPI"],
+    gridCategory: "AI Engineering",
+    sitemapPriority: 0.7,
+  },
 } satisfies Record<string, Project>;
 
 // Ordered superset array (detail-map order). This is the canonical list; every
