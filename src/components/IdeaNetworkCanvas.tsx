@@ -2,6 +2,33 @@
 
 import { useEffect, useRef, useCallback } from 'react';
 import { useAnimationGate } from '@/hooks/useAnimationGate';
+import { useThemeColors } from '@/hooks/useThemeColors';
+
+// Parse a resolved theme token (hex "#rgb"/"#rrggbb" or an rgb/rgba string) into
+// an "r, g, b" channel triplet so an alpha can be interpolated at draw time.
+function hexToRGBTriplet(input: string, fallback: string): string {
+  const v = (input || '').trim();
+  if (!v) return fallback;
+  const rgbMatch = v.match(/rgba?\(([^)]+)\)/i);
+  if (rgbMatch) {
+    const parts = rgbMatch[1].split(',').map((p) => p.trim());
+    if (parts.length >= 3) return `${parts[0]}, ${parts[1]}, ${parts[2]}`;
+    return fallback;
+  }
+  let hex = v.replace('#', '');
+  if (hex.length === 3) {
+    hex = hex
+      .split('')
+      .map((c) => c + c)
+      .join('');
+  }
+  if (hex.length !== 6) return fallback;
+  const r = parseInt(hex.slice(0, 2), 16);
+  const g = parseInt(hex.slice(2, 4), 16);
+  const b = parseInt(hex.slice(4, 6), 16);
+  if (Number.isNaN(r) || Number.isNaN(g) || Number.isNaN(b)) return fallback;
+  return `${r}, ${g}, ${b}`;
+}
 
 interface Node {
   x: number;
@@ -24,8 +51,24 @@ export default function IdeaNetworkCanvas({ className = '' }: Props) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const mouseRef = useRef({ x: -1000, y: -1000, active: false });
   const nodesRef = useRef<Node[]>([]);
-  const frameRef = useRef(0);
   const timeRef = useRef(0);
+  // Cached CSS size + bounding rect — read ONCE on mount/resize, never per frame
+  // (research VIS-03: per-frame getBoundingClientRect() forces layout/jank).
+  const rectRef = useRef({ width: 0, height: 0, left: 0, top: 0 });
+
+  // Theme-reactive colors (closed accent set). Amber sparks map to --accent-emerald:
+  // no --accent-amber token exists and the plan forbids adding a new color family,
+  // so the sparks reuse emerald (the third, otherwise-unused accent) for a distinct
+  // theme-aware identity. Read on mount + data-theme flip via the hook, never per-frame.
+  const colors = useThemeColors(['--accent-violet', '--accent-blue', '--accent-emerald']);
+  const rgbRef = useRef({
+    violet: hexToRGBTriplet(colors['--accent-violet'], '139, 92, 246'),
+    blue: hexToRGBTriplet(colors['--accent-blue'], '59, 130, 246'),
+    spark: hexToRGBTriplet(colors['--accent-emerald'], '251, 191, 36'),
+  });
+  rgbRef.current.violet = hexToRGBTriplet(colors['--accent-violet'], '139, 92, 246');
+  rgbRef.current.blue = hexToRGBTriplet(colors['--accent-blue'], '59, 130, 246');
+  rgbRef.current.spark = hexToRGBTriplet(colors['--accent-emerald'], '251, 191, 36');
 
   // PERF-04: pause the rAF loop off-screen / on tab blur / under reduced motion.
   const { shouldAnimate } = useAnimationGate(canvasRef);
@@ -35,9 +78,7 @@ export default function IdeaNetworkCanvas({ className = '' }: Props) {
   const drawRef = useRef<(() => void) | null>(null);
   const runningRef = useRef(false);
 
-  const init = useCallback((canvas: HTMLCanvasElement) => {
-    const w = canvas.width;
-    const h = canvas.height;
+  const init = useCallback((w: number, h: number) => {
     const nodes: Node[] = [];
     const nodeCount = 60;
 
@@ -119,20 +160,42 @@ export default function IdeaNetworkCanvas({ className = '' }: Props) {
 
     const resize = () => {
       const rect = canvas.getBoundingClientRect();
+      // Cache CSS size + offset so neither the draw loop nor mousemove re-reads
+      // the layout. DPR capped at 2; setTransform(dpr,...) RESETS the matrix each
+      // resize (no compounding scale — replaces the old ctx.scale which
+      // multiplied and would accumulate if resize fired repeatedly).
+      rectRef.current = {
+        width: rect.width,
+        height: rect.height,
+        left: rect.left,
+        top: rect.top,
+      };
       const dpr = Math.min(window.devicePixelRatio || 1, 2);
       canvas.width = rect.width * dpr;
       canvas.height = rect.height * dpr;
-      ctx.scale(dpr, dpr);
-      init(canvas);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      // Re-seed nodes against the CSS-pixel size (backing store / DPR aside).
+      init(rect.width, rect.height);
     };
 
     resize();
     window.addEventListener('resize', resize);
 
-    const handleMouseMove = (e: MouseEvent) => {
+    // Refresh only the cached OFFSET on scroll (cheap; size is unchanged so we
+    // skip the canvas-resize/re-seed path). Keeps mouse mapping correct without
+    // a per-frame getBoundingClientRect.
+    const refreshOffset = () => {
       const rect = canvas.getBoundingClientRect();
-      mouseRef.current.x = e.clientX - rect.left;
-      mouseRef.current.y = e.clientY - rect.top;
+      rectRef.current.left = rect.left;
+      rectRef.current.top = rect.top;
+    };
+    window.addEventListener('scroll', refreshOffset, { passive: true });
+
+    const handleMouseMove = (e: MouseEvent) => {
+      // Use cached offsets; scroll/resize refresh them via the listeners below.
+      const r = rectRef.current;
+      mouseRef.current.x = e.clientX - r.left;
+      mouseRef.current.y = e.clientY - r.top;
       mouseRef.current.active = true;
     };
 
@@ -146,9 +209,9 @@ export default function IdeaNetworkCanvas({ className = '' }: Props) {
     let animId: number;
 
     const draw = () => {
-      const rect = canvas.getBoundingClientRect();
-      const w = rect.width;
-      const h = rect.height;
+      // Cached CSS size — NO per-frame getBoundingClientRect (research VIS-03).
+      const w = rectRef.current.width;
+      const h = rectRef.current.height;
       timeRef.current += 0.016;
       const t = timeRef.current;
 
@@ -156,6 +219,11 @@ export default function IdeaNetworkCanvas({ className = '' }: Props) {
 
       const nodes = nodesRef.current;
       const mouse = mouseRef.current;
+      // Theme-reactive channel triplets read fresh each frame from the ref (the
+      // ref is updated by useThemeColors on data-theme flips; cheap string read).
+      const violet = rgbRef.current.violet;
+      const blue = rgbRef.current.blue;
+      const spark = rgbRef.current.spark;
 
       // Update and rebuild connections dynamically
       const maxDist = Math.min(w, h) * 0.22;
@@ -189,9 +257,19 @@ export default function IdeaNetworkCanvas({ className = '' }: Props) {
         n.x += n.vx;
         n.y += n.vy;
 
-        // Damping
+        // Damping (preserved ×0.995) + physics polish: clamp speed so sustained
+        // mouse attraction/orbit can't accelerate a node into jitter, giving a
+        // smoother settle. Sparks keep a higher ceiling so their orbit stays
+        // lively; idea/node types settle gently. No force/behavior removed.
         n.vx *= 0.995;
         n.vy *= 0.995;
+        const maxSpeed = n.type === 'spark' ? 2.4 : 1.4;
+        const speed = Math.sqrt(n.vx * n.vx + n.vy * n.vy);
+        if (speed > maxSpeed) {
+          const s = maxSpeed / speed;
+          n.vx *= s;
+          n.vy *= s;
+        }
 
         // Wrap around edges
         if (n.x < -20) n.x = w + 20;
@@ -223,12 +301,12 @@ export default function IdeaNetworkCanvas({ className = '' }: Props) {
             // Gradient connection lines
             if (n.type === 'idea' || m.type === 'idea') {
               const grad = ctx.createLinearGradient(n.x, n.y, m.x, m.y);
-              grad.addColorStop(0, `rgba(139, 92, 246, ${alpha * (1 + pulse * 0.5)})`);
-              grad.addColorStop(1, `rgba(59, 130, 246, ${alpha * (1 + pulse * 0.5)})`);
+              grad.addColorStop(0, `rgba(${violet}, ${alpha * (1 + pulse * 0.5)})`);
+              grad.addColorStop(1, `rgba(${blue}, ${alpha * (1 + pulse * 0.5)})`);
               ctx.strokeStyle = grad;
               ctx.lineWidth = 1.2;
             } else {
-              ctx.strokeStyle = `rgba(139, 92, 246, ${alpha * 0.5})`;
+              ctx.strokeStyle = `rgba(${violet}, ${alpha * 0.5})`;
               ctx.lineWidth = 0.5;
             }
 
@@ -244,7 +322,7 @@ export default function IdeaNetworkCanvas({ className = '' }: Props) {
               const py = n.y + (m.y - n.y) * pulsePos;
               ctx.beginPath();
               ctx.arc(px, py, 1.5, 0, Math.PI * 2);
-              ctx.fillStyle = `rgba(167, 139, 250, ${alpha * 3})`;
+              ctx.fillStyle = `rgba(${violet}, ${alpha * 3})`;
               ctx.fill();
             }
           }
@@ -259,9 +337,9 @@ export default function IdeaNetworkCanvas({ className = '' }: Props) {
         if (n.type === 'idea') {
           // Glow
           const glow = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, r * 6);
-          glow.addColorStop(0, `rgba(139, 92, 246, ${0.15 * n.brightness})`);
-          glow.addColorStop(0.5, `rgba(139, 92, 246, ${0.05 * n.brightness})`);
-          glow.addColorStop(1, 'rgba(139, 92, 246, 0)');
+          glow.addColorStop(0, `rgba(${violet}, ${0.15 * n.brightness})`);
+          glow.addColorStop(0.5, `rgba(${violet}, ${0.05 * n.brightness})`);
+          glow.addColorStop(1, `rgba(${violet}, 0)`);
           ctx.beginPath();
           ctx.arc(n.x, n.y, r * 6, 0, Math.PI * 2);
           ctx.fillStyle = glow;
@@ -270,8 +348,8 @@ export default function IdeaNetworkCanvas({ className = '' }: Props) {
           // Core
           const coreGrad = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, r);
           coreGrad.addColorStop(0, `rgba(255, 255, 255, ${0.9 * n.brightness})`);
-          coreGrad.addColorStop(0.4, `rgba(167, 139, 250, ${0.8 * n.brightness})`);
-          coreGrad.addColorStop(1, `rgba(139, 92, 246, ${0.3 * n.brightness})`);
+          coreGrad.addColorStop(0.4, `rgba(${violet}, ${0.8 * n.brightness})`);
+          coreGrad.addColorStop(1, `rgba(${violet}, ${0.3 * n.brightness})`);
           ctx.beginPath();
           ctx.arc(n.x, n.y, r, 0, Math.PI * 2);
           ctx.fillStyle = coreGrad;
@@ -280,19 +358,19 @@ export default function IdeaNetworkCanvas({ className = '' }: Props) {
           // Small bright sparks
           ctx.beginPath();
           ctx.arc(n.x, n.y, r * (0.5 + pulse * 0.5), 0, Math.PI * 2);
-          ctx.fillStyle = `rgba(251, 191, 36, ${0.4 * n.brightness * (0.5 + pulse * 0.5)})`;
+          ctx.fillStyle = `rgba(${spark}, ${0.4 * n.brightness * (0.5 + pulse * 0.5)})`;
           ctx.fill();
         } else {
           // Regular nodes
           ctx.beginPath();
           ctx.arc(n.x, n.y, r, 0, Math.PI * 2);
-          ctx.fillStyle = `rgba(139, 92, 246, ${0.3 * n.brightness * (0.7 + pulse * 0.3)})`;
+          ctx.fillStyle = `rgba(${violet}, ${0.3 * n.brightness * (0.7 + pulse * 0.3)})`;
           ctx.fill();
 
           // Subtle ring
           ctx.beginPath();
           ctx.arc(n.x, n.y, r + 1, 0, Math.PI * 2);
-          ctx.strokeStyle = `rgba(139, 92, 246, ${0.1 * n.brightness})`;
+          ctx.strokeStyle = `rgba(${violet}, ${0.1 * n.brightness})`;
           ctx.lineWidth = 0.5;
           ctx.stroke();
         }
@@ -304,9 +382,9 @@ export default function IdeaNetworkCanvas({ className = '' }: Props) {
           mouse.x, mouse.y, 0,
           mouse.x, mouse.y, 120
         );
-        cursorGlow.addColorStop(0, 'rgba(139, 92, 246, 0.08)');
-        cursorGlow.addColorStop(0.5, 'rgba(59, 130, 246, 0.03)');
-        cursorGlow.addColorStop(1, 'rgba(139, 92, 246, 0)');
+        cursorGlow.addColorStop(0, `rgba(${violet}, 0.08)`);
+        cursorGlow.addColorStop(0.5, `rgba(${blue}, 0.03)`);
+        cursorGlow.addColorStop(1, `rgba(${violet}, 0)`);
         ctx.beginPath();
         ctx.arc(mouse.x, mouse.y, 120, 0, Math.PI * 2);
         ctx.fillStyle = cursorGlow;
@@ -332,6 +410,7 @@ export default function IdeaNetworkCanvas({ className = '' }: Props) {
     return () => {
       cancelAnimationFrame(animId);
       window.removeEventListener('resize', resize);
+      window.removeEventListener('scroll', refreshOffset);
       canvas.removeEventListener('mousemove', handleMouseMove);
       canvas.removeEventListener('mouseleave', handleMouseLeave);
       drawRef.current = null;
