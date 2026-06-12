@@ -31,6 +31,7 @@ export default function Navigation({ currentPage }: NavigationProps) {
 
   const navItems = [
     { href: '/', label: 'Home' },
+    { href: '/ai-engineering', label: 'AI Engineering' },
     { href: '/ideas', label: 'Ideas' },
     { href: '/contact', label: 'Contact' },
     { href: '/budget', label: 'Budget' },
