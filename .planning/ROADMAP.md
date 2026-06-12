@@ -130,7 +130,16 @@ Plans:
   3. `ignoreBuildErrors` / `ignoreDuringBuilds` are re-enabled (strict) and the build is genuinely green under `tsc --noEmit` + lint + build with both-theme smoke and a hard-refresh (not client nav) pass
   4. Production deploy to Vercel project `modern-portfolio` (serving usamajaved.com.au) happens only after explicit owner approval of the final result, with all existing routes/SEO assets intact post-deploy
   5. Phase passes `npx tsc --noEmit` + `npm run lint` + `npm run build` + manual smoke in BOTH themes before being marked complete
-**Plans**: TBD
+**Plans**: 8 plans
+Plans:
+- [ ] 06-01-PLAN.md — Wave 1: tsc+lint fix the four api/* type-routes (auto-llm-training/ai-training/create-checkout Stripe bump/budget-estimate; 11 errors)
+- [ ] 06-02-PLAN.md — Wave 1: tsc+lint fix expertise/page.tsx union-type debt (18 errors, type-only, content/JSON-LD preserved)
+- [ ] 06-03-PLAN.md — Wave 1: lint sweep of the remaining ~59 problems (pages/components; prefer-const auto-fix, entity escaping, no-img-element)
+- [ ] 06-05-PLAN.md — Wave 1: FIX-02 remove VisitorTracker paid-endpoint fan-out + guard JSON.parse + tokenize VisitorCounter
+- [ ] 06-06-PLAN.md — Wave 1: VIS-08 native CSS @view-transition + reduced-motion kill switch (owner-verify checkpoint)
+- [ ] 06-04-PLAN.md — Wave 2: FIX-01 requireAdmin shared-secret gate on 5 test/training routes + remove test-openai keyUsed leak
+- [ ] 06-07-PLAN.md — Wave 3: SHIP-02 strict-build flip (remove ignore flags) + full gate + scripts/verify-prod.sh
+- [ ] 06-08-PLAN.md — Wave 4: SHIP-02 Vercel preview deploy + post-deploy checklist + owner production-approval (human-action) + prod promote
 **UI hint**: yes
 
 ## Progress
@@ -145,4 +154,4 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
 | 3. Shared Foundation | 5/5 | Complete    | 2026-06-12 |
 | 4. R3F Infrastructure Island | 3/3 | Complete    | 2026-06-12 |
 | 5. Per-Component Visual Upgrades | 10/10 | Complete    | 2026-06-12 |
-| 6. Enhancements, Hardening & Ship | 0/TBD | Not started | - |
+| 6. Enhancements, Hardening & Ship | 0/8 | Not started | - |
