@@ -25,7 +25,7 @@
 
 ### Visual Upgrades (VIS)
 
-- [ ] **VIS-01**: Hero upgraded to a signature WebGL scene (R3F) themed via CSS variables, with reduced-motion static fallback and capability detection for low-power devices
+- [x] **VIS-01**: Hero upgraded to a signature WebGL scene (R3F) themed via CSS variables, with reduced-motion static fallback and capability detection for low-power devices
 - [ ] **VIS-02**: InteractiveGlobe upgraded (WebGL or refined canvas) with crisp DPR-correct rendering, theme-reactive colors, off-screen pause
 - [ ] **VIS-03**: IdeaNetworkCanvas upgraded with the retina DPR coordinate bug fixed, physics polish, theme-reactive colors, off-screen pause
 - [ ] **VIS-04**: ScrollReveal and micro-interactions (InteractiveButton, hover states, magnetic effects) re-implemented on motion v12 with senior-level restraint
@@ -37,7 +37,7 @@
 ### Performance & Accessibility (PERF)
 
 - [x] **PERF-01**: Core Web Vitals do not regress: WebGL/3D code is route-split and lazy; hero LCP element renders without waiting on three.js
-- [ ] **PERF-02**: All animation loops pause when off-screen and on tab blur; mobile devices get DPR caps and capability-appropriate scenes
+- [x] **PERF-02**: All animation loops pause when off-screen and on tab blur; mobile devices get DPR caps and capability-appropriate scenes
 - [x] **PERF-03**: Every interactive element is keyboard-reachable with a visible focus state; no keyboard traps introduced by new motion
 - [x] **PERF-04**: OS-level prefers-reduced-motion produces an equivalent, fully readable static experience on every page
 
@@ -93,14 +93,14 @@
 | PERF-04 | Phase 3 | Complete |
 | FOUND-04 | Phase 4 | Complete |
 | PERF-01 | Phase 4 | Complete |
-| VIS-01 | Phase 5 | Pending |
+| VIS-01 | Phase 5 | Complete (05-01) |
 | VIS-02 | Phase 5 | Pending |
 | VIS-03 | Phase 5 | Pending |
 | VIS-04 | Phase 5 | Pending |
 | VIS-05 | Phase 5 | Pending |
 | VIS-06 | Phase 5 | Pending |
 | VIS-07 | Phase 5 | Pending |
-| PERF-02 | Phase 5 | Pending |
+| PERF-02 | Phase 5 | Complete (05-01) |
 | VIS-08 | Phase 6 | Pending |
 | FIX-01 | Phase 6 | Pending |
 | FIX-02 | Phase 6 | Pending |

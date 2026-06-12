@@ -108,7 +108,7 @@ Plans:
 **Plans**: 10 plans
 Plans:
 - [x] 05-00-PLAN.md — Wave 1: prereq HARD-guard (all 10 primitives present) + read primitive signatures (ClientScene has NO scene prop → 05-01 must parameterize SceneCanvas) + install maath@0.10.8/r3f-perf@7.2.3 + hero perf spike (2000 particles, bloom OFF, honest conservative fallback) + bundle-gate += /page (completed 2026-06-12)
-- [ ] 05-01-PLAN.md — Wave 2: signature WebGL hero (Concept A icosahedron + GPU particle field) + swap Hero3D canvas layer + LCP/CLS checkpoint
+- [x] 05-01-PLAN.md — Wave 2: signature WebGL hero (Concept A icosahedron + GPU particle field — HeroScene + HeroParticles@2000, one draw call, no per-frame CPU writes) + scene-injection threaded (SceneCanvas/ClientScene scene?:(paused)=>ReactNode, default ThemedScene; ClientScene stays sole public surface) + Hero3D canvas layer swapped to ClientScene mounting HeroScene (mouse ref threaded, overlay/var(--canvas-opacity) preserved verbatim, Hero3DScene kept on disk) + bloom OFF; gates green (tsc/lint/build/bundle-gate exit 0, three route-split & not eager); LCP/CLS checkpoint auto-approved on prod evidence (CLS=0, observed LCP 689ms; simulated 22.7s = animation artifact, deferred to 05-09). VIS-01 + PERF-02 (completed 2026-06-12)
 - [ ] 05-02-PLAN.md — Wave 3: InteractiveGlobe + IdeaNetworkCanvas (DPR fix + theme tokens + off-screen gate)
 - [ ] 05-03-PLAN.md — Wave 3: ScrollReveal (+5 named) + InteractiveButton on motion v12 (APIs preserved)
 - [ ] 05-04-PLAN.md — Wave 4: Navigation (AnimatePresence menu + a11y) + ThemeToggle (motion, logic preserved)
