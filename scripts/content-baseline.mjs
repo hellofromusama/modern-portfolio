@@ -92,27 +92,84 @@ function extractDetailKeys() {
   return keys;
 }
 
+// Helper (builder shape): ordered id list for the ItemList projection, read
+// from the `export const itemListProjects ... = [ ... ].map(...)` literal in
+// src/content/projects.ts. Falls back to [] if absent (literal shape in use).
+function extractItemListOrder() {
+  const projPath = p("src", "content", "projects.ts");
+  if (!existsSync(projPath)) return [];
+  const text = readFileSync(projPath, "utf8");
+  const block = sliceBetween(text, "itemListProjects", ".map");
+  if (block === null) return [];
+  const ids = [];
+  const re = /["']([a-z0-9-]+)["']/g;
+  let m;
+  while ((m = re.exec(block)) !== null) ids.push(m[1]);
+  return ids;
+}
+
+// Helper (builder shape): per-project curated seo fields from src/content/
+// projects.ts, keyed by the project's `id`. Returns { [id]: { name,
+// description, applicationCategory } } for every entry that has seoName.
+function extractProjectSeoFields() {
+  const projPath = p("src", "content", "projects.ts");
+  const out = {};
+  if (!existsSync(projPath)) return out;
+  const text = readFileSync(projPath, "utf8");
+  // Split into per-project entries on the `id: "<slug>",` lines, then pull the
+  // seo fields that follow within the same entry.
+  const entryRe = /id:\s*["']([a-z0-9-]+)["']([\s\S]*?)(?=\n {2}["'][a-z0-9-]+["']:\s*\{|\n} satisfies)/g;
+  let e;
+  while ((e = entryRe.exec(text)) !== null) {
+    const id = e[1];
+    const body = e[2];
+    const name = body.match(/seoName:\s*["']([^"']*)["']/);
+    const description = body.match(/seoDescription:\s*["']([^"']*)["']/);
+    const applicationCategory = body.match(/applicationCategory:\s*["']([^"']*)["']/);
+    if (name) {
+      out[id] = {
+        name: name[1],
+        description: description ? description[1] : "",
+        applicationCategory: applicationCategory ? applicationCategory[1] : "",
+      };
+    }
+  }
+  return out;
+}
+
 // itemList: JSON-LD ItemList — numberOfItems + each item's curated fields.
+//
+// Dual-source / dual-shape, to survive Wave 1 centralization:
+//   (a) ORIGINAL literal shape (src/app/layout.tsx, or a literal seo.ts):
+//       a `const projectsListData = { ... }` block whose items carry the curated
+//       name/description/url/applicationCategory as single-quoted literals in
+//       document order.
+//   (b) BUILDER shape (src/content/seo.ts after Wave 1): seo.ts no longer holds
+//       the curated copy as literals — buildItemListSchema() maps over
+//       itemListProjects and reads each project's seo* fields. In that case the
+//       curated copy lives VERBATIM in src/content/projects.ts (seoName /
+//       seoDescription / applicationCategory). We extract it from there, ordered
+//       by the itemListProjects id list declared in projects.ts, and build the
+//       same { name, description, url, applicationCategory } shape so the strict
+//       byte comparison against baseline.json is unchanged.
 function extractItemList() {
   const { text } = readFirst([
     "src/content/seo.ts",
     "src/app/layout.tsx",
   ]);
+
   const start = text.indexOf("const projectsListData = {");
   if (start === -1) {
     throw new Error("itemList: could not locate projectsListData block");
   }
-  // Slice to the closing of the block: the `]\n  };` that ends itemListElement.
   const region = text.slice(start);
   const numMatch = region.match(/numberOfItems:\s*(\d+)/);
   const numberOfItems = numMatch ? Number(numMatch[1]) : null;
 
-  // Capture each item object's curated fields in document order.
+  // Shape (a): try to read curated literals directly from this block.
   const items = [];
   const itemRe =
     /name:\s*'([^']*)',\s*\n\s*description:\s*'([^']*)',\s*\n\s*url:\s*'([^']*)',\s*\n\s*applicationCategory:\s*'([^']*)'/g;
-  // Only scan up to the end of the projectsListData block to avoid bleeding
-  // into later schema objects. The block ends at the first `\n  };` after start.
   const blockEnd = region.indexOf("\n  };");
   const scope = blockEnd !== -1 ? region.slice(0, blockEnd) : region;
   let m;
@@ -124,6 +181,26 @@ function extractItemList() {
       applicationCategory: m[4],
     });
   }
+
+  // Shape (b): builder pattern — no literal items in seo.ts. Reconstruct the
+  // ItemList from the centralized superset in projects.ts, ordered by the
+  // itemListProjects id list. Strict byte comparison is preserved because the
+  // curated copy in projects.ts is the SAME verbatim text.
+  if (items.length === 0) {
+    const order = extractItemListOrder();
+    const seoBy = extractProjectSeoFields();
+    for (const id of order) {
+      const seo = seoBy[id];
+      if (!seo) continue;
+      items.push({
+        name: seo.name,
+        description: seo.description,
+        url: `https://www.usamajaved.com.au/projects/${id}`,
+        applicationCategory: seo.applicationCategory,
+      });
+    }
+  }
+
   return { numberOfItems, items };
 }
 

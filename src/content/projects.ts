@@ -345,3 +345,43 @@ export const projectList: Project[] = Object.values(projects);
 
 // O(1) resolver for any of the 7 ids.
 export const getProject = (id: string): Project | undefined => projects[id as keyof typeof projects];
+
+// ---------------------------------------------------------------------------
+// Projections — each reproduces ONE consumer's exact current set + order.
+// The sources DIVERGE (6 grid / 7 detail / 6 itemList / 7 sitemap); these
+// projections preserve that divergence verbatim. Do NOT collapse into one list.
+// ---------------------------------------------------------------------------
+
+// Home grid (src/app/page.tsx) — 6 projects, modern-portfolio ABSENT, in order.
+export const homeGridProjects: Project[] = [
+  "kashmir-fund",
+  "n8n-automation",
+  "voice-ai-agent",
+  "erp-system",
+  "netsuite-integration",
+  "cloud-infrastructure",
+].map((id) => getProject(id)!);
+
+// JSON-LD ItemList (src/app/layout.tsx) — 6 projects, kashmir-fund ABSENT, in
+// the curated order the schema emits (n8n first, modern-portfolio last).
+export const itemListProjects: Project[] = [
+  "n8n-automation",
+  "voice-ai-agent",
+  "erp-system",
+  "netsuite-integration",
+  "cloud-infrastructure",
+  "modern-portfolio",
+].map((id) => getProject(id)!);
+
+// Sitemap (src/app/sitemap.ts) — 7 /projects/<slug> URLs with priorities, in
+// emitted order. (The plan prose said "8"; the verified live sitemap and the
+// frozen baseline.json both have exactly 7 — reality wins.)
+export const sitemapProjects: { id: string; priority: number }[] = [
+  { id: "n8n-automation", priority: 0.8 },
+  { id: "voice-ai-agent", priority: 0.8 },
+  { id: "erp-system", priority: 0.8 },
+  { id: "netsuite-integration", priority: 0.8 },
+  { id: "cloud-infrastructure", priority: 0.8 },
+  { id: "modern-portfolio", priority: 0.7 },
+  { id: "kashmir-fund", priority: 0.7 },
+];
