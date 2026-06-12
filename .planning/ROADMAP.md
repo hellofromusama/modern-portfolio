@@ -107,7 +107,7 @@ Plans:
   5. Phase passes `npx tsc --noEmit` + `npm run lint` + `npm run build` + manual smoke in BOTH themes before being marked complete
 **Plans**: 10 plans
 Plans:
-- [ ] 05-00-PLAN.md — Wave 1: prereq HARD-guard + read primitive signatures + install maath/r3f-perf + hero perf spike + bundle-gate update
+- [x] 05-00-PLAN.md — Wave 1: prereq HARD-guard (all 10 primitives present) + read primitive signatures (ClientScene has NO scene prop → 05-01 must parameterize SceneCanvas) + install maath@0.10.8/r3f-perf@7.2.3 + hero perf spike (2000 particles, bloom OFF, honest conservative fallback) + bundle-gate += /page (completed 2026-06-12)
 - [ ] 05-01-PLAN.md — Wave 2: signature WebGL hero (Concept A icosahedron + GPU particle field) + swap Hero3D canvas layer + LCP/CLS checkpoint
 - [ ] 05-02-PLAN.md — Wave 3: InteractiveGlobe + IdeaNetworkCanvas (DPR fix + theme tokens + off-screen gate)
 - [ ] 05-03-PLAN.md — Wave 3: ScrollReveal (+5 named) + InteractiveButton on motion v12 (APIs preserved)
