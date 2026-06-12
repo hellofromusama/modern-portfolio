@@ -198,10 +198,8 @@ export default function BlogPage() {
             {categories.map((category, index) => (
               <button
                 key={index}
-                className="px-4 py-2 rounded-lg font-medium text-sm transition-all duration-300"
+                className="px-4 py-2 rounded-lg font-medium text-sm transition-all duration-300 hover:[background:var(--bg-card-hover)] hover:[border-color:var(--border-hover)]"
                 style={{ background: "var(--bg-card)", border: "1px solid var(--border-subtle)", color: "var(--text-secondary)" }}
-                onMouseEnter={e => { e.currentTarget.style.background = "var(--bg-card-hover)"; e.currentTarget.style.borderColor = "var(--border-hover)"; }}
-                onMouseLeave={e => { e.currentTarget.style.background = "var(--bg-card)"; e.currentTarget.style.borderColor = "var(--border-subtle)"; }}
               >
                 {category.name} ({category.count})
               </button>
@@ -217,10 +215,8 @@ export default function BlogPage() {
             {blogPosts.filter(post => !post.featured).map((post, index) => (
               <article
                 key={index}
-                className="rounded-xl overflow-hidden transition-all duration-300 hover:-translate-y-1"
+                className="rounded-xl overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:[background:var(--bg-card-hover)] hover:[border-color:var(--border-hover)]"
                 style={{ background: "var(--bg-card)", border: "1px solid var(--border-subtle)", boxShadow: "var(--shadow-card)" }}
-                onMouseEnter={e => { e.currentTarget.style.background = "var(--bg-card-hover)"; e.currentTarget.style.borderColor = "var(--border-hover)"; }}
-                onMouseLeave={e => { e.currentTarget.style.background = "var(--bg-card)"; e.currentTarget.style.borderColor = "var(--border-subtle)"; }}
               >
                 <div className="p-6">
                   <div className="flex items-center gap-2 mb-3">
