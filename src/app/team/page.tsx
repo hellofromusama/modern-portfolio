@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Navigation from "@/components/Navigation";
 import ScrollReveal from "@/components/ScrollReveal";
 
@@ -98,10 +99,12 @@ export default function TeamPage() {
                     {/* Image Container */}
                     <div className="relative aspect-[3/4] overflow-hidden" style={{ background: 'var(--bg-secondary)' }}>
                       <div className="relative w-full h-full">
-                        <img
+                        <Image
                           src={member.image}
                           alt={member.name}
-                          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                          fill
+                          sizes="(max-width: 768px) 100vw, 33vw"
+                          className="object-cover transition-transform duration-500 group-hover:scale-105"
                           onError={(e) => {
                             const target = e.target as HTMLImageElement;
                             target.style.display = 'none';

@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import ScrollReveal from "./ScrollReveal";
 import { transitions } from "@/lib/motion";
@@ -171,10 +172,12 @@ export default function TeamSection() {
                       exit={reduceMotion ? { opacity: 0 } : { opacity: 0, scale: 1.05 }}
                       transition={reduceMotion ? { duration: 0 } : transitions.base}
                     >
-                      <img
+                      <Image
                         src={displayedMember.image}
                         alt={displayedMember.name}
-                        className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
+                        fill
+                        sizes="(max-width: 768px) 100vw, 50vw"
+                        className="object-cover grayscale hover:grayscale-0 transition-all duration-700"
                         onError={(e) => {
                           const target = e.target as HTMLImageElement;
                           target.style.display = 'none';

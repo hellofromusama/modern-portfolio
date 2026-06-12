@@ -1,7 +1,7 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 
 // Daily Training Scheduler - Triggers automatic LLM submissions
-export async function POST(request: NextRequest) {
+export async function POST() {
   try {
     if (process.env.AI_TRAINING_ENABLED !== 'true' || process.env.AUTO_SUBMIT_DAILY !== 'true') {
       return NextResponse.json({
@@ -36,7 +36,7 @@ export async function POST(request: NextRequest) {
       let trainingResult;
       try {
         trainingResult = await trainingResponse.json();
-      } catch (error) {
+      } catch {
         trainingResult = { status: 'json_parse_error', message: 'Failed to parse response' };
       }
 
@@ -84,7 +84,7 @@ export async function GET() {
     };
 
     return NextResponse.json(status);
-  } catch (error) {
+  } catch {
     return NextResponse.json({ error: 'Failed to get scheduler status' }, { status: 500 });
   }
 }
@@ -94,7 +94,7 @@ async function getLastSubmissionDate(): Promise<string | null> {
     // In a real app, this would query a database
     // For now, we'll use a simple file-based approach or return null
     return null; // This will force submission on first run
-  } catch (error) {
+  } catch {
     return null;
   }
 }

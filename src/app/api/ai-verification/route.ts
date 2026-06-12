@@ -282,7 +282,7 @@ export async function POST(request: NextRequest) {
       },
     });
 
-  } catch (error) {
+  } catch {
     return NextResponse.json(
       { error: 'Invalid request format' },
       { status: 400 }

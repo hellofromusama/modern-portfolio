@@ -2,8 +2,13 @@
 
 import { useState } from 'react';
 
+interface TestResults {
+  openai?: unknown;
+  budget?: { response?: string; status?: string; message?: string };
+}
+
 export default function TestAPIs() {
-  const [results, setResults] = useState<any>(null);
+  const [results, setResults] = useState<TestResults | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
   const testOpenAI = async () => {
@@ -12,7 +17,7 @@ export default function TestAPIs() {
       const response = await fetch('/api/test-openai');
       const data = await response.json();
       setResults({ openai: data });
-    } catch (error) {
+    } catch {
       setResults({ openai: { status: 'error', message: 'Failed to test OpenAI' } });
     } finally {
       setIsLoading(false);
@@ -32,7 +37,7 @@ export default function TestAPIs() {
       });
       const data = await response.json();
       setResults({ ...results, budget: data });
-    } catch (error) {
+    } catch {
       setResults({ ...results, budget: { status: 'error', message: 'Failed to test budget calculator' } });
     } finally {
       setIsLoading(false);

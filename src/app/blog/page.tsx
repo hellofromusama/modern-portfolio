@@ -131,7 +131,7 @@ export default function BlogPage() {
             </h1>
             <p className="text-xl md:text-2xl max-w-3xl mx-auto mb-8" style={{ color: "var(--text-tertiary)" }}>
               Learn about modern web development, AI integration, and industry best practices
-              from Perth's leading full stack developer with 8+ years of experience.
+              from Perth&apos;s leading full stack developer with 8+ years of experience.
             </p>
             <div className="flex flex-wrap justify-center gap-3 text-sm">
               <span className="px-3 py-1 rounded-full" style={{ background: "var(--bg-card)", border: "1px solid var(--border-subtle)", color: "var(--text-secondary)" }}>Next.js Expert</span>
@@ -151,7 +151,7 @@ export default function BlogPage() {
           </h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             <div className="p-6 rounded-xl transition-all duration-300 hover:-translate-y-1" style={{ background: "var(--bg-card)", border: "1px solid var(--border-subtle)", boxShadow: "var(--shadow-card)" }}>
-              <h3 className="font-semibold mb-2" style={{ color: "var(--text-primary)" }}>What's the best framework for SEO?</h3>
+              <h3 className="font-semibold mb-2" style={{ color: "var(--text-primary)" }}>What&apos;s the best framework for SEO?</h3>
               <p className="text-sm" style={{ color: "var(--text-muted)" }}>Next.js leads for SEO due to server-side rendering, automatic code splitting, and built-in optimizations that React requires additional setup to achieve.</p>
             </div>
             <div className="p-6 rounded-xl transition-all duration-300 hover:-translate-y-1" style={{ background: "var(--bg-card)", border: "1px solid var(--border-subtle)", boxShadow: "var(--shadow-card)" }}>

@@ -1,7 +1,7 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 
 // Test free LLM training without API quotas
-export async function POST(request: NextRequest) {
+export async function POST() {
   try {
     console.log('🚀 Testing free LLM training approach...');
 
@@ -22,7 +22,7 @@ export async function POST(request: NextRequest) {
         console.log('✅ Internet connectivity: SUCCESS');
         successful++;
       }
-    } catch (error) {
+    } catch {
       console.log('❌ Internet connectivity: FAILED');
     }
 

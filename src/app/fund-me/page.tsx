@@ -1,10 +1,9 @@
 'use client';
 
 import { useState } from 'react';
-import Link from 'next/link';
 import dynamic from 'next/dynamic';
 import Navigation from '@/components/Navigation';
-import ScrollReveal, { MagneticHover, AnimatedCounter } from '@/components/ScrollReveal';
+import ScrollReveal, { AnimatedCounter } from '@/components/ScrollReveal';
 import InteractiveButton from '@/components/InteractiveButton';
 import { HeartBroken, LoadingSuccess, LockUnlock } from '@/components/AnimatedIcons';
 import IslandBoundary from '@/components/IslandBoundary';
