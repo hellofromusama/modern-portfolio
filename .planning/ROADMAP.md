@@ -13,7 +13,7 @@ This milestone elevates a live, SEO-indexed Next.js 15 portfolio to Awwwards-tie
 Decimal phases appear between their surrounding integers in numeric order.
 
 - [x] **Phase 1: Content Centralization** - Single typed content source (verbatim + baseline-diff gated), wired into grid, detail pages, JSON-LD, sitemap (completed 2026-06-12)
-- [ ] **Phase 2: Append AI Content** - 5 AI projects, AI skill domains, and the ESIA/MCP production narrative appended additively
+- [x] **Phase 2: Append AI Content** - 5 AI projects, AI skill domains, and the ESIA/MCP production narrative appended additively (completed 2026-06-12)
 - [ ] **Phase 3: Shared Foundation** - Design tokens + motion/theme/in-view primitives + error boundaries + a11y floor
 - [ ] **Phase 4: R3F Infrastructure Island** - Installed React-19-compatible 3D stack + SSR-safe Canvas island with bundle budget
 - [ ] **Phase 5: Per-Component Visual Upgrades** - Signature WebGL hero + every component/page elevated to the new design language
@@ -52,10 +52,10 @@ Plans:
   5. Phase passes `npx tsc --noEmit` + `npm run lint` + `npm run build` + manual smoke in BOTH themes before being marked complete
 **Plans**: 4 plans
 Plans:
-- [ ] 02-01-PLAN.md — Wave 1: append 5 AI projects to projects.ts (map + projections) + bump numberOfItems
-- [ ] 02-02-PLAN.md — Wave 1: append AI skill groups to skills.ts + AI terms to layout knowsAbout
-- [ ] 02-03-PLAN.md — Wave 1: /ai-engineering server route + AiBridgeDiagram SVG + Navigation nav item
-- [ ] 02-04-PLAN.md — Wave 2: SHIP-01 gate + AICON-06 grep gate + count assertions + both-theme smoke
+- [x] 02-01-PLAN.md — Wave 1: append 5 AI projects to projects.ts (map + projections) + bump numberOfItems
+- [x] 02-02-PLAN.md — Wave 1: append AI skill groups to skills.ts + AI terms to layout knowsAbout
+- [x] 02-03-PLAN.md — Wave 1: /ai-engineering server route + AiBridgeDiagram SVG + Navigation nav item
+- [x] 02-04-PLAN.md — Wave 2: SHIP-01 gate + AICON-06 grep gate + count assertions + both-theme smoke
 **UI hint**: yes
 
 ### Phase 3: Shared Foundation
@@ -130,7 +130,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Content Centralization | 0/TBD | Complete    | 2026-06-12 |
-| 2. Append AI Content | 0/4 | Not started | - |
+| 2. Append AI Content | 4/4 | Complete    | 2026-06-12 |
 | 3. Shared Foundation | 0/5 | Not started | - |
 | 4. R3F Infrastructure Island | 0/3 | Planned | - |
 | 5. Per-Component Visual Upgrades | 0/TBD | Not started | - |

@@ -21,7 +21,7 @@
 - [x] **AICON-03**: An architecture diagram (SVG) visualizes the MCP bridge system
 - [x] **AICON-04**: 5 new AI projects are APPENDED to the existing project list with detail pages: MCP NetSuite-Ollama Bridge, LinkedIn Job Auto-Apply Agent, Self-Learning Social Media Generator, n8n Marketing Research Workflows, Healthcare Voice Agent (Ollama/FastAPI/n8n) — existing projects untouched
 - [x] **AICON-05**: AI skill domains are APPENDED to existing skills/expertise (MCP/A2A/ACP, RAG pipelines, vector DBs, embeddings/rerankers, LangChain/LangGraph/CrewAI/AutoGen/Semantic Kernel, LLM memory, prompt engineering & injection defense, FastAPI/Python, AWS AI stack, LLM observability) — grouped by domain and tied to real projects, no percentage bars
-- [ ] **AICON-06**: No Horizon Digital research or interview-prep content appears anywhere on the site
+- [x] **AICON-06**: No Horizon Digital research or interview-prep content appears anywhere on the site
 
 ### Visual Upgrades (VIS)
 
@@ -84,7 +84,7 @@
 | AICON-03 | Phase 2 | Complete |
 | AICON-04 | Phase 2 | Complete |
 | AICON-05 | Phase 2 | Complete |
-| AICON-06 | Phase 2 | Pending |
+| AICON-06 | Phase 2 | Complete |
 | SEO-02 | Phase 2 | Complete |
 | FOUND-02 | Phase 3 | Pending |
 | FOUND-03 | Phase 3 | Pending |
