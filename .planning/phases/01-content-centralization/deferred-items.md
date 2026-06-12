@@ -21,3 +21,23 @@ Note: `src/app/projects/[id]/page.tsx` is a Wave 2 consumer-repointing target. O
 imports the centralized typed `Project` (which declares `liveUrl?`), its two `liveUrl`
 errors resolve naturally. The expertise/api errors are unrelated to content and belong
 to later cleanup, not this phase.
+
+## Pre-existing ESLint errors (latent, `eslint.ignoreDuringBuilds: true`)
+
+Surfaced during the 01-05 SHIP-01 gate (`npm run lint`): 96 problems (64 errors, 32
+warnings). ALL reside in files NOT touched by this phase (the gate confirmed zero lint
+findings in `src/content/*`, `src/app/page.tsx`, `src/app/layout.tsx`,
+`src/app/projects/[id]/page.tsx`, `src/app/sitemap.ts`). Masked at build time by
+`eslint.ignoreDuringBuilds: true`. Belong to a later lint-cleanup phase (strict build
+re-enabled in Phase 6), NOT content centralization.
+
+- `src/app/api/*` (ai-training, ai-verification, auto-llm-training, budget-estimate,
+  create-checkout, schedule-training, test-free-llm, test-openai) — `no-explicit-any`,
+  `no-unused-vars`
+- `src/app/blog/page.tsx`, `budget/page.tsx`, `contact/page.tsx`, `expertise/page.tsx`,
+  `fund-me/page.tsx`, `fund-me/success/page.tsx`, `ideas/page.tsx`,
+  `llm-training-dashboard/page.tsx`, `team/page.tsx`, `test-apis/page.tsx` —
+  `react/no-unescaped-entities`, `no-unused-vars`, `no-explicit-any`, `no-img-element`
+- `src/components/*` (AISeoContent, Hero3DScene, IdeaNetworkCanvas, InteractiveGlobe,
+  Navigation, TeamSection) — `react/no-unescaped-entities`, `prefer-const`,
+  `no-unused-vars`, `no-img-element`

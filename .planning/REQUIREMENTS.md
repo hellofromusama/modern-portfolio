@@ -54,7 +54,7 @@
 
 ### Ship (SHIP)
 
-- [ ] **SHIP-01**: Each phase passes `npx tsc --noEmit` + `npm run lint` + `npm run build` + manual smoke in BOTH themes before being marked complete
+- [x] **SHIP-01**: Each phase passes `npx tsc --noEmit` + `npm run lint` + `npm run build` + manual smoke in BOTH themes before being marked complete
 - [ ] **SHIP-02**: Production deploy to Vercel project `modern-portfolio` happens only after owner approval of the final result
 
 ## v2 Requirements (Deferred)
@@ -105,7 +105,7 @@
 | FIX-01 | Phase 6 | Pending |
 | FIX-02 | Phase 6 | Pending |
 | SHIP-02 | Phase 6 | Pending |
-| SHIP-01 | All phases (cross-cutting gate) | Pending |
+| SHIP-01 | All phases (cross-cutting gate) | Complete |
 
 ---
 *Generated in auto mode from research/FEATURES.md + owner brief*

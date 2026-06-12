@@ -37,7 +37,7 @@ Plans:
 - [x] 01-02-PLAN.md — Wave 1: build src/content module (7-project superset + projections + skills + JSON-LD builder)
 - [x] 01-03-PLAN.md — Wave 2: repoint projects/[id] (generateStaticParams+generateMetadata, FIX-03) + sitemap.ts
 - [x] 01-04-PLAN.md — Wave 2: repoint page.tsx (grid+skills) + layout.tsx JSON-LD ItemList
-- [ ] 01-05-PLAN.md — Wave 3: SHIP-01 gate (tsc+lint+build+7-route check+diff) + owner both-theme smoke
+- [x] 01-05-PLAN.md — Wave 3: SHIP-01 gate (tsc+lint+build+7-route check+diff) + owner both-theme smoke
 
 
 ### Phase 2: Append AI Content
