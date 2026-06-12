@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 01-01-PLAN.md
-last_updated: "2026-06-12T01:12:31.208Z"
+stopped_at: Completed 01-02-PLAN.md
+last_updated: "2026-06-12T01:24:28.157Z"
 last_activity: 2026-06-12
 progress:
   total_phases: 6
   completed_phases: 0
   total_plans: 5
-  completed_plans: 1
+  completed_plans: 2
   percent: 0
 ---
 
@@ -26,7 +26,7 @@ See: .planning/PROJECT.md (updated 2026-06-12)
 ## Current Position
 
 Phase: 1 (Content Centralization) — EXECUTING
-Plan: 2 of 5
+Plan: 3 of 5
 Status: Ready to execute
 Last activity: 2026-06-12
 
@@ -53,6 +53,7 @@ Progress: [░░░░░░░░░░] 0%
 
 *Updated after each plan completion*
 | Phase 01 P01 | 7 | 2 tasks | 3 files |
+| Phase 01 P02 | 8 | 2 tasks | 5 files |
 
 ## Accumulated Context
 
@@ -68,6 +69,8 @@ Recent decisions affecting current work:
 - [PROJECT]: Allow three / @react-three/fiber v9 + motion v12 (React-19-compatible lines only)
 - [Phase 01]: Content baseline + zero-deletion gate established (baseline.json + content-diff.mjs); later plans run 'node scripts/content-diff.mjs' to prove no content lost
 - [Phase 01]: Corrected sitemap project count from plan's 8 to verified live 7 (plan miscount); baseline snapshots true 6/7/6/7/4 divergence
+- [Phase 01]: Content centralized into src/content/ (types/projects/skills/seo): keyed 7-project superset + projections (homeGrid 6 / itemList 6 / sitemap 7) + buildItemListSchema; content-diff green
+- [Phase 01]: Extended content-diff gate to dual-SHAPE: reconstructs ItemList from projects.ts seo* fields under the builder pattern; byte-strict comparison preserved
 
 ### Pending Todos
 
@@ -85,6 +88,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-06-12T01:12:22.818Z
-Stopped at: Completed 01-01-PLAN.md
+Last session: 2026-06-12T01:24:17.555Z
+Stopped at: Completed 01-02-PLAN.md
 Resume file: None
