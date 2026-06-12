@@ -50,11 +50,19 @@ const MANIFEST = join(ROOT, ".next", "app-build-manifest.json");
 // The ONLY routes allowed to ship three / WebGL. Manifest route keys carry the
 // "/page" suffix (App Router). The homepage is "/page".
 //
-// Phase 4: the R3F demo mounts on the homepage (Plan 04-03 confirms; research
-// default — Phase 5's hero replaces the homepage hero, so the homepage is the
-// canvas route). UPDATE THIS SET as Phase 5 adds scenes to other routes.
+// Phase 4 (Plan 04-03): the R3F island mounts on ONE isolated, noindex/nofollow
+// dev-only harness route — NOT the live hero. So three legitimately ships ONLY
+// on "/scene-harness/page" and MUST stay off every other route, incl. the
+// homepage "/page" (its Canvas-2D hero is untouched this phase) and /layout.
+//
+// NOTE: the dir is "scene-harness" (NOT "_scene-harness") — Next.js App Router
+// treats "_"-prefixed folders as PRIVATE and excludes them from routing, so an
+// underscore folder would never mount. Non-discoverability is provided by the
+// segment layout's robots noindex/nofollow + sitemap exclusion, not the name.
+//
+// Phase 5 replaces this with the hero route; remove /scene-harness then.
 const CANVAS_ROUTES = new Set([
-  "/page", // homepage — WebGL hero island
+  "/scene-harness/page", // dev-only harness — WebGL island verification mount
 ]);
 
 // Filename signal for the named fast-path.
