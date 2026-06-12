@@ -158,6 +158,16 @@ body {
   color: var(--text-primary);
 }
 
+/* View Transitions (VIS-08)
+   Progressive enhancement: opt into native cross-document (MPA) view
+   transitions. Supporting browsers (Chrome/Edge 126+) show a subtle default
+   crossfade between full-page navigations; unsupported browsers (e.g. Firefox)
+   simply navigate normally with no animation and no regression. Zero JS,
+   zero new deps, no experimental config flag — native CSS only. */
+@view-transition {
+  navigation: auto;
+}
+
 /* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
@@ -166,6 +176,14 @@ body {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+  /* Kill switch for native View Transitions — motion-sensitive users get
+     instant navigation with no crossfade (WCAG / PROJECT.md mandate). */
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation-duration: 0s !important;
+    animation-delay: 0s !important;
   }
 }
 
