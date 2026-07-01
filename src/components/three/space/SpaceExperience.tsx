@@ -6,8 +6,11 @@ import { Canvas } from "@react-three/fiber";
 import { ScrollControls } from "@react-three/drei";
 import { useThemeColors } from "@/hooks/useThemeColors";
 import { useAnimationGate } from "@/hooks/useAnimationGate";
-import { CAMERA_START_Z, SCROLL_PAGES } from "./waypoints";
+import { CAMERA_START_Z, SCROLL_PAGES, SECTIONS } from "./waypoints";
+import type { SpaceSection } from "./waypoints";
 import Starfield from "./Starfield";
+import CameraRig from "./CameraRig";
+import Planet from "./Planet";
 
 /**
  * Dedicated single-GL-context host for the /space scroll experience (PROTOTYPE).
@@ -39,6 +42,17 @@ export default function SpaceExperience() {
   const t = useThemeColors(["--accent-blue", "--accent-violet", "--accent-emerald"]);
   const blue = useMemo(() => new THREE.Color(t["--accent-blue"] || "#60a5fa"), [t]);
   const violet = useMemo(() => new THREE.Color(t["--accent-violet"] || "#a78bfa"), [t]);
+  const emerald = useMemo(() => new THREE.Color(t["--accent-emerald"] || "#34d399"), [t]);
+
+  // Resolve a section's accent token to its memoized THREE.Color.
+  const colorFor = useMemo(() => {
+    const map: Record<SpaceSection["colorVar"], THREE.Color> = {
+      "--accent-blue": blue,
+      "--accent-violet": violet,
+      "--accent-emerald": emerald,
+    };
+    return (v: SpaceSection["colorVar"]) => map[v];
+  }, [blue, violet, emerald]);
 
   return (
     <div ref={wrapRef} style={{ position: "relative", width: "100%", height: "100%" }}>
@@ -53,7 +67,10 @@ export default function SpaceExperience() {
           <ambientLight intensity={0.35} />
           <pointLight position={[0, 0, 6]} intensity={30} color={blue} />
 
-          {/* --- Scene insertion point (CameraRig + Planets arrive in Task 2) --- */}
+          <CameraRig mouse={mouse} paused={paused} />
+          {SECTIONS.map((s) => (
+            <Planet key={s.id} section={s} color={colorFor(s.colorVar)} paused={paused} />
+          ))}
 
           <Starfield paused={paused} color={violet} />
         </ScrollControls>
