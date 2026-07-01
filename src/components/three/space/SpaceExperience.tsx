@@ -11,6 +11,7 @@ import type { SpaceSection } from "./waypoints";
 import Starfield from "./Starfield";
 import CameraRig from "./CameraRig";
 import Planet from "./Planet";
+import SpaceHUD from "./SpaceHUD";
 
 /**
  * Dedicated single-GL-context host for the /space scroll experience (PROTOTYPE).
@@ -76,7 +77,8 @@ export default function SpaceExperience() {
         </ScrollControls>
       </Canvas>
 
-      {/* --- HUD insertion point (SpaceHUD arrives in Task 3, AFTER the Canvas) --- */}
+      {/* DOM HUD — sibling of the Canvas, layered on top; reads --space-scroll. */}
+      <SpaceHUD />
     </div>
   );
 }
