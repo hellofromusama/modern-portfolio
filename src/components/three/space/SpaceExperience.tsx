@@ -3,7 +3,6 @@
 import { useEffect, useMemo, useRef } from "react";
 import * as THREE from "three";
 import { Canvas } from "@react-three/fiber";
-import { ScrollControls } from "@react-three/drei";
 import { useThemeColors } from "@/hooks/useThemeColors";
 import { useAnimationGate } from "@/hooks/useAnimationGate";
 import { CAMERA_START_Z, SCROLL_PAGES, SECTIONS } from "./waypoints";
@@ -16,15 +15,16 @@ import SpaceHUD from "./SpaceHUD";
 /**
  * Dedicated single-GL-context host for the /space scroll experience (PROTOTYPE).
  *
- * Owns ONE <Canvas> (does NOT touch the shared SceneCanvas), a normalized mouse
- * ref (Hero3D pattern), and the useAnimationGate gating so the frameloop stops
- * off-screen / on tab-blur / under prefers-reduced-motion. All scene colors flow
- * from theme tokens via useThemeColors -> THREE.Color (recomputed once per
- * data-theme flip, hardcoded hex only as the pre-mount fallback).
+ * Native-scroll driven: a FIXED full-screen Canvas sits behind a tall transparent
+ * spacer, so ordinary page scroll (window.scrollY) sets a 0..1 progress ref that
+ * CameraRig reads to fly the camera. Owns a normalized mouse ref (Hero3D pattern)
+ * and useAnimationGate gating (frameloop stops off-screen / tab-blur / reduced
+ * motion). Scene colors flow from theme tokens via useThemeColors -> THREE.Color.
  */
 export default function SpaceExperience() {
   const wrapRef = useRef<HTMLDivElement>(null);
   const mouse = useRef({ x: 0, y: 0 });
+  const progress = useRef(0);
 
   const { shouldAnimate, prefersReduced } = useAnimationGate(wrapRef);
   const paused = !shouldAnimate || prefersReduced;
@@ -37,6 +37,21 @@ export default function SpaceExperience() {
     };
     window.addEventListener("mousemove", handleMouseMove);
     return () => window.removeEventListener("mousemove", handleMouseMove);
+  }, []);
+
+  // Native scroll -> 0..1 progress ref (passive; no re-render). Drives CameraRig.
+  useEffect(() => {
+    const onScroll = () => {
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      progress.current = max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 0;
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
   }, []);
 
   // Theme-color bridge: raw tokens -> THREE.Color, keyed on the resolved object.
@@ -56,29 +71,35 @@ export default function SpaceExperience() {
   }, [blue, violet, emerald]);
 
   return (
-    <div ref={wrapRef} style={{ position: "relative", width: "100%", height: "100%" }}>
-      <Canvas
-        dpr={[1, 2]}
-        gl={{ antialias: true, powerPreference: "high-performance" }}
-        frameloop={shouldAnimate ? "always" : "never"}
-        camera={{ position: [0, 0, CAMERA_START_Z], fov: 60 }}
-        style={{ background: "var(--bg-primary)" }}
+    <>
+      {/* Fixed full-screen canvas layer (the cosmos stays put; the page scrolls). */}
+      <div
+        ref={wrapRef}
+        style={{ position: "fixed", inset: 0, background: "var(--bg-primary)" }}
       >
-        <ScrollControls pages={SCROLL_PAGES} damping={0.25}>
+        <Canvas
+          dpr={[1, 2]}
+          gl={{ antialias: true, powerPreference: "high-performance" }}
+          frameloop={shouldAnimate ? "always" : "never"}
+          camera={{ position: [0, 0, CAMERA_START_Z], fov: 60 }}
+        >
           <ambientLight intensity={0.35} />
           <pointLight position={[0, 0, 6]} intensity={30} color={blue} />
 
-          <CameraRig mouse={mouse} paused={paused} />
+          <CameraRig progress={progress} mouse={mouse} paused={paused} />
           {SECTIONS.map((s) => (
             <Planet key={s.id} section={s} color={colorFor(s.colorVar)} paused={paused} />
           ))}
 
           <Starfield paused={paused} color={violet} />
-        </ScrollControls>
-      </Canvas>
+        </Canvas>
+      </div>
 
-      {/* DOM HUD — sibling of the Canvas, layered on top; reads --space-scroll. */}
+      {/* Tall transparent spacer creates the native scroll length for the flight. */}
+      <div style={{ height: `${SCROLL_PAGES * 100}vh`, pointerEvents: "none" }} aria-hidden />
+
+      {/* DOM HUD — fixed overlay on top; reads --space-scroll set by CameraRig. */}
       <SpaceHUD />
-    </div>
+    </>
   );
 }

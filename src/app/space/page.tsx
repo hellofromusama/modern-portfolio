@@ -29,17 +29,12 @@ export default function SpacePage() {
   }, []);
 
   return (
-    <main
-      style={{
-        position: "fixed",
-        inset: 0,
-        overflow: "hidden",
-        background: "var(--bg-primary)",
-      }}
-    >
+    <main style={{ background: "var(--bg-primary)" }}>
       {mounted && prefersReduced ? (
         // Reduced-motion: static full-screen poster, no live flythrough.
-        <ScenePoster variant="hero" />
+        <div style={{ position: "fixed", inset: 0 }}>
+          <ScenePoster variant="hero" />
+        </div>
       ) : (
         <SpaceExperience />
       )}

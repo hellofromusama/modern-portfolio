@@ -2,11 +2,12 @@
 
 import type { RefObject } from "react";
 import { useFrame } from "@react-three/fiber";
-import { useScroll } from "@react-three/drei";
 import { damp } from "maath/easing";
 import { CAMERA_END_Z, CAMERA_START_Z } from "./waypoints";
 
 interface CameraRigProps {
+  /** Native-scroll progress 0..1 (updated by SpaceExperience's scroll listener). */
+  progress: RefObject<number>;
   /** Normalized -1..1 pointer ref threaded from SpaceExperience (Hero3D pattern). */
   mouse: RefObject<{ x: number; y: number }>;
   /** When true, skip the mouse-parallax damp (scroll z is still applied). */
@@ -14,21 +15,21 @@ interface CameraRigProps {
 }
 
 /**
- * Scroll-driven forward camera flight. MUST render inside <ScrollControls>.
+ * Scroll-driven forward camera flight (native-scroll variant).
  *
- * The scroll offset (0..1) lerps the camera from CAMERA_START_Z toward
- * CAMERA_END_Z so scrolling flies the camera FORWARD (-Z) PAST the 5 planets.
- * Subtle mouse parallax nudges x/y via frame-rate-independent damping (reads the
- * cached ref only — no per-frame DOM reads). Scroll progress is mirrored to the
- * `--space-scroll` CSS var for the HUD (cheap, no React re-render). Logic-only.
+ * Reads the page scroll progress (0..1) from a ref and damps the camera from
+ * CAMERA_START_Z toward CAMERA_END_Z so scrolling flies the camera FORWARD (-Z)
+ * PAST the 5 planets. Damping gives an inertial, weighty feel. Subtle mouse
+ * parallax nudges x/y. Scroll progress is mirrored to the `--space-scroll` CSS
+ * var for the HUD (cheap, no React re-render). Logic-only.
  */
-export default function CameraRig({ mouse, paused }: CameraRigProps) {
-  const scroll = useScroll();
-
+export default function CameraRig({ progress, mouse, paused }: CameraRigProps) {
   useFrame((state, delta) => {
-    // Scroll drives z ALWAYS (even paused/blurred) so a static frame stays coherent.
-    const z = CAMERA_START_Z + (CAMERA_END_Z - CAMERA_START_Z) * scroll.offset;
-    state.camera.position.z = z;
+    const p = progress.current;
+    const targetZ = CAMERA_START_Z + (CAMERA_END_Z - CAMERA_START_Z) * p;
+
+    // Smoothly fly the camera toward the scroll target (frame-rate-independent).
+    damp(state.camera.position, "z", targetZ, 0.18, delta);
 
     if (!paused) {
       const m = mouse.current;
@@ -38,7 +39,7 @@ export default function CameraRig({ mouse, paused }: CameraRigProps) {
 
     // Publish scroll progress for the DOM HUD (no re-render).
     if (typeof document !== "undefined") {
-      document.documentElement.style.setProperty("--space-scroll", String(scroll.offset));
+      document.documentElement.style.setProperty("--space-scroll", String(p));
     }
   });
 

@@ -15,7 +15,7 @@ export default function SpaceHUD() {
   return (
     <div
       style={{
-        position: "absolute",
+        position: "fixed",
         inset: 0,
         zIndex: 10,
         pointerEvents: "none",
