@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
+import { getSpaceMode } from "@/lib/spaceMode";
 import FundMeDive from "./FundMeDive";
+import FundMeClassic from "./FundMeClassic";
 
 export const metadata: Metadata = {
   title: "Fund Me — Support Usama Javed's Work | Perth Developer",
@@ -7,10 +9,13 @@ export const metadata: Metadata = {
     "Love my work? Support me with a contribution! Every donation helps me create better projects and maintain this portfolio. Secure payment powered by Stripe.",
 };
 
-export default function FundMePage() {
+export default async function FundMePage() {
+  const space = await getSpaceMode();
+  if (!space) return <FundMeClassic />;
   return (
     <>
-      {/* Crawlable real-DOM copy of the fund-me page — bots read what the canvas hides. */}
+      {/* Crawlable real-DOM copy of the fund-me page — bots read what the canvas hides.
+          Space mode only; the classic body is already crawlable. */}
       <div className="sr-only">
         <h1>Fund me.</h1>
         <p>

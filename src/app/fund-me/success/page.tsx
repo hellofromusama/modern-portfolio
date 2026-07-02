@@ -1,10 +1,15 @@
+import { getSpaceMode } from "@/lib/spaceMode";
 import SuccessDive from "./SuccessDive";
+import SuccessClassic from "./SuccessClassic";
 
-export default function PaymentSuccessPage() {
+export default async function PaymentSuccessPage() {
+  const space = await getSpaceMode();
+  if (!space) return <SuccessClassic />;
   return (
     <>
       {/* Crawlable real-DOM copy of the confirmation — bots read what the canvas hides.
-          No dynamic query content (session_id) is placed here. */}
+          No dynamic query content (session_id) is placed here.
+          Space mode only; the classic body is already crawlable. */}
       <div className="sr-only">
         <h1>Thank You So Much!</h1>
         <p>Your support means the world to me!</p>

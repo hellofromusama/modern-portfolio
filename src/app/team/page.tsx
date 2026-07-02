@@ -1,9 +1,13 @@
+import { getSpaceMode } from "@/lib/spaceMode";
 import TeamDive from "./TeamDive";
+import TeamClassic from "./TeamClassic";
 
 // Server component (no "use client"). This route had no metadata — none is added, so
 // SEO stays byte-identical. The crawlable sr-only copy replaces the DOM the canvas
 // hides; the visible team grid is now the reused <TeamSection/> floated in the dive.
-export default function TeamPage() {
+export default async function TeamPage() {
+  const space = await getSpaceMode();
+  if (!space) return <TeamClassic />;
   return (
     <>
       <div className="sr-only">

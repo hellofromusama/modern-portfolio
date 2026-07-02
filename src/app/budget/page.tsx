@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
+import { getSpaceMode } from "@/lib/spaceMode";
 import BudgetDive from "./BudgetDive";
+import BudgetClassic from "./BudgetClassic";
 
 export const metadata: Metadata = {
   title: "Project Budget Calculator | Perth Web Development Cost Estimates",
@@ -7,10 +9,13 @@ export const metadata: Metadata = {
     "Get instant estimates for your web development project. Describe your requirements and get detailed cost and timeline information from Perth full stack developer Usama Javed.",
 };
 
-export default function BudgetPage() {
+export default async function BudgetPage() {
+  const space = await getSpaceMode();
+  if (!space) return <BudgetClassic />;
   return (
     <>
-      {/* Crawlable real-DOM copy of the budget tool — bots read what the canvas hides. */}
+      {/* Crawlable real-DOM copy of the budget tool — bots read what the canvas hides.
+          Space mode only; the classic body is already crawlable. */}
       <div className="sr-only">
         <h1>Project Budget Calculator</h1>
         <p>

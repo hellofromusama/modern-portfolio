@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
+import { getSpaceMode } from "@/lib/spaceMode";
 import ContactDive from "./ContactDive";
+import ContactClassic from "./ContactClassic";
 
 export const metadata: Metadata = {
   title: "Contact Usama Javed | Perth Full Stack Developer & AI Engineer",
@@ -16,10 +18,13 @@ export const metadata: Metadata = {
   },
 };
 
-export default function ContactPage() {
+export default async function ContactPage() {
+  const space = await getSpaceMode();
+  if (!space) return <ContactClassic />;
   return (
     <>
-      {/* Crawlable real-DOM copy — bots read the contact details the canvas hides. */}
+      {/* Crawlable real-DOM copy — bots read the contact details the canvas hides.
+          Space mode only; the classic body is already crawlable. */}
       <div className="sr-only">
         <h1>Get In Touch</h1>
         <p>Let&apos;s discuss your project and bring your ideas to life.</p>

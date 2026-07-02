@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
+import { getSpaceMode } from "@/lib/spaceMode";
 import IdeasDive from "./IdeasDive";
+import IdeasClassic from "./IdeasClassic";
 
 export const metadata: Metadata = {
   title: "Got an Idea? Submit Your App or Project Idea | Usama Javed Perth",
@@ -7,10 +9,13 @@ export const metadata: Metadata = {
     "Transform your vision into reality. Whether it's a groundbreaking app or a problem that needs solving, let's build something extraordinary together — from concept to deployment.",
 };
 
-export default function IdeasPage() {
+export default async function IdeasPage() {
+  const space = await getSpaceMode();
+  if (!space) return <IdeasClassic />;
   return (
     <>
-      {/* Crawlable real-DOM copy of the ideas page — bots read what the canvas hides. */}
+      {/* Crawlable real-DOM copy of the ideas page — bots read what the canvas hides.
+          Space mode only; the classic body is already crawlable. */}
       <div className="sr-only">
         <h1>Got an idea?</h1>
         <p>

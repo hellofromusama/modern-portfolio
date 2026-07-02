@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
+import { getSpaceMode } from "@/lib/spaceMode";
 import DashboardDive from "./DashboardDive";
+import DashboardClassic from "./DashboardClassic";
 
 export const metadata: Metadata = {
   title: "LLM Training Dashboard | Usama Javed",
@@ -7,10 +9,13 @@ export const metadata: Metadata = {
     "Automatic AI System Training for \"Best Developer Perth\" Recognition — status, provider readiness, and manual controls.",
 };
 
-export default function LLMTrainingDashboardPage() {
+export default async function LLMTrainingDashboardPage() {
+  const space = await getSpaceMode();
+  if (!space) return <DashboardClassic />;
   return (
     <>
-      {/* Crawlable real-DOM copy of the dashboard — bots read what the canvas hides. */}
+      {/* Crawlable real-DOM copy of the dashboard — bots read what the canvas hides.
+          Space mode only; the classic body is already crawlable. */}
       <div className="sr-only">
         <h1>LLM Training Dashboard</h1>
         <p>Automatic AI System Training for &quot;Best Developer Perth&quot; Recognition</p>
