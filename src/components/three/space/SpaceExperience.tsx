@@ -9,6 +9,8 @@ import { spaceFontVars } from "./spaceFonts";
 import SpaceBackground from "./SpaceBackground";
 import CameraRig from "./CameraRig";
 import Planet, { Asteroids } from "./Planet";
+import Starfield from "./Starfield";
+import SpaceLighting from "./SpaceLighting";
 import SpaceHUD from "./SpaceHUD";
 import "./space-dom.css";
 
@@ -79,11 +81,14 @@ export default function SpaceExperience() {
           frameloop={frameloop}
           camera={{ position: [0, 0, CAMERA_START_Z], fov: FOV, near: 0.1, far: 3000 }}
         >
-          {/* Temporary lights — the full lighting rig (SpaceLighting) lands in Task 3. */}
-          <ambientLight color={0x556680} intensity={0.7} />
+          {/* Lighting rig (ambient + directional + fog) + camera-tracking pointLight. */}
+          <SpaceLighting />
           <pointLight ref={moveLight} color={0x88aaff} intensity={0.35} distance={200} decay={1.8} />
 
           <CameraRig progress={progress} mouse={mouse} reduced={reduced} moveLight={moveLight} />
+
+          {/* Foreground twinkle stars (local canvas texture — no Suspense needed). */}
+          <Starfield mouse={mouse} reduced={reduced} />
 
           {/* Texture consumers suspend (useTexture) — provide the boundary here. */}
           <Suspense fallback={null}>
@@ -94,7 +99,6 @@ export default function SpaceExperience() {
             <Asteroids reduced={reduced} />
             {/* Task 4 inserts <SpaceContent /> here (floated <Html> sections). */}
           </Suspense>
-          {/* Task 3 inserts <SpaceLighting /> + <Starfield /> here. */}
         </Canvas>
       </div>
 
