@@ -13,6 +13,7 @@ import Starfield from "./Starfield";
 import SpaceLighting from "./SpaceLighting";
 import SpaceContent from "./SpaceContent";
 import SpaceHUD from "./SpaceHUD";
+import SpaceLoader from "./SpaceLoader";
 import "./space-dom.css";
 
 /**
@@ -110,7 +111,9 @@ export default function SpaceExperience() {
 
       {/* DOM HUD — fixed overlay; reads --space-scroll set by CameraRig. */}
       <SpaceHUD />
-      {/* Task 5 inserts <SpaceLoader /> here. */}
+
+      {/* Intro loader — covers everything until it counts to 100 and fades. */}
+      <SpaceLoader />
     </div>
   );
 }

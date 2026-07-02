@@ -1,8 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
-import { useReducedMotion } from "motion/react";
 import ScenePoster from "@/components/three/ScenePoster";
 
 // ssr:false is legal here because this file is a client component. The live
@@ -14,30 +12,18 @@ const SpaceExperience = dynamic(
 );
 
 /**
- * /space — a DESIGN-AGNOSTIC "outer space" scroll experience PROTOTYPE.
+ * /space — the full finalized Claude Design "Space-Journey Portfolio".
  *
- * Full-screen, noindex (see ./layout.tsx), and strictly additive — it does not
- * touch the live homepage or any shared component. prefers-reduced-motion falls
- * back to a STATIC poster (no flythrough / no continuous motion).
+ * Full-screen, noindex (see ./layout.tsx), strictly additive — it does not touch
+ * the live homepage or any shared component (reuse-by-import only). Reduced motion
+ * still RUNS the experience (scroll drives the camera; autonomous sway/float are
+ * killed and the ease is faster) — it is NOT a static poster. That branch lives
+ * inside SpaceExperience via the threaded `reduced` flag.
  */
 export default function SpacePage() {
-  const [mounted, setMounted] = useState(false);
-  const prefersReduced = useReducedMotion();
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
   return (
-    <main style={{ background: "var(--bg-primary)" }}>
-      {mounted && prefersReduced ? (
-        // Reduced-motion: static full-screen poster, no live flythrough.
-        <div style={{ position: "fixed", inset: 0 }}>
-          <ScenePoster variant="hero" />
-        </div>
-      ) : (
-        <SpaceExperience />
-      )}
+    <main style={{ background: "#05060a" }}>
+      <SpaceExperience />
     </main>
   );
 }
