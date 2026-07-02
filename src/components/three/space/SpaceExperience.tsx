@@ -11,6 +11,7 @@ import CameraRig from "./CameraRig";
 import Planet, { Asteroids } from "./Planet";
 import Starfield from "./Starfield";
 import SpaceLighting from "./SpaceLighting";
+import SpaceContent from "./SpaceContent";
 import SpaceHUD from "./SpaceHUD";
 import "./space-dom.css";
 
@@ -97,7 +98,8 @@ export default function SpaceExperience() {
               <Planet key={p.id} spec={p} reduced={reduced} />
             ))}
             <Asteroids reduced={reduced} />
-            {/* Task 4 inserts <SpaceContent /> here (floated <Html> sections). */}
+            {/* 6 sections of REAL content floating via drei <Html transform>. */}
+            <SpaceContent />
           </Suspense>
         </Canvas>
       </div>
