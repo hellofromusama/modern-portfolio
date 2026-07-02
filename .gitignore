@@ -52,3 +52,6 @@ next-env.d.ts
 .github\instructions\codacy.instructions.md
 
 .vercel
+
+# design handoff bundle — reference only, never ship
+claude design/
