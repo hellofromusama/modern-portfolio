@@ -3,7 +3,7 @@
 import { useRef } from "react";
 import * as THREE from "three";
 import { useFrame } from "@react-three/fiber";
-import { Float } from "@react-three/drei";
+import { Float, useTexture } from "@react-three/drei";
 import type { SpaceSection } from "./waypoints";
 
 interface PlanetProps {
@@ -15,14 +15,20 @@ interface PlanetProps {
 }
 
 /**
- * A glowing rim-lit placeholder planet at a waypoint (design-agnostic stand-in).
+ * A real photo-textured planet at a waypoint (Solar System Scope diffuse map).
  *
  * Wrapped in drei <Float> for weightless drift, with a slow self-rotation in
- * useFrame. A larger faint additive halo shell fakes an atmospheric glow. Colors
- * come entirely from the theme token resolved at the parent — no hardcoded hex.
+ * useFrame. The body wears a real SRGB diffuse map (emissive OFF so the photo
+ * shows), lit by the scene environment + pointLight. A larger faint additive
+ * halo shell fakes an atmospheric glow and keeps the theme accent (color prop).
  */
 export default function Planet({ section, color, paused }: PlanetProps) {
   const mesh = useRef<THREE.Mesh>(null);
+
+  // Real diffuse map. useTexture does NOT set color space — do it explicitly, or
+  // the photo renders dull/grey. Inline assignment on the returned texture is fine.
+  const map = useTexture(section.texture);
+  map.colorSpace = THREE.SRGBColorSpace;
 
   useFrame((_, delta) => {
     if (paused || !mesh.current) return;
@@ -40,9 +46,8 @@ export default function Planet({ section, color, paused }: PlanetProps) {
       <mesh ref={mesh}>
         <sphereGeometry args={[2.2, 48, 48]} />
         <meshStandardMaterial
-          color={color}
-          emissive={color}
-          emissiveIntensity={0.6}
+          map={map}
+          emissiveIntensity={0}
           roughness={0.4}
           metalness={0.1}
         />

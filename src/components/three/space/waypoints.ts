@@ -12,14 +12,15 @@ export interface SpaceSection {
   label: string;
   position: [number, number, number];
   colorVar: "--accent-blue" | "--accent-violet" | "--accent-emerald";
+  texture: string; // absolute /space/*.jpg diffuse map for this waypoint's body
 }
 
 export const SECTIONS: SpaceSection[] = [
-  { id: "about", label: "About", position: [3, 0.5, -8], colorVar: "--accent-blue" },
-  { id: "projects", label: "Projects", position: [-4, -0.5, -28], colorVar: "--accent-violet" },
-  { id: "skills", label: "Skills", position: [4, 0.8, -48], colorVar: "--accent-emerald" },
-  { id: "team", label: "Team", position: [-3, -0.8, -68], colorVar: "--accent-blue" },
-  { id: "contact", label: "Contact", position: [2, 0.3, -88], colorVar: "--accent-violet" },
+  { id: "about", label: "About", position: [3, 0.5, -8], colorVar: "--accent-blue", texture: "/space/2k_earth_daymap.jpg" },
+  { id: "projects", label: "Projects", position: [-4, -0.5, -28], colorVar: "--accent-violet", texture: "/space/2k_jupiter.jpg" },
+  { id: "skills", label: "Skills", position: [4, 0.8, -48], colorVar: "--accent-emerald", texture: "/space/2k_mars.jpg" },
+  { id: "team", label: "Team", position: [-3, -0.8, -68], colorVar: "--accent-blue", texture: "/space/2k_neptune.jpg" },
+  { id: "contact", label: "Contact", position: [2, 0.3, -88], colorVar: "--accent-violet", texture: "/space/2k_moon.jpg" },
 ];
 
 // ScrollControls page count — one virtual page per waypoint span.

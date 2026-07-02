@@ -1,13 +1,13 @@
 "use client";
 
-import { useEffect, useMemo, useRef } from "react";
+import { Suspense, useEffect, useMemo, useRef } from "react";
 import * as THREE from "three";
 import { Canvas } from "@react-three/fiber";
 import { useThemeColors } from "@/hooks/useThemeColors";
 import { useAnimationGate } from "@/hooks/useAnimationGate";
 import { CAMERA_START_Z, SCROLL_PAGES, SECTIONS } from "./waypoints";
 import type { SpaceSection } from "./waypoints";
-import Starfield from "./Starfield";
+import SpaceBackground from "./SpaceBackground";
 import CameraRig from "./CameraRig";
 import Planet from "./Planet";
 import SpaceHUD from "./SpaceHUD";
@@ -87,11 +87,15 @@ export default function SpaceExperience() {
           <pointLight position={[0, 0, 6]} intensity={30} color={blue} />
 
           <CameraRig progress={progress} mouse={mouse} paused={paused} />
-          {SECTIONS.map((s) => (
-            <Planet key={s.id} section={s} color={colorFor(s.colorVar)} paused={paused} />
-          ))}
 
-          <Starfield paused={paused} color={violet} />
+          {/* Texture-consuming nodes suspend (useTexture) — R3F does NOT wrap
+              children in Suspense automatically, so provide one here. */}
+          <Suspense fallback={null}>
+            <SpaceBackground />
+            {SECTIONS.map((s) => (
+              <Planet key={s.id} section={s} color={colorFor(s.colorVar)} paused={paused} />
+            ))}
+          </Suspense>
         </Canvas>
       </div>
 
