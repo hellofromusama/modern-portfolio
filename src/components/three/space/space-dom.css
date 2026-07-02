@@ -1,0 +1,6 @@
+/* Neutralize TeamSection's INLINE opaque <section> bg so the cosmos shows
+   through. A stylesheet !important rule beats an inline style that lacks it.
+   Scoped to the /space content wrapper only — the live homepage is untouched. */
+.space-dom-content > section {
+  background: transparent !important;
+}

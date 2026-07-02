@@ -11,6 +11,8 @@ import SpaceBackground from "./SpaceBackground";
 import CameraRig from "./CameraRig";
 import Planet from "./Planet";
 import SpaceHUD from "./SpaceHUD";
+import TeamSection from "@/components/TeamSection";
+import "./space-dom.css";
 
 /**
  * Dedicated single-GL-context host for the /space scroll experience (PROTOTYPE).
@@ -72,10 +74,17 @@ export default function SpaceExperience() {
 
   return (
     <>
-      {/* Fixed full-screen canvas layer (the cosmos stays put; the page scrolls). */}
+      {/* Fixed full-screen canvas layer (the cosmos stays put; the page scrolls).
+          pointerEvents:none so DOM links above stay clickable; zIndex:0 behind content. */}
       <div
         ref={wrapRef}
-        style={{ position: "fixed", inset: 0, background: "var(--bg-primary)" }}
+        style={{
+          position: "fixed",
+          inset: 0,
+          background: "var(--bg-primary)",
+          zIndex: 0,
+          pointerEvents: "none",
+        }}
       >
         <Canvas
           dpr={[1, 2]}
@@ -99,8 +108,16 @@ export default function SpaceExperience() {
         </Canvas>
       </div>
 
-      {/* Tall transparent spacer creates the native scroll length for the flight. */}
-      <div style={{ height: `${SCROLL_PAGES * 100}vh`, pointerEvents: "none" }} aria-hidden />
+      {/* Real content scroll layer (zIndex:1 above the fixed cosmos) — the verbatim
+          TeamSection drives the scroll length. The scoped space-dom.css transparent-izes
+          only its <section> shell so the cosmos shows through. */}
+      <div className="space-dom-content" style={{ position: "relative", zIndex: 1 }}>
+        {/* intro spacer: reveal the cosmos before content scrolls in */}
+        <div style={{ height: "80vh", pointerEvents: "none" }} aria-hidden />
+        <TeamSection />
+        {/* outro spacer: keep flying past the remaining planets */}
+        <div style={{ height: `${(SCROLL_PAGES - 1) * 100}vh`, pointerEvents: "none" }} aria-hidden />
+      </div>
 
       {/* DOM HUD — fixed overlay on top; reads --space-scroll set by CameraRig. */}
       <SpaceHUD />
