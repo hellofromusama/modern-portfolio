@@ -1,8 +1,12 @@
 "use client";
 
 import type { CSSProperties, ReactNode } from "react";
+import { useRef } from "react";
+import { useFrame } from "@react-three/fiber";
 import { Html } from "@react-three/drei";
 import { ACCENT_CYCLE, SECTION_ANCHORS, type SpaceSectionId } from "./spaceSpec";
+
+type SectionAnchor = (typeof SECTION_ANCHORS)[number];
 import { getProject } from "@/content/projects";
 import skills from "@/content/skills";
 import TeamSection from "@/components/TeamSection";
@@ -180,24 +184,55 @@ function contentFor(id: SpaceSectionId): ReactNode {
   }
 }
 
+/**
+ * One floated section. drei <Html transform> projects EVERY panel onto the screen
+ * regardless of depth, so without a distance fade all 6 overlap. We reproduce the
+ * design's exact opacity curve (README): fade-in far, full on arrival, fade-out as
+ * the camera passes — driven each frame from the live camera z (no React re-render).
+ */
+function FadingSection({ anchor }: { anchor: SectionAnchor }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const worldZ = anchor.position[2];
+
+  useFrame((state) => {
+    const el = ref.current;
+    if (!el) return;
+    const dist = state.camera.position.z - worldZ;
+    let op: number;
+    if (dist < 2 || dist > 130) op = 0;
+    else if (dist >= 45) op = (70 - dist) / 25; // fade in
+    else if (dist >= 18) op = 1; // arrival window
+    else op = (dist - 3) / 15; // fade out
+    op = Math.max(0, Math.min(1, op));
+    el.style.opacity = String(op);
+    // Don't let an invisible panel eat clicks meant for a planet behind it.
+    el.style.pointerEvents = op > 0.5 ? "auto" : "none";
+  });
+
+  return (
+    <Html
+      transform
+      occlude={false}
+      position={anchor.position}
+      distanceFactor={10}
+      pointerEvents="auto"
+      style={{ width: WIDTHS[anchor.id] }}
+      className="space-html"
+      zIndexRange={[0, 0]}
+      prepend={false}
+    >
+      <div ref={ref} style={{ opacity: 0, willChange: "opacity" }}>
+        {contentFor(anchor.id)}
+      </div>
+    </Html>
+  );
+}
+
 export default function SpaceContent() {
   return (
     <>
       {SECTION_ANCHORS.map((anchor) => (
-        <Html
-          key={anchor.id}
-          transform
-          occlude={false}
-          position={anchor.position}
-          distanceFactor={10}
-          pointerEvents="auto"
-          style={{ width: WIDTHS[anchor.id] }}
-          className="space-html"
-          zIndexRange={[0, 0]}
-          prepend={false}
-        >
-          {contentFor(anchor.id)}
-        </Html>
+        <FadingSection key={anchor.id} anchor={anchor} />
       ))}
     </>
   );
