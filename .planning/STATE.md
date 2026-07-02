@@ -144,6 +144,7 @@ None yet.
 | 260701-nfu | Space scroll experience prototype on new /space route (design-agnostic engine) | 2026-07-01 | 2c5b2ba | [260701-nfu-space-scroll-experience-prototype-on-new](./quick/260701-nfu-space-scroll-experience-prototype-on-new/) |
 | 260702-dq5 | Photoreal /space: real NASA/CC Milky Way skybox + real planet textures + verbatim TeamSection floating over the cosmos | 2026-07-02 | a73d225 | [260702-dq5-photoreal-real-space-space-existing-cont](./quick/260702-dq5-photoreal-real-space-space-existing-cont/) |
 | 260702-gkj | Implement finalized Claude Design space-journey onto /space — all 6 sections floating via Html-transform over real planets (Earth/Saturn+ring/Jupiter…), camera dive z30→-232, click-to-fly, HUD/loader/toggles; existing content verbatim. Full mode (plan-checked). | 2026-07-02 | 59e23bb | [260702-gkj-implement-claude-design-space-journey-on](./quick/260702-gkj-implement-claude-design-space-journey-on/) |
+| 260702-j59 | R2W1 — extracted reusable SpacePageShell (+ShellContent/ShellHUD/shellSpec) from the /space engine (reuse-by-import; /space byte-identical) and applied the 3D dive to /services, /contact, /projects/[id]: existing content verbatim, real emailjs form + all CTAs/liveUrl working, server metadata + JSON-LD + sr-only SEO preserved, Playwright smoke authored. tsc+lint+build green; 12 project slugs prerender. | 2026-07-02 | 6d50e36 | [260702-j59-round2-wave1-space-dive-shell-apply-to-s](./quick/260702-j59-round2-wave1-space-dive-shell-apply-to-s/) |
 
 ## Session Continuity
 
