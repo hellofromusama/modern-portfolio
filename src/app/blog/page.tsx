@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
+import { getSpaceMode } from "@/lib/spaceMode";
 import { blogPosts } from "./blogData";
 import BlogDive from "./BlogDive";
+import BlogClassic from "./BlogClassic";
 
 export const metadata: Metadata = {
   title: "Web Development Blog | Expert Insights from Perth's Leading Developer",
@@ -19,7 +21,8 @@ export const metadata: Metadata = {
   ],
 };
 
-export default function BlogPage() {
+export default async function BlogPage() {
+  const space = await getSpaceMode();
   const blogSchema = {
     "@context": "https://schema.org",
     "@type": "Blog",
@@ -63,8 +66,11 @@ export default function BlogPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(blogSchema) }}
       />
 
-      {/* Crawlable real-DOM copy — bots read what the canvas dive hides. */}
-      <div className="sr-only">
+      {space ? (
+        <>
+          {/* Crawlable real-DOM copy — bots read what the canvas dive hides.
+              Space mode only; the classic body is already crawlable. */}
+          <div className="sr-only">
         <h1>Web Development Insights &amp; Expert Guides</h1>
         <p>
           Learn about modern web development, AI integration, and industry best practices
@@ -87,9 +93,13 @@ export default function BlogPage() {
             <p>{post.category} · {post.readTime}</p>
           </article>
         ))}
-      </div>
+          </div>
 
-      <BlogDive />
+          <BlogDive />
+        </>
+      ) : (
+        <BlogClassic />
+      )}
     </>
   );
 }

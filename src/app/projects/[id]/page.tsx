@@ -1,8 +1,10 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
+import { getSpaceMode } from "@/lib/spaceMode";
 import { getProject, projectList } from "@/content/projects";
 import ProjectDive from "./ProjectDive";
+import ProjectClassic from "./ProjectClassic";
 
 export function generateStaticParams() {
   return projectList.map((p) => ({ id: p.id }));
@@ -23,9 +25,15 @@ export default async function ProjectDetail({ params }: { params: Promise<{ id: 
     notFound();
   }
 
+  const space = await getSpaceMode();
+  if (!space) {
+    return <ProjectClassic project={project} />;
+  }
+
   return (
     <>
-      {/* Crawlable real-DOM copy — bots read the project detail the canvas hides. */}
+      {/* Crawlable real-DOM copy — bots read the project detail the canvas hides.
+          Space mode only; the classic body is already crawlable. */}
       <div className="sr-only">
         <p>{project.category}</p>
         <h1>{project.title}</h1>

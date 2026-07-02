@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
+import { getSpaceMode } from "@/lib/spaceMode";
 import { services, processSteps } from "@/content/services";
 import ServicesDive from "./ServicesDive";
+import ServicesClassic from "./ServicesClassic";
 
 export const metadata: Metadata = {
   title: "Web Development & SEO Services I Provide | Perth Full Stack Developer",
@@ -27,7 +29,8 @@ export const metadata: Metadata = {
   },
 };
 
-export default function ServicesPage() {
+export default async function ServicesPage() {
+  const space = await getSpaceMode();
   const serviceSchema = {
     "@context": "https://schema.org",
     "@type": "Service",
@@ -70,44 +73,51 @@ export default function ServicesPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
       />
 
-      {/* Crawlable real-DOM copy of the catalog — bots read what the canvas hides. */}
-      <div className="sr-only">
-        <h1>Web Development &amp; SEO Services I Provide</h1>
-        <p>
-          Expert full stack development services in Perth, Western Australia. Custom web applications,
-          AI integration, and enterprise solutions for businesses across Australia.
-        </p>
-        <h2>What web development services are available in Perth?</h2>
-        {services.map((category) => (
-          <section key={category.category}>
-            <h3>{category.category}</h3>
-            <p>{category.description}</p>
-            <ul>
-              {category.items.map((service) => (
-                <li key={service.name}>
-                  <strong>{service.name}</strong> — {service.description} Key features:{" "}
-                  {service.features.join(", ")}. Timeline: {service.timeframe}. From: {service.priceRange}.
+      {space ? (
+        <>
+          {/* Crawlable real-DOM copy of the catalog — bots read what the canvas hides.
+              Space mode only; the classic body is already crawlable. */}
+          <div className="sr-only">
+            <h1>Web Development &amp; SEO Services I Provide</h1>
+            <p>
+              Expert full stack development services in Perth, Western Australia. Custom web applications,
+              AI integration, and enterprise solutions for businesses across Australia.
+            </p>
+            <h2>What web development services are available in Perth?</h2>
+            {services.map((category) => (
+              <section key={category.category}>
+                <h3>{category.category}</h3>
+                <p>{category.description}</p>
+                <ul>
+                  {category.items.map((service) => (
+                    <li key={service.name}>
+                      <strong>{service.name}</strong> — {service.description} Key features:{" "}
+                      {service.features.join(", ")}. Timeline: {service.timeframe}. From: {service.priceRange}.
+                    </li>
+                  ))}
+                </ul>
+              </section>
+            ))}
+            <h2>How do you work with Perth clients?</h2>
+            <ol>
+              {processSteps.map((step) => (
+                <li key={step.step}>
+                  <strong>{step.title}</strong> — {step.description}
                 </li>
               ))}
-            </ul>
-          </section>
-        ))}
-        <h2>How do you work with Perth clients?</h2>
-        <ol>
-          {processSteps.map((step) => (
-            <li key={step.step}>
-              <strong>{step.title}</strong> — {step.description}
-            </li>
-          ))}
-        </ol>
-        <h2>Ready to start your web development project?</h2>
-        <p>
-          Get a free consultation and detailed proposal for your Perth business.{" "}
-          <a href="/contact">Start Your Project Today</a>.
-        </p>
-      </div>
+            </ol>
+            <h2>Ready to start your web development project?</h2>
+            <p>
+              Get a free consultation and detailed proposal for your Perth business.{" "}
+              <a href="/contact">Start Your Project Today</a>.
+            </p>
+          </div>
 
-      <ServicesDive />
+          <ServicesDive />
+        </>
+      ) : (
+        <ServicesClassic />
+      )}
     </>
   );
 }

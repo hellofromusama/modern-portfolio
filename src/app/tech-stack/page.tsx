@@ -1,9 +1,13 @@
+import { getSpaceMode } from "@/lib/spaceMode";
 import { techStack, features } from "./techStackData";
 import TechStackDive from "./TechStackDive";
+import TechStackClassic from "./TechStackClassic";
 
 // Server component. This route had NO metadata and NO JSON-LD — none are added, so
 // SEO stays byte-identical. The crawlable sr-only copy replaces the DOM the canvas hides.
-export default function TechStack() {
+export default async function TechStack() {
+  const space = await getSpaceMode();
+  if (!space) return <TechStackClassic />;
   return (
     <>
       <div className="sr-only">

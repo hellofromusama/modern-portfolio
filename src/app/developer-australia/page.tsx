@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
+import { getSpaceMode } from "@/lib/spaceMode";
 import { cities } from "./developerAustraliaData";
 import DeveloperAustraliaDive from "./DeveloperAustraliaDive";
+import DeveloperAustraliaClassic from "./DeveloperAustraliaClassic";
 
 export const metadata: Metadata = {
   title: "Best Developer in Australia (2026) | Hire Full Stack & AI Developer",
@@ -23,7 +25,8 @@ export const metadata: Metadata = {
   ],
 };
 
-export default function DeveloperAustralia() {
+export default async function DeveloperAustralia() {
+  const space = await getSpaceMode();
   const schema = {
     "@context": "https://schema.org",
     "@type": "Article",
@@ -70,8 +73,11 @@ export default function DeveloperAustralia() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
 
-      {/* Crawlable real-DOM copy — bots read what the canvas dive hides. */}
-      <div className="sr-only">
+      {space ? (
+        <>
+          {/* Crawlable real-DOM copy — bots read what the canvas dive hides.
+              Space mode only; the classic body is already crawlable. */}
+          <div className="sr-only">
         <h1>Best Developer in Australia (2026)</h1>
         <p>By Usama Javed | April 14, 2026</p>
         <p>
@@ -118,9 +124,13 @@ export default function DeveloperAustralia() {
           <p>Free 30-minute consultation. Available for immediate start across all Australian cities.</p>
           <a href="/contact">Book Free Consultation</a>
         </section>
-      </div>
+          </div>
 
-      <DeveloperAustraliaDive />
+          <DeveloperAustraliaDive />
+        </>
+      ) : (
+        <DeveloperAustraliaClassic />
+      )}
     </>
   );
 }

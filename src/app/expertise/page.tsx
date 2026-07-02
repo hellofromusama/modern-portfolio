@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
+import { getSpaceMode } from "@/lib/spaceMode";
 import { technicalExpertise, certifications } from "./expertiseData";
 import ExpertiseDive from "./ExpertiseDive";
+import ExpertiseClassic from "./ExpertiseClassic";
 
 export const metadata: Metadata = {
   title: "Technical Expertise & Specializations | Full Stack Development Mastery",
@@ -19,7 +21,8 @@ export const metadata: Metadata = {
   ],
 };
 
-export default function ExpertisePage() {
+export default async function ExpertisePage() {
+  const space = await getSpaceMode();
   const expertiseSchema = {
     "@context": "https://schema.org",
     "@type": "Person",
@@ -54,8 +57,11 @@ export default function ExpertisePage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(expertiseSchema) }}
       />
 
-      {/* Crawlable real-DOM copy — bots read what the canvas dive hides. */}
-      <div className="sr-only">
+      {space ? (
+        <>
+          {/* Crawlable real-DOM copy — bots read what the canvas dive hides.
+              Space mode only; the classic body is already crawlable. */}
+          <div className="sr-only">
         <h1>Technical Expertise &amp; Specializations</h1>
         <p>
           Master-level expertise in modern web technologies, AI integration, and enterprise solutions.
@@ -109,9 +115,13 @@ export default function ExpertisePage() {
           Get a free technical consultation to discuss how my expertise can solve your specific
           challenges. <a href="/contact">Schedule Expert Consultation</a>.
         </p>
-      </div>
+          </div>
 
-      <ExpertiseDive />
+          <ExpertiseDive />
+        </>
+      ) : (
+        <ExpertiseClassic />
+      )}
     </>
   );
 }
