@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
 
 interface NavStop {
   id: string;
@@ -38,6 +39,15 @@ const btn: React.CSSProperties = {
 export default function ShellHUD({ navStops }: { navStops: NavStop[] }) {
   const [alt, setAlt] = useState(false);
   const [audioOn, setAudioOn] = useState(false);
+  const router = useRouter();
+
+  // Clear the space-mode cookie (max-age=0) and refresh -> whole site returns to classic.
+  const exitSpace = useCallback(() => {
+    document.cookie =
+      "space-mode=off; path=/; max-age=0; samesite=lax" +
+      (location.protocol === "https:" ? "; secure" : "");
+    router.refresh();
+  }, [router]);
 
   const gaugeFillRef = useRef<HTMLDivElement>(null);
   const percentRef = useRef<HTMLSpanElement>(null);
@@ -218,6 +228,20 @@ export default function ShellHUD({ navStops }: { navStops: NavStop[] }) {
 
         {/* Top-right: theme + sound toggles */}
         <div style={{ display: "flex", gap: "0.75rem", alignItems: "center" }}>
+          <button
+            onClick={exitSpace}
+            aria-label="Return to classic site"
+            style={{
+              ...btn,
+              color: "#9aa1b2",
+              fontFamily: MONO,
+              fontSize: "0.68rem",
+              letterSpacing: "0.14em",
+              textTransform: "uppercase",
+            }}
+          >
+            ◄ Classic
+          </button>
           <button
             onClick={() => setAlt((a) => !a)}
             aria-label="Toggle theme accent"
