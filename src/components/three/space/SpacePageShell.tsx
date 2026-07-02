@@ -7,7 +7,7 @@ import { useAnimationGate } from "@/hooks/useAnimationGate";
 import { CAMERA_START_Z, FOV, SCROLL_VH } from "./spaceSpec";
 import { spaceFontVars } from "./spaceFonts";
 import SpaceBackground from "./SpaceBackground";
-import CameraRig from "./CameraRig";
+import ShellCameraRig from "./ShellCameraRig";
 import Planet from "./Planet";
 import Starfield from "./Starfield";
 import SpaceLighting from "./SpaceLighting";
@@ -77,6 +77,9 @@ export default function SpacePageShell({ stops, scrollVh = SCROLL_VH }: SpacePag
     .filter((s) => s.label)
     .map(({ id, label, anchor }) => ({ id, label, anchor }));
 
+  // Anchors of interactive stops (forms/CTAs) — the camera settles when parked here.
+  const interactiveAnchors = stops.filter((s) => s.interactive).map((s) => s.anchor);
+
   return (
     <div className={spaceFontVars}>
       {/* Fixed full-screen canvas layer. pointerEvents:auto so planet clicks/hover
@@ -102,7 +105,13 @@ export default function SpacePageShell({ stops, scrollVh = SCROLL_VH }: SpacePag
           <SpaceLighting />
           <pointLight ref={moveLight} color={0x88aaff} intensity={0.35} distance={200} decay={1.8} />
 
-          <CameraRig progress={progress} mouse={mouse} reduced={reduced} moveLight={moveLight} />
+          <ShellCameraRig
+            progress={progress}
+            mouse={mouse}
+            reduced={reduced}
+            moveLight={moveLight}
+            interactiveAnchors={interactiveAnchors}
+          />
 
           {/* Foreground twinkle stars (local canvas texture — no Suspense needed). */}
           <Starfield mouse={mouse} reduced={reduced} />

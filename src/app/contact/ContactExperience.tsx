@@ -351,6 +351,7 @@ export default function ContactExperience() {
       planet: { texture: "/space/2k_saturn.jpg", radius: 4.0, tint: 0xd8c79a, ring: true },
       contentWidth: "min(92vw, 1100px)",
       content: formPanel,
+      interactive: true, // settle the dive here so the form is stable to fill + submit
     },
   ];
 

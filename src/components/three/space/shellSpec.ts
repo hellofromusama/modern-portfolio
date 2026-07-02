@@ -30,6 +30,13 @@ export interface SpaceStop {
   /** Explicit CSS width for the <Html> panel (transformed ancestor is width-less). */
   contentWidth: string;
   content: ReactNode;
+  /**
+   * Interactive stops (forms, CTAs) SETTLE: when the camera is parked here the
+   * autonomous sway/bob + mouse parallax damp to ~still, so the panel holds steady
+   * and its controls are easy to click/type. Showcase stops omit this and keep the
+   * gentle drift.
+   */
+  interactive?: boolean;
 }
 
 /**
