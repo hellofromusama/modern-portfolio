@@ -1,35 +1,37 @@
 "use client";
 
-import { Suspense, useEffect, useMemo, useRef } from "react";
+import { Suspense, useEffect, useRef } from "react";
 import * as THREE from "three";
 import { Canvas } from "@react-three/fiber";
-import { useThemeColors } from "@/hooks/useThemeColors";
 import { useAnimationGate } from "@/hooks/useAnimationGate";
-import { CAMERA_START_Z, SCROLL_PAGES, SECTIONS } from "./waypoints";
-import type { SpaceSection } from "./waypoints";
+import { CAMERA_START_Z, FOV, PLANETS, SCROLL_VH } from "./spaceSpec";
+import { spaceFontVars } from "./spaceFonts";
 import SpaceBackground from "./SpaceBackground";
 import CameraRig from "./CameraRig";
-import Planet from "./Planet";
+import Planet, { Asteroids } from "./Planet";
 import SpaceHUD from "./SpaceHUD";
-import TeamSection from "@/components/TeamSection";
 import "./space-dom.css";
 
 /**
- * Dedicated single-GL-context host for the /space scroll experience (PROTOTYPE).
+ * Single-GL-context host for the /space Space-Journey experience.
  *
- * Native-scroll driven: a FIXED full-screen Canvas sits behind a tall transparent
- * spacer, so ordinary page scroll (window.scrollY) sets a 0..1 progress ref that
- * CameraRig reads to fly the camera. Owns a normalized mouse ref (Hero3D pattern)
- * and useAnimationGate gating (frameloop stops off-screen / tab-blur / reduced
- * motion). Scene colors flow from theme tokens via useThemeColors -> THREE.Color.
+ * A FIXED full-screen Canvas holds the whole cosmos; a tall transparent 640vh
+ * scroll driver gives the page its height so native scroll (window.scrollY) sets a
+ * 0..1 progress ref that CameraRig eases into the camera dive. Owns a normalized
+ * mouse ref (Hero3D pattern). The frameloop is gated on inView && tabVisible (NOT
+ * reduced-motion) so scroll still drives the camera under reduced motion — the
+ * `reduced` flag only kills AUTONOMOUS motion (sway/bob/spin/twinkle) downstream.
  */
 export default function SpaceExperience() {
   const wrapRef = useRef<HTMLDivElement>(null);
   const mouse = useRef({ x: 0, y: 0 });
   const progress = useRef(0);
+  const moveLight = useRef<THREE.PointLight>(null);
 
-  const { shouldAnimate, prefersReduced } = useAnimationGate(wrapRef);
-  const paused = !shouldAnimate || prefersReduced;
+  const { inView, tabVisible, prefersReduced } = useAnimationGate(wrapRef);
+  const reduced = prefersReduced;
+  // Frameloop decoupled from reduced-motion: scroll must still drive the dive.
+  const frameloop = inView && tabVisible ? "always" : "never";
 
   // Normalized -1..1 pointer in a ref (no re-renders) — read on the frame loop.
   useEffect(() => {
@@ -56,71 +58,53 @@ export default function SpaceExperience() {
     };
   }, []);
 
-  // Theme-color bridge: raw tokens -> THREE.Color, keyed on the resolved object.
-  const t = useThemeColors(["--accent-blue", "--accent-violet", "--accent-emerald"]);
-  const blue = useMemo(() => new THREE.Color(t["--accent-blue"] || "#60a5fa"), [t]);
-  const violet = useMemo(() => new THREE.Color(t["--accent-violet"] || "#a78bfa"), [t]);
-  const emerald = useMemo(() => new THREE.Color(t["--accent-emerald"] || "#34d399"), [t]);
-
-  // Resolve a section's accent token to its memoized THREE.Color.
-  const colorFor = useMemo(() => {
-    const map: Record<SpaceSection["colorVar"], THREE.Color> = {
-      "--accent-blue": blue,
-      "--accent-violet": violet,
-      "--accent-emerald": emerald,
-    };
-    return (v: SpaceSection["colorVar"]) => map[v];
-  }, [blue, violet, emerald]);
-
   return (
-    <>
-      {/* Fixed full-screen canvas layer (the cosmos stays put; the page scrolls).
-          pointerEvents:none so DOM links above stay clickable; zIndex:0 behind content. */}
+    <div className={spaceFontVars}>
+      {/* Fixed full-screen canvas layer. pointerEvents:auto so planet clicks/hover
+          and the floated <Html> panels (Task 4) work; the 640vh driver below stays
+          pointerEvents:none, and the HUD manages its own layer. */}
       <div
         ref={wrapRef}
         style={{
           position: "fixed",
           inset: 0,
-          background: "var(--bg-primary)",
+          background: "#05060a",
           zIndex: 0,
-          pointerEvents: "none",
+          pointerEvents: "auto",
         }}
       >
         <Canvas
           dpr={[1, 2]}
           gl={{ antialias: true, powerPreference: "high-performance" }}
-          frameloop={shouldAnimate ? "always" : "never"}
-          camera={{ position: [0, 0, CAMERA_START_Z], fov: 60 }}
+          frameloop={frameloop}
+          camera={{ position: [0, 0, CAMERA_START_Z], fov: FOV, near: 0.1, far: 3000 }}
         >
-          <ambientLight intensity={0.35} />
-          <pointLight position={[0, 0, 6]} intensity={30} color={blue} />
+          {/* Temporary lights — the full lighting rig (SpaceLighting) lands in Task 3. */}
+          <ambientLight color={0x556680} intensity={0.7} />
+          <pointLight ref={moveLight} color={0x88aaff} intensity={0.35} distance={200} decay={1.8} />
 
-          <CameraRig progress={progress} mouse={mouse} paused={paused} />
+          <CameraRig progress={progress} mouse={mouse} reduced={reduced} moveLight={moveLight} />
 
-          {/* Texture-consuming nodes suspend (useTexture) — R3F does NOT wrap
-              children in Suspense automatically, so provide one here. */}
+          {/* Texture consumers suspend (useTexture) — provide the boundary here. */}
           <Suspense fallback={null}>
-            <SpaceBackground />
-            {SECTIONS.map((s) => (
-              <Planet key={s.id} section={s} color={colorFor(s.colorVar)} paused={paused} />
+            <SpaceBackground reduced={reduced} />
+            {PLANETS.map((p) => (
+              <Planet key={p.id} spec={p} reduced={reduced} />
             ))}
+            <Asteroids reduced={reduced} />
+            {/* Task 4 inserts <SpaceContent /> here (floated <Html> sections). */}
           </Suspense>
+          {/* Task 3 inserts <SpaceLighting /> + <Starfield /> here. */}
         </Canvas>
       </div>
 
-      {/* Real content scroll layer (zIndex:1 above the fixed cosmos) — the verbatim
-          TeamSection drives the scroll length. The scoped space-dom.css transparent-izes
-          only its <section> shell so the cosmos shows through. */}
-      <div className="space-dom-content" style={{ position: "relative", zIndex: 1 }}>
-        {/* intro spacer: reveal the cosmos before content scrolls in */}
-        <div style={{ height: "80vh", pointerEvents: "none" }} aria-hidden />
-        <TeamSection />
-        {/* outro spacer: keep flying past the remaining planets */}
-        <div style={{ height: `${(SCROLL_PAGES - 1) * 100}vh`, pointerEvents: "none" }} aria-hidden />
-      </div>
+      {/* Tall transparent scroll driver — gives the page its scroll height. Content
+          now lives inside the Canvas via <Html> (Task 4). */}
+      <div style={{ height: `${SCROLL_VH}vh`, pointerEvents: "none" }} aria-hidden />
 
-      {/* DOM HUD — fixed overlay on top; reads --space-scroll set by CameraRig. */}
+      {/* DOM HUD — fixed overlay; reads --space-scroll set by CameraRig. */}
       <SpaceHUD />
-    </>
+      {/* Task 5 inserts <SpaceLoader /> here. */}
+    </div>
   );
 }

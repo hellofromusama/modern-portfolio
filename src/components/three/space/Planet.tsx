@@ -1,69 +1,204 @@
 "use client";
 
-import { useRef } from "react";
+import { useMemo, useRef } from "react";
 import * as THREE from "three";
-import { useFrame } from "@react-three/fiber";
-import { Float, useTexture } from "@react-three/drei";
-import type { SpaceSection } from "./waypoints";
+import { useFrame, type ThreeEvent } from "@react-three/fiber";
+import { useTexture } from "@react-three/drei";
+import {
+  ASTEROIDS,
+  SATURN_RING_TEXTURE,
+  type PlanetSpec,
+} from "./spaceSpec";
+
+// Soft radial-gradient sprite texture (white core -> transparent), built ONCE and
+// shared by every planet glow. Client-only (document) — /space is dynamic ssr:false.
+let glowTex: THREE.CanvasTexture | null = null;
+function getGlowTexture(): THREE.CanvasTexture {
+  if (glowTex) return glowTex;
+  const size = 128;
+  const canvas = document.createElement("canvas");
+  canvas.width = canvas.height = size;
+  const ctx = canvas.getContext("2d")!;
+  const grad = ctx.createRadialGradient(size / 2, size / 2, 0, size / 2, size / 2, size / 2);
+  grad.addColorStop(0, "rgba(255,255,255,1)");
+  grad.addColorStop(0.25, "rgba(255,255,255,0.5)");
+  grad.addColorStop(1, "rgba(255,255,255,0)");
+  ctx.fillStyle = grad;
+  ctx.fillRect(0, 0, size, size);
+  glowTex = new THREE.CanvasTexture(canvas);
+  glowTex.colorSpace = THREE.SRGBColorSpace;
+  return glowTex;
+}
+
+// Smooth-scroll the page to a section anchor t (click-to-fly / nav share this).
+function flyToAnchor(anchor: number) {
+  const max = document.documentElement.scrollHeight - window.innerHeight;
+  window.scrollTo({ top: anchor * max, behavior: "smooth" });
+}
+
+/** Saturn's ring: a flat ring with UVs remapped radially so the color strip maps
+ *  across the ring width. Separate component so useTexture stays unconditional. */
+function SaturnRing({ radius }: { radius: number }) {
+  const ringTex = useTexture(SATURN_RING_TEXTURE);
+  ringTex.colorSpace = THREE.SRGBColorSpace;
+
+  const geo = useMemo(() => {
+    const inner = radius * 1.35;
+    const outer = radius * 2.35;
+    const g = new THREE.RingGeometry(inner, outer, 110);
+    const pos = g.attributes.position;
+    const uv = g.attributes.uv;
+    const v = new THREE.Vector3();
+    for (let i = 0; i < pos.count; i++) {
+      v.fromBufferAttribute(pos, i);
+      const r = v.length();
+      uv.setXY(i, (r - inner) / (outer - inner), 0.5);
+    }
+    uv.needsUpdate = true;
+    return g;
+  }, [radius]);
+
+  return (
+    <mesh geometry={geo} rotation={[Math.PI / 2, 0, 0]}>
+      <meshBasicMaterial map={ringTex} side={THREE.DoubleSide} transparent opacity={0.92} />
+    </mesh>
+  );
+}
 
 interface PlanetProps {
-  section: SpaceSection;
-  /** Theme-resolved color (THREE.Color) for this waypoint's accent token. */
-  color: THREE.Color | string;
-  /** When true, Float + self-rotation stop (off-screen / tab-blur / reduced-motion). */
-  paused: boolean;
+  spec: PlanetSpec;
+  /** prefers-reduced-motion: freeze axial spin + vertical bob. */
+  reduced: boolean;
 }
 
 /**
- * A real photo-textured planet at a waypoint (Solar System Scope diffuse map).
+ * A real photo-textured planet at its spec world position.
  *
- * Wrapped in drei <Float> for weightless drift, with a slow self-rotation in
- * useFrame. The body wears a real SRGB diffuse map (emissive OFF so the photo
- * shows), lit by the scene environment + pointLight. A larger faint additive
- * halo shell fakes an atmospheric glow and keeps the theme accent (color prop).
+ * A group (bob) contains a child TILT group (random axial tilt) holding the body
+ * (SRGB diffuse, roughness 0.92 / metalness 0.02) and, for Saturn, the ring. If the
+ * spec has a tint it also gets a back-side additive atmosphere shell + a soft
+ * additive radial glow sprite. The body spins on its axis and the group bobs
+ * vertically. Clicking the body flies the camera to that section's anchor; hover
+ * shows a pointer cursor. Explicit tilt/spin/bob (NOT drei <Float>) per spec.
  */
-export default function Planet({ section, color, paused }: PlanetProps) {
-  const mesh = useRef<THREE.Mesh>(null);
+export default function Planet({ spec, reduced }: PlanetProps) {
+  const groupRef = useRef<THREE.Group>(null);
+  const bodyRef = useRef<THREE.Mesh>(null);
 
-  // Real diffuse map. useTexture does NOT set color space — do it explicitly, or
-  // the photo renders dull/grey. Inline assignment on the returned texture is fine.
-  const map = useTexture(section.texture);
+  const map = useTexture(spec.texture);
   map.colorSpace = THREE.SRGBColorSpace;
 
-  useFrame((_, delta) => {
-    if (paused || !mesh.current) return;
-    mesh.current.rotation.y += delta * 0.2;
+  // Seed random tilt / spin rate / bob phase ONCE so they are stable across renders.
+  const seed = useMemo(
+    () => ({
+      tiltZ: 0.12 + Math.random() * 0.4,
+      spin: 0.0016 + Math.random() * 0.0022,
+      phase: Math.random() * Math.PI * 2,
+    }),
+    []
+  );
+
+  const y0 = spec.position[1];
+  const glow = spec.tint !== null ? getGlowTexture() : null;
+
+  useFrame((state) => {
+    const g = groupRef.current;
+    const b = bodyRef.current;
+    if (reduced || !g || !b) return;
+    b.rotation.y += seed.spin;
+    b.rotation.x += seed.spin * 0.35;
+    g.position.y = y0 + Math.sin(state.clock.elapsedTime * 0.5 + seed.phase) * 0.5;
   });
 
   return (
-    <Float
-      speed={1.2}
-      rotationIntensity={0.5}
-      floatIntensity={0.8}
-      enabled={!paused}
-      position={section.position}
-    >
-      <mesh ref={mesh}>
-        <sphereGeometry args={[2.2, 48, 48]} />
-        <meshStandardMaterial
-          map={map}
-          emissiveIntensity={0}
-          roughness={0.4}
-          metalness={0.1}
-        />
-      </mesh>
+    <group ref={groupRef} position={spec.position}>
+      {/* Tilt group — body + ring share the random axial tilt. */}
+      <group rotation={[0, 0, seed.tiltZ]}>
+        <mesh
+          ref={bodyRef}
+          onClick={(e: ThreeEvent<MouseEvent>) => {
+            e.stopPropagation();
+            flyToAnchor(spec.anchor);
+          }}
+          onPointerOver={(e: ThreeEvent<PointerEvent>) => {
+            e.stopPropagation();
+            document.body.style.cursor = "pointer";
+          }}
+          onPointerOut={() => {
+            document.body.style.cursor = "";
+          }}
+        >
+          <sphereGeometry args={[spec.radius, 64, 48]} />
+          <meshStandardMaterial map={map} roughness={0.92} metalness={0.02} />
+        </mesh>
 
-      {/* Faint additive halo shell — atmospheric glow. */}
-      <mesh>
-        <sphereGeometry args={[2.7, 32, 32]} />
-        <meshBasicMaterial
-          color={color}
-          transparent
-          opacity={0.12}
-          blending={THREE.AdditiveBlending}
-          depthWrite={false}
-        />
-      </mesh>
-    </Float>
+        {spec.ring && <SaturnRing radius={spec.radius} />}
+      </group>
+
+      {spec.tint !== null && (
+        <>
+          {/* Atmosphere shell — back-side additive glow tinted to the planet. */}
+          <mesh>
+            <sphereGeometry args={[spec.radius * 1.04, 48, 32]} />
+            <meshBasicMaterial
+              color={spec.tint}
+              transparent
+              opacity={0.16}
+              side={THREE.BackSide}
+              blending={THREE.AdditiveBlending}
+              depthWrite={false}
+            />
+          </mesh>
+
+          {/* Soft radial glow sprite. */}
+          {glow && (
+            <sprite scale={[spec.radius * 3.0, spec.radius * 3.0, 1]}>
+              <spriteMaterial
+                map={glow}
+                color={spec.tint}
+                transparent
+                opacity={0.26}
+                blending={THREE.AdditiveBlending}
+                depthWrite={false}
+              />
+            </sprite>
+          )}
+        </>
+      )}
+    </group>
+  );
+}
+
+/**
+ * The Projects asteroid field — 8 seeded rock bodies (radii 1.0–2.8, x ±15, y ±10,
+ * z −104..−150) cycling the 3 rock textures, all sharing the Projects anchor 0.6 for
+ * click-to-fly. Seeds are memoized once so they never jump between renders.
+ */
+export function Asteroids({ reduced }: { reduced: boolean }) {
+  const specs = useMemo<PlanetSpec[]>(() => {
+    const arr: PlanetSpec[] = [];
+    for (let i = 0; i < ASTEROIDS.count; i++) {
+      arr.push({
+        id: `asteroid-${i}`,
+        texture: ASTEROIDS.textures[i % ASTEROIDS.textures.length],
+        radius: 1.0 + Math.random() * 1.8,
+        position: [
+          (Math.random() - 0.5) * 30,
+          (Math.random() - 0.5) * 20,
+          -104 - Math.random() * 46,
+        ],
+        tint: null,
+        anchor: ASTEROIDS.anchor,
+      });
+    }
+    return arr;
+  }, []);
+
+  return (
+    <>
+      {specs.map((s) => (
+        <Planet key={s.id} spec={s} reduced={reduced} />
+      ))}
+    </>
   );
 }
