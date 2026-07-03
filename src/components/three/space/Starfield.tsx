@@ -4,6 +4,8 @@ import { useMemo, useRef } from "react";
 import type { RefObject } from "react";
 import * as THREE from "three";
 import { useFrame } from "@react-three/fiber";
+import ShootingStars from "./ShootingStars";
+import { warp } from "./warpState";
 
 /**
  * Two foreground THREE.Points star layers (mid + near) over the photo sky.
@@ -131,6 +133,66 @@ function StarLayer({ cfg, softTex, mouse, reduced }: StarLayerProps) {
   );
 }
 
+/**
+ * Warp-speed streak layer — ONE lineSegments built once (~240 segments at MID-like
+ * star positions, each stretched 16 units along the travel/z axis, vertexColors
+ * bright-head -> dim-tail). The only per-frame work is a single material-opacity
+ * write from warp.intensity (fed by the mounted camera rig) — branchless per-star,
+ * no geometry updates.
+ */
+const STREAK_COUNT = 240;
+const STREAK_LEN = 16;
+
+function WarpStreaks({ reduced }: { reduced: boolean }) {
+  const matRef = useRef<THREE.LineBasicMaterial>(null);
+
+  const geometry = useMemo(() => {
+    const positions = new Float32Array(STREAK_COUNT * 6);
+    const colors = new Float32Array(STREAK_COUNT * 6);
+    for (let i = 0; i < STREAK_COUNT; i++) {
+      const x = (Math.random() - 0.5) * 460;
+      const y = (Math.random() - 0.5) * 460;
+      const z = -280 + Math.random() * 330;
+      positions[i * 6] = x;
+      positions[i * 6 + 1] = y;
+      positions[i * 6 + 2] = z + STREAK_LEN; // head (toward the camera)
+      positions[i * 6 + 3] = x;
+      positions[i * 6 + 4] = y;
+      positions[i * 6 + 5] = z; // tail
+      // Near-white head vertex -> dim tail vertex.
+      colors[i * 6] = 0.8;
+      colors[i * 6 + 1] = 0.86;
+      colors[i * 6 + 2] = 1.0;
+      colors[i * 6 + 3] = 0.08;
+      colors[i * 6 + 4] = 0.1;
+      colors[i * 6 + 5] = 0.16;
+    }
+    const g = new THREE.BufferGeometry();
+    g.setAttribute("position", new THREE.BufferAttribute(positions, 3));
+    g.setAttribute("color", new THREE.BufferAttribute(colors, 3));
+    return g;
+  }, []);
+
+  useFrame(() => {
+    const mat = matRef.current;
+    if (!mat) return;
+    mat.opacity = reduced ? 0 : warp.intensity * 0.5;
+  });
+
+  return (
+    <lineSegments geometry={geometry} frustumCulled={false}>
+      <lineBasicMaterial
+        ref={matRef}
+        vertexColors
+        transparent
+        opacity={0}
+        blending={THREE.AdditiveBlending}
+        depthWrite={false}
+      />
+    </lineSegments>
+  );
+}
+
 interface StarfieldProps {
   mouse: RefObject<{ x: number; y: number }>;
   reduced: boolean;
@@ -142,6 +204,8 @@ export default function Starfield({ mouse, reduced }: StarfieldProps) {
     <>
       <StarLayer cfg={MID} softTex={softTex} mouse={mouse} reduced={reduced} />
       <StarLayer cfg={NEAR} softTex={softTex} mouse={mouse} reduced={reduced} />
+      <WarpStreaks reduced={reduced} />
+      <ShootingStars softTex={softTex} reduced={reduced} />
     </>
   );
 }

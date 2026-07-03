@@ -5,6 +5,7 @@ import { useRef } from "react";
 import * as THREE from "three";
 import { useFrame } from "@react-three/fiber";
 import { CAMERA_END_Z, CAMERA_START_Z } from "./spaceSpec";
+import { updateWarp } from "./warpState";
 
 interface ShellCameraRigProps {
   progress: RefObject<number>;
@@ -35,6 +36,7 @@ export default function ShellCameraRig({
   useFrame((state, delta) => {
     const target = progress.current;
     tRef.current += (target - tRef.current) * (reduced ? 0.5 : 0.07);
+    updateWarp(tRef.current, delta);
     const t = tRef.current;
     const time = state.clock.elapsedTime;
     const mouseX = mouse.current.x;
