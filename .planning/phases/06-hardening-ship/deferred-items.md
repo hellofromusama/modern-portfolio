@@ -10,3 +10,11 @@ Out-of-scope discoveries logged during execution. These are NOT fixed in their d
   - **Recommendation:** Address as a small dedicated cleanup (move `viewport`/`themeColor`/`colorScheme` into `export const viewport: Viewport` in `layout.tsx` and any per-page overrides) in 06-08 polish or a follow-up. No functional or SEO impact today.
 
 - **`images.domains` deprecation** (pre-existing, flagged out of scope by the 06-07 plan context): Next.js recommends `images.remotePatterns` over `images.domains`. Left untouched per plan directive.
+
+## quick-260703-l5n — Pre-existing hydration mismatch under prefers-reduced-motion
+
+- **React error #418 (`<html>` hydration mismatch) when `prefers-reduced-motion: reduce` is emulated.** During the 260703-l5n Playwright smoke, loading `/` under `reducedMotion: 'reduce'` throws `Minified React error #418; ...args[]=HTML` as a pageerror — in BOTH space mode AND classic mode (no space/scene code mounted), on the prod build.
+  - **Status:** PRE-EXISTING and unrelated to the 260703-l5n scene changes (all of which live inside the `ssr:false` R3F canvas and cannot alter SSR HTML). Proven by the classic-mode reproduction where none of the changed files load.
+  - **Likely source:** something reconciling an attribute/class on `<html>` differently when the reduced-motion media query matches during hydration (args point at the `HTML` element).
+  - **Impact:** Console error only under reduced-motion; page renders fully and scroll still works (smoke (d) brightness/interaction checks pass).
+  - **Recommendation:** Dedicated small debug task — reproduce with a dev build under `page.emulateMedia({ reducedMotion: 'reduce' })` to get the full mismatch diff.
