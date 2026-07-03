@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import ConditionalFooter from "@/components/ConditionalFooter";
+import SpaceModeLauncher from "@/components/SpaceModeLauncher";
 import { buildItemListSchema } from "@/content/seo";
 
 const geistSans = Geist({
@@ -605,6 +606,7 @@ export default function RootLayout({
           {children}
         </div>
         <ConditionalFooter />
+        <SpaceModeLauncher />
       </body>
     </html>
   );

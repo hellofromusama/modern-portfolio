@@ -1,0 +1,200 @@
+/* Scoped styling for the /space Space-Journey floated content. Wrapper-only glass
+   design — the reused CONTENT TEXT is never changed. Nothing here touches the live
+   homepage or shared components (reuse-by-import only). */
+
+/* Transparent-ize any reused <section> shell (legacy prototype scope + the floated
+   panels) so the cosmos shows through. A stylesheet !important beats inline bg. */
+.space-dom-content > section,
+.space-panel section,
+.space-team section {
+  background: transparent !important;
+}
+
+/* STICKY FIX (Team): the transformed <Html> ancestor resolves `position: sticky`
+   against itself (no viewport, no height), which collapses TeamSection's lg:sticky
+   photo column. Force it static so the 2-col layout renders inside the width-bounded
+   panel — WITHOUT editing TeamSection.tsx. */
+.space-team .sticky,
+.space-team [class*="sticky"] {
+  position: relative !important;
+  top: auto !important;
+}
+
+/* ---- Typography base on every floated panel ---- */
+.space-html {
+  font-family: var(--font-inter), system-ui, sans-serif;
+  color: #ece9e4;
+  -webkit-font-smoothing: antialiased;
+}
+
+.space-mono {
+  font-family: var(--font-jetbrains-mono), ui-monospace, monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  font-size: 0.7rem;
+  color: #9aa1b2;
+  margin: 0;
+}
+
+.space-h1 {
+  font-family: var(--font-space-grotesk), system-ui, sans-serif;
+  font-weight: 700;
+  font-size: clamp(2.4rem, 6vw, 3.6rem);
+  color: #f0eee9;
+  margin: 0.4rem 0;
+  letter-spacing: -0.02em;
+}
+
+.space-h2 {
+  font-family: var(--font-space-grotesk), system-ui, sans-serif;
+  font-weight: 600;
+  font-size: clamp(1.6rem, 4vw, 2.2rem);
+  color: #f0eee9;
+  margin: 0.2rem 0 0.6rem;
+  letter-spacing: -0.01em;
+}
+
+.space-sub {
+  font-size: 1.1rem;
+  color: #f0eee9;
+  margin: 0.2rem 0;
+  font-weight: 500;
+}
+.space-body {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #ece9e4;
+  margin: 0.4rem 0;
+}
+
+/* ---- Glass panel ---- */
+.space-panel {
+  background: rgba(18, 22, 36, 0.38);
+  -webkit-backdrop-filter: blur(18px) saturate(1.25);
+  backdrop-filter: blur(18px) saturate(1.25);
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  border-radius: 22px;
+  padding: 2rem 2.25rem;
+}
+
+.space-hero {
+  text-align: left;
+}
+.space-eyebrow {
+  margin-bottom: 0.6rem;
+}
+.space-hint {
+  margin-top: 1.2rem;
+  letter-spacing: 0.24em;
+  color: #8b93a6;
+}
+
+/* ---- Chips (pills) ---- */
+.space-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+.space-chip {
+  font-size: 0.75rem;
+  padding: 0.35rem 0.85rem;
+  border-radius: 100px;
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  background: rgba(255, 255, 255, 0.04);
+  color: #ece9e4;
+}
+
+/* ---- Section head + wide containers ---- */
+.space-wide {
+  width: 100%;
+}
+.space-section-head {
+  margin-bottom: 1.25rem;
+}
+
+/* ---- Grids ---- */
+.space-grid {
+  display: grid;
+  gap: 1rem;
+}
+.space-grid-skills {
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+}
+.space-grid-projects {
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+}
+
+/* ---- Skill card ---- */
+.space-card {
+  background: rgba(18, 22, 36, 0.38);
+  -webkit-backdrop-filter: blur(18px) saturate(1.25);
+  backdrop-filter: blur(18px) saturate(1.25);
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  border-radius: 16px;
+  padding: 1.1rem 1.25rem;
+}
+.space-card-label {
+  margin-bottom: 0.6rem;
+  letter-spacing: 0.14em;
+}
+.space-card-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+.space-card-list li {
+  font-size: 0.85rem;
+  color: #ece9e4;
+}
+
+/* ---- Project card (hover lift +14px / scale 1.04 / accent glow) ---- */
+.space-proj-card {
+  background: rgba(18, 22, 36, 0.38);
+  -webkit-backdrop-filter: blur(18px) saturate(1.25);
+  backdrop-filter: blur(18px) saturate(1.25);
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  border-radius: 18px;
+  padding: 1.25rem 1.4rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  will-change: transform;
+}
+.space-proj-card:hover {
+  transform: translateY(-14px) scale(1.04);
+  border-color: var(--card-accent, #60a5fa);
+  box-shadow: 0 18px 50px -12px var(--card-accent, #60a5fa);
+}
+.space-proj-title {
+  font-family: var(--font-space-grotesk), system-ui, sans-serif;
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: #f0eee9;
+  margin: 0.4rem 0;
+}
+.space-proj-desc {
+  color: #cfd3dd;
+}
+
+/* ---- Contact ---- */
+.space-cta {
+  display: inline-block;
+  margin: 1rem 0 0.75rem;
+  padding: 0.75rem 1.4rem;
+  border-radius: 100px;
+  font-weight: 600;
+  color: #05060a;
+  text-decoration: none;
+  background: linear-gradient(90deg, #60a5fa, #a78bfa);
+}
+.space-links {
+  color: #9aa1b2;
+  font-size: 0.9rem;
+  margin: 0.5rem 0;
+}
+.space-footer {
+  margin-top: 1rem;
+  letter-spacing: 0.24em;
+}
