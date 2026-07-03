@@ -47,6 +47,12 @@ function accentStyle(accent: string): CSSProperties {
   return { "--card-accent": accent } as CSSProperties;
 }
 
+// Smooth camera dive to a section anchor — the exact SpaceHUD flyTo pattern.
+function flyTo(anchor: number) {
+  const max = document.documentElement.scrollHeight - window.innerHeight;
+  window.scrollTo({ top: anchor * max, behavior: "smooth" });
+}
+
 function HeroContent() {
   return (
     <div className="space-panel space-hero">
@@ -60,6 +66,14 @@ function HeroContent() {
         <span className="space-chip">50+ Projects</span>
         <span className="space-chip">8+ Years</span>
         <span className="space-chip">20+ Technologies</span>
+      </div>
+      <div>
+        <button className="space-cta space-cta-btn" onClick={() => flyTo(0.6)}>
+          View My Work
+        </button>
+        <button className="space-cta-secondary" onClick={() => flyTo(1.0)}>
+          Get In Touch
+        </button>
       </div>
       <p className="space-mono space-hint">SCROLL TO DIVE · CLICK A PLANET TO TRAVEL ↓</p>
     </div>
@@ -127,13 +141,20 @@ function ProjectsContent() {
           if (!p) return null;
           const accent = ACCENT_CYCLE[i % ACCENT_CYCLE.length];
           return (
-            <div key={id} className="space-proj-card" style={accentStyle(accent)}>
+            // Plain <a> (not Link): a full page load re-reads the space-mode cookie
+            // server-side, so the target /projects/[id] renders as a dive.
+            <a
+              key={id}
+              href={`/projects/${id}`}
+              className="space-proj-card"
+              style={accentStyle(accent)}
+            >
               <p className="space-mono space-card-label" style={{ color: accent }}>
                 {p.gridCategory}
               </p>
               <h3 className="space-proj-title">{p.gridTitle}</h3>
               <p className="space-body space-proj-desc">{p.gridDescription}</p>
-            </div>
+            </a>
           );
         })}
       </div>
@@ -158,10 +179,23 @@ function ContactContent() {
       <p className="space-mono space-card-label">05 — FINAL APPROACH</p>
       <h2 className="space-h2">Let&apos;s work together</h2>
       <p className="space-body">Have a mission in mind? Let&apos;s build something that travels well.</p>
-      <a className="space-cta" href="mailto:hello@usamajaved.com.au">
-        hello@usamajaved.com.au →
+      <a className="space-cta" href="mailto:hellofromusama@gmail.com">
+        hellofromusama@gmail.com →
       </a>
-      <p className="space-links">GitHub · LinkedIn · X</p>
+      <p className="space-links">
+        <a href="https://github.com/hellofromusama" target="_blank" rel="noopener noreferrer">
+          GitHub
+        </a>{" "}
+        ·{" "}
+        <a
+          href="https://www.linkedin.com/in/hellofromusama/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          LinkedIn
+        </a>{" "}
+        · <a href="mailto:hellofromusama@gmail.com">Email</a>
+      </p>
       <p className="space-mono space-footer">50+ PROJECTS DELIVERED · 100% CLIENT SATISFACTION</p>
     </div>
   );

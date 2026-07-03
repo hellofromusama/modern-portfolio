@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { SECTION_ANCHORS } from "./spaceSpec";
+import SpacePagesMenu from "./SpacePagesMenu";
 
 // Nav links = sections with a label (Hero has none).
 const NAV = SECTION_ANCHORS.filter((s) => s.label);
@@ -148,6 +149,7 @@ export default function SpaceHUD() {
     >
       {/* Top bar */}
       <div
+        className="space-hud-topbar"
         style={{
           display: "flex",
           alignItems: "center",
@@ -173,6 +175,7 @@ export default function SpaceHUD() {
             UJ
           </span>
           <span
+            className="space-hud-sub"
             style={{
               fontFamily: MONO,
               fontSize: "0.62rem",
@@ -190,6 +193,7 @@ export default function SpaceHUD() {
 
         {/* Top-center: glass nav */}
         <nav
+          className="space-hud-nav"
           style={{
             display: "flex",
             gap: "1.25rem",
@@ -222,8 +226,9 @@ export default function SpaceHUD() {
           ))}
         </nav>
 
-        {/* Top-right: theme + sound toggles */}
+        {/* Top-right: pages menu + theme + sound toggles */}
         <div style={{ display: "flex", gap: "0.75rem", alignItems: "center" }}>
+          <SpacePagesMenu />
           <button
             onClick={exitSpace}
             aria-label="Return to classic site"
@@ -257,6 +262,7 @@ export default function SpaceHUD() {
 
       {/* Right edge: vertical FLIGHT gauge + percent */}
       <div
+        className="space-hud-gauge"
         style={{
           position: "absolute",
           right: "1.5rem",

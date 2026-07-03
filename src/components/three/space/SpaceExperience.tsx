@@ -38,13 +38,34 @@ export default function SpaceExperience() {
   const frameloop = inView && tabVisible ? "always" : "never";
 
   // Normalized -1..1 pointer in a ref (no re-renders) — read on the frame loop.
+  // Touch parallax MUST be window-level: the tall scroll driver is pointerEvents:none
+  // and the canvas wrapper sits behind it, so touches land on the document. Listeners
+  // are passive with NO preventDefault — native scroll IS the dive.
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
       mouse.current.x = (e.clientX / window.innerWidth) * 2 - 1;
       mouse.current.y = -(e.clientY / window.innerHeight) * 2 + 1;
     };
+    const handleTouch = (e: TouchEvent) => {
+      const t = e.touches[0];
+      if (!t) return;
+      mouse.current.x = (t.clientX / window.innerWidth) * 2 - 1;
+      mouse.current.y = -(t.clientY / window.innerHeight) * 2 + 1;
+      // Smoke observability: one cheap DOM write per finger move (touch only);
+      // nothing reads this per-frame.
+      document.documentElement.style.setProperty(
+        "--space-touch-x",
+        mouse.current.x.toFixed(3)
+      );
+    };
     window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
+    window.addEventListener("touchstart", handleTouch, { passive: true });
+    window.addEventListener("touchmove", handleTouch, { passive: true });
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("touchstart", handleTouch);
+      window.removeEventListener("touchmove", handleTouch);
+    };
   }, []);
 
   // Native scroll -> 0..1 progress ref (passive; no re-render). Drives CameraRig.
