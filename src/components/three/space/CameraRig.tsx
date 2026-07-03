@@ -5,6 +5,7 @@ import { useRef } from "react";
 import * as THREE from "three";
 import { useFrame } from "@react-three/fiber";
 import { CAMERA_END_Z, CAMERA_START_Z } from "./spaceSpec";
+import { updateWarp } from "./warpState";
 
 interface CameraRigProps {
   /** Native-scroll progress 0..1 (updated by SpaceExperience's scroll listener). */
@@ -29,9 +30,10 @@ interface CameraRigProps {
 export default function CameraRig({ progress, mouse, reduced, moveLight }: CameraRigProps) {
   const tRef = useRef(0);
 
-  useFrame((state) => {
+  useFrame((state, delta) => {
     const target = progress.current;
     tRef.current += (target - tRef.current) * (reduced ? 0.5 : 0.07);
+    updateWarp(tRef.current, delta);
     const t = tRef.current;
     const time = state.clock.elapsedTime;
     const mouseX = mouse.current.x;
