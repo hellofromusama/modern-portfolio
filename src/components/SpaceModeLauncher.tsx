@@ -1,38 +1,38 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 
 /**
  * Global floating "Space Mode" ENTER launcher — mounted once in the root layout so
  * it appears on EVERY classic page (including nav-less routes like /services, /blog).
  *
- * SSR-safe by design: server render + first client render both produce `null` (the
- * mounted-guard, mirroring ThemeToggle), so there is NO hydration mismatch. The
- * cookie read AFTER mount governs ONLY this launcher's own visibility (chrome) — it
- * NEVER decides the page render. Page mode is decided SSR by getSpaceMode() in each
- * wrapper. Clicking writes the space-mode cookie + router.refresh() (no full reload).
+ * SSR-safe: server render + first client render both produce `null` (mounted-guard,
+ * like ThemeToggle) -> no hydration mismatch. It hides whenever the space experience
+ * is showing — the always-space `/space` route, or any route carrying the space-mode
+ * cookie. Entering does a FULL page reload (NOT router.refresh) so every persistent
+ * layout island — this launcher AND the classic footer + fund-me widget — re-reads
+ * the cookie and disappears; the space HUD's "Classic" button owns the exit.
  */
 export default function SpaceModeLauncher() {
   const [mounted, setMounted] = useState(false);
   const [inSpace, setInSpace] = useState(false);
-  const router = useRouter();
+  const pathname = usePathname();
 
   useEffect(() => {
     setInSpace(document.cookie.split("; ").some((c) => c === "space-mode=on"));
     setMounted(true);
   }, []);
 
-  // Chrome only: render nothing until mounted (identical to SSR markup -> no
-  // hydration mismatch), and hide when a fresh load lands in space mode (the space
-  // HUD owns the exit control).
-  if (!mounted || inSpace) return null;
+  // Chrome only: nothing until mounted (matches SSR markup), and hidden whenever the
+  // space experience is on screen (the /space route or a space-mode cookie).
+  if (!mounted || inSpace || pathname === "/space") return null;
 
   const enter = () => {
     document.cookie = `space-mode=on; path=/; max-age=${60 * 60 * 24 * 365}; samesite=lax${
       location.protocol === "https:" ? "; secure" : ""
     }`;
-    router.refresh();
+    window.location.reload();
   };
 
   return (
@@ -44,7 +44,6 @@ export default function SpaceModeLauncher() {
         background: "var(--bg-elevated)",
         color: "var(--text-secondary)",
         border: "1px solid var(--border-default)",
-        opacity: mounted ? 1 : 0,
       }}
     >
       Space Mode

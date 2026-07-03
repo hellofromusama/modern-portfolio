@@ -1,7 +1,6 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import { useRouter } from "next/navigation";
 import { SECTION_ANCHORS } from "./spaceSpec";
 
 // Nav links = sections with a label (Hero has none).
@@ -35,15 +34,16 @@ const btn: React.CSSProperties = {
 export default function SpaceHUD() {
   const [alt, setAlt] = useState(false);
   const [audioOn, setAudioOn] = useState(false);
-  const router = useRouter();
 
-  // Clear the space-mode cookie (max-age=0) and refresh -> whole site returns to classic.
+  // Clear the space-mode cookie (max-age=0) and FULL-reload -> whole site returns to
+  // classic. A reload (not router.refresh) re-mounts the persistent layout islands so
+  // the "Space Mode" launcher + classic footer/widget reappear instead of staying stale.
   const exitSpace = useCallback(() => {
     document.cookie =
       "space-mode=off; path=/; max-age=0; samesite=lax" +
       (location.protocol === "https:" ? "; secure" : "");
-    router.refresh();
-  }, [router]);
+    window.location.reload();
+  }, []);
 
   const gaugeFillRef = useRef<HTMLDivElement>(null);
   const percentRef = useRef<HTMLSpanElement>(null);
