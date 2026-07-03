@@ -240,6 +240,45 @@ a.space-proj-card {
   letter-spacing: 0.24em;
 }
 
+/* ---- Scroll logo morph: "Usama Javed" -> "UJ" as the dive progresses.
+   Class toggled by the HUD rAF loops (hysteresis 0.05/0.03); server-rendered
+   state = expanded (no class). ---- */
+.space-logo-grad {
+  background: linear-gradient(90deg, #60a5fa, #a78bfa);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+.space-logo-seg {
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+  vertical-align: bottom;
+  max-width: 5em;
+  opacity: 1;
+  transition: max-width 0.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s ease;
+}
+.space-logo-collapsed .space-logo-seg {
+  max-width: 0;
+  opacity: 0;
+}
+/* While the wordmark is expanded, the stacked "Usama Javed / Creative Dev" label
+   is redundant — fade it out (opacity only: no layout shift). It fades back in
+   once the wordmark collapses to UJ. */
+.space-logo-block .space-hud-sub {
+  transition: opacity 0.35s ease;
+  opacity: 0;
+}
+.space-logo-block.space-logo-collapsed .space-hud-sub {
+  opacity: 1;
+}
+@media (prefers-reduced-motion: reduce) {
+  .space-logo-seg {
+    transition: opacity 0.35s ease; /* crossfade only — width snaps, both states reachable */
+  }
+}
+
 /* ---- Mobile (<=640px): HUD chrome + panel fit. The HUDs style inline, so chrome
    overrides need !important — acceptable, scoped to space chrome only. Content
    text stays verbatim; these are wrapper styles. ---- */
@@ -250,6 +289,11 @@ a.space-proj-card {
   }
   .space-hud-sub {
     display: none !important; /* keep the UJ monogram only */
+  }
+  /* Cap the expanded wordmark so it can't crowd the 375px topbar
+     (!important beats the inline 1.4rem, same pattern as this block). */
+  .space-logo {
+    font-size: 1.05rem !important;
   }
   .space-hud-nav {
     gap: 0.55rem !important;
