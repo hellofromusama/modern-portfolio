@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import SpacePagesMenu from "./SpacePagesMenu";
 
 interface NavStop {
   id: string;
@@ -51,6 +52,7 @@ export default function ShellHUD({ navStops }: { navStops: NavStop[] }) {
 
   const gaugeFillRef = useRef<HTMLDivElement>(null);
   const percentRef = useRef<HTMLSpanElement>(null);
+  const logoBlockRef = useRef<HTMLDivElement>(null);
   const navRefs = useRef<(HTMLButtonElement | null)[]>([]);
   const audioRef = useRef<{ ctx: AudioContext; gain: GainNode; oscs: OscillatorNode[] } | null>(null);
 
@@ -79,6 +81,13 @@ export default function ShellHUD({ navStops }: { navStops: NavStop[] }) {
       navRefs.current.forEach((el, i) => {
         if (el) el.style.color = i === nearest ? "#ffffff" : "#9aa1b2";
       });
+      // Logo morph: collapse once the dive progresses. Hysteresis (0.05 in / 0.03 out)
+      // prevents class flicker while the eased var hovers at the boundary.
+      const logoEl = logoBlockRef.current;
+      if (logoEl) {
+        if (t > 0.05) logoEl.classList.add("space-logo-collapsed");
+        else if (t < 0.03) logoEl.classList.remove("space-logo-collapsed");
+      }
       raf = requestAnimationFrame(tick);
     };
     raf = requestAnimationFrame(tick);
@@ -152,6 +161,7 @@ export default function ShellHUD({ navStops }: { navStops: NavStop[] }) {
     >
       {/* Top bar */}
       <div
+        className="space-hud-topbar"
         style={{
           display: "flex",
           alignItems: "center",
@@ -160,23 +170,36 @@ export default function ShellHUD({ navStops }: { navStops: NavStop[] }) {
           gap: "1rem",
         }}
       >
-        {/* Top-left: monogram + label */}
-        <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
+        {/* Top-left: wordmark (collapses to UJ via .space-logo-collapsed, toggled
+            by the rAF tick) + stacked label. Gradient is applied PER SEGMENT via
+            .space-logo-grad — background-clip:text through inline-block
+            overflow-hidden descendants is unreliable across engines. The nbsp
+            lives INSIDE the first collapse span (trailing normal space would be
+            trimmed; a leading space on J would survive collapse as "U J"). */}
+        <div
+          ref={logoBlockRef}
+          className="space-logo-block"
+          style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}
+        >
           <span
+            aria-label="Usama Javed"
+            className="space-logo"
             style={{
               fontFamily: DISPLAY,
               fontWeight: 700,
               fontSize: "1.4rem",
-              background: "linear-gradient(90deg, #60a5fa, #a78bfa)",
-              WebkitBackgroundClip: "text",
-              backgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-              color: "transparent",
+              whiteSpace: "nowrap",
             }}
           >
-            UJ
+            <span aria-hidden="true">
+              <span className="space-logo-grad">U</span>
+              <span className="space-logo-grad space-logo-seg">sama&nbsp;</span>
+              <span className="space-logo-grad">J</span>
+              <span className="space-logo-grad space-logo-seg">aved</span>
+            </span>
           </span>
           <span
+            className="space-hud-sub"
             style={{
               fontFamily: MONO,
               fontSize: "0.62rem",
@@ -194,6 +217,7 @@ export default function ShellHUD({ navStops }: { navStops: NavStop[] }) {
 
         {/* Top-center: glass nav */}
         <nav
+          className="space-hud-nav"
           style={{
             display: "flex",
             gap: "1.25rem",
@@ -226,8 +250,9 @@ export default function ShellHUD({ navStops }: { navStops: NavStop[] }) {
           ))}
         </nav>
 
-        {/* Top-right: theme + sound toggles */}
+        {/* Top-right: pages menu + theme + sound toggles */}
         <div style={{ display: "flex", gap: "0.75rem", alignItems: "center" }}>
+          <SpacePagesMenu />
           <button
             onClick={exitSpace}
             aria-label="Return to classic site"
@@ -261,6 +286,7 @@ export default function ShellHUD({ navStops }: { navStops: NavStop[] }) {
 
       {/* Right edge: vertical FLIGHT gauge + percent */}
       <div
+        className="space-hud-gauge"
         style={{
           position: "absolute",
           right: "1.5rem",

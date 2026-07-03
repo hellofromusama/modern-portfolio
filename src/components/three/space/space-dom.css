@@ -194,7 +194,143 @@
   font-size: 0.9rem;
   margin: 0.5rem 0;
 }
+/* No global `a { color: inherit }` reset exists in this sheet — without these,
+   bare anchors render browser-default blue/underline. */
+.space-links a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.space-links a:hover {
+  color: #f0eee9;
+}
+/* Project cards rendered as block <a> links to /projects/[id]. */
+a.space-proj-card {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+/* Hero CTAs: .space-cta-btn reuses the .space-cta gradient look on a <button>
+   (font shorthand first, weight after — the shorthand resets weight). */
+.space-cta-btn {
+  border: none;
+  cursor: pointer;
+  font: inherit;
+  font-weight: 600;
+}
+.space-cta-secondary {
+  display: inline-block;
+  margin: 1rem 0 0.75rem 0.6rem;
+  padding: 0.75rem 1.4rem;
+  border-radius: 100px;
+  color: #ece9e4;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  cursor: pointer;
+  font: inherit;
+  font-weight: 600;
+  transition: border-color 0.3s ease;
+}
+.space-cta-secondary:hover {
+  border-color: #60a5fa;
+}
 .space-footer {
   margin-top: 1rem;
   letter-spacing: 0.24em;
+}
+
+/* ---- Scroll logo morph: "Usama Javed" -> "UJ" as the dive progresses.
+   Class toggled by the HUD rAF loops (hysteresis 0.05/0.03); server-rendered
+   state = expanded (no class). ---- */
+.space-logo-grad {
+  background: linear-gradient(90deg, #60a5fa, #a78bfa);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+.space-logo-seg {
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+  vertical-align: bottom;
+  max-width: 5em;
+  opacity: 1;
+  transition: max-width 0.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s ease;
+}
+.space-logo-collapsed .space-logo-seg {
+  max-width: 0;
+  opacity: 0;
+}
+/* While the wordmark is expanded, the stacked "Usama Javed / Creative Dev" label
+   is redundant — fade it out (opacity only: no layout shift). It fades back in
+   once the wordmark collapses to UJ. */
+.space-logo-block .space-hud-sub {
+  transition: opacity 0.35s ease;
+  opacity: 0;
+}
+.space-logo-block.space-logo-collapsed .space-hud-sub {
+  opacity: 1;
+}
+@media (prefers-reduced-motion: reduce) {
+  .space-logo-seg {
+    transition: opacity 0.35s ease; /* crossfade only — width snaps, both states reachable */
+  }
+}
+
+/* ---- Mobile (<=640px): HUD chrome + panel fit. The HUDs style inline, so chrome
+   overrides need !important — acceptable, scoped to space chrome only. Content
+   text stays verbatim; these are wrapper styles. ---- */
+@media (max-width: 640px) {
+  .space-hud-topbar {
+    padding: 0.7rem 0.75rem !important;
+    gap: 0.5rem !important;
+  }
+  .space-hud-sub {
+    display: none !important; /* keep the UJ monogram only */
+  }
+  /* Cap the expanded wordmark so it can't crowd the 375px topbar
+     (!important beats the inline 1.4rem, same pattern as this block). */
+  .space-logo {
+    font-size: 1.05rem !important;
+  }
+  .space-hud-nav {
+    gap: 0.55rem !important;
+    padding: 0.4rem 0.6rem !important;
+    max-width: 62vw;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .space-hud-nav button {
+    font-size: 0.58rem !important;
+    letter-spacing: 0.1em !important;
+    white-space: nowrap;
+  }
+  .space-hud-gauge {
+    right: 0.6rem !important;
+  }
+  /* The gauge bar is the direct child div (inline height 180px). */
+  .space-hud-gauge > div {
+    height: 120px !important;
+  }
+  .space-panel {
+    padding: 1.25rem 1.1rem;
+  }
+  .space-card {
+    padding: 0.9rem 1rem;
+  }
+  /* Readability bump for the distanceFactor-10 transform panels — CSS only. */
+  .space-body {
+    font-size: 1.05rem;
+  }
+  .space-card-list li {
+    font-size: 0.95rem;
+  }
+  .space-cta,
+  .space-cta-secondary {
+    display: block;
+    margin-left: 0;
+    text-align: center;
+  }
 }

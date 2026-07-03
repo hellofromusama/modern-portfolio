@@ -131,6 +131,21 @@ export default function Navigation({ currentPage }: NavigationProps) {
   const focusRing =
     'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent-blue)] focus-visible:ring-offset-2 focus-visible:ring-offset-transparent';
 
+  // Anthropic-style logo morph: the "sama " / "aved" segments collapse to width 0
+  // once `scrolled` flips (window.scrollY > 20), leaving "UJ". `scrolled` starts
+  // false, so SSR HTML carries the full "Usama Javed" wordmark (no flash, SEO-safe).
+  const segStyle: React.CSSProperties = {
+    display: 'inline-block',
+    overflow: 'hidden',
+    whiteSpace: 'nowrap',
+    verticalAlign: 'bottom', // inline-block + overflow:hidden shifts baseline; keep glyphs level with U/J
+    maxWidth: scrolled ? 0 : '4em', // 4em safely exceeds each segment's natural width at text-sm
+    opacity: scrolled ? 0 : 1,
+    transition: reduceMotion
+      ? 'opacity 0.3s ease' // reduced motion: crossfade only, width snaps
+      : 'max-width 0.45s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease', // EASE_SIGNATURE as CSS string
+  };
+
   // Motion underline: a scaleX span driven by variants tied to the link's
   // hover/active state — no imperative inline-style DOM mutation.
   const underlineVariants = {
@@ -155,10 +170,16 @@ export default function Navigation({ currentPage }: NavigationProps) {
         <div className="flex justify-between items-center h-16">
           <Link
             href="/"
+            aria-label="Usama Javed — home"
             className={`text-sm font-semibold tracking-wide font-[family-name:var(--font-space-grotesk)] rounded-md ${focusRing}`}
             style={{ color: 'var(--text-primary)' }}
           >
-            UJ
+            {/* The nbsp lives INSIDE the first collapse span: a trailing normal space
+                inside an inline-block gets trimmed ("UsamaJaved"), and a leading space
+                on the always-visible J would survive collapse ("U J"). */}
+            <span aria-hidden="true" style={{ whiteSpace: 'nowrap' }}>
+              U<span style={segStyle}>sama&nbsp;</span>J<span style={segStyle}>aved</span>
+            </span>
           </Link>
 
           {/* Mobile menu button */}
