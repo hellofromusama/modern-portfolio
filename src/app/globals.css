@@ -1,4 +1,9 @@
 @import "tailwindcss";
+/* Exclude planning docs from Tailwind v4's automatic source scan. They contain
+   Windows paths whose backslash+hex segments (e.g. "\f6c046...") parse as CSS
+   escapes above U+10FFFF, crashing the scanner's variable unescape — the swallowed
+   RangeError made this whole file compile to EMPTY (no utilities, no tokens). */
+@source not "../../.planning";
 
 /* ============================================
    THEME SYSTEM - CSS Custom Properties
