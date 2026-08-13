@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/three@0.152.2/build/three.min.js"></script>
+<script src="image-slot.js"></script>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: #05060a; color: #fff; }
+  body { font-family: "Inter", system-ui, sans-serif; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+  .mono { font-family: "JetBrains Mono", ui-monospace, monospace; }
+  .head { font-family: "Space Grotesk", system-ui, sans-serif; }
+  .glass { background: rgba(18,22,36,.38); backdrop-filter: blur(18px) saturate(1.25); -webkit-backdrop-filter: blur(18px) saturate(1.25); border: 1px solid rgba(255,255,255,.13); }
+  .sec { position: fixed; left: 0; top: 0; width: min(92vw, 1120px); display: flex; flex-direction: column; align-items: center; text-align: center; opacity: 0; pointer-events: none; z-index: 5; transform-origin: center center; will-change: transform, opacity; }
+  .sec [data-proj], .sec a, .sec image-slot { pointer-events: auto; }
+  .chip { display: inline-flex; align-items: center; gap: 8px; padding: 9px 16px; border-radius: 100px; background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.15); font-size: 13px; white-space: nowrap; }
+  .navlink { cursor: pointer; color: #b8bece; font-size: 11.5px; letter-spacing: .16em; text-transform: uppercase; transition: color .25s; }
+  .navlink:hover { color: #fff; }
+  @keyframes floatA { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-11px); } }
+  @keyframes floatB { 0%,100% { transform: translateY(0); } 50% { transform: translateY(9px); } }
+  @keyframes floatC { 0%,100% { transform: translateY(0) rotate(0); } 50% { transform: translateY(-7px) rotate(1.5deg); } }
+  @keyframes hintPulse { 0%,100% { opacity:.35; transform:translateY(0); } 50% { opacity:.9; transform:translateY(5px); } }
+  @keyframes spin360 { to { transform: rotate(360deg); } }
+  @keyframes twinkle { 0%,100% { opacity:.5; } 50% { opacity:1; } }
+  .floatA { animation: floatA 7s ease-in-out infinite; }
+  .floatB { animation: floatB 8.5s ease-in-out infinite; }
+  .floatC { animation: floatC 9.5s ease-in-out infinite; }
+  @media (prefers-reduced-motion: reduce) { .floatA,.floatB,.floatC,[data-hint]{ animation: none !important; } }
+</style>
+</helmet>
+<div data-root style="position:relative">
+
+  <div data-stage style="position:fixed;inset:0;z-index:0">
+    <canvas ref="{{ canvasRef }}" style="position:absolute;inset:0;width:100%;height:100%;display:block"></canvas>
+    <div style="position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 78% 68% at 50% 46%,transparent 42%,rgba(0,0,0,.66))"></div>
+  </div>
+
+  <!-- ============ PERSISTENT HUD ============ -->
+  <header style="position:fixed;top:0;left:0;right:0;z-index:12;display:flex;justify-content:space-between;align-items:center;padding:22px clamp(18px,4vw,40px);pointer-events:none">
+    <div class="glass" style="display:flex;align-items:center;justify-content:center;width:46px;height:46px;border-radius:13px;pointer-events:auto;box-shadow:0 0 24px rgba(96,165,250,.25)">
+      <span class="head" style="font-weight:700;font-size:18px;letter-spacing:-.02em;background:linear-gradient(135deg,#60a5fa,#a78bfa);-webkit-background-clip:text;background-clip:text;color:transparent">UJ</span>
+    </div>
+    <nav class="glass mono" style="display:flex;gap:22px;align-items:center;padding:12px 22px;border-radius:100px;pointer-events:auto">
+      <span class="navlink" data-nav="0.2">About</span>
+      <span class="navlink" data-nav="0.4">Skills</span>
+      <span class="navlink" data-nav="0.6">Projects</span>
+      <span class="navlink" data-nav="0.8">Team</span>
+      <span class="navlink" data-nav="1">Contact</span>
+    </nav>
+    <div style="display:flex;gap:10px;pointer-events:auto">
+      <button data-theme class="glass mono" style="width:46px;height:46px;border-radius:13px;color:#c7ccd8;cursor:pointer;font-size:15px">☾</button>
+      <button data-sound class="glass mono" style="width:46px;height:46px;border-radius:13px;color:#c7ccd8;cursor:pointer;font-size:14px">♪</button>
+    </div>
+  </header>
+
+  <!-- right scroll gauge -->
+  <div style="position:fixed;right:clamp(14px,2.4vw,26px);top:50%;transform:translateY(-50%);z-index:12;display:flex;flex-direction:column;align-items:center;gap:12px;pointer-events:none">
+    <span class="mono" data-progpct style="font-size:10px;letter-spacing:.1em;color:#7c8496">00</span>
+    <div style="position:relative;width:2px;height:200px;background:rgba(255,255,255,.1);border-radius:2px;overflow:hidden">
+      <div data-gauge style="position:absolute;top:0;left:0;right:0;height:0%;background:linear-gradient(180deg,#60a5fa,#a78bfa);box-shadow:0 0 10px #60a5fa"></div>
+    </div>
+    <span class="mono" style="font-size:10px;letter-spacing:.1em;color:#7c8496;writing-mode:vertical-rl">FLIGHT</span>
+  </div>
+
+  <!-- ============ SECTION 1 · HERO ============ -->
+  <section class="sec" data-sec data-anchor="0" style="flex-direction:column;align-items:center;justify-content:center;text-align:center">
+    <div data-par="0.4" style="max-width:900px">
+      <div class="mono floatC" style="font-size:11px;letter-spacing:.32em;color:#60a5fa;margin-bottom:26px">◦ N 31.95°  ·  E 115.86°  —  PERTH, AUSTRALIA</div>
+      <h1 class="head" style="margin:0 0 22px;font-size:clamp(46px,9vw,120px);line-height:.94;font-weight:700;letter-spacing:-.03em;text-shadow:0 10px 50px rgba(0,0,0,.7)">Usama Javed</h1>
+      <p class="head" style="margin:0 0 14px;font-size:clamp(17px,2.4vw,30px);font-weight:500;color:#e6e9f0;letter-spacing:-.01em">Perth's Senior Full-Stack Developer &amp; AI Engineer</p>
+      <p style="margin:0 auto 34px;max-width:600px;font-size:clamp(13px,1.5vw,16px);line-height:1.6;color:#9aa1b2">8+ years building enterprise solutions on cloud platforms · 50+ projects across Australia</p>
+      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+        <span class="chip mono"><span style="width:7px;height:7px;border-radius:50%;background:#60a5fa;box-shadow:0 0 8px #60a5fa"></span>50+ Projects</span>
+        <span class="chip mono"><span style="width:7px;height:7px;border-radius:50%;background:#a78bfa;box-shadow:0 0 8px #a78bfa"></span>8+ Years</span>
+        <span class="chip mono"><span style="width:7px;height:7px;border-radius:50%;background:#34d399;box-shadow:0 0 8px #34d399"></span>20+ Technologies</span>
+      </div>
+    </div>
+    <div data-hint class="mono" style="position:absolute;bottom:36px;left:50%;transform:translateX(-50%);font-size:11px;letter-spacing:.24em;color:#aeb4c2;animation:hintPulse 2.4s ease-in-out infinite">SCROLL TO DIVE · CLICK A PLANET TO TRAVEL ↓</div>
+  </section>
+
+  <!-- ============ SECTION 2 · ABOUT ============ -->
+  <section class="sec" data-sec data-anchor="0.2" style="align-items:center;justify-content:flex-start">
+    <div data-par="0.6" class="glass" style="max-width:480px;padding:40px;border-radius:22px;box-shadow:0 24px 80px rgba(0,0,0,.5),0 0 40px rgba(96,165,250,.08)">
+      <div class="mono" style="font-size:11px;letter-spacing:.24em;color:#60a5fa;margin-bottom:20px">01 — HOME PLANET</div>
+      <h2 class="head" style="margin:0 0 20px;font-size:clamp(30px,4vw,46px);font-weight:700;letter-spacing:-.02em;line-height:1.02">The developer<br>behind the work</h2>
+      <p style="margin:0 0 28px;font-size:15px;line-height:1.65;color:#c2c7d4">Senior Full-Stack Developer with 8+ years delivering 50+ enterprise projects — from humanitarian platforms to AI agents and cloud-native ERP systems. Based in Perth, building for clients across Australia.</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+        <span class="chip mono" style="justify-content:center"><span style="color:#60a5fa;font-weight:500">50+</span>Projects</span>
+        <span class="chip mono" style="justify-content:center"><span style="color:#a78bfa;font-weight:500">8+</span>Years</span>
+        <span class="chip mono" style="justify-content:center"><span style="color:#34d399;font-weight:500">20+</span>Technologies</span>
+        <span class="chip mono" style="justify-content:center"><span style="color:#fbbf24;font-weight:500">100%</span>Satisfaction</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SECTION 3 · SKILLS (constellation) ============ -->
+  <section class="sec" data-sec data-anchor="0.4" style="flex-direction:column;align-items:center;justify-content:center">
+    <div class="mono" style="font-size:11px;letter-spacing:.24em;color:#a78bfa;margin-bottom:8px">02 — STAR MAP</div>
+    <h2 class="head" style="margin:0 0 30px;font-size:clamp(26px,4vw,42px);font-weight:700;letter-spacing:-.02em;text-align:center">Skills Constellation</h2>
+    <div style="position:relative;width:min(1120px,94vw);display:grid;grid-template-columns:repeat(4,1fr);gap:14px">
+      <div data-par="0.5" class="glass floatA" style="padding:18px;border-radius:16px;border-top:2px solid #60a5fa">
+        <div class="mono" style="font-size:10px;letter-spacing:.16em;color:#60a5fa;margin-bottom:10px">FRONTEND</div>
+        <div class="mono" style="font-size:12px;line-height:1.9;color:#cdd2de">React / Next.js 15<br>TypeScript<br>Tailwind CSS<br>Vue / Nuxt</div>
+      </div>
+      <div data-par="0.8" class="glass floatB" style="padding:18px;border-radius:16px;border-top:2px solid #a78bfa">
+        <div class="mono" style="font-size:10px;letter-spacing:.16em;color:#a78bfa;margin-bottom:10px">BACKEND</div>
+        <div class="mono" style="font-size:12px;line-height:1.9;color:#cdd2de">Node.js<br>Python / Django<br>PostgreSQL / MongoDB<br>REST / GraphQL</div>
+      </div>
+      <div data-par="0.6" class="glass floatC" style="padding:18px;border-radius:16px;border-top:2px solid #34d399">
+        <div class="mono" style="font-size:10px;letter-spacing:.16em;color:#34d399;margin-bottom:10px">CLOUD &amp; DEVOPS</div>
+        <div class="mono" style="font-size:12px;line-height:1.9;color:#cdd2de">AWS / Azure / GCP<br>Docker / Kubernetes<br>CI/CD Pipelines<br>Terraform</div>
+      </div>
+      <div data-par="0.9" class="glass floatA" style="padding:18px;border-radius:16px;border-top:2px solid #fbbf24">
+        <div class="mono" style="font-size:10px;letter-spacing:.16em;color:#fbbf24;margin-bottom:10px">AI PROTOCOLS &amp; AGENTS</div>
+        <div class="mono" style="font-size:12px;line-height:1.9;color:#cdd2de">MCP / A2A / ACP<br>LangChain / LangGraph<br>CrewAI / AutoGen</div>
+      </div>
+      <div data-par="0.7" class="glass floatB" style="padding:18px;border-radius:16px;border-top:2px solid #60a5fa">
+        <div class="mono" style="font-size:10px;letter-spacing:.16em;color:#60a5fa;margin-bottom:10px">RAG &amp; RETRIEVAL</div>
+        <div class="mono" style="font-size:12px;line-height:1.9;color:#cdd2de">Vector Databases<br>Embeddings / Reranking<br>Hybrid Search</div>
+      </div>
+      <div data-par="0.5" class="glass floatC" style="padding:18px;border-radius:16px;border-top:2px solid #a78bfa">
+        <div class="mono" style="font-size:10px;letter-spacing:.16em;color:#a78bfa;margin-bottom:10px">LLM ENGINEERING</div>
+        <div class="mono" style="font-size:12px;line-height:1.9;color:#cdd2de">Fine-tuning / Prompting<br>Ollama / Local LLMs<br>Eval &amp; Guardrails</div>
+      </div>
+      <div data-par="0.8" class="glass floatA" style="padding:18px;border-radius:16px;border-top:2px solid #34d399">
+        <div class="mono" style="font-size:10px;letter-spacing:.16em;color:#34d399;margin-bottom:10px">AI ON AWS &amp; OBS</div>
+        <div class="mono" style="font-size:12px;line-height:1.9;color:#cdd2de">Bedrock / SageMaker<br>Observability<br>Cost / Latency Tuning</div>
+      </div>
+      <div data-par="0.6" class="glass floatB" style="padding:18px;border-radius:16px;border-top:2px solid #fbbf24">
+        <div class="mono" style="font-size:10px;letter-spacing:.16em;color:#fbbf24;margin-bottom:10px">SPECIALIZATIONS</div>
+        <div class="mono" style="font-size:12px;line-height:1.9;color:#cdd2de">NetSuite / SuiteScript<br>Workflow Automation<br>Voice AI</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SECTION 4 · PROJECTS (asteroid field) ============ -->
+  <section class="sec" data-sec data-anchor="0.6" style="flex-direction:column;align-items:center;justify-content:center">
+    <div class="mono" style="font-size:11px;letter-spacing:.24em;color:#34d399;margin-bottom:8px">03 — ASTEROID FIELD</div>
+    <h2 class="head" style="margin:0 0 28px;font-size:clamp(26px,4vw,42px);font-weight:700;letter-spacing:-.02em;text-align:center">Selected Projects</h2>
+    <div style="display:flex;flex-wrap:wrap;gap:14px;justify-content:center;max-width:min(1180px,95vw)">
+      <div data-proj data-par="0.7" data-c="#60a5fa" class="glass" style="width:266px;padding:20px;border-radius:18px;cursor:pointer;transition:transform .3s cubic-bezier(.2,.8,.2,1),box-shadow .3s;transform:translateY(6px)">
+        <div style="width:40px;height:40px;border-radius:50%;margin-bottom:16px;background:radial-gradient(circle at 32% 30%,#93c5fd,#2563eb 62%,#0a0a12);box-shadow:0 0 26px rgba(96,165,250,.5)"></div>
+        <div class="head" style="font-size:18px;font-weight:600;margin-bottom:6px">Fund for Azad Kashmir</div>
+        <div class="mono" style="font-size:11px;color:#8b93a6;line-height:1.5">Humanitarian donation platform</div>
+      </div>
+      <div data-proj data-par="0.9" data-c="#a78bfa" class="glass" style="width:266px;padding:20px;border-radius:18px;cursor:pointer;transition:transform .3s cubic-bezier(.2,.8,.2,1),box-shadow .3s;transform:translateY(-10px)">
+        <div style="width:40px;height:40px;border-radius:50%;margin-bottom:16px;background:radial-gradient(circle at 32% 30%,#c4b5fd,#7c3aed 62%,#0a0a12);box-shadow:0 0 26px rgba(167,139,250,.5)"></div>
+        <div class="head" style="font-size:18px;font-weight:600;margin-bottom:6px">N8N Automation Platform</div>
+        <div class="mono" style="font-size:11px;color:#8b93a6;line-height:1.5">Enterprise workflow automation</div>
+      </div>
+      <div data-proj data-par="0.6" data-c="#34d399" class="glass" style="width:266px;padding:20px;border-radius:18px;cursor:pointer;transition:transform .3s cubic-bezier(.2,.8,.2,1),box-shadow .3s;transform:translateY(4px)">
+        <div style="width:40px;height:40px;border-radius:50%;margin-bottom:16px;background:radial-gradient(circle at 32% 30%,#6ee7b7,#059669 62%,#0a0a12);box-shadow:0 0 26px rgba(52,211,153,.5)"></div>
+        <div class="head" style="font-size:18px;font-weight:600;margin-bottom:6px">Voice AI Booking Agent</div>
+        <div class="mono" style="font-size:11px;color:#8b93a6;line-height:1.5">AI/ML appointment scheduling</div>
+      </div>
+      <div data-proj data-par="0.85" data-c="#fbbf24" class="glass" style="width:266px;padding:20px;border-radius:18px;cursor:pointer;transition:transform .3s cubic-bezier(.2,.8,.2,1),box-shadow .3s;transform:translateY(-6px)">
+        <div style="width:40px;height:40px;border-radius:50%;margin-bottom:16px;background:radial-gradient(circle at 32% 30%,#fde68a,#d97706 62%,#0a0a12);box-shadow:0 0 26px rgba(251,191,36,.5)"></div>
+        <div class="head" style="font-size:18px;font-weight:600;margin-bottom:6px">Enterprise ERP System</div>
+        <div class="mono" style="font-size:11px;color:#8b93a6;line-height:1.5">Business management suite</div>
+      </div>
+      <div data-proj data-par="0.7" data-c="#60a5fa" class="glass" style="width:266px;padding:20px;border-radius:18px;cursor:pointer;transition:transform .3s cubic-bezier(.2,.8,.2,1),box-shadow .3s;transform:translateY(8px)">
+        <div style="width:40px;height:40px;border-radius:50%;margin-bottom:16px;background:radial-gradient(circle at 32% 30%,#93c5fd,#2563eb 62%,#0a0a12);box-shadow:0 0 26px rgba(96,165,250,.5)"></div>
+        <div class="head" style="font-size:18px;font-weight:600;margin-bottom:6px">NetSuite Integration Suite</div>
+        <div class="mono" style="font-size:11px;color:#8b93a6;line-height:1.5">SuiteScripts &amp; RESTlets</div>
+      </div>
+      <div data-proj data-par="0.9" data-c="#34d399" class="glass" style="width:266px;padding:20px;border-radius:18px;cursor:pointer;transition:transform .3s cubic-bezier(.2,.8,.2,1),box-shadow .3s;transform:translateY(-8px)">
+        <div style="width:40px;height:40px;border-radius:50%;margin-bottom:16px;background:radial-gradient(circle at 32% 30%,#6ee7b7,#059669 62%,#0a0a12);box-shadow:0 0 26px rgba(52,211,153,.5)"></div>
+        <div class="head" style="font-size:18px;font-weight:600;margin-bottom:6px">Cloud Infrastructure Platform</div>
+        <div class="mono" style="font-size:11px;color:#8b93a6;line-height:1.5">Scalable microservices · DevOps</div>
+      </div>
+      <div data-proj data-par="0.65" data-c="#a78bfa" class="glass" style="width:266px;padding:20px;border-radius:18px;cursor:pointer;transition:transform .3s cubic-bezier(.2,.8,.2,1),box-shadow .3s;transform:translateY(2px)">
+        <div style="width:40px;height:40px;border-radius:50%;margin-bottom:16px;background:radial-gradient(circle at 32% 30%,#c4b5fd,#7c3aed 62%,#0a0a12);box-shadow:0 0 26px rgba(167,139,250,.5)"></div>
+        <div class="head" style="font-size:18px;font-weight:600;margin-bottom:6px">MCP NetSuite-Ollama Bridge</div>
+        <div class="mono" style="font-size:11px;color:#8b93a6;line-height:1.5">Natural-language ERP · local LLM</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SECTION 5 · TEAM ============ -->
+  <section class="sec" data-sec data-anchor="0.8" style="flex-direction:column;align-items:center;justify-content:center">
+    <div class="mono" style="font-size:11px;letter-spacing:.24em;color:#60a5fa;margin-bottom:8px">04 — SPACE STATION</div>
+    <h2 class="head" style="margin:0 0 8px;font-size:clamp(26px,4vw,42px);font-weight:700;letter-spacing:-.02em;text-align:center">The Crew</h2>
+    <div class="mono" style="font-size:10px;letter-spacing:.14em;color:#565c6b;margin-bottom:28px">◦ ILLUSTRATIVE — SWAPS WITH YOUR REAL TEAM</div>
+    <div style="display:flex;gap:16px;flex-wrap:wrap;justify-content:center">
+      <div data-par="0.6" class="glass floatA" style="width:220px;padding:24px;border-radius:18px;text-align:center">
+        <image-slot id="crew1" shape="circle" placeholder="Drop photo" style="width:64px;height:64px;margin:0 auto 16px;display:block;box-shadow:0 0 24px rgba(96,165,250,.45)"></image-slot>
+        <div class="head" style="font-size:17px;font-weight:600;margin-bottom:4px">Crew Slot</div>
+        <div class="mono" style="font-size:11px;color:#8b93a6">Backend Engineer</div>
+      </div>
+      <div data-par="0.9" class="glass floatB" style="width:220px;padding:24px;border-radius:18px;text-align:center">
+        <image-slot id="crew2" shape="circle" placeholder="Drop photo" style="width:64px;height:64px;margin:0 auto 16px;display:block;box-shadow:0 0 24px rgba(167,139,250,.45)"></image-slot>
+        <div class="head" style="font-size:17px;font-weight:600;margin-bottom:4px">Crew Slot</div>
+        <div class="mono" style="font-size:11px;color:#8b93a6">Cloud Architect</div>
+      </div>
+      <div data-par="0.7" class="glass floatC" style="width:220px;padding:24px;border-radius:18px;text-align:center">
+        <image-slot id="crew3" shape="circle" placeholder="Drop photo" style="width:64px;height:64px;margin:0 auto 16px;display:block;box-shadow:0 0 24px rgba(52,211,153,.45)"></image-slot>
+        <div class="head" style="font-size:17px;font-weight:600;margin-bottom:4px">Crew Slot</div>
+        <div class="mono" style="font-size:11px;color:#8b93a6">AI Engineer</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SECTION 6 · CONTACT ============ -->
+  <section class="sec" data-sec data-anchor="1" style="flex-direction:column;align-items:center;justify-content:center;text-align:center">
+    <div data-par="0.5" class="glass" style="max-width:560px;padding:48px 44px;border-radius:26px;box-shadow:0 30px 90px rgba(0,0,0,.55),0 0 50px rgba(167,139,250,.12)">
+      <div class="mono" style="font-size:11px;letter-spacing:.24em;color:#fbbf24;margin-bottom:22px">05 — FINAL APPROACH</div>
+      <h2 class="head" style="margin:0 0 18px;font-size:clamp(34px,5vw,56px);font-weight:700;letter-spacing:-.02em;line-height:1">Let's work<br>together</h2>
+      <p style="margin:0 0 28px;font-size:15px;color:#a9afbe">Have a mission in mind? Let's build something that travels well.</p>
+      <a href="mailto:hello@usamajaved.com.au" class="head" style="display:inline-block;padding:15px 34px;border-radius:100px;font-weight:600;font-size:15px;color:#05060a;background:linear-gradient(135deg,#60a5fa,#a78bfa);text-decoration:none;box-shadow:0 10px 34px rgba(96,165,250,.4);margin-bottom:26px">hello@usamajaved.com.au →</a>
+      <div class="mono" style="display:flex;gap:20px;justify-content:center;font-size:12px;letter-spacing:.1em;color:#b8bece;margin-bottom:30px">
+        <a href="#" style="color:inherit;text-decoration:none">GITHUB</a>
+        <a href="#" style="color:inherit;text-decoration:none">LINKEDIN</a>
+        <a href="#" style="color:inherit;text-decoration:none">X</a>
+      </div>
+      <div class="mono" style="font-size:11px;letter-spacing:.08em;color:#565c6b;border-top:1px solid rgba(255,255,255,.08);padding-top:20px">50+ PROJECTS DELIVERED · 100% CLIENT SATISFACTION</div>
+    </div>
+  </section>
+
+  <!-- ============ LOADER ============ -->
+  <div data-loader style="position:fixed;inset:0;z-index:50;background:#05060a;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity .8s ease">
+    <div style="width:28px;height:28px;border:2px solid rgba(255,255,255,.12);border-top-color:#60a5fa;border-radius:50%;animation:spin360 .9s linear infinite;margin-bottom:28px"></div>
+    <div style="display:flex;align-items:baseline;gap:7px">
+      <span data-loadernum class="mono head" style="font-size:70px;font-weight:700;letter-spacing:-.02em;line-height:1">0</span>
+      <span class="mono" style="font-size:22px;color:#565c6b">/100</span>
+    </div>
+    <div class="mono" style="margin-top:16px;font-size:11px;letter-spacing:.32em;color:#6f7688">CALIBRATING FLIGHT PATH</div>
+  </div>
+
+  <!-- scroll driver -->
+  <div style="height:640vh;position:relative;z-index:-1;pointer-events:none"></div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  renderVals() {
+    return { canvasRef: (el) => { if (el && el !== this.canvasEl) this.canvasEl = el; } };
+  }
+
+  componentDidMount() {
+    this._alive = true;
+    this.t = 0; this.targetT = 0; this.mx = 0; this.my = 0;
+    this.reduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    this.waitForThree();
+  }
+
+  waitForThree() {
+    if (!this._alive) return;
+    if (window.THREE) this.boot(); else setTimeout(() => this.waitForThree(), 60);
+  }
+
+  q(s) { return this.root ? this.root.querySelector(s) : null; }
+  qa(s) { return this.root ? Array.from(this.root.querySelectorAll(s)) : []; }
+  clamp(v, a, b) { return Math.max(a, Math.min(b, v)); }
+  ease(x) { return x * x * (3 - 2 * x); }
+
+  boot() {
+    this.root = this.canvasEl.closest("[data-root]") || this.canvasEl.parentElement;
+    this.stage = this.canvasEl.parentElement;
+    const WX = { "0": 0, "0.2": 5, "0.4": 0, "0.6": 0, "0.8": -5, "1": 0 };
+    this.sections = this.qa("[data-sec]").map((el) => {
+      const anchor = parseFloat(el.dataset.anchor);
+      return { el, anchor, wx: (WX[el.dataset.anchor] || 0), wy: 1, wz: (30 + anchor * -262) - 34 };
+    });
+    this.parEls = this.qa("[data-par]").map((el) => ({ el, f: parseFloat(el.dataset.par) }));
+    this.buildScene();
+    this.wireUI();
+    this.addListeners();
+    this.runLoader();
+    this.loop();
+  }
+
+  radialTex(hex) {
+    const THREE = window.THREE;
+    const c = document.createElement("canvas"); c.width = c.height = 128;
+    const g = c.getContext("2d");
+    const col = "#" + (hex >>> 0).toString(16).padStart(6, "0").slice(-6);
+    const grd = g.createRadialGradient(64, 64, 0, 64, 64, 64);
+    grd.addColorStop(0, "rgba(255,255,255,0.95)");
+    grd.addColorStop(0.22, col);
+    grd.addColorStop(1, "rgba(0,0,0,0)");
+    g.fillStyle = grd; g.fillRect(0, 0, 128, 128);
+    return new THREE.CanvasTexture(c);
+  }
+
+  softStarTex() {
+    if (this._starTex) return this._starTex;
+    const THREE = window.THREE;
+    const c = document.createElement("canvas"); c.width = c.height = 64;
+    const g = c.getContext("2d");
+    const grd = g.createRadialGradient(32, 32, 0, 32, 32, 32);
+    grd.addColorStop(0, "rgba(255,255,255,1)");
+    grd.addColorStop(0.32, "rgba(255,255,255,0.55)");
+    grd.addColorStop(1, "rgba(255,255,255,0)");
+    g.fillStyle = grd; g.fillRect(0, 0, 64, 64);
+    this._starTex = new THREE.CanvasTexture(c);
+    return this._starTex;
+  }
+
+  starTemp() {
+    const r = Math.random();
+    if (r < 0.55) return [0.78 + Math.random() * 0.22, 0.86 + Math.random() * 0.14, 1.0];
+    if (r < 0.75) return [1.0, 0.95, 0.8 + Math.random() * 0.12];
+    if (r < 0.9)  return [1.0, 0.82, 0.58];
+    if (r < 0.97) return [1.0, 0.6, 0.5];
+    return [0.62, 0.76, 1.0];
+  }
+
+  starField(count, size, spread, zMin, zMax, opacity) {
+    const THREE = window.THREE;
+    const pos = new Float32Array(count * 3), col = new Float32Array(count * 3);
+    for (let i = 0; i < count; i++) {
+      pos[i*3]   = (Math.random() - 0.5) * spread;
+      pos[i*3+1] = (Math.random() - 0.5) * spread;
+      pos[i*3+2] = zMin + Math.random() * (zMax - zMin);
+      const t = this.starTemp(), b = 0.55 + Math.random() * 0.45;
+      col[i*3] = t[0]*b; col[i*3+1] = t[1]*b; col[i*3+2] = t[2]*b;
+    }
+    const g = new THREE.BufferGeometry();
+    g.setAttribute("position", new THREE.BufferAttribute(pos, 3));
+    g.setAttribute("color", new THREE.BufferAttribute(col, 3));
+    return new THREE.Points(g, new THREE.PointsMaterial({ size, map: this.softStarTex(), vertexColors: true, sizeAttenuation: true, transparent: true, opacity, depthWrite: false, blending: THREE.AdditiveBlending }));
+  }
+
+  milkyWay() {
+    const THREE = window.THREE;
+    const c = document.createElement("canvas"); c.width = 1024; c.height = 512;
+    const g = c.getContext("2d");
+    g.fillStyle = "#000"; g.fillRect(0, 0, 1024, 512);
+    const grd = g.createLinearGradient(0, 170, 0, 342);
+    grd.addColorStop(0, "rgba(0,0,0,0)");
+    grd.addColorStop(0.5, "rgba(150,170,225,0.4)");
+    grd.addColorStop(1, "rgba(0,0,0,0)");
+    g.fillStyle = grd; g.fillRect(0, 0, 1024, 512);
+    for (let i = 0; i < 1500; i++) {
+      const x = Math.random() * 1024;
+      const y = 256 + (Math.random() - 0.5) * 150 * (0.4 + Math.random() * 0.6);
+      const t = this.starTemp(), a = Math.random() * 0.55;
+      g.fillStyle = `rgba(${(t[0]*255)|0},${(t[1]*255)|0},${(t[2]*255)|0},${a})`;
+      g.beginPath(); g.arc(x, y, Math.random() * 1.6, 0, 6.283); g.fill();
+    }
+    const s = new THREE.Sprite(new THREE.SpriteMaterial({ map: new THREE.CanvasTexture(c), transparent: true, opacity: 0.6, depthWrite: false, blending: THREE.AdditiveBlending }));
+    s.material.rotation = 0.5; s.scale.set(1500, 750, 1); s.position.set(-30, 30, -235);
+    return s;
+  }
+
+  hexRgb(hex) { return [(hex>>16)&255, (hex>>8)&255, hex&255]; }
+  lighten(hex, amt) {
+    const r = this.hexRgb(hex);
+    return ((Math.min(255, r[0]+(255-r[0])*amt)|0)<<16) | ((Math.min(255,r[1]+(255-r[1])*amt)|0)<<8) | (Math.min(255,r[2]+(255-r[2])*amt)|0);
+  }
+
+  planetTex(base, accent, gas) {
+    const THREE = window.THREE;
+    const c = document.createElement("canvas"); c.width = 512; c.height = 256;
+    const g = c.getContext("2d");
+    const b = this.hexRgb(base), a = this.hexRgb(accent);
+    g.fillStyle = `rgb(${b[0]},${b[1]},${b[2]})`; g.fillRect(0, 0, 512, 256);
+    if (gas) {
+      for (let y = 0; y < 256; y++) {
+        const n = Math.sin(y * 0.18) * 0.5 + Math.sin(y * 0.05 + 1) * 0.5;
+        const k = 0.72 + n * 0.28, wob = Math.sin(y * 0.4) * 6;
+        g.fillStyle = `rgb(${Math.min(255,b[0]*k)|0},${Math.min(255,b[1]*k)|0},${Math.min(255,b[2]*k)|0})`;
+        g.fillRect(wob, y, 512, 1);
+      }
+      for (let i = 0; i < 5; i++) {
+        const y = Math.random() * 256, h = 4 + Math.random() * 14;
+        g.fillStyle = `rgba(${a[0]},${a[1]},${a[2]},0.22)`; g.fillRect(0, y, 512, h);
+      }
+    } else {
+      for (let i = 0; i < 2600; i++) {
+        const x = Math.random() * 512, y = Math.random() * 256, s = Math.random() * 3, mix = Math.random();
+        const cr = b[0]+(a[0]-b[0])*mix*0.7, cg = b[1]+(a[1]-b[1])*mix*0.7, cb = b[2]+(a[2]-b[2])*mix*0.7;
+        g.fillStyle = `rgba(${cr|0},${cg|0},${cb|0},${0.15+Math.random()*0.3})`;
+        g.beginPath(); g.arc(x, y, s, 0, 6.283); g.fill();
+      }
+    }
+    const pg = g.createLinearGradient(0,0,0,256);
+    pg.addColorStop(0,"rgba(0,0,0,0.35)"); pg.addColorStop(0.5,"rgba(0,0,0,0)"); pg.addColorStop(1,"rgba(0,0,0,0.35)");
+    g.fillStyle = pg; g.fillRect(0,0,512,256);
+    const tex = new THREE.CanvasTexture(c); tex.wrapS = THREE.RepeatWrapping;
+    return tex;
+  }
+
+  glowSprite(color, scale, opacity, x, y, z) {
+    const THREE = window.THREE;
+    const s = new THREE.Sprite(new THREE.SpriteMaterial({ map: this.radialTex(color), transparent: true, opacity, depthWrite: false, blending: THREE.AdditiveBlending }));
+    s.scale.set(scale, scale, 1); s.position.set(x, y, z);
+    return s;
+  }
+
+  loadTex(url) {
+    const THREE = window.THREE;
+    if (!this._tex) this._tex = {};
+    if (!this._tex[url]) { const t = this.loader.load(url); if (THREE.SRGBColorSpace) t.colorSpace = THREE.SRGBColorSpace; this._tex[url] = t; }
+    return this._tex[url];
+  }
+
+  planet(url, r, x, y, z, ringType, tint) {
+    const THREE = window.THREE;
+    const grp = new THREE.Group(); grp.position.set(x, y, z);
+    const tilt = new THREE.Group(); tilt.rotation.z = 0.12 + Math.random() * 0.4; grp.add(tilt);
+    const mesh = new THREE.Mesh(new THREE.SphereGeometry(r, 64, 48),
+      new THREE.MeshStandardMaterial({ map: this.loadTex(url), roughness: 0.92, metalness: 0.02 }));
+    tilt.add(mesh);
+    if (tint) {
+      const atmo = new THREE.Mesh(new THREE.SphereGeometry(r * 1.04, 48, 32),
+        new THREE.MeshBasicMaterial({ color: tint, transparent: true, opacity: 0.16, side: THREE.BackSide, blending: THREE.AdditiveBlending, depthWrite: false }));
+      tilt.add(atmo);
+      grp.add(this.glowSprite(tint, r * 3.0, 0.26, 0, 0, 0));
+    }
+    if (ringType === "saturn") {
+      const inner = r * 1.35, outer = r * 2.35;
+      const rg = new THREE.RingGeometry(inner, outer, 110);
+      const pos = rg.attributes.position, uv = rg.attributes.uv, v = new THREE.Vector3();
+      for (let i = 0; i < pos.count; i++) { v.fromBufferAttribute(pos, i); const rr = v.length(); uv.setXY(i, (rr - inner) / (outer - inner), 0.5); }
+      const ring = new THREE.Mesh(rg, new THREE.MeshBasicMaterial({ map: this.loadTex(this.URL.saturnring), side: THREE.DoubleSide, transparent: true, opacity: 0.92 }));
+      ring.rotation.x = Math.PI * 0.5; tilt.add(ring);
+    }
+    const tt = Math.max(0, Math.min(1, (z - 6) / -262));
+    mesh.userData.owner = grp;
+    grp.userData = { mesh, spin: 0.0016 + Math.random() * 0.0022, y0: y, ph: Math.random() * 6.28, t: tt };
+    this.scene.add(grp); this.planets.push(grp);
+    return grp;
+  }
+
+  buildScene() {
+    const THREE = window.THREE;
+    const w = this.stage.clientWidth, h = this.stage.clientHeight;
+    const renderer = new THREE.WebGLRenderer({ canvas: this.canvasEl, antialias: true });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+    renderer.setSize(w, h, false); renderer.setClearColor(0x05060a, 1);
+    if (THREE.SRGBColorSpace) renderer.outputColorSpace = THREE.SRGBColorSpace;
+    this.renderer = renderer;
+    const scene = new THREE.Scene(); scene.fog = new THREE.FogExp2(0x05060a, 0.0052); this.scene = scene;
+    this.camera = new THREE.PerspectiveCamera(60, w / h, 0.1, 3000);
+
+    // real astronomy textures (public domain, CORS-enabled)
+    const TJ = "https://cdn.jsdelivr.net/gh/mrdoob/three.js@r152/examples/textures/";
+    const PX = "https://cdn.jsdelivr.net/gh/jeromeetienne/threex.planets@master/images/";
+    this.URL = { sky: "https://cdn.jsdelivr.net/npm/three-globe/example/img/night-sky.png", earth: TJ+"planets/earth_atmos_2048.jpg", moon: TJ+"planets/moon_1024.jpg",
+      jupiter: PX+"jupitermap.jpg", mars: PX+"marsmap1k.jpg", saturn: PX+"saturnmap.jpg", saturnring: PX+"saturnringcolor.jpg",
+      venus: PX+"venusmap.jpg", mercury: PX+"mercurymap.jpg", neptune: PX+"neptunemap.jpg" };
+    this.loader = new THREE.TextureLoader(); this.loader.setCrossOrigin("anonymous");
+
+    // real night sky — telescope photo of the Milky Way — as the background sphere
+    const skyTex = this.loadTex(this.URL.sky);
+    this.sky = new THREE.Mesh(new THREE.SphereGeometry(900, 60, 40), new THREE.MeshBasicMaterial({ map: skyTex, side: THREE.BackSide, fog: false }));
+    scene.add(this.sky);
+
+    scene.add(new THREE.AmbientLight(0x556680, 0.7));
+    const sun = new THREE.DirectionalLight(0xfff4e6, 2.1); sun.position.set(30, 18, 42); scene.add(sun);
+    this.moveLight = new THREE.PointLight(0x88aaff, 0.35, 200, 1.8); scene.add(this.moveLight);
+
+    // subtle foreground stars for parallax life (the real sky provides the rest)
+    this.starMid  = this.starField(900, 1.7, 460, -280, 50, 0.7);
+    this.starNear = this.starField(360, 2.8, 320, -240, 40, 0.9);
+    scene.add(this.starMid, this.starNear);
+
+    // real planets (public NASA-derived surface textures)
+    this.planets = [];
+    this.planet(this.URL.neptune, 5.0, 10, -5, -66, null, 0x3a6ff0);    // hero — deep-space Neptune
+    this.planet(this.URL.earth,   8.2, -14, 0, -34, null, 0x5a9bff);    // about — home planet Earth
+    this.planet(this.URL.venus,   2.4, 12, 6, -78, null, 0xe8c98a);     // skills — Venus
+    this.planet(this.URL.moon,    1.7, -12, -6, -70, null, 0);          // skills — Moon
+    // asteroid field — rocky bodies
+    const rocks = [this.URL.mercury, this.URL.moon, this.URL.mars];
+    for (let i = 0; i < 8; i++) {
+      const z = -104 - Math.random() * 46;
+      this.planet(rocks[i % 3], 1.0 + Math.random() * 1.8, (Math.random() - 0.5) * 30, (Math.random() - 0.5) * 20, z, null, 0);
+    }
+    this.planet(this.URL.saturn,  4.4, 11, 3, -186, "saturn", 0xd8c79a); // team — Saturn + real rings
+    this.planet(this.URL.jupiter, 9.5, 0, -2, -262, null, 0xe0a86a);     // contact — Jupiter finale
+  }
+
+  wireUI() {
+    this.qa("[data-nav]").forEach((el) => {
+      el.addEventListener("click", () => {
+        const a = parseFloat(el.dataset.nav);
+        const max = document.documentElement.scrollHeight - window.innerHeight;
+        window.scrollTo({ top: a * max, behavior: "smooth" });
+      });
+    });
+    // project hover
+    this.qa("[data-proj]").forEach((el) => {
+      const c = el.dataset.c;
+      el.addEventListener("mouseenter", () => {
+        el.style.transform = "translateY(-14px) scale(1.04)";
+        el.style.boxShadow = `0 26px 60px rgba(0,0,0,.5), 0 0 34px ${c}66`;
+        el.style.borderColor = c + "88";
+      });
+      el.addEventListener("mouseleave", () => {
+        el.style.transform = el.dataset.base || "translateY(0)";
+        el.style.boxShadow = "";
+        el.style.borderColor = "";
+      });
+      el.dataset.base = el.style.transform;
+    });
+    // sound toggle
+    const sb = this.q("[data-sound]");
+    if (sb) sb.addEventListener("click", () => this.toggleSound(sb));
+    // theme toggle
+    const tb = this.q("[data-theme]");
+    if (tb) tb.addEventListener("click", () => {
+      this.alt = !this.alt;
+      this.root.style.setProperty("--accent", this.alt ? "#fbbf24" : "#60a5fa");
+      tb.textContent = this.alt ? "☀" : "☾";
+      tb.style.color = this.alt ? "#fbbf24" : "#c7ccd8";
+    });
+  }
+
+  toggleSound(btn) {
+    try {
+      if (!this.audioOn) {
+        if (!this.actx) {
+          this.actx = new (window.AudioContext || window.webkitAudioContext)();
+          this.gain = this.actx.createGain(); this.gain.gain.value = 0; this.gain.connect(this.actx.destination);
+          [55, 82.4, 110].forEach((f) => { const o = this.actx.createOscillator(); o.type = "sine"; o.frequency.value = f; o.connect(this.gain); o.start(); });
+        }
+        this.actx.resume();
+        this.gain.gain.linearRampToValueAtTime(0.045, this.actx.currentTime + 1.2);
+        this.audioOn = true; btn.textContent = "♫"; btn.style.color = "#60a5fa";
+      } else {
+        this.gain.gain.linearRampToValueAtTime(0, this.actx.currentTime + 0.6);
+        this.audioOn = false; btn.textContent = "♪"; btn.style.color = "#c7ccd8";
+      }
+    } catch (e) {}
+  }
+
+  addListeners() {
+    const THREE = window.THREE;
+    this.ray = new THREE.Raycaster();
+    this.onMove = (e) => {
+      this.mx = (e.clientX / window.innerWidth - 0.5) * 2; this.my = -(e.clientY / window.innerHeight - 0.5) * 2;
+      if (this.planets && !this.overUI(e.target)) this.root.style.cursor = this.pick(e) ? "pointer" : "grab";
+    };
+    this.onClick = (e) => { if (this.overUI(e.target)) return; const g = this.pick(e); if (g) this.flyTo(g.userData.t); };
+    this.onResize = () => {
+      if (!this.renderer) return;
+      const w = this.stage.clientWidth, h = this.stage.clientHeight;
+      this.camera.aspect = w / h; this.camera.updateProjectionMatrix(); this.renderer.setSize(w, h, false);
+    };
+    window.addEventListener("pointermove", this.onMove);
+    window.addEventListener("click", this.onClick);
+    window.addEventListener("resize", this.onResize);
+  }
+
+  overUI(t) { return !!(t && t.closest && t.closest("a,button,[data-proj],[data-nav],[data-sound],[data-theme]")); }
+
+  pick(e) {
+    if (!this.ray || !this.camera || !this.planets) return null;
+    const rect = this.stage.getBoundingClientRect();
+    const nx = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+    const ny = -((e.clientY - rect.top) / rect.height) * 2 + 1;
+    this.ray.setFromCamera({ x: nx, y: ny }, this.camera);
+    const hits = this.ray.intersectObjects(this.planets.map((p) => p.userData.mesh), false);
+    return hits.length ? hits[0].object.userData.owner : null;
+  }
+
+  flyTo(t) {
+    const max = document.documentElement.scrollHeight - window.innerHeight;
+    window.scrollTo({ top: t * max, behavior: "smooth" });
+  }
+
+  runLoader() {
+    const el = this.q("[data-loadernum]"), wrap = this.q("[data-loader]");
+    let v = 0;
+    this.loadTimer = setInterval(() => {
+      if (!this._alive) { clearInterval(this.loadTimer); return; }
+      v = Math.min(100, v + Math.random() * 7 + 3);
+      if (el) el.textContent = Math.floor(v);
+      if (v >= 100) {
+        clearInterval(this.loadTimer);
+        if (wrap) { wrap.style.opacity = "0"; setTimeout(() => { if (wrap) wrap.style.display = "none"; }, 800); }
+      }
+    }, 45);
+  }
+
+  loop() {
+    if (!this._alive || !this.renderer) return;
+    this.raf = requestAnimationFrame(() => this.loop());
+    try {
+    const max = document.documentElement.scrollHeight - window.innerHeight;
+    this.targetT = this.clamp(window.scrollY / (max || 1), 0, 1);
+    this.t += (this.targetT - this.t) * (this.reduced ? 0.5 : 0.07);
+    const t = this.t, time = performance.now() * 0.001;
+
+    // camera dolly — straight dive into depth (zoom in → out past each world)
+    const cz = 30 + t * (-262);
+    const cx = (this.reduced ? 0 : Math.sin(t * Math.PI * 2) * 1.6) + this.mx * 3.2;
+    const cy = (this.reduced ? 1 : 1 + Math.sin(time * 0.3) * 0.4) + this.my * 2.2;
+    this.camera.position.set(cx, cy, cz);
+    this.camera.lookAt(this.mx * 2.4, 1 + this.my * 1.8, cz - 60);
+    this.moveLight.position.set(cx, cy, cz - 8);
+
+    // sky + star parallax drift
+    if (this.sky) this.sky.rotation.y = time * 0.002;
+    if (this.starNear) {
+      this.starNear.rotation.y = this.mx * 0.06; this.starNear.rotation.x = this.my * 0.03;
+      this.starNear.material.opacity = 0.7 + Math.sin(time * 3.0) * 0.2;
+    }
+    if (this.starMid) { this.starMid.rotation.y = this.mx * 0.035; this.starMid.material.opacity = 0.55 + Math.sin(time * 2.1 + 1.5) * 0.14; }
+
+    // planet idle
+    this.planets.forEach((g) => { g.userData.mesh.rotation.y += g.userData.spin; g.userData.mesh.rotation.x += g.userData.spin * 0.35; g.position.y = g.userData.y0 + Math.sin(time * 0.5 + g.userData.ph) * 0.5; });
+
+    // project each section's content as a 3D object flying through the shared camera space
+    const Hs = this.stage.clientHeight, Ws = this.stage.clientWidth;
+    const focal = (Hs / 2) / Math.tan((60 * Math.PI / 180) / 2);
+    this.sections.forEach((s) => {
+      const dist = cz - s.wz;
+      if (dist < 2 || dist > 130) { s.el.style.opacity = "0"; return; }
+      const sx = Ws / 2 + (s.wx - cx) * focal / dist;
+      const sy = Hs / 2 - (s.wy - cy) * focal / dist;
+      const scale = 34 / dist;
+      let op;
+      if (dist >= 45) op = this.clamp((70 - dist) / 25, 0, 1);
+      else if (dist >= 18) op = 1;
+      else op = this.clamp((dist - 3) / 15, 0, 1);
+      s.el.style.transform = `translate(${sx.toFixed(1)}px, ${sy.toFixed(1)}px) translate(-50%, -50%) scale(${scale.toFixed(3)})`;
+      s.el.style.opacity = op.toFixed(3);
+      s.el.style.zIndex = String(Math.round(2000 - dist * 8));
+    });
+
+    // HUD gauge + nav active
+    const g = this.q("[data-gauge]"); if (g) g.style.height = (t * 100).toFixed(1) + "%";
+    const pc = this.q("[data-progpct]"); if (pc) pc.textContent = String(Math.round(t * 100)).padStart(2, "0");
+    const near = this.sections.reduce((b, s) => Math.abs(t - s.anchor) < Math.abs(t - b.anchor) ? s : b, this.sections[0]);
+    this.qa("[data-nav]").forEach((el) => { el.style.color = parseFloat(el.dataset.nav) === near.anchor ? "#fff" : "#b8bece"; });
+
+    this.renderer.render(this.scene, this.camera);
+    } catch (e) { /* keep the loop alive */ }
+  }
+
+  componentWillUnmount() {
+    this._alive = false;
+    cancelAnimationFrame(this.raf);
+    clearInterval(this.loadTimer);
+    window.removeEventListener("pointermove", this.onMove);
+    window.removeEventListener("click", this.onClick);
+    window.removeEventListener("resize", this.onResize);
+    if (this.renderer) this.renderer.dispose();
+    if (this.actx) try { this.actx.close(); } catch (e) {}
+  }
+}
+</script>
+</body>
+</html>
