@@ -6,7 +6,6 @@ import dynamic from "next/dynamic";
 import Navigation from "@/components/Navigation";
 import ScrollReveal, { AnimatedCounter } from "@/components/ScrollReveal";
 import InteractiveButton from "@/components/InteractiveButton";
-import AISeoContent from "@/components/AISeoContent";
 import LastUpdated from "@/components/LastUpdated";
 import { homeGridProjects } from "@/content/projects";
 import { skills } from "@/content/skills";
@@ -45,7 +44,6 @@ export default function HomeClassic() {
 
   return (
     <div style={{ background: 'var(--bg-primary)', color: 'var(--text-primary)' }} className="overflow-hidden">
-      <AISeoContent />
       <VisitorTracker />
       <VisitorCounter />
       <Navigation currentPage="home" />
@@ -78,20 +76,21 @@ export default function HomeClassic() {
               </ScrollReveal>
               <ScrollReveal delay={200}>
                 <p className="bio-summary text-lg leading-relaxed max-w-xl" style={{ color: 'var(--text-tertiary)' }}>
-                  Senior Full Stack Developer with 8+ years of expertise delivering 50+ enterprise projects
-                  across government, mining, fintech, and healthcare sectors in Perth, Western Australia.
-                  From AI-powered automation saving clients $180,000/year to cloud platforms handling
-                  100K+ concurrent users, I build solutions that drive measurable business growth.
+                  Forward Deployed Engineer and Lead AI Engineer at Lakestone AI in Perth. I build AI-native
+                  back-office software for real businesses: agents that take work from inbox to ERP within limits
+                  a person sets, judge models that check the extractors, assistants that answer from company data
+                  without leaking it, and the integrations that keep client systems as the source of truth.
+                  Eight years of full-stack work across TypeScript, Node.js, React, .NET and Python.
                 </p>
               </ScrollReveal>
             </div>
 
             <div className="lg:col-span-2 grid grid-cols-2 gap-4">
               {[
-                { value: 50, suffix: "+", label: "Projects" },
                 { value: 8, suffix: "+", label: "Years" },
-                { value: 20, suffix: "+", label: "Technologies" },
-                { value: 100, suffix: "%", label: "Satisfaction" },
+                { value: 3, suffix: "", label: "AI products in production" },
+                { value: 76, suffix: "", label: "Agent skills authored" },
+                { value: 2, suffix: "", label: "ERPs integrated" },
               ].map((stat, i) => (
                 <ScrollReveal key={stat.label} delay={100 + i * 100} direction="up">
                   <div
@@ -141,8 +140,8 @@ export default function HomeClassic() {
           </ScrollReveal>
           <ScrollReveal delay={150}>
             <p className="key-skills-summary text-sm mb-16 max-w-2xl" style={{ color: 'var(--text-muted)' }}>
-              Mastery in 20+ technologies including React 19, Next.js 15, Node.js, TypeScript, Python, AI/ML integration,
-              AWS, Docker, Kubernetes, and NetSuite — delivering enterprise-grade solutions across every layer of the stack.
+              TypeScript end to end (Bun, Hono, React 19, Supabase), Gemini and Claude in production with Langfuse and
+              promptfoo behind them, NetSuite and SimPro integrations, and the agent tooling that lets one engineer own a product.
             </p>
           </ScrollReveal>
 
@@ -205,8 +204,8 @@ export default function HomeClassic() {
           </ScrollReveal>
           <ScrollReveal delay={150}>
             <p className="project-highlights text-sm mb-16 max-w-2xl" style={{ color: 'var(--text-muted)' }}>
-              Enterprise solutions delivering measurable results — from automation platforms saving $180K/year
-              to cloud infrastructure supporting 100K+ concurrent users with 99.99% uptime.
+              Production work first, each described as problem, design, trade-off and result. Earlier concept
+              and architecture studies are labelled as such.
             </p>
           </ScrollReveal>
 
@@ -296,11 +295,8 @@ export default function HomeClassic() {
           </ScrollReveal>
           <ScrollReveal delay={200}>
             <p className="cta-section text-lg mb-8 max-w-lg mx-auto" style={{ color: 'var(--text-muted)' }}>
-              Ready to bring your ideas to life? Get a free 30-minute consultation.
-              Available for immediate start — Perth, Australia and worldwide remote.
-            </p>
-            <p className="text-xs mb-8 max-w-md mx-auto" style={{ color: 'var(--text-muted)' }}>
-              50+ projects delivered &bull; 100% client satisfaction &bull; No commitment required
+              Hiring, or have a back-office process that should run itself? Email me, or download the resume
+              and walk through the private client work in a call.
             </p>
           </ScrollReveal>
 
@@ -309,13 +305,13 @@ export default function HomeClassic() {
               <InteractiveButton href="mailto:hellofromusama@gmail.com" variant="primary" size="lg">
                 Send an Email
               </InteractiveButton>
-              <InteractiveButton href="/contact" variant="secondary" size="lg">
-                Contact Form
+              <InteractiveButton href="/Usama-Javed-Resume.pdf" variant="secondary" size="lg">
+                Download Resume
               </InteractiveButton>
             </div>
             <div className="flex justify-center mb-16">
-              <InteractiveButton href="/budget" variant="secondary" size="md">
-                Try Budget Calculator
+              <InteractiveButton href="/contact" variant="secondary" size="md">
+                Contact Form
               </InteractiveButton>
             </div>
           </ScrollReveal>

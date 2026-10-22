@@ -58,14 +58,14 @@ function HeroContent() {
     <div className="space-panel space-hero">
       <p className="space-mono space-eyebrow">◦ N 31.95° · E 115.86° — PERTH, AUSTRALIA</p>
       <h1 className="space-h1">Usama Javed</h1>
-      <p className="space-sub">Perth&apos;s Senior Full-Stack Developer &amp; AI Engineer</p>
+      <p className="space-sub">Forward Deployed Engineer &amp; Lead AI Engineer, Lakestone AI</p>
       <p className="space-body">
-        8+ years building enterprise solutions on cloud platforms · 50+ projects across Australia
+        AI-native back-office software for real businesses · agents, judge models and ERP integrations in production
       </p>
       <div className="space-chips">
-        <span className="space-chip">50+ Projects</span>
         <span className="space-chip">8+ Years</span>
-        <span className="space-chip">20+ Technologies</span>
+        <span className="space-chip">3 AI Products Live</span>
+        <span className="space-chip">76 Agent Skills</span>
       </div>
       <div>
         <button className="space-cta space-cta-btn" onClick={() => flyTo(0.6)}>
@@ -86,15 +86,15 @@ function AboutContent() {
       <p className="space-mono space-card-label">01 — HOME PLANET</p>
       <h2 className="space-h2">The developer behind the work</h2>
       <p className="space-body">
-        Senior Full-Stack Developer with 8+ years delivering 50+ enterprise projects — from
-        humanitarian platforms to AI agents and cloud-native ERP systems. Based in Perth, building
-        for clients across Australia.
+        Forward Deployed Engineer and Lead AI Engineer at Lakestone AI. Eight years of full-stack
+        work across TypeScript, Node.js, React, .NET and Python, now spent building extraction
+        pipelines, judge models, agents and the ERP integrations under them for Perth businesses.
       </p>
       <div className="space-chips">
-        <span className="space-chip">50+ Projects</span>
         <span className="space-chip">8+ Years</span>
-        <span className="space-chip">20+ Technologies</span>
-        <span className="space-chip">100% Satisfaction</span>
+        <span className="space-chip">3 AI Products Live</span>
+        <span className="space-chip">76 Agent Skills</span>
+        <span className="space-chip">2 ERPs Integrated</span>
       </div>
     </div>
   );
@@ -196,7 +196,7 @@ function ContactContent() {
         </a>{" "}
         · <a href="mailto:hellofromusama@gmail.com">Email</a>
       </p>
-      <p className="space-mono space-footer">50+ PROJECTS DELIVERED · 100% CLIENT SATISFACTION</p>
+      <p className="space-mono space-footer">PERTH, WA · <a href="/Usama-Javed-Resume.pdf">DOWNLOAD RESUME</a></p>
     </div>
   );
 }

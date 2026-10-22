@@ -22,7 +22,7 @@ export default function Footer() {
                 UJ
               </Link>
               <p className="mt-4 text-sm leading-relaxed" style={{ color: 'var(--text-muted)' }}>
-                Full Stack Developer in Perth, specializing in modern web technologies and AI integrations.
+                Forward Deployed Engineer and Lead AI Engineer at Lakestone AI, Perth. AI-native back-office software for real businesses.
               </p>
             </div>
           </ScrollReveal>
@@ -35,7 +35,7 @@ export default function Footer() {
                   { href: '/', label: 'Home' },
                   { href: '/ideas', label: 'Ideas' },
                   { href: '/contact', label: 'Contact' },
-                  { href: '/budget', label: 'Budget' },
+                  { href: '/Usama-Javed-Resume.pdf', label: 'Resume (PDF)' },
                 ].map((item) => (
                   <li key={item.href}>
                     <Link

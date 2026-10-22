@@ -113,47 +113,10 @@ const nextConfig: NextConfig = {
         ],
       },
       {
-        source: '/llms-full.txt',
-        headers: [
-          { key: 'Content-Type', value: 'text/markdown; charset=utf-8' },
-          { key: 'Cache-Control', value: 'public, max-age=86400, s-maxage=86400' },
-          { key: 'X-Robots-Tag', value: 'all' },
-        ],
-      },
-      {
-        source: '/llms-ctx.txt',
-        headers: [
-          { key: 'Content-Type', value: 'text/plain; charset=utf-8' },
-          { key: 'Cache-Control', value: 'public, max-age=86400' },
-        ],
-      },
-      {
-        source: '/llms-ctx-full.txt',
-        headers: [
-          { key: 'Content-Type', value: 'text/plain; charset=utf-8' },
-          { key: 'Cache-Control', value: 'public, max-age=86400' },
-        ],
-      },
-      {
-        source: '/ai.txt',
-        headers: [
-          { key: 'Content-Type', value: 'text/plain; charset=utf-8' },
-          { key: 'Cache-Control', value: 'public, max-age=86400' },
-        ],
-      },
-      {
         source: '/humans.txt',
         headers: [
           { key: 'Content-Type', value: 'text/plain; charset=utf-8' },
           { key: 'Cache-Control', value: 'public, max-age=604800' },
-        ],
-      },
-      {
-        source: '/feed.xml',
-        headers: [
-          { key: 'Content-Type', value: 'application/rss+xml; charset=utf-8' },
-          { key: 'Cache-Control', value: 'public, max-age=3600, s-maxage=3600' },
-          { key: 'X-Robots-Tag', value: 'all' },
         ],
       },
     ]
@@ -180,15 +143,6 @@ const nextConfig: NextConfig = {
     ]
   },
 
-  // Rewrites for legacy AI file endpoints
-  async rewrites() {
-    return [
-      {
-        source: '/.llms',
-        destination: '/api/llms',
-      },
-    ]
-  }
 };
 
 export default nextConfig;

@@ -24,7 +24,7 @@ const teamMembers: TeamMember[] = [
   {
     id: "usama-javed",
     name: "Usama Javed",
-    role: "Full Stack Developer",
+    role: "Forward Deployed Engineer & Lead AI Engineer, Lakestone AI",
     company: "Digital Innovation Architect",
     image: "/team/usama-javed.png",
     socials: {

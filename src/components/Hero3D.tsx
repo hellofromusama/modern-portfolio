@@ -68,14 +68,13 @@ export default function Hero3D() {
           {/* Role */}
           <div className={`mt-8 max-w-lg transition-all duration-1000 delay-400 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
             <p className="hero-description text-lg sm:text-xl font-light leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
-              Perth&apos;s Senior Full Stack Developer &<br />
-              <span style={{ color: 'var(--text-muted)' }}>AI Integration Specialist</span>
+              Forward Deployed Engineer &<br />
+              <span style={{ color: 'var(--text-muted)' }}>Lead AI Engineer, Lakestone AI</span>
             </p>
             <p className="mt-4 text-sm leading-relaxed max-w-md" style={{ color: 'var(--text-muted)' }}>
-              8+ years building enterprise solutions that deliver results &mdash;
-              $180K/year saved through automation, 100K+ concurrent users
-              on cloud platforms, 50+ projects across Australia.
-              Free consultation. Immediate start.
+              AI-native back-office software for real businesses: extraction
+              pipelines with judge models behind them, agents that act within
+              limits a person sets, and the ERP integrations underneath. Perth, WA.
             </p>
           </div>
 
@@ -85,17 +84,17 @@ export default function Hero3D() {
               View Work
               <span className="inline-block ml-1">&rarr;</span>
             </InteractiveButton>
-            <InteractiveButton href="/contact" variant="secondary" size="md">
-              Contact
+            <InteractiveButton href="/Usama-Javed-Resume.pdf" variant="secondary" size="md">
+              Download Resume
             </InteractiveButton>
           </div>
 
           {/* Stats */}
           <div className={`mt-16 flex gap-10 transition-all duration-1000 delay-[800ms] ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
             {[
-              { value: "50+", label: "Projects" },
               { value: "8+", label: "Years" },
-              { value: "20+", label: "Technologies" },
+              { value: "3", label: "AI products live" },
+              { value: "76", label: "Agent skills" },
             ].map((stat) => (
               <div key={stat.label}>
                 <div className="text-2xl font-bold font-[family-name:var(--font-space-grotesk)]" style={{ color: 'var(--text-primary)', opacity: 0.8 }}>{stat.value}</div>

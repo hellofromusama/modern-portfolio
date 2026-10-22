@@ -45,7 +45,7 @@ export default function Navigation({ currentPage }: NavigationProps) {
     { href: '/ai-engineering', label: 'AI Engineering' },
     { href: '/ideas', label: 'Ideas' },
     { href: '/contact', label: 'Contact' },
-    { href: '/budget', label: 'Budget' },
+    { href: '/Usama-Javed-Resume.pdf', label: 'Resume' },
     { href: '/fund-me', label: 'Fund Me' },
   ];
 

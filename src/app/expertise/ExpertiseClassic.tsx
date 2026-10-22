@@ -71,7 +71,7 @@ const technicalExpertise: Record<string, ExpertiseCategory> = {
           "Micro-frontends",
           "Progressive Web Apps"
         ],
-        "projects": "50+ React applications",
+        "projects": "Production React 19 apps at Lakestone AI",
         "achievements": [
           "Complex state management",
           "High-performance UIs",
@@ -449,8 +449,8 @@ export default function ExpertiseClassic() {
             </p>
             <div className="grid md:grid-cols-4 gap-6 mt-12">
               <div className="text-center">
-                <div className="text-3xl font-bold text-blue-400 font-[family-name:var(--font-space-grotesk)]">50+</div>
-                <div style={{ color: 'var(--text-secondary)' }}>Projects Completed</div>
+                <div className="text-3xl font-bold text-blue-400 font-[family-name:var(--font-space-grotesk)]">3</div>
+                <div style={{ color: 'var(--text-secondary)' }}>AI Products in Production</div>
               </div>
               <div className="text-center">
                 <div className="text-3xl font-bold text-emerald-400 font-[family-name:var(--font-space-grotesk)]">8+</div>

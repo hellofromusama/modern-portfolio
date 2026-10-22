@@ -47,7 +47,7 @@ function HeroPanel() {
         8+ years of proven experience delivering complex projects across various industries.
       </p>
       <div className="space-chips">
-        <span className="space-chip">50+ Projects Completed</span>
+        <span className="space-chip">3 AI Products in Production</span>
         <span className="space-chip">8+ Years Experience</span>
         <span className="space-chip">20+ Technologies Mastered</span>
         <span className="space-chip">5 Professional Certifications</span>

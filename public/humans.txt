@@ -1,9 +1,9 @@
 /* TEAM */
 
 Developer & Designer: Usama Javed
-Role: Senior Full Stack Developer & AI Integration Specialist
+Role: Forward Deployed Engineer & Lead AI Engineer, Lakestone AI
 Location: Perth, Western Australia, Australia
-Contact: contact@usamajaved.com
+Contact: hellofromusama@gmail.com
 Website: https://www.usamajaved.com.au
 GitHub: https://github.com/hellofromusama
 LinkedIn: https://www.linkedin.com/in/hellofromusama/
@@ -20,7 +20,7 @@ Node.js Foundation
 
 /* SITE */
 
-Last updated: 2026-04-07
+Last updated: 2026-10-22
 Standards: HTML5, CSS3, ES2024
 Language: English (Australian)
 Framework: Next.js 15 (App Router)

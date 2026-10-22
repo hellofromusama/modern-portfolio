@@ -76,7 +76,7 @@ export const technicalExpertise: Record<string, ExpertiseCategory> = {
           "Micro-frontends",
           "Progressive Web Apps"
         ],
-        "projects": "50+ React applications",
+        "projects": "Production React 19 apps at Lakestone AI",
         "achievements": [
           "Complex state management",
           "High-performance UIs",

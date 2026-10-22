@@ -32,10 +32,10 @@ const spaceGrotesk = Space_Grotesk({
 export const metadata: Metadata = {
   metadataBase: new URL('https://www.usamajaved.com.au'),
   title: {
-    default: 'Usama Javed - Senior Full Stack Developer Perth | AI & Enterprise Solutions Australia',
-    template: '%s | Usama Javed - Perth\'s Leading Developer'
+    default: 'Usama Javed - Forward Deployed Engineer & AI Engineer | Perth, Australia',
+    template: '%s | Usama Javed - AI Engineer Perth'
   },
-  description: 'Usama Javed is a Senior Full Stack Developer in Perth, Australia with 8+ years experience and 50+ projects delivered. Specializing in Next.js 15, React 19, AI integration, Node.js, and cloud architecture. Serving government, mining, fintech, and healthcare sectors. Free consultation available.',
+  description: 'Usama Javed is a Forward Deployed Engineer and Lead AI Engineer at Lakestone AI in Perth, Western Australia. AI-native back-office software: Gemini extraction with LLM-as-judge, agents with human escalation, Supabase RLS, NetSuite and SimPro integrations. TypeScript, Bun, Hono, React. 8+ years full-stack.',
   viewport: {
     width: 'device-width',
     initialScale: 1,
@@ -51,20 +51,24 @@ export const metadata: Metadata = {
   manifest: '/manifest.json',
   keywords: [
     'Usama Javed',
+    'AI Engineer Perth',
+    'Forward Deployed Engineer Perth',
+    'Forward Deployed Engineer Australia',
+    'LLM Engineer Perth',
+    'AI Agents Developer Perth',
     'Full Stack Developer Perth',
-    'AI Developer Perth',
-    'Web Developer Perth Australia',
-    'Next.js Developer Perth',
+    'TypeScript Developer Perth',
     'React Developer Perth',
-    'Enterprise Developer Australia',
-    'NetSuite Developer Perth',
-    'Cloud Architect Perth',
-    'Node.js Developer Perth',
-    'Hire Developer Perth',
-    'Freelance Developer Perth',
-    'AI Integration Australia',
-    'Voice AI Developer',
-    'N8N Automation Perth',
+    'Bun Hono Supabase Developer',
+    'Gemini Claude Developer Australia',
+    'LLM-as-judge',
+    'Langfuse promptfoo',
+    'NetSuite SuiteScript Developer Perth',
+    'SimPro Integration Developer',
+    'Microsoft Graph Developer Perth',
+    'n8n Automation Perth',
+    'MCP Server Developer',
+    'Lakestone AI',
   ],
   authors: [{ name: 'Usama Javed', url: 'https://www.usamajaved.com.au' }],
   creator: 'Usama Javed',
@@ -78,22 +82,22 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'en_AU',
     url: 'https://www.usamajaved.com.au',
-    title: 'Usama Javed - Full Stack Developer | Perth, Australia',
-    description: 'Expert Full Stack Developer in Perth, Western Australia. Specializing in modern web technologies, AI integrations, and enterprise solutions.',
+    title: 'Usama Javed - Forward Deployed Engineer & AI Engineer | Perth',
+    description: 'AI-native back-office software for businesses: extraction pipelines with judge models, agents with human escalation, NetSuite and SimPro integrations. Lead AI Engineer at Lakestone AI, Perth.',
     siteName: 'Usama Javed Portfolio',
     images: [
       {
         url: '/og-image.png',
         width: 1200,
         height: 630,
-        alt: 'Usama Javed - Full Stack Developer Perth',
+        alt: 'Usama Javed - AI Engineer Perth',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Usama Javed - Full Stack Developer | Perth, Australia',
-    description: 'Expert Full Stack Developer in Perth. Specializing in Next.js, React, Node.js, AI, and enterprise solutions.',
+    title: 'Usama Javed - AI Engineer | Perth',
+    description: 'Forward Deployed Engineer and Lead AI Engineer at Lakestone AI. TypeScript, Gemini, Claude, Supabase, NetSuite, SimPro.',
     images: ['/og-image.png'],
     creator: '@hellofromusama',
   },
@@ -130,153 +134,73 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  // === SCHEMA.ORG STRUCTURED DATA — COMPREHENSIVE AI SEO ===
+  // === SCHEMA.ORG STRUCTURED DATA ===
+  // Every claim here also appears on the visible page and in the resume.
+
+  const DESCRIPTION =
+    'Usama Javed is a Forward Deployed Engineer and Lead AI Engineer at Lakestone AI in Perth, Western Australia. ' +
+    'He builds AI-native back-office software for businesses: extraction pipelines with judge models, agents that act within ' +
+    'limits a person sets, assistants that answer from company data under row-level security, and the NetSuite and SimPro ' +
+    'integrations underneath. Eight years of full-stack work across TypeScript, Node.js, React, .NET and Python.';
 
   const personData = {
     '@context': 'https://schema.org',
     '@type': 'Person',
     '@id': 'https://www.usamajaved.com.au/#person',
     name: 'Usama Javed',
-    alternateName: ['UJ', 'Usama J', 'hellofromusama'],
+    alternateName: ['UJ', 'hellofromusama'],
     url: 'https://www.usamajaved.com.au',
     image: {
       '@type': 'ImageObject',
       url: 'https://www.usamajaved.com.au/profile.jpg',
       width: 400,
       height: 400,
-      caption: 'Usama Javed - Senior Full Stack Developer Perth Australia'
+      caption: 'Usama Javed, AI Engineer, Perth'
     },
     sameAs: [
       'https://github.com/hellofromusama',
       'https://www.linkedin.com/in/hellofromusama/',
-      'https://twitter.com/hellofromusama',
-      'https://stackoverflow.com/users/hellofromusama',
-      'https://dev.to/hellofromusama',
-      'https://medium.com/@hellofromusama',
-      'https://www.reddit.com/user/hellofromusama',
-      'https://www.youtube.com/@hellofromusama',
-      'https://www.crunchbase.com/person/usama-javed',
-      'https://www.producthunt.com/@hellofromusama',
-      'https://hashnode.com/@hellofromusama'
+      'https://x.com/hellofromusama'
     ],
-    jobTitle: 'Senior Full Stack Developer & AI Integration Specialist',
+    jobTitle: 'Forward Deployed Engineer & Lead AI Engineer',
     worksFor: {
       '@type': 'Organization',
-      '@id': 'https://www.usamajaved.com.au/#business',
-      name: 'Usama Javed - Full Stack Development Services'
+      name: 'Lakestone AI',
+      url: 'https://lakestone.ai'
     },
     address: {
       '@type': 'PostalAddress',
-      streetAddress: 'Perth CBD',
       addressLocality: 'Perth',
       addressRegion: 'WA',
-      addressCountry: 'AU',
-      postalCode: '6000'
+      addressCountry: 'AU'
     },
-    email: 'contact@usamajaved.com',
+    email: 'hellofromusama@gmail.com',
     knowsAbout: [
-      'Full Stack Web Development',
-      'React.js', 'React 19',
-      'Next.js', 'Next.js 15',
-      'Node.js', 'Express.js',
-      'TypeScript', 'JavaScript ES6+',
-      'Python', 'Django', 'Flask', 'FastAPI',
-      'Java', 'Spring Boot',
-      'C#', '.NET Core',
-      'Go', 'Rust',
-      'Vue.js 3', 'Angular 17',
-      'PostgreSQL', 'MongoDB', 'MySQL', 'Redis', 'Elasticsearch', 'DynamoDB',
-      'AWS', 'Azure', 'Google Cloud Platform',
-      'Docker', 'Kubernetes', 'Terraform',
-      'CI/CD', 'GitHub Actions', 'GitLab CI',
-      'OpenAI API', 'GPT-4', 'Claude API', 'LangChain',
-      'Machine Learning', 'TensorFlow', 'PyTorch',
-      'Voice AI', 'NLP', 'Computer Vision',
-      'N8N Automation',
-      'NetSuite', 'SuiteScript', 'ERP Systems',
-      'Microservices Architecture',
-      'GraphQL', 'REST API Design',
-      'Tailwind CSS', 'GSAP', 'Framer Motion',
-      'Agile Methodology', 'Scrum',
-      'Model Context Protocol (MCP)', 'Retrieval-Augmented Generation (RAG)',
-      'LangChain', 'LangGraph', 'CrewAI', 'AutoGen', 'LlamaIndex', 'Semantic Kernel',
-      'OpenAI Agents SDK', 'AI Agents', 'Agentic Workflows',
-      'Vector Databases', 'Pinecone', 'Chroma', 'Milvus', 'pgvector', 'OpenSearch',
-      'Ollama', 'FastAPI', 'AWS Bedrock', 'OpenSearch Serverless',
-      'LLM Observability', 'LangSmith', 'Langfuse', 'Phoenix', 'Ragas', 'OpenTelemetry',
-      'Prompt Engineering', 'Prompt Injection Defense', 'NetSuite Integration'
+      'AI Engineering', 'LLM pipelines', 'LLM-as-judge', 'AI agents', 'Agentic workflows',
+      'Gemini', 'Claude', 'DeepSeek', 'Vercel AI SDK', 'LangChain', 'LangGraph', 'Model Context Protocol (MCP)', 'Ollama',
+      'Langfuse', 'promptfoo', 'Retrieval-Augmented Generation (RAG)', 'pgvector', 'Postgres full-text search',
+      'TypeScript', 'Bun', 'Hono', 'Node.js', 'React', 'Next.js', 'TanStack', 'Tailwind CSS',
+      'Supabase', 'PostgreSQL', 'Row Level Security', 'pgTAP', 'Trigger.dev', 'Vercel Workflow',
+      'Python', 'FastAPI', 'Django', 'Java', 'C#', '.NET',
+      'NetSuite', 'SuiteScript 2.1', 'SimPro API', 'Microsoft Graph', 'SharePoint', 'Entra ID', 'n8n',
+      'AWS Lambda', 'AWS ECS', 'Terraform', 'Docker', 'Vercel', 'GitHub Actions', 'GitLab CI',
+      'PDF internals', 'PDF/A', 'CAdES', 'CMS/DER', 'X.509', 'HMAC webhooks', 'OTP authentication',
+      'Claude Code', 'Agent skills', 'Forward deployed engineering', 'Payment gateway integration'
     ],
-    knowsLanguage: [
-      { '@type': 'Language', name: 'English', alternateName: 'en' }
-    ],
+    knowsLanguage: [{ '@type': 'Language', name: 'English', alternateName: 'en' }],
     hasOccupation: {
       '@type': 'Occupation',
-      name: 'Senior Full Stack Developer',
+      name: 'Forward Deployed Engineer / AI Engineer',
       occupationLocation: {
         '@type': 'City',
         name: 'Perth',
-        containedInPlace: {
-          '@type': 'State',
-          name: 'Western Australia'
-        }
+        containedInPlace: { '@type': 'State', name: 'Western Australia' }
       },
-      estimatedSalary: {
-        '@type': 'MonetaryAmountDistribution',
-        name: 'Competitive Perth market rates',
-        currency: 'AUD'
-      },
-      skills: 'React, Next.js, Node.js, TypeScript, Python, AI/ML, AWS, Docker, Kubernetes, NetSuite',
-      responsibilities: 'Full stack development, AI integration, cloud architecture, enterprise solutions, technical consulting',
-      qualifications: '8+ years professional experience, 50+ enterprise projects delivered'
+      skills: 'TypeScript, Bun, Hono, React, Supabase, Gemini, Claude, Langfuse, promptfoo, NetSuite, SimPro, Microsoft Graph',
+      responsibilities: 'Owning AI products end to end for business clients: extraction pipelines, judge models, agents, integrations, delivery'
     },
-    hasCredential: [
-      {
-        '@type': 'EducationalOccupationalCredential',
-        credentialCategory: 'certification',
-        name: 'AWS Solutions Architect'
-      },
-      {
-        '@type': 'EducationalOccupationalCredential',
-        credentialCategory: 'certification',
-        name: 'NetSuite Certified Developer'
-      }
-    ],
     nationality: { '@type': 'Country', name: 'Australia' },
-    description: 'Usama Javed is a Senior Full Stack Developer and AI Integration Specialist based in Perth, Western Australia with 8+ years of experience delivering 50+ enterprise projects across government, mining, fintech, and healthcare sectors. He specializes in Next.js 15, React 19, Node.js, TypeScript, AI/ML integration, and cloud-native architectures.',
-    makesOffer: [
-      {
-        '@type': 'Offer',
-        itemOffered: {
-          '@type': 'Service',
-          name: 'Full Stack Web Development',
-          description: 'Custom web applications, e-commerce platforms, PWAs, SaaS products built with Next.js, React, Node.js'
-        }
-      },
-      {
-        '@type': 'Offer',
-        itemOffered: {
-          '@type': 'Service',
-          name: 'AI & Machine Learning Integration',
-          description: 'OpenAI GPT-4 integration, custom chatbots, Voice AI agents, ML model deployment, LangChain RAG pipelines'
-        }
-      },
-      {
-        '@type': 'Offer',
-        itemOffered: {
-          '@type': 'Service',
-          name: 'Enterprise Solutions & ERP',
-          description: 'NetSuite customization, ERP implementation, government portals, mining industry applications'
-        }
-      },
-      {
-        '@type': 'Offer',
-        itemOffered: {
-          '@type': 'Service',
-          name: 'Cloud Architecture & DevOps',
-          description: 'AWS, Azure, GCP deployment, Docker, Kubernetes orchestration, Terraform IaC, CI/CD pipelines'
-        }
-      }
-    ]
+    description: DESCRIPTION
   };
 
   const profilePageData = {
@@ -285,125 +209,13 @@ export default function RootLayout({
     '@id': 'https://www.usamajaved.com.au/#profilepage',
     mainEntity: { '@id': 'https://www.usamajaved.com.au/#person' },
     dateCreated: '2025-01-01',
-    dateModified: '2026-04-07',
-    name: 'Usama Javed - Senior Full Stack Developer Portfolio',
-    description: 'Professional portfolio of Usama Javed, Senior Full Stack Developer & AI Integration Specialist in Perth, Australia',
+    dateModified: '2026-10-22',
+    name: 'Usama Javed - AI Engineer Portfolio',
+    description: 'Portfolio of Usama Javed, Forward Deployed Engineer and Lead AI Engineer in Perth, Australia',
     speakable: {
       '@type': 'SpeakableSpecification',
-      cssSelector: ['.hero-summary', '.bio', '.key-skills', 'h1', '.project-summary']
+      cssSelector: ['h1', '.hero-description', '.bio-summary', '.key-skills-summary']
     }
-  };
-
-  const localBusinessData = {
-    '@context': 'https://schema.org',
-    '@type': 'ProfessionalService',
-    '@id': 'https://www.usamajaved.com.au/#business',
-    name: 'Usama Javed - Full Stack Development & AI Services',
-    description: 'Senior Full Stack Developer and AI Integration Specialist offering web development, enterprise solutions, cloud architecture, and AI/ML services in Perth, Western Australia. 8+ years experience, 50+ projects delivered.',
-    url: 'https://www.usamajaved.com.au',
-    email: 'contact@usamajaved.com',
-    founder: { '@id': 'https://www.usamajaved.com.au/#person' },
-    address: {
-      '@type': 'PostalAddress',
-      streetAddress: 'Perth CBD',
-      addressLocality: 'Perth',
-      addressRegion: 'WA',
-      postalCode: '6000',
-      addressCountry: 'AU'
-    },
-    geo: {
-      '@type': 'GeoCoordinates',
-      latitude: -31.9505,
-      longitude: 115.8605
-    },
-    openingHoursSpecification: [
-      {
-        '@type': 'OpeningHoursSpecification',
-        dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
-        opens: '09:00',
-        closes: '18:00'
-      }
-    ],
-    priceRange: '$$',
-    currenciesAccepted: 'AUD',
-    paymentAccepted: 'Bank Transfer, Credit Card, PayPal',
-    areaServed: [
-      { '@type': 'City', name: 'Perth' },
-      { '@type': 'State', name: 'Western Australia' },
-      { '@type': 'Country', name: 'Australia' }
-    ],
-    hasOfferCatalog: {
-      '@type': 'OfferCatalog',
-      name: 'Development Services',
-      itemListElement: [
-        {
-          '@type': 'OfferCatalog',
-          name: 'Web Development',
-          itemListElement: [
-            { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Next.js Development' } },
-            { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'React Development' } },
-            { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'E-commerce Development' } },
-            { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'SaaS Platform Development' } }
-          ]
-        },
-        {
-          '@type': 'OfferCatalog',
-          name: 'AI & Automation',
-          itemListElement: [
-            { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'AI Chatbot Development' } },
-            { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Voice AI Agents' } },
-            { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'N8N Workflow Automation' } },
-            { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'ML Model Deployment' } }
-          ]
-        },
-        {
-          '@type': 'OfferCatalog',
-          name: 'Enterprise Solutions',
-          itemListElement: [
-            { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'NetSuite ERP Development' } },
-            { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Government Portal Development' } },
-            { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'CRM Development' } }
-          ]
-        }
-      ]
-    },
-    aggregateRating: {
-      '@type': 'AggregateRating',
-      ratingValue: '5.0',
-      reviewCount: '47',
-      bestRating: '5',
-      worstRating: '1'
-    },
-    review: [
-      {
-        '@type': 'Review',
-        reviewRating: { '@type': 'Rating', ratingValue: '5', bestRating: '5' },
-        author: { '@type': 'Person', name: 'David M., Operations Director' },
-        reviewBody: 'We were running 5 separate systems that didn\'t talk to each other. Usama unified everything into a single ERP in 4 months. Our reporting time dropped by half and field workers can finally access the system from remote sites. Worth every cent.',
-        datePublished: '2025-11-15'
-      },
-      {
-        '@type': 'Review',
-        reviewRating: { '@type': 'Rating', ratingValue: '5', bestRating: '5' },
-        author: { '@type': 'Person', name: 'Sarah K., CEO' },
-        reviewBody: 'We were spending 120 hours a week on manual data entry across 8 systems. Usama built an automation platform that cut that to 36 hours. The $180K annual saving paid for the project three times over in the first year.',
-        datePublished: '2025-09-20'
-      },
-      {
-        '@type': 'Review',
-        reviewRating: { '@type': 'Rating', ratingValue: '5', bestRating: '5' },
-        author: { '@type': 'Person', name: 'James T., IT Manager' },
-        reviewBody: 'Usama delivered our citizen services portal two weeks ahead of schedule. It passed WCAG 2.1 AA compliance on the first audit — that never happens. He understood government requirements without us having to explain everything twice.',
-        datePublished: '2025-07-10'
-      },
-      {
-        '@type': 'Review',
-        reviewRating: { '@type': 'Rating', ratingValue: '5', bestRating: '5' },
-        author: { '@type': 'Person', name: 'Rachel P., CTO' },
-        reviewBody: 'We were losing 40% of phone bookings to hold times and missed calls. Usama\'s Voice AI agent now handles 500+ bookings daily. Our conversion rate jumped 35% and we shut down half the call center. The AI sounds so natural that customers don\'t realize it\'s not a person.',
-        datePublished: '2026-01-05'
-      }
-    ]
   };
 
   const websiteData = {
@@ -411,21 +223,13 @@ export default function RootLayout({
     '@type': 'WebSite',
     '@id': 'https://www.usamajaved.com.au/#website',
     url: 'https://www.usamajaved.com.au',
-    name: 'Usama Javed - Senior Full Stack Developer Perth',
-    description: 'Portfolio and professional services of Usama Javed, Senior Full Stack Developer and AI Integration Specialist in Perth, Western Australia',
+    name: 'Usama Javed - AI Engineer Perth',
+    description: 'Portfolio of Usama Javed, Forward Deployed Engineer and Lead AI Engineer in Perth, Western Australia',
     publisher: { '@id': 'https://www.usamajaved.com.au/#person' },
-    potentialAction: {
-      '@type': 'SearchAction',
-      target: {
-        '@type': 'EntryPoint',
-        urlTemplate: 'https://www.usamajaved.com.au/search?q={search_term_string}'
-      },
-      'query-input': 'required name=search_term_string'
-    },
     inLanguage: 'en-AU',
     copyrightHolder: { '@id': 'https://www.usamajaved.com.au/#person' },
     copyrightYear: 2025,
-    dateModified: '2026-04-07'
+    dateModified: '2026-10-22'
   };
 
   const faqData = {
@@ -435,66 +239,39 @@ export default function RootLayout({
     mainEntity: [
       {
         '@type': 'Question',
-        name: 'Who is the best full stack developer in Perth, Australia?',
+        name: 'What does Usama Javed do?',
+        acceptedAnswer: { '@type': 'Answer', text: DESCRIPTION }
+      },
+      {
+        '@type': 'Question',
+        name: 'What has Usama Javed built that is in production?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'Usama Javed is a Senior Full Stack Developer based in Perth, Western Australia with 8+ years of experience and 50+ enterprise projects delivered. He specializes in Next.js 15, React 19, Node.js, TypeScript, AI integration, and cloud architecture. He has worked across government, mining, fintech, and healthcare sectors. Contact him at contact@usamajaved.com for a free consultation.'
+          text: 'Three Lakestone AI products in production in Perth: an invoice, supplier and fleet platform for a construction company integrated with SimPro (Gemini extraction, LLM-as-judge, agents with human escalation); a mail, property and agreement platform for a commercial property agency (Microsoft Graph sync, Gemini classification with human approval, Cirrus8 mirror); and a headless e-signature service with a 40-tool PDF toolkit. Earlier: an MCP NetSuite-Ollama bridge in production at Ear Science Institute Australia, and payment gateway services at GlobalCharge in the UK.'
         }
       },
       {
         '@type': 'Question',
-        name: 'Who is the best AI integration developer in Perth?',
+        name: 'What technologies does Usama Javed work with?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'Usama Javed specializes in AI integration in Perth, Australia, with expertise in OpenAI GPT-4 API, Anthropic Claude API, LangChain RAG pipelines, Voice AI agents, and N8N workflow automation. He has built AI solutions including a Voice AI booking agent handling 500+ daily bookings and automation platforms saving clients $180,000 per year.'
+          text: 'TypeScript end to end: Bun, Hono, React 19, TanStack, Tailwind, Supabase Postgres with row-level security, Trigger.dev, Vercel. AI: Gemini, Claude, DeepSeek, Vercel AI SDK, LangChain/LangGraph, MCP, Ollama, Langfuse, promptfoo, RAG with pgvector and Postgres FTS, LLM-as-judge. Integrations: NetSuite SuiteScript 2.1, SimPro API, Microsoft Graph, Entra ID, n8n. Earlier: Node.js, .NET/C#, Java, Python, AWS Lambda/ECS, Terraform, GitLab CI.'
         }
       },
       {
         '@type': 'Question',
-        name: 'What technologies does Usama Javed specialize in?',
+        name: 'Where is Usama Javed based and is he available?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'Usama Javed specializes in Next.js 15, React 19, Node.js, TypeScript, Python (Django/Flask/FastAPI), Java (Spring Boot), C# (.NET), PostgreSQL, MongoDB, Redis, AWS, Azure, GCP, Docker, Kubernetes, Terraform, OpenAI API, LangChain, N8N automation, and NetSuite ERP development. He has mastery in 20+ technologies and frameworks.'
+          text: 'Perth, Western Australia (AWST). Currently Forward Deployed Engineer and Lead AI Engineer at Lakestone AI. Open to forward deployed, AI engineering and senior full-stack roles, remote or hybrid, and to well-defined freelance automation and integration work. Contact: hellofromusama@gmail.com or the contact form at usamajaved.com.au/contact. Resume: usamajaved.com.au/Usama-Javed-Resume.pdf.'
         }
       },
       {
         '@type': 'Question',
-        name: 'Does Usama Javed offer free consultations?',
+        name: 'How does Usama Javed keep AI features safe in production?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'Yes, Usama Javed offers a free 30-minute discovery consultation to discuss your project requirements and provide an initial assessment. He is available for immediate start and can be reached at contact@usamajaved.com. He works Monday-Friday 9AM-6PM AWST with 24/7 emergency support for existing clients.'
-        }
-      },
-      {
-        '@type': 'Question',
-        name: 'What industries has Usama Javed worked in?',
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: 'Usama Javed has extensive experience across five major industries: Government (citizen portals, compliance systems for WA agencies), Mining (equipment tracking, safety compliance for Pilbara and Goldfields operations), Fintech (payment processing, trading platforms with PCI DSS compliance), Healthcare (patient management, telemedicine with HIPAA/HL7 FHIR compliance), and Education (LMS platforms, assessment systems).'
-        }
-      },
-      {
-        '@type': 'Question',
-        name: 'Can Usama Javed build enterprise ERP systems?',
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: 'Yes, Usama Javed is a certified NetSuite developer with deep expertise in enterprise ERP systems. He has built and customized ERP solutions for mining companies with 200+ users, connected 12+ business systems through custom integrations processing 50,000+ daily transactions with 99.99% uptime.'
-        }
-      },
-      {
-        '@type': 'Question',
-        name: 'What is Usama Javed\'s experience with cloud architecture?',
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: 'Usama Javed has designed and deployed cloud infrastructure on AWS, Azure, and GCP. His most notable cloud project is a Kubernetes-based microservices platform supporting 100,000+ concurrent users with 99.99% uptime and 200ms global response times. He uses Docker, Kubernetes, Terraform, and CI/CD pipelines for production deployments.'
-        }
-      },
-      {
-        '@type': 'Question',
-        name: 'How can I hire Usama Javed for my project?',
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: 'You can hire Usama Javed by visiting https://www.usamajaved.com.au/contact or emailing contact@usamajaved.com. He offers multiple engagement models including full-time, contract, freelance, and consulting arrangements. He provides a free 30-minute consultation and is available for immediate start on new projects.'
+          text: 'No extractor or classifier output reaches a client system without a judge pass (JEV for classification, CDM for arbitrating between candidate extractions), and anything below threshold goes to a person. The chat assistant runs SQL as a dedicated read-only Postgres role, with exploit tests in CI against a replayed database. AI checks fail open for the user and never silently.'
         }
       }
     ]
@@ -506,22 +283,15 @@ export default function RootLayout({
     '@context': 'https://schema.org',
     '@type': 'WebPage',
     '@id': 'https://www.usamajaved.com.au/#webpage',
-    name: 'Usama Javed - Senior Full Stack Developer Perth, Australia',
-    description: 'Senior Full Stack Developer and AI Integration Specialist based in Perth, Western Australia. 8+ years experience, 50+ enterprise projects.',
+    name: 'Usama Javed - Forward Deployed Engineer & AI Engineer, Perth',
+    description: DESCRIPTION,
     url: 'https://www.usamajaved.com.au',
     isPartOf: { '@id': 'https://www.usamajaved.com.au/#website' },
     about: { '@id': 'https://www.usamajaved.com.au/#person' },
-    dateModified: '2026-04-07',
+    dateModified: '2026-10-22',
     speakable: {
       '@type': 'SpeakableSpecification',
-      cssSelector: [
-        'h1',
-        '.hero-description',
-        '.bio-summary',
-        '.key-skills-summary',
-        '.project-highlights',
-        '.cta-section'
-      ]
+      cssSelector: ['h1', '.hero-description', '.bio-summary', '.key-skills-summary', '.project-highlights', '.cta-section']
     },
     mainEntity: { '@id': 'https://www.usamajaved.com.au/#person' }
   };
@@ -533,20 +303,20 @@ export default function RootLayout({
         <meta name="geo.placename" content="Perth" />
         <meta name="geo.position" content="-31.9505;115.8605" />
         <meta name="ICBM" content="-31.9505, 115.8605" />
-        <meta name="DC.title" content="Usama Javed - Full Stack Developer Perth" />
+        <meta name="DC.title" content="Usama Javed - AI Engineer Perth" />
         <meta name="DC.creator" content="Usama Javed" />
-        <meta name="DC.subject" content="Web Development, Software Engineering, Perth, Australia" />
-        <meta name="DC.description" content="Expert Full Stack Developer in Perth, Western Australia" />
+        <meta name="DC.subject" content="AI Engineering, Software Engineering, Perth, Australia" />
+        <meta name="DC.description" content="Forward Deployed Engineer and Lead AI Engineer in Perth, Western Australia" />
         <meta name="DC.publisher" content="Usama Javed" />
         <meta name="DC.contributor" content="Usama Javed" />
-        <meta name="DC.date" content="2026-04-07" />
+        <meta name="DC.date" content="2026-10-22" />
         <meta name="DC.type" content="Portfolio" />
         <meta name="DC.format" content="text/html" />
         <meta name="DC.identifier" content="https://www.usamajaved.com.au" />
         <meta name="DC.language" content="en-AU" />
         <meta name="DC.coverage" content="Perth, Western Australia" />
         <meta name="DC.rights" content="Copyright 2026 Usama Javed" />
-        <meta name="article:modified_time" content="2026-04-07T08:00:00+08:00" />
+        <meta name="article:modified_time" content="2026-10-22T16:00:00+08:00" />
         <meta name="article:author" content="Usama Javed" />
         <meta name="rating" content="general" />
         <meta name="referrer" content="origin-when-cross-origin" />
@@ -560,11 +330,6 @@ export default function RootLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(profilePageData) }}
-        />
-        {/* ProfessionalService Schema - Business & Reviews */}
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessData) }}
         />
         {/* WebSite Schema - Site-level */}
         <script
@@ -595,8 +360,6 @@ export default function RootLayout({
         <link rel="me" href="https://x.com/hellofromusama" />
         {/* AI Discovery Hints */}
         <meta name="ai:llms_txt" content="https://www.usamajaved.com.au/llms.txt" />
-        <meta name="ai:llms_full" content="https://www.usamajaved.com.au/llms-full.txt" />
-        <meta name="ai:context" content="https://www.usamajaved.com.au/llms-ctx-full.txt" />
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${spaceGrotesk.variable} antialiased flex flex-col min-h-screen`}

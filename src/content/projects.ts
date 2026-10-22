@@ -18,6 +18,144 @@ import type { Project } from "./types";
 //   kashmir-fund, n8n-automation, voice-ai-agent, erp-system,
 //   netsuite-integration, modern-portfolio, cloud-infrastructure
 const projects = {
+  "ai-backoffice-construction": {
+    id: "ai-backoffice-construction",
+    title: "AI Back-Office Platform for a Construction Company",
+    subtitle: "Invoices, suppliers and fleet, from inbox to ERP",
+    description: "Lead engineer on a production platform for a Perth construction contractor running on SimPro: invoice and quote extraction with a human review gate, supplier onboarding with document verification and fraud screening, fleet inspections by consensus extraction, and a permission-scoped chat assistant over a 7,000-document corpus.",
+    longDescription: `Problem: supplier invoices were re-keyed into SimPro by hand, ~2,000 suppliers were onboarded over email and spreadsheets, and monthly fleet inspections arrived as photos in a shared mailbox and SharePoint workbooks nobody could search.
+
+Design: a Bun + Hono API on Vercel with a React 19 front end, Supabase Postgres under row-level security, and Trigger.dev tasks for everything that takes longer than a request. Gemini Flash does extraction into Zod-validated schemas; a judge layer (JEV for classification, CDM for arbitrating between candidate extractions) scores every output before it is used, and anything below threshold goes to a person. The invoice agent takes a PDF from inbox or upload to a SimPro vendor order and receipt when confidence and drift checks pass, and escalates the rest with the reason. A GST TaxAdjustment makes the SimPro total land on the printed figure, proven by a live read-back check. SimPro webhooks feed a local mirror and a daily job reconciles it against the live API.
+
+Trade-offs: the human approval gate was kept over straight-through processing until the judge layer earned the right to bypass it. Gemini Flash everywhere for cost and multimodal PDFs, with promptfoo benchmarks before any model change after an upstream model retirement broke quote extraction. The chat assistant's SQL tool runs as a dedicated NOLOGIN Postgres role reached by PostgREST JWT role-switching, because SET ROLE is blocked on managed Supabase; two signing paths were the price of a real privilege boundary.
+
+Result: office staff process invoices from PDF to ERP receipt in one screen, suppliers onboard themselves through a public wizard with ABN, ABR, BSB and certificate checks, inspection reports flow from driver to review sheet, and staff ask questions of company data with cited answers. 276 migrations, 96 RLS policies, exploit tests in CI, and 76 incident-born project skills that keep coding agents from repeating past failures.`,
+    tech: ["Bun", "TypeScript", "Hono", "React 19", "TanStack", "Supabase", "Trigger.dev", "Gemini", "Langfuse", "promptfoo", "SimPro API", "Microsoft Graph"],
+    category: "AI Engineering",
+    timeline: "Live in production",
+    team: "Lead engineer, Lakestone AI",
+    features: [
+      "Invoice agent: Gemini extraction, confidence and drift gates, straight-through to SimPro receipt or escalation with reason",
+      "LLM as judge: JEV scores classifications, CDM arbitrates between candidate extractions, low scores go to a person",
+      "GST rounding correction with a live read-back proof so a quiet day isn't mistaken for a pass",
+      "SimPro mirror fed by 34+ webhook event types and reconciled daily against the live API",
+      "Supplier agent: ABN and ABR checks, AusPayNet BSB validation, certificate verification, banking-change fraud screening with ABA pre-flight",
+      "Inspection agent: tokenised driver requests, mail and SharePoint ingest, three-run consensus extraction, SharePoint write-back",
+      "7,367-document corpus migrated byte-for-byte with hash verification, Postgres FTS plus pgvector behind per-tree permissions",
+      "Chat assistant with cited answers, permission-gated tool registry and a read-only Postgres role for SQL",
+    ],
+    challenges: [
+      "A rounding fix that passed every test still drifted in production because the CREATE path dropped the adjustment",
+      "Making an LLM's SQL tool safe on managed Postgres where SET ROLE inside SECURITY DEFINER is blocked",
+      "A stale SharePoint delta cursor let 29 nightly syncs report success while doing nothing",
+      "Parallel coding agents colliding on migration timestamps and leaking scope",
+    ],
+    results: [
+      "Invoices go from PDF to SimPro receipt without re-keying; totals land on the printed figure",
+      "Postgres itself rejects out-of-scope reads from the assistant, proven by exploit tests in CI",
+      "Per-root delta cursors and fail-visible aborts made the vehicle mirror self-recovering",
+      "CI gates and 76 project skills stopped agents repeating incidents",
+    ],
+    gradient: "from-blue-500 to-violet-600",
+    gridTitle: "AI Back-Office Platform (Construction)",
+    gridDescription: "Lead engineer. Invoices, suppliers and fleet inspections taken from inbox to SimPro by agents with judge models behind them. Live in production.",
+    gridTech: ["Bun", "Hono", "Supabase", "Gemini"],
+    gridCategory: "In Production",
+    seoName: "AI Back-Office Platform for a Construction Company",
+    seoDescription: "Production invoice, supplier and fleet platform integrated with SimPro: Gemini extraction, LLM-as-judge, agents with human escalation, Supabase RLS",
+    applicationCategory: "BusinessApplication",
+    sitemapPriority: 0.9,
+  },
+  "property-agency-ems": {
+    id: "property-agency-ems",
+    title: "Mail, Property and Agreement Platform for a Property Agency",
+    subtitle: "Graph mail sync, Gemini classification, drafts a person approves",
+    description: "A comms control centre for a commercial property agency in Perth: Microsoft 365 mailboxes synced and classified, every proposal and reply reviewed by a person, a gated Management Agency Agreement workflow, and a property portfolio mirrored from Cirrus8. Live in production since October 2026.",
+    longDescription: `Problem: property managers triaged a shared intake mailbox by hand, tracked new managements in a spreadsheet, and answered property questions by searching Cirrus8 and SharePoint one record at a time.
+
+Design: Microsoft Graph delta sync and webhooks land each message; a Gemini insight loop classifies it, judged by JEV, and proposes the client, property and job it belongs to with a confidence. A person accepts, edits or rejects. The email agent drafts the reply and files the attachments, and send is a confirmed, idempotent, audited command from the member's own mailbox with an Undo window. Every write is a Zod command with an Idempotency-Key and expected version; every external effect goes through an outbox and is simulated unless its flag is on. A fake LLM provider, a call ledger and provider pauses mean CI, seeds and end-to-end tests run with zero paid calls.
+
+My areas: the client research and knowledge base, the Cirrus8 integration (the roadmap assumed CSV-only; I proved a read API by live session capture under a secrets rule and built a mirror whose freshness is a health check), the MAA workshop and generator, schema, access control, the email and property agents, and the production go-live.
+
+Trade-offs: drafts only, with send behind a flag, costs reply speed and buys trust on a client mailbox. The command kernel adds ceremony to every write and removes a whole class of double-click and stale-edit bugs over shared mail.
+
+Result: production live at the agency on 14 October 2026 after a release that had not built for three weeks: 2,240 commits merged, 94 migrations replayed, the tier guard changed with recorded reasons, 42 stale env overrides cleaned, readiness measured. 201 RLS policies with every application table covered, separate database logins per service, Entra sign-in.`,
+    tech: ["Bun", "Hono", "zod-openapi", "React 19", "Supabase", "Vercel Workflow SDK", "Gemini", "Langfuse", "Microsoft Graph", "Cirrus8", "Entra ID"],
+    category: "AI Engineering",
+    timeline: "Live in production",
+    team: "Engineer, Lakestone AI (research, Cirrus8, MAA, schema, access, go-live)",
+    features: [
+      "Email agent: classify, link to the record, draft the reply, file attachments, hand the draft to a person",
+      "Property agent: keeps each property's story current from mail, Cirrus8 and documents; prepares MAA renewals and critical-date actions",
+      "Command kernel with Idempotency-Key and expected version on every write, Undo on every action",
+      "Outbox for every external effect, simulated unless flagged; fake LLM provider and call ledger for free CI",
+      "MAA workflow: onboarding workshop, board, KPI dashboard, gated generator from brief to letter, REIWA form and annexures",
+      "Roles, permissions, global admins and an access log with pgTAP permission matrices",
+    ],
+    challenges: [
+      "A production build that rejected the prod tier for three weeks while 2,240 commits piled up on staging",
+      "Permissions over shared mail delivered in one day across schema, API, CLI and UI",
+      "Sending from a client mailbox safely with a Graph grant scoped to the intake mailbox",
+    ],
+    results: [
+      "Production live 14 October 2026 with measured readiness and RLS state recorded",
+      "Every proposal, draft, send and MAA bundle has a person in the loop",
+      "A Portfolio page on real Cirrus8 data and a corrected integration premise",
+    ],
+    gradient: "from-emerald-500 to-teal-600",
+    gridTitle: "Mail & Property Platform (Property Agency)",
+    gridDescription: "Microsoft 365 mail synced and classified, replies drafted for a person to approve, MAA workflow and Cirrus8 portfolio mirror. Live since October 2026.",
+    gridTech: ["Hono", "Supabase", "Gemini", "Microsoft Graph"],
+    gridCategory: "In Production",
+    seoName: "Mail, Property and Agreement Platform for a Property Agency",
+    seoDescription: "Production comms and property-management workbench: Microsoft Graph mail sync, Gemini classification with human approval, command kernel, outbox, Cirrus8 mirror",
+    applicationCategory: "BusinessApplication",
+    sitemapPriority: 0.9,
+  },
+  "lakestone-esign": {
+    id: "lakestone-esign",
+    title: "Headless E-Signature Service and PDF Toolkit",
+    subtitle: "OTP signers, CAdES seals, HMAC webhooks, 40+ PDF tools, one CLI",
+    description: "A headless e-signature service built in six days as sole author to replace a per-envelope SaaS subscription, with a 40-tool PDF toolkit in our own TypeScript so documents never leave the stack. In production as the signing step for the products above.",
+    longDescription: `Problem: products needed signing as a step, not a vendor-hosted flow with a per-envelope fee, and documents had to stay inside the stack.
+
+Design: a calling project sends a PDF, recipients and fields through the client SDK or the esign CLI. The service emails invitations, authenticates each signer by email OTP, renders every field into the PDF, seals it with a CAdES detached signature and reports back by HMAC-signed webhooks. The CMS/DER construction, signature dictionaries, byte ranges and X.509 chain handling are our own TypeScript, verified against the CA by a script with its own tests. Version 1.1 added esign.pdf.*: organise, fill, redact with an audit trail, protect, sanitise, compare, optimise, convert, PDF/A conformance (XMP, xref rewriting, ICC sRGB, standard-14 fonts) and OCR. Version 1.2 made every capability a feature module an operator switches per project, with requireFeature on every route and job.
+
+Trade-offs: owning PKI instead of a vendor; a large in-house PDF module set and licence diligence as a CI gate (attribution checked, AGPL never copied); a feature gate on every route and the idempotency-caching trap that came with it, recorded as a rule.
+
+Result: signing became an API call, a coding agent can drive the whole service through one CLI with profiles, exit codes and a wait contract, and loopback-only development is proven by static egress scans, a runtime watch and a proxy sinkhole.`,
+    tech: ["Bun", "Hono", "zod-openapi", "React 19", "Supabase", "Vercel Workflow SDK", "@libpdf/core", "pdfjs", "tesseract.js", "jose"],
+    category: "Backend & Crypto",
+    timeline: "v1.2, in production",
+    team: "Sole author, Lakestone AI",
+    features: [
+      "Envelopes with email OTP signer authentication, field rendering and a CAdES detached seal",
+      "HMAC-signed webhooks with a receiver fixture for callers",
+      "40+ PDF tools in TypeScript: organise, fill, redact, protect, sanitise, compare, optimise, convert, PDF/A, OCR",
+      "Feature modules switched per project by an operator; requireFeature on every route and job",
+      "One esign CLI with profiles, JSON output, exit codes and a wait contract for people and agents",
+      "Loopback-only development proven by egress guards; licence hygiene as a CI gate",
+    ],
+    challenges: [
+      "A standards-compliant seal in TypeScript: CMS and DER construction, byte ranges, X.509 chains, a verifier with tests",
+      "PDF/A conformance: XMP, xref rewriting, ICC sRGB, standard-14 fonts",
+      "Feature gating without breaking idempotent calls",
+    ],
+    results: [
+      "v1.0 to v1.2 in six days, in work packages with written briefs and acceptance scripts run on a real stack",
+      "Sealed PDFs verify against the CA; the runbook tells an operator how to move to a production CA",
+      "Contract tests keep core, client, API and CLI aligned",
+    ],
+    gradient: "from-amber-500 to-orange-600",
+    gridTitle: "Headless E-Signature & PDF Toolkit",
+    gridDescription: "Sole author. OTP signers, CAdES seals, HMAC webhooks and 40+ PDF tools in TypeScript, behind one CLI an agent can drive. Replaced a SaaS subscription.",
+    gridTech: ["Hono", "Supabase", "CAdES", "PDF/A"],
+    gridCategory: "In Production",
+    seoName: "Headless E-Signature Service and PDF Toolkit",
+    seoDescription: "Headless e-signature service with OTP signers, CAdES detached seals, HMAC webhooks and a 40-tool PDF toolkit in TypeScript, per-project feature modules and an agent-driven CLI",
+    applicationCategory: "DeveloperApplication",
+    sitemapPriority: 0.9,
+  },
   "kashmir-fund": {
     id: "kashmir-fund",
     title: "Fund for Azad Kashmir",
@@ -66,18 +204,18 @@ const projects = {
   },
   "n8n-automation": {
     id: "n8n-automation",
-    title: "N8N Automation Platform",
-    subtitle: "Enterprise Workflow Automation",
+    title: "N8N Automation Platform (Concept)",
+    subtitle: "Architecture study: workflow automation across disconnected systems",
     description: "A comprehensive automation platform built with N8N that connects over 200+ services and applications, enabling businesses to streamline their workflows and eliminate manual processes.",
     longDescription: `This enterprise-grade automation platform revolutionizes how businesses handle repetitive tasks and data integration. Built on N8N's powerful workflow engine, the system provides a visual interface for creating complex automation workflows that span multiple applications and services.
 
     The platform features advanced error handling, retry mechanisms, and comprehensive logging to ensure reliability in mission-critical business processes. Custom nodes were developed to handle specific business logic and integrate with proprietary systems.
 
-    Key achievements include reducing manual data entry by 90%, improving process efficiency by 300%, and enabling 24/7 automated operations across multiple departments.`,
+    This is an architecture and design study, not a delivered client project. The figures that appeared in earlier versions of this page were illustrative targets; the value here is the design: how to reconcile eight systems through one workflow engine without making any of them the loser.`,
     tech: ["N8N", "Node.js", "PostgreSQL", "Docker", "Redis", "REST APIs", "Webhooks", "OAuth 2.0"],
     category: "Automation",
-    timeline: "6 months",
-    team: "3 developers",
+    timeline: "Concept / architecture study",
+    team: "1 developer (design study)",
     features: [
       "Visual workflow designer with drag-and-drop interface",
       "200+ pre-built service integrations",
@@ -95,35 +233,34 @@ const projects = {
       "Implementing secure authentication across multiple third-party services"
     ],
     results: [
-      "90% reduction in manual data entry across departments",
-      "300% improvement in process efficiency",
-      "24/7 automated operations with 99.9% uptime",
-      "Saved 40+ hours per week of manual work"
+      "A documented workflow design for eight-system reconciliation with error handling and retries",
+      "A reusable pattern later applied in production n8n marketing workflows",
+      "Illustrative only: no client metrics are claimed for this study"
     ],
     gradient: "from-blue-500 to-purple-600",
     gridTitle: "N8N Automation Platform",
-    gridDescription: "A mining company was losing 120 hrs/week to manual data entry across 8 systems. Built automation that cut that by 70% and saved $180K/year.",
+    gridDescription: "Architecture study: how a company losing a week per week to manual data entry across 8 systems could reconcile them through one n8n workflow engine. Concept, not a client delivery.",
     gridTech: ["N8N", "Node.js", "PostgreSQL", "Docker"],
-    gridCategory: "Automation",
-    seoName: "Enterprise N8N Automation Platform",
-    seoDescription: "Workflow automation platform reducing manual processes by 70% and saving $180,000/year for a Perth mining company",
+    gridCategory: "Concept",
+    seoName: "N8N Automation Platform (Concept)",
+    seoDescription: "Architecture study for workflow automation across eight disconnected business systems using n8n, Node.js and PostgreSQL",
     applicationCategory: "BusinessApplication",
     sitemapPriority: 0.8,
   },
   "voice-ai-agent": {
     id: "voice-ai-agent",
-    title: "Voice AI Booking Agent",
-    subtitle: "Intelligent Appointment Scheduling",
+    title: "Voice AI Booking Agent (Concept)",
+    subtitle: "Design study: appointment booking by voice",
     description: "An AI-powered voice assistant that handles appointment scheduling, customer inquiries, and booking management through natural language conversations.",
     longDescription: `This sophisticated voice AI agent transforms customer service and appointment booking through natural language processing and machine learning. The system understands complex scheduling requests, manages calendar conflicts, and provides intelligent responses to customer inquiries.
 
     Built with OpenAI's latest models, the agent can handle multi-turn conversations, understand context, and make intelligent decisions about scheduling conflicts and customer preferences. The system integrates with popular calendar applications and CRM systems.
 
-    The voice interface uses advanced speech-to-text and text-to-speech technologies to provide a seamless conversational experience that rivals human interaction quality.`,
+    This is a design study rather than a shipped product. Earlier versions of this page quoted booking volumes and conversion figures; those were illustrative and are withdrawn. The production voice and agent work I can speak to is on the Lakestone AI platforms above.`,
     tech: ["OpenAI GPT-4", "Speech-to-Text", "Text-to-Speech", "Node.js", "WebRTC", "Socket.io", "MongoDB", "Express.js"],
     category: "AI/ML",
-    timeline: "4 months",
-    team: "2 developers + 1 AI specialist",
+    timeline: "Concept / design study",
+    team: "1 developer (design study)",
     features: [
       "Natural language conversation interface",
       "Intelligent appointment scheduling and conflict resolution",
@@ -141,35 +278,34 @@ const projects = {
       "Ensuring data privacy and security for sensitive information"
     ],
     results: [
-      "95% accuracy in appointment scheduling",
-      "60% reduction in call handling time",
-      "85% customer satisfaction rate",
-      "24/7 availability with no human intervention"
+      "A documented conversation and scheduling design with calendar and CRM integration points",
+      "Clear separation between speech, intent, scheduling logic and confirmation",
+      "Illustrative only: no client metrics are claimed for this study"
     ],
     gradient: "from-purple-500 to-pink-600",
     gridTitle: "Voice AI Booking Agent",
-    gridDescription: "Client was losing 40% of phone bookings to hold times. Built a voice AI using GPT-4 that now handles 500+ bookings/day with zero hold time.",
+    gridDescription: "Design study for a GPT-4 and Whisper voice agent that takes bookings without hold time. Concept, not a client delivery.",
     gridTech: ["OpenAI", "Whisper", "Node.js", "Twilio"],
-    gridCategory: "AI/ML",
-    seoName: "Voice AI Booking Agent",
-    seoDescription: "AI-powered voice agent handling 500+ daily bookings using OpenAI GPT-4 and Whisper, achieving 35% conversion increase",
+    gridCategory: "Concept",
+    seoName: "Voice AI Booking Agent (Concept)",
+    seoDescription: "Design study for a voice AI booking agent using OpenAI GPT-4, Whisper, Node.js and Twilio",
     applicationCategory: "BusinessApplication",
     sitemapPriority: 0.8,
   },
   "erp-system": {
     id: "erp-system",
-    title: "Enterprise Resource Planning System",
-    subtitle: "Complete Business Management Solution",
+    title: "Enterprise ERP Consolidation (Concept)",
+    subtitle: "Design study: five legacy apps into one NetSuite",
     description: "A full-scale ERP solution designed for mid to large enterprises, featuring inventory management, CRM, financial tracking, and comprehensive reporting modules.",
     longDescription: `This comprehensive ERP system provides end-to-end business management capabilities for enterprises looking to streamline their operations. The platform integrates all business processes into a single, cohesive system that provides real-time visibility and control.
 
     The system features modular architecture allowing businesses to implement components as needed. Each module is designed with scalability in mind, supporting thousands of concurrent users and handling large volumes of transactional data.
 
-    Advanced reporting and analytics provide actionable insights into business performance, helping organizations make data-driven decisions and optimize their operations.`,
+    This is an architecture study. The figures quoted in earlier versions of this page were illustrative and are withdrawn. For NetSuite work that ran in production, see the MCP NetSuite-Ollama bridge and the Finance Sync work at Ear Science Institute Australia.`,
     tech: ["React", "Node.js", "PostgreSQL", "Redis", "Docker", "Kubernetes", "GraphQL", "JWT"],
     category: "Enterprise",
-    timeline: "12 months",
-    team: "8 developers + 2 designers",
+    timeline: "Concept / architecture study",
+    team: "1 developer (design study)",
     features: [
       "Inventory management with real-time tracking",
       "Customer relationship management (CRM)",
@@ -187,35 +323,34 @@ const projects = {
       "Creating an intuitive UX for complex enterprise workflows"
     ],
     results: [
-      "40% improvement in operational efficiency",
-      "Real-time visibility across all business processes",
-      "Reduced data entry errors by 75%",
-      "Streamlined reporting saving 20+ hours per week"
+      "A modular consolidation design with role-based access and reporting as first-class concerns",
+      "A migration sequence that retires legacy systems one at a time",
+      "Illustrative only: no client metrics are claimed for this study"
     ],
     gradient: "from-green-500 to-blue-600",
     gridTitle: "Enterprise ERP System",
-    gridDescription: "Mining company running 5 legacy apps that didn't talk to each other. Unified everything into NetSuite for 200+ users with mobile field access.",
+    gridDescription: "Architecture study for consolidating five legacy applications into NetSuite with mobile field access. Concept, not a client delivery.",
     gridTech: ["NetSuite", "SuiteScript", "React", "PostgreSQL"],
-    gridCategory: "Enterprise",
-    seoName: "Enterprise ERP System",
-    seoDescription: "Unified NetSuite ERP replacing 5 legacy systems for 200+ mining company users with real-time dashboards and mobile field access",
+    gridCategory: "Concept",
+    seoName: "Enterprise ERP Consolidation (Concept)",
+    seoDescription: "Architecture study for consolidating legacy business applications into NetSuite with SuiteScript, React and PostgreSQL",
     applicationCategory: "BusinessApplication",
     sitemapPriority: 0.8,
   },
   "netsuite-integration": {
     id: "netsuite-integration",
-    title: "NetSuite Integration Suite",
-    subtitle: "Custom SuiteScripts & RESTlets",
+    title: "NetSuite Integration Suite (Concept)",
+    subtitle: "Design study: SuiteScripts and RESTlets as an integration layer",
     description: "A comprehensive collection of custom SuiteScripts and RESTlets enabling seamless integration between NetSuite and third-party applications.",
     longDescription: `This integration suite bridges the gap between NetSuite and external systems through custom-built SuiteScripts and RESTlets. The solution enables bidirectional data synchronization, automated business processes, and real-time integrations.
 
     Each script is designed with performance and reliability in mind, handling large data volumes while maintaining NetSuite's governance limits. The suite includes comprehensive error handling, logging, and monitoring capabilities.
 
-    The RESTlets provide secure API endpoints for external applications to interact with NetSuite data, enabling seamless integration with e-commerce platforms, third-party logistics, and business intelligence tools.`,
+    This is a design study drawn from real SuiteScript 2.1 experience; the transaction volumes quoted in earlier versions of this page were illustrative and are withdrawn. Production NetSuite work is described under the MCP NetSuite-Ollama bridge.`,
     tech: ["SuiteScript 2.0", "RESTlets", "JavaScript", "OAuth 2.0", "JSON", "XML", "Web Services", "NetSuite APIs"],
     category: "Integration",
-    timeline: "8 months",
-    team: "2 NetSuite developers",
+    timeline: "Concept / design study",
+    team: "1 developer (design study)",
     features: [
       "Custom SuiteScript development for business automation",
       "RESTlet creation for external API integrations",
@@ -233,18 +368,17 @@ const projects = {
       "Maintaining security while enabling external access"
     ],
     results: [
-      "Automated 80% of manual NetSuite processes",
-      "Reduced data synchronization time from hours to minutes",
-      "Eliminated data entry errors through automation",
-      "Enabled real-time integration with 5+ external systems"
+      "A script-type-by-script-type design for staying inside NetSuite governance limits",
+      "A RESTlet contract for external systems with OAuth 2.0",
+      "Illustrative only: no client metrics are claimed for this study"
     ],
     gradient: "from-orange-500 to-red-600",
     gridTitle: "NetSuite Integration Suite",
-    gridDescription: "Retailer needed 12 systems talking to NetSuite in real-time. Built middleware processing 50K+ transactions/day at 99.99% uptime for 18 months.",
+    gridDescription: "Design study for middleware connecting a dozen business systems to NetSuite through SuiteScript and RESTlets. Concept, not a client delivery.",
     gridTech: ["SuiteScript", "REST APIs", "Redis", "Docker"],
-    gridCategory: "Integration",
-    seoName: "NetSuite Integration Suite",
-    seoDescription: "Custom middleware connecting 12 business systems with real-time sync, processing 50,000+ daily transactions at 99.99% uptime",
+    gridCategory: "Concept",
+    seoName: "NetSuite Integration Suite (Concept)",
+    seoDescription: "Design study for a NetSuite integration layer built from SuiteScript 2.x, RESTlets and OAuth 2.0",
     applicationCategory: "BusinessApplication",
     sitemapPriority: 0.8,
   },
@@ -287,24 +421,24 @@ const projects = {
     gradient: "from-cyan-500 to-blue-600",
     // NOT in the home grid -> no grid* fields
     seoName: "Modern Portfolio Website",
-    seoDescription: "Next.js 15 portfolio with React 19, Tailwind CSS 4, perfect Lighthouse scores, and comprehensive AI SEO optimization",
+    seoDescription: "Next.js 15 portfolio with React 19 and Tailwind CSS 4",
     applicationCategory: "WebApplication",
     sitemapPriority: 0.7,
   },
   "cloud-infrastructure": {
     id: "cloud-infrastructure",
-    title: "Cloud Infrastructure Platform",
-    subtitle: "Scalable Microservices Architecture",
+    title: "Cloud Infrastructure Platform (Concept)",
+    subtitle: "Architecture study: Kubernetes microservices on AWS",
     description: "A robust cloud infrastructure platform featuring microservices architecture, automated CI/CD pipelines, and comprehensive monitoring solutions.",
     longDescription: `This cloud infrastructure platform provides a scalable foundation for modern applications using microservices architecture and DevOps best practices. The platform includes automated provisioning, deployment, monitoring, and scaling capabilities.
 
     Built on AWS with Infrastructure as Code principles, the platform ensures consistent, repeatable deployments across multiple environments. Container orchestration with Kubernetes provides efficient resource utilization and fault tolerance.
 
-    The comprehensive monitoring and logging system provides real-time insights into application performance and system health, enabling proactive issue resolution and optimization.`,
+    This is an architecture study. The user and uptime figures in earlier versions of this page were illustrative and are withdrawn. Production infrastructure I can speak to: AWS Lambda and ECS with Terraform at Ear Science Institute Australia, and the Vercel, Supabase, Trigger.dev and bare-metal mix at Lakestone AI.`,
     tech: ["AWS", "Docker", "Kubernetes", "Terraform", "Jenkins", "Prometheus", "Grafana", "ELK Stack"],
     category: "DevOps",
-    timeline: "10 months",
-    team: "4 DevOps engineers + 2 developers",
+    timeline: "Concept / architecture study",
+    team: "1 developer (design study)",
     features: [
       "Microservices architecture with Docker containerization",
       "Kubernetes orchestration for container management",
@@ -322,18 +456,17 @@ const projects = {
       "Managing complex deployment dependencies"
     ],
     results: [
-      "99.9% system uptime with automated failover",
-      "50% reduction in deployment time",
-      "Automated scaling handling 10x traffic spikes",
-      "Comprehensive observability across all services"
+      "A reference architecture for EKS with Terraform, CI/CD and observability",
+      "Documented service-discovery, scaling and failure-domain decisions",
+      "Illustrative only: no client metrics are claimed for this study"
     ],
     gradient: "from-yellow-500 to-orange-600",
     gridTitle: "Cloud Infrastructure Platform",
-    gridDescription: "SaaS startup needed to go from 1K to 100K+ concurrent users. Designed the Kubernetes architecture that got them there at 200ms response times.",
+    gridDescription: "Architecture study for taking a SaaS product from one to many thousands of concurrent users on EKS. Concept, not a client delivery.",
     gridTech: ["AWS EKS", "Docker", "Kubernetes", "Terraform"],
-    gridCategory: "DevOps",
-    seoName: "Cloud Infrastructure Platform",
-    seoDescription: "Kubernetes-based microservices architecture supporting 100K+ concurrent users with 99.99% uptime and 200ms global response",
+    gridCategory: "Concept",
+    seoName: "Cloud Infrastructure Platform (Concept)",
+    seoDescription: "Architecture study for a Kubernetes microservices platform on AWS EKS with Terraform, Prometheus and Grafana",
     applicationCategory: "DeveloperApplication",
     sitemapPriority: 0.8,
   },
@@ -556,31 +689,28 @@ export const getProject = (id: string): Project | undefined => projects[id as ke
 
 // Home grid (src/app/page.tsx) — 6 projects, modern-portfolio ABSENT, in order.
 export const homeGridProjects: Project[] = [
+  "ai-backoffice-construction",
+  "property-agency-ems",
+  "lakestone-esign",
+  "mcp-netsuite-ollama-bridge",
+  "n8n-marketing-research-workflows",
   "kashmir-fund",
+  "linkedin-job-auto-apply-agent",
+  "self-learning-social-media-generator",
+  "healthcare-voice-agent",
   "n8n-automation",
   "voice-ai-agent",
   "erp-system",
   "netsuite-integration",
   "cloud-infrastructure",
-  // Phase 02 (AICON-04): 5 new AI projects appended -> 11 cards.
-  "mcp-netsuite-ollama-bridge",
-  "linkedin-job-auto-apply-agent",
-  "self-learning-social-media-generator",
-  "n8n-marketing-research-workflows",
-  "healthcare-voice-agent",
 ].map((id) => getProject(id)!);
 
 // JSON-LD ItemList (src/app/layout.tsx) — 6 projects, kashmir-fund ABSENT, in
 // the curated order the schema emits (n8n first, modern-portfolio last).
 export const itemListProjects: Project[] = [
-  "n8n-automation",
-  "voice-ai-agent",
-  "erp-system",
-  "netsuite-integration",
-  "cloud-infrastructure",
-  "modern-portfolio",
-  // Phase 02 (AICON-04): only the MCP production flagship joins the curated
-  // high-signal ItemList -> 7 items. The other 4 stay out by design.
+  "ai-backoffice-construction",
+  "property-agency-ems",
+  "lakestone-esign",
   "mcp-netsuite-ollama-bridge",
 ].map((id) => getProject(id)!);
 
@@ -588,11 +718,14 @@ export const itemListProjects: Project[] = [
 // emitted order. (The plan prose said "8"; the verified live sitemap and the
 // frozen baseline.json both have exactly 7 — reality wins.)
 export const sitemapProjects: { id: string; priority: number }[] = [
-  { id: "n8n-automation", priority: 0.8 },
-  { id: "voice-ai-agent", priority: 0.8 },
-  { id: "erp-system", priority: 0.8 },
-  { id: "netsuite-integration", priority: 0.8 },
-  { id: "cloud-infrastructure", priority: 0.8 },
+  { id: "ai-backoffice-construction", priority: 0.9 },
+  { id: "property-agency-ems", priority: 0.9 },
+  { id: "lakestone-esign", priority: 0.9 },
+  { id: "n8n-automation", priority: 0.5 },
+  { id: "voice-ai-agent", priority: 0.5 },
+  { id: "erp-system", priority: 0.5 },
+  { id: "netsuite-integration", priority: 0.5 },
+  { id: "cloud-infrastructure", priority: 0.5 },
   { id: "modern-portfolio", priority: 0.7 },
   { id: "kashmir-fund", priority: 0.7 },
   // Phase 02 (AICON-04): 5 new AI projects appended -> 12 /projects/ URLs.

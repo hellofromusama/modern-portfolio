@@ -126,7 +126,6 @@ async function tryOpenAI(userMessage: string, conversationHistory: ChatMessage[]
 • **8+ years** full stack experience
 • **Perth-based** developer (Western Australia)
 • **Expert** in Next.js 15, React 19, AI integration
-• **50+ successful projects** delivered
 • **Competitive rates** with premium quality
 
 ### 📞 **Next Steps:**
@@ -221,7 +220,6 @@ async function tryGrok(userMessage: string, conversationHistory: ChatMessage[]):
 • **8+ years** full stack experience
 • **Perth-based** developer (Western Australia)
 • **Expert** in Next.js 15, React 19, AI integration
-• **50+ successful projects** delivered
 • **Competitive rates** with premium quality
 
 ### 📞 **Next Steps:**
@@ -408,7 +406,6 @@ ${features.map(feature => `• ${feature}`).join('\n')}
 • **8+ years** full stack experience
 • **Perth-based** developer (Western Australia)
 • **Expert** in Next.js 15, React 19, AI integration
-• **50+ successful projects** delivered
 • **Competitive rates** with premium quality
 
 ### 📞 **Next Steps:**
@@ -483,7 +480,6 @@ Based on your requirements, this project would involve:
 ### 🎯 **Why Choose Usama Javed:**
 • **8+ years** of proven experience
 • **Perth-based** with local understanding
-• **50+ successful projects** delivered
 • **Expert** in latest technologies (Next.js 15, React 19)
 • **Immediate availability** for new projects
 • **Competitive rates** with premium quality

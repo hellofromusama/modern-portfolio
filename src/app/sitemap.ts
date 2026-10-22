@@ -38,12 +38,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.9,
     },
     {
-      url: `${baseUrl}/blog`,
-      lastModified: currentDate,
-      changeFrequency: 'weekly',
-      priority: 0.85,
-    },
-    {
       url: `${baseUrl}/ideas`,
       lastModified: currentDate,
       changeFrequency: 'weekly',
@@ -61,27 +55,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'monthly',
       priority: 0.6,
     },
-    // Australia-wide landing page
+    // Resume
     {
-      url: `${baseUrl}/developer-australia`,
+      url: `${baseUrl}/Usama-Javed-Resume.pdf`,
       lastModified: currentDate,
-      changeFrequency: 'weekly',
-      priority: 0.95,
+      changeFrequency: 'monthly',
+      priority: 0.8,
     },
-    // Blog articles — high priority for AI search citations
-    {
-      url: `${baseUrl}/blog/best-developer-perth`,
-      lastModified: currentDate,
-      changeFrequency: 'weekly',
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/blog/ai-developer-perth`,
-      lastModified: currentDate,
-      changeFrequency: 'weekly',
-      priority: 0.9,
-    },
-    // Project pages — high priority for AI citations
+    // Project pages
     ...sitemapProjects.map((p) => ({
       url: `${baseUrl}/projects/${p.id}`,
       lastModified: currentDate,

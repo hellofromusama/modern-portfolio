@@ -22,7 +22,6 @@ const ALL_URLS = [
   '/projects/modern-portfolio',
   '/projects/kashmir-fund',
   '/llms.txt',
-  '/llms-full.txt',
   '/feed.xml',
 ]
 

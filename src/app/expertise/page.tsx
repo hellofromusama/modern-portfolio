@@ -30,7 +30,7 @@ export default async function ExpertisePage() {
     "name": "Usama Javed",
     "hasOccupation": {
       "@type": "Occupation",
-      "name": "Senior Full Stack Developer",
+      "name": "Forward Deployed Engineer & AI Engineer",
       "skills": Object.values(technicalExpertise).flatMap(category =>
         category.technologies?.map(tech => tech.name) || []
       ).join(", "),
@@ -68,7 +68,7 @@ export default async function ExpertisePage() {
           8+ years of proven experience delivering complex projects across various industries.
         </p>
         <ul>
-          <li>50+ Projects Completed</li>
+          <li>3 AI Products in Production</li>
           <li>8+ Years Experience</li>
           <li>20+ Technologies Mastered</li>
           <li>5 Professional Certifications</li>

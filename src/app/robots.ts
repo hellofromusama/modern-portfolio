@@ -9,12 +9,12 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: 'Googlebot',
         allow: '/',
-        disallow: ['/api/', '/admin/', '/_next/', '/private/', '/test-apis'],
+        disallow: ['/api/', '/admin/', '/_next/', '/private/', '/scene-harness'],
       },
       {
         userAgent: 'Bingbot',
         allow: '/',
-        disallow: ['/api/', '/admin/', '/_next/', '/private/', '/test-apis'],
+        disallow: ['/api/', '/admin/', '/_next/', '/private/', '/scene-harness'],
       },
       // AI Search Bots — ALLOW (these cite your site in AI answers)
       {
@@ -117,7 +117,7 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: '*',
         allow: '/',
-        disallow: ['/api/', '/admin/', '/_next/', '/private/', '/test-apis'],
+        disallow: ['/api/', '/admin/', '/_next/', '/private/', '/scene-harness'],
       },
     ],
     sitemap: [
