@@ -79,7 +79,7 @@ My areas: the client research and knowledge base, the Cirrus8 integration (the r
 
 Trade-offs: drafts only, with send behind a flag, costs reply speed and buys trust on a client mailbox. The command kernel adds ceremony to every write and removes a whole class of double-click and stale-edit bugs over shared mail.
 
-Result: production live at the agency on 14 October 2026 after a release that had not built for three weeks: 2,240 commits merged, 94 migrations replayed, the tier guard changed with recorded reasons, 42 stale env overrides cleaned, readiness measured. 201 RLS policies with every application table covered, separate database logins per service, Entra sign-in.`,
+Result: production live at the agency on 14 October 2026 after a release that had not built for three weeks: three weeks of accumulated changes merged as one release, 94 migrations replayed, the tier guard changed with recorded reasons, 42 stale env overrides cleaned, readiness measured. 201 RLS policies with every application table covered, separate database logins per service, Entra sign-in.`,
     tech: ["Bun", "Hono", "zod-openapi", "React 19", "Supabase", "Vercel Workflow SDK", "Gemini", "Langfuse", "Microsoft Graph", "Cirrus8", "Entra ID"],
     category: "AI Engineering",
     timeline: "Live in production",
@@ -93,7 +93,7 @@ Result: production live at the agency on 14 October 2026 after a release that ha
       "Roles, permissions, global admins and an access log with pgTAP permission matrices",
     ],
     challenges: [
-      "A production build that rejected the prod tier for three weeks while 2,240 commits piled up on staging",
+      "A production build that rejected the prod tier for three weeks while three weeks of changes piled up on staging",
       "Permissions over shared mail delivered in one day across schema, API, CLI and UI",
       "Sending from a client mailbox safely with a Graph grant scoped to the intake mailbox",
     ],
